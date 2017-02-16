@@ -1,0 +1,1 @@
+new ActiveXObject('WScript.shell').run("/!PYTHON\\LAB13\\gui5.pyw"); 

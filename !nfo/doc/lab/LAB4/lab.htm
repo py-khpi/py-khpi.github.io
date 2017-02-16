@@ -1,0 +1,842 @@
+<HTML>
+<HEAD>
+<TITLE>Лабораторная работа 4: Кортежи. Диапазоны. Двоичные последовательности</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">
+<STYLE>TH,TD{font-size:5.5mm;border:1 double blue}</STYLE>
+</HEAD>
+<BODY>
+<A href="go.js">lab</A>
+<H1> ЛАБОРАТОРНАЯ РАБОТА №4</H1>
+<H2> <SPAN CLASS="beg">Тема: </SPAN>Кортежи. Диапазоны. Двоичные последовательности</H2>
+<H2> <SPAN CLASS="beg">Цель: </SPAN>
+Изучение способов работы с кортежами, диапазонами и двоичными последовательностями</H2>
+<A NAME="beg"></A>
+<H3>ОГЛАВЛЕНИЕ</H3> 
+<A CLASS="com" HREF="#1">1 Кортежи<BR>
+<A CLASS="com" HREF="#1.1">1.1 Создание кортежей<BR>
+<A CLASS="com" HREF="#1.2">1.2 Модуль random<BR>
+<A CLASS="com" HREF="#1.3">1.3 Создание игры "Анаграмма"<BR>
+<A CLASS="com" HREF="#2">2 Диапазоны<BR>
+<A CLASS="com" HREF="#3">3 Двоичные последовательности<BR>
+<A CLASS="com" HREF="#3.1">3.1 Тип bytes<BR>
+<A CLASS="com" HREF="#3.2">3.2 Тип bytearray<BR>
+<A CLASS="com" HREF="#3.3">3.3 Операции над объектами типов bytes и bytearray<BR>
+<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<A NAME="1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>1 Кортежи</H4>
+<P>Кортежи в языке Python имеют тип (класс) <SPAN CLASS="svoj">tuple</SPAN> и представляют собой
+неизменяемые последовательности элементов, значениями которых могут быть данные разных типов. По
+сути это списки, которые нельзя после создания изменять. <BR>
+<A NAME="1.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.1 Создание кортежей</H4>
+<P>Подобно другим рассмотренным типам кортежи могут быть созданы как в виде литералов, так и с
+помощью консруктора класса &ndash; встроенной функции <SPAN CLASS="svoj">tuple([iterable])</SPAN>
+(см. <A HREF="../LAB1/lab.htm#tuple">подраздел 8.1</A> лаб. раб. №1).<BR>
+<SPAN CLASS="txt_abz">При </SPAN>использовании литерала в круглые скобки помещают элементы кортежа,
+разделенные запятыми:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_tuple=(3.45, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'JS'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, [1,2]) </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_tuple</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(3.45, 'JS', [1, 2])</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz"></SPAN>Можно круглые скобки не указывать, перечисляя элементы кортежа через
+запятые. Результат будет тот же:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_tuple=3.45, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'JS'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, [1,2] </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_tuple</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(3.45, 'JS', [1, 2])</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz"></SPAN>Выполняется и обратная операция &ndash; отдельным объектам
+присваиваются значения элементов кортежа:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a,b,c=a_tuple</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">3.45</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'JS'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[1, 2]</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">При </SPAN> использовании функции <SPAN CLASS="svoj">tuple([iterable])</SPAN>
+в качестве ее аргумента указывается итерабельный тип, из элементов которого будет создан кортеж:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list=[0.01, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Web'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, 37, </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">True</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_tuple=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">tuple</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_list)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_tuple</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(0.01, 'Web', 37, True)</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz"> При </SPAN>вызове конструктора без аргумента:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">tuple</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">()</SPAN><BR><BR>
+<SPAN CLASS="txt_abz"> создается </SPAN> пустой кортеж &ndash; <SPAN CLASS="svoj">()</SPAN>,
+который в логическом контексте соответствует False (любой другой кортеж &ndash; True).<BR>
+<SPAN CLASS="txt_abz"> Поскольку </SPAN>кортежи являются неизменяемыми последовательностями:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Sequence, MutableSequence</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_tuple, Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_tuple, MutableSequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>,<BR><BR>
+они поддерживают все операции, свойственные этим типам объектов
+(см <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3</A>).
+Например, операцию добавления элемента к кортежу:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_tuple+=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'b'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(3.45, 'JS', [1, 2], 'a', 'b').</SPAN><BR><BR>
+<SPAN CLASS="txt_abz"> Однако </SPAN>при добавлении одноэлементного кортежа:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_tuple+=(77)</SPAN><BR><BR>
+возникает ошибка:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+TypeError: can only concatenate tuple (not "int") to tuple</SPAN>,<BR><BR>
+т.е. присоединить к кортежу можно только кортеж (не целое число). Дело в том, что (77) было
+воспринято не как одноэлементный кортеж, а как выражение целого типа. Поэтому одноэлементный кортеж
+необходимо задать следующим образом:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_tuple+=(77,)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_tuple</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(3.45, 'JS', [1, 2], 'a', 'b', 77).</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Работа </SPAN>с кортежами выполняется быстрее, чем со списками. Поэтому, если
+имеется набор значений, который не будет меняться, его лучше реализовать как кортеж. Кортежи
+делают код безопаснее в том случае, если нужно защитить данные от записи.<BR>
+<SPAN CLASS="txt_abz">Примером </SPAN>использования кортежей служит разработка игры
+"Анаграмма", рассмотренная в <A HREF="#1.3">подразделе 1.3</A>. Поскольку при этом возникает
+нобходимость получения случайных величин, рассмотрим методы их генерации, представленные в модуле
+<A HREF="#1.2">random</A>.
+<A NAME="1.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.2 Модуль random</H4>
+<P>Загрузим модуль <SPAN CLASS="svoj">random</SPAN> и определим с помощью встроенной функции
+<SPAN CLASS="svoj">dir()</SPAN>
+(см. подразделы <A HREF="../LAB1/lab.htm#dir">8.1</A> лаб. раб. №1 и
+<A HREF="../LAB6/lab.htm#2.4">2.4</A> лаб. раб. №6 ) пространство имен этого модуля:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">random</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">dir</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(random)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue"> <BR>
+['BPF', 'LOG4', 'NV_MAGICCONST', 'RECIP_BPF', 'Random', 'SG_MAGICCONST', 'SystemRandom', 'TWOPI',<BR>
+'_BuiltinMethodType', '_MethodType', '_Sequence', '_Set', '__all__', '__builtins__', '__cached__',<BR>
+'__doc__', '__file__', '__initializing__', '__loader__', '__name__', '__package__', '_acos',<BR>
+'_ceil', '_cos', '_e', '_exp', '_inst', '_log', '_pi', '_random', '_sha512', '_sin', '_sqrt',<BR>
+'_test', '_test_generator', '_urandom', '_warn', 'betavariate', 'choice', 'expovariate',<BR>
+'gammavariate', 'gauss', 'getrandbits', 'getstate', 'lognormvariate', 'normalvariate',<BR>
+'paretovariate', 'randint', 'random', 'randrange', 'sample', 'seed', 'setstate', 'shuffle',
+'triangular', 'uniform', 'vonmisesvariate', 'weibullvariate']</SPAN>;<BR>
+<SPAN CLASS="txt_abz">Как </SPAN>видно из приведенного выше списка имен, модуль
+<SPAN CLASS="svoj">random</SPAN> содержит большое количество методов, связанных с генерацией
+случайных чисел (точнее, псевдослучайных чисел). Из них рассмотрим следующие:
+<UL CLASS="list">
+<LI> seed(a=None, version=2) &ndash; выполняет инициализацию генератора псевдослучайных чисел.
+Если параметр a опущен (значение по умолчанию) &ndash; используется текущее системное время, иначе
+используются средства операционной системы (см. описание модуля ssl (Secure Sockets Layer)). Если
+указана версия 2 (значение по умолчанию) &ndash; объекты типов str
+(см. <A HREF="../LAB2/lab.htm#2">раздел 2</A> лаб. раб. №2), bytes или bytearray
+(см. подразделы <A HREF="#3.1"> 3.1</A> и <A HREF="#3.2">3.2)</A> преобразуются в тип int с
+использованием всех битов, иначе используется встроенная функция hash()
+(см. <A HREF="../LAB1/lab.htm#hash">подраздел 8.1</a> лаб. работы №1); 
+<LI> randrange ([start,] stop [,step] ) &ndash; возвращает целое число r, выбранное случайным
+образом из последовательности целых чисел, созданных встроенной функцией
+range([start,] stop [, step])
+(см. <A HREF="../LAB1/lab.htm#range">подраздел 8.1</A> лаб. раб. №1):
+<UL CLASS="list2">
+<LI> если задан только один обязательный аргумент stop &ndash; в диапазоне 0 <= r < stop;
+<LI> если заданы два аргумента start и stop &ndash; в диапазоне start <= r < stop;
+<LI> если заданы все три аргумента &ndash; в диапазоне start <= r < stop с шагом step, т.е.
+r должно быть равно start+step*n (где n=0,1,..),<BR> 
+</UL>
+например, после инициализации генератора случайных чисел:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">random.seed()</SPAN><BR><BR> 
+и восьми вызовов метода random.randrange:<BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">random.randrange(1,20,3)</SPAN><BR><BR>
+были получены такие числа: 
+<SPAN STYLE="font-size:7mm; color:blue">1</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">7</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">1</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">16</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">7</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">4</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">1</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">19</SPAN>;<BR> 
+<LI> randint(a, b) &ndash; возвращает случайное целое число r, такое, что a <= r <= b. Эквивалентно
+вызову метода randrange(a, b+1);
+<LI> choice (seq) &ndash; возвращает случайным образом один элемент из непустой
+последовательности seq, например, при последовательном вызове метода random.choice:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">random.choice([</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'красный'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'зеленый'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'синий'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN><BR><BR>
+были получены такие значения:
+<SPAN STYLE="font-size:7mm; color:blue">'зеленый'</SPAN>, 
+<SPAN STYLE="font-size:7mm; color:blue">'красный'</SPAN>, 
+<SPAN STYLE="font-size:7mm; color:blue">'синий'</SPAN>, 
+<SPAN STYLE="font-size:7mm; color:blue">'синий'</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">'зеленый'</SPAN> и т.д.<BR>
+<SPAN CLASS="txt_abz">Ели </SPAN>задана пустая последовательность &ndash; вырабатывает исключение
+IndexError;
+<LI> random() &ndash; возвращает случайное число с плавающей запятой r в диапазоне [0.0, 1.0),
+т.е. 0.0 <= r <1.0, например, при двух вызовах метода:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">random.random()</SPAN> <BR> <BR>
+возвращаются числа: 
+<SPAN STYLE="font-size:7mm; color:blue">0.6147093926689667</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">0.00874292814552824</SPAN>;<BR> 
+<LI> uniform (a ,b) возвращает случайное число с плавающей запятой r, такое, что
+a <= r <= b для a <= b и b <= r <= a для b < a. Конечное значение b может быть включено, а может
+быть и не включено в последовательность &ndash; это зависит от округления числа с плавающей точкой,
+равного a + (b-a) * random(). Например, при двух вызовах метода:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">random.uniform (10 , 20)</SPAN> <BR> <BR>
+возвращаются числа: 
+<SPAN STYLE="font-size:7mm; color:blue">10.875155265144365</SPAN>,
+<SPAN STYLE="font-size:7mm; color:blue">16.20489723889726</SPAN>.
+</UL>
+<P>Необходимо отметить, что модуль <SPAN CLASS="svoj">random</SPAN> не должен быть использован
+в приложениях, где требуется криптографическая безопастность генератора псевдослучайных чисел.
+Вместо него применяйте метод <SPAN CLASS="svoj">ssl.RAND_bytes()</SPAN> модуля 
+<SPAN CLASS="svoj">ssl</SPAN>.
+<A NAME="1.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.3 Создание игры "Анаграмма"</H4>
+<P>Рассмотрим программу <SPAN CLASS="svoj">ana.py</SPAN>, которая предназначена для создания игры
+"Анаграмма" (анаграммы &ndash; это слова, образованные из исходного слова путем перестановки букв).
+Суть игры заключается в следующем: программа выбирает слово (из списка заранее приготовленных),
+переставляет в нем случайным образом буквы, формируя анаграмму, и предлагает ее пользователям. Их
+задачей является отгадать исходное слово:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red"># Создание анаграмм</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#ff8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">random</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">WORDS=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'компьютер'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:green">'питон'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:green">'сервер'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:green">'клиент'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:green">'браузер'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:green">'протокол'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:green">'программа'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:green">'процессор'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:green">'контекст'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">word=random.choice(WORDS)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">correct=word</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">ana=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">''</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:ff8000">while </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">word:</SPAN><BR>
+<SPAN STYLE="margin-left:3.3cm; font-size:7mm; color:black">pos=random.randrange(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(word))</SPAN><BR>
+<SPAN STYLE="margin-left:3.3cm; font-size:7mm; color:black">ana+=word[pos]</SPAN><BR>
+<SPAN STYLE="margin-left:3.3cm; font-size:7mm; color:black">word=word[:pos]+word[pos+1:]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">&lt;&lt;Игра АНАГРАММА>></SPAN><BR>
+<SPAN STYLE="margin-left:4.8cm; font-size:7mm; color:green">Для выхода нажмите Enter ''' </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Вот анаграмма: '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,ana.upper())</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">ans=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Попробуй отгадать слово '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:ff8000">while </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">ans != correct </SPAN>
+<SPAN STYLE="font-size:7mm; color:ff8000">and </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">ans != </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">''</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:3.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Ответ неправильный'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:3.3cm; font-size:7mm; color:black">ans=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Попробуй еще раз '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#ff8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">ans == correct:</SPAN><BR>
+<SPAN STYLE="margin-left:3.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Молодец!'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Спасибо за игру'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz"> Поскольку </SPAN>при создании анаграмм выбор слова и перестановку букв в нем
+необходимо осуществлять случайным образом, программа начинается с подключения модуля
+<A HREF="#1.2">random</A> (см. подраздел 1.2), который содержит необходимые методы для выполнения
+случайного выбора.<BR>
+<SPAN CLASS="txt_abz">Набор </SPAN>исходных слов, из которых будут формироваться анаграммы задается
+в виде кортежа, имя которого (WORDS) задано заглавными буквами. Это сделано для того, чтобы
+показать, что его значениями являются константы. Использование констант делает программу более
+понятной и легко читаемой.<BR>
+<SPAN CLASS="txt_abz">Необходимо </SPAN>однако сказать, что правило задавать константы заглавными
+буквами в языке Python является прежде всего соглашением между программистами и интерпретатором не
+поддерживается, т.е. значения, имена которых заданы заглавными буквами можно изменить точно так,
+как значения, имена которых заданы строчными буквами. Но в силу указанных выше причин этого делать
+не следует.<BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что в программе элементы кортежа при перечислении указываются
+с новой строки без использования символов обратного слэша, как это предусмотрено при задании
+длинных операторов (см. <A HREF="../LAB1/lab.htm#6">подраздел 6.1</A>
+лаб. раб. №1) и длинных строк (см. <A HREF="../LAB2/lab.htm#2.1">подраздел 2.1</A>
+лаб. раб. №2). Это допускается делать при перечислении элементов последовательностей, указанных в
+круглых "()", квадратных "[]" и  фигурных "{}" скобках. <BR>
+<SPAN CLASS="txt_abz">Для </SPAN>выбора одного из слов кортежа WORDS используется метод
+<SPAN CLASS="svoj">choice()</SPAN> модуля <SPAN CLASS="svoj">random </SPAN>
+(см. <A HREF="#1.2">подраздел 1.2</A>, который случайным образом выбирает один из элементов кортежа
+и сохраняет его в переменной <SPAN CLASS="svoj">word</SPAN>. <BR>
+<SPAN CLASS="txt_abz">Затем </SPAN>начинается собственно процесс формирования анаграммы в
+переменной <SPAN CLASS="svoj">ana</SPAN>, которая вначале является пустой строкой. При этом в цикле,
+пока переменная <SPAN CLASS="svoj">word</SPAN> не примет значение <SPAN CLASS="svoj">''</SPAN>,
+что в логическом контексте означает <SPAN CLASS="svoj">False</SPAN>, будут выполняться следующие
+действия:
+<UL CLASS="list">
+<LI> с использованием метода randrange() модуля random (см. <A HREF="#1.2">подраздел 1.2</A>)
+случайным образом выбирается номер буквы слова word (диапазон случайных чисел задан от 0 до
+значения, которое на единицу меньше числа букв слова, что позволяет выбрать любую букву слова
+&ndash; от первой до последней);
+<LI> формируется новое значение переменной ana, к которому добавляется выбранная буква слова
+word; 
+<LI> формируется новое значение переменной word, в котором  удалена выбранная буква.
+</UL>
+<P>После выхода из цикла переменная <SPAN CLASS="svoj">word</SPAN> становится пустой строкой, а в
+переменной <SPAN CLASS="svoj">ana</SPAN> сформирована анаграмма.<BR>
+<SPAN CLASS="txt_abz">Вторая </SPAN>часть программы связана с организацией игры с пользователем:
+<UL CLASS="list">
+<LI> на экран выводится информация, касающаяся самой игры, анаграмма и предложение найти
+исходное слово;
+<LI> в цикле ожидается и анализируется ответ пользователя;
+<LI> если пользователь дал неправильнрый ответ, цикл продолжается &ndash; на экран выводится
+предложение попробовать найти правильное слово еще раз;
+<LI> если пользователь ответил правильно или решил выйти из игры &ndash; цикл заканчивается;
+<LI> если ответ был правильный &ndash; на экран выводится поздравление игроку;
+<LI> программа благодарит участников за игру и завершает работу. 
+</UL>
+<A NAME="2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>2 Диапазоны</H4>
+<P>Диапазоны (англ. ranges), как новый тип последовательностей <SPAN CLASS="svoj">range</SPAN>,
+появились в языке Python, начиная с версий 3.x. До этого функция <SPAN CLASS="svoj">xrange()</SPAN>,
+которая в 3.x не используется, возвращала последовательность чисел класса
+<SPAN CLASS="svoj">list</SPAN>.<BR>
+<SPAN CLASS="txt_abz"> Для </SPAN>создания элементов класса <SPAN CLASS="svoj">range</SPAN>
+необходимо использовать конструктор &ndash; встроенную функцию
+<SPAN CLASS="svoj">range([start,] stop [, step])</SPAN>
+(см. <A HREF="../LAB1/lab.htm#range">подраздел 8.1</A> лаб. раб. №1), которая
+возвращает неизменяемую виртуальную последовательность
+чисел от <SPAN CLASS="svoj">start</SPAN> до <SPAN CLASS="svoj">stop - 1</SPAN> с шагом
+<SPAN CLASS="svoj">step</SPAN>. Значениями по умолчанию для необязательных аргументов
+<SPAN CLASS="svoj">start </SPAN> и <SPAN CLASS="svoj">step</SPAN> являются соответственно 0 и 1:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">r=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(10)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">r</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">range(0, 10)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">_</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">r:</SPAN><BR>
+<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(_, end=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">0 1 2 3 4 5 6 7 8 9 </SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">r=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(-5,6)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">r</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">range(-5, 6)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">_</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">r:</SPAN><BR>
+<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(_, end=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">-5 -4 -3 -2 -1 0 1 2 3 4 5 </SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">r=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(1,12,2)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">r</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">range(1,12,2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">_</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">r:</SPAN><BR>
+<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(_, end=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1 3 5 7 9 11 </SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Можно </SPAN>представить числа, формируемые функцией
+<SPAN CLASS="svoj">range()</SPAN>, в виде последовательности определенного типа, использовав
+соответствующий конструктор, например, в виде списка:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">list</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(1,12,2))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[1, 3, 5, 7, 9, 11]</SPAN>,<BR><BR>
+<SPAN CLASS="txt_abz">или </SPAN></SPAN>в виде кортежа:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">tuple</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(20,10,-3))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(20, 17, 14, 11)</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Если </SPAN></SPAN> <SPAN CLASS="svoj">stop</SPAN> не превышает
+</SPAN> <SPAN CLASS="svoj">start</SPAN>, то формируется пустая последовательность чисел, логическим
+значением которой является False:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bool</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(1,1))</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Если </SPAN></SPAN> <SPAN CLASS="svoj">step = 0 </SPAN> :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+ <SPAN STYLE="font-size:7mm; color:black">r=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(1,5,0)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">ValueError:
+range() arg 3 must not be zero</SPAN>,<BR><BR>
+возникает исключение: 3-й аргумент функции range() не может быть 0.<BR>
+<SPAN CLASS="txt_abz">Будучи </SPAN>неизменяемой последовательностью:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Sequence, MutableSequence</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(range(7), Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(range(7), MutableSequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>,<BR><BR>
+тип <SPAN CLASS="svoj">range</SPAN>, как и типы <SPAN CLASS="svoj">list</SPAN> и
+<SPAN CLASS="svoj">tuple</SPAN>, поддерживает все общие операции, свойственные неизменяемым
+последовательностям
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3), кроме операции
+конкатенации ("+"). Например, можно получить значение элемента последовательности по его индексу:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(7)[5]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">5</SPAN>.<BR><BR>
+<A NAME="3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>3 Двоичные последовательности </H4>
+<P>Для работы с двоичными данными в языке Python имеются встроенные типы данных
+<SPAN CLASS="svoj">bytes</SPAN> и <SPAN CLASS="svoj">bytearray</SPAN>, которые поддерживаются
+типом <SPAN CLASS="svoj">memoryview</SPAN>, использующим буферный протокол (buffer protocol) для
+доступа к другим, находящимся в памяти, двоичным объектам без необходимости их копирования.
+<A NAME="3.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.1 Тип bytes</H4>
+<P>Объекты <SPAN CLASS="svoj">bytes</SPAN> являются неизменяемыми последовательностями одиночных
+байтов. Поскольку многие двоичные протоколы базируются на ASCII-кодировании текста, объкты
+<SPAN CLASS="svoj">bytes</SPAN> предлагают несколько методов, которые допускают работу только с
+ASCII-совместимыми данными и тесно связаны со строковыми объектами.<BR> 
+<SPAN CLASS="txt_abz">Во-первых, </SPAN>синтаксис литералов <SPAN CLASS="svoj">bytes</SPAN> во
+многом совпадает с синтаксисом строковых литералов, за исключением того, что добавляется префикс
+<SPAN CLASS="svoj">b</SPAN>:
+<UL CLASS="list">
+<LI> использование одиночных кавычек:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">b'in"single" quotes'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'in"single" quotes'</SPAN>;<BR><BR>
+<LI> использование двойных кавычек:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">b"in 'double' quotes"</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b"in 'double' quotes"</SPAN>;<BR><BR>
+<LI> использование тройных кавычек:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">b'''3 single quotes'''</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'3 single quotes'</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">b"""3 double quotes"""</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'3 double quotes'</SPAN>.<BR><BR>
+</UL>
+<P>Только ASCII-символы разрешается использовать в литералах объекта
+<SPAN CLASS="svoj">bytes</SPAN> (независимо от объявленного кодирования исходного кода):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">b'кириллица'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+SyntaxError: bytes can only contain ASCII literal characters</SPAN>.<BR><BR>
+Поэтому любые значения литералов <SPAN CLASS="svoj">bytes</SPAN>, превыщающие 127, должны быть
+преобразованы в литералы <SPAN CLASS="svoj">bytes</SPAN> с использованием соответствующих
+ESC-последовательнвостей. <BR> 
+<SPAN CLASS="txt_abz">Так </SPAN>же как строковые литералы, литералы
+<SPAN CLASS="svoj">bytes</SPAN>
+могут использовать префикс <SPAN CLASS="svoj">r</SPAN> для экранирования ESC-последовательностей.
+Литералы и строк и объектов <SPAN CLASS="svoj">bytes</SPAN> в общем случае могут иметь следующие
+варианты префикса: <SPAN CLASS="svoj">r</SPAN> | <SPAN CLASS="svoj">R</SPAN> |
+<SPAN CLASS="svoj">b</SPAN> | <SPAN CLASS="svoj">B</SPAN>  | <SPAN CLASS="svoj">br</SPAN>
+| <SPAN CLASS="svoj">Br</SPAN>  | <SPAN CLASS="svoj">bR</SPAN> | <SPAN CLASS="svoj">BR</SPAN>.<BR> 
+<SPAN CLASS="txt_abz">Хотя </SPAN> литералы и представление объектов
+<SPAN CLASS="svoj">bytes</SPAN> базируются на ASCII-тексте, они на самом деле ведут себя как
+незменяемые последовательности целых чисел, значение каждого из которых <SPAN CLASS="svoj">x</SPAN>
+находится в пределах 0 <= x < 256. При попытках выйти за это органичение вызывет ошибку
+<SPAN CLASS="svoj">ValueError</SPAN>.<BR> 
+<SPAN CLASS="txt_abz">Помимо </SPAN>использования литеральной формы объекты
+<SPAN CLASS="svoj">bytes</SPAN> также можно создавать с помощью конструктора класса &ndash;
+встроенной функции <SPAN CLASS="svoj">bytes([source[, encoding[, errors]]])</SPAN>
+(см. <A HREF="../LAB1/lab.htm#bytes">подраздел 8.1</A> лаб. раб. №1). Необязательный аргумент
+<SPAN CLASS="svoj">source</SPAN> используется для указания одного из нескольких вариантов создания
+объекта <SPAN CLASS="svoj">bytes</SPAN>:
+<UL CLASS="list">
+<LI> если аргументом является целое число &ndash; создается заполненный нулями (null-байтами)
+объект bytes указанной длины:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytes</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(8)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+b'\x00\x00\x00\x00\x00\x00\x00\x00'</SPAN>;<BR><BR>
+<LI> если аргументом является итерабельный объект &ndash; создается объект bytes из
+последовательности целых чисел указанного объекта, которые должны находится в диапазоне
+0 <= x < 256:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytes</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(15)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e'</SPAN>;<BR><BR>
+<LI> если аргументом является строка &ndash; она преобразуется в объект bytes с использованием
+метода str.encode() (см. <A HREF="../LAB2/lab.htm#2.6">подраздел 2.6</A> лаб. раб. №2), при
+этом обязательно должен быть указан аргумент encoding и опционально errors:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytes</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'ы'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'utf-8'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+b'\xd1\x8b'</SPAN>;<BR><BR>
+<LI> если аргументом является объект, применяющий буферный протокол, то для инициализации
+объекта bytes используются двоичные данные из буфера;
+<LI> если аргумент не указан &ndash; создается объект bytes нулевой длины:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytes</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+b''</SPAN>.<BR><BR>
+</UL>
+<P>Отметим, что для объекта <SPAN CLASS="svoj">b</SPAN> типа <SPAN CLASS="svoj">bytes</SPAN>
+<SPAN CLASS="svoj">b[0]</SPAN> будет целым  числом, в то время как <SPAN CLASS="svoj">b[0:1]</SPAN>
+объектом <SPAN CLASS="svoj">bytes</SPAN> длины 1:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytes</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(5))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b[0]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">0</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b[0:1]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'\x00'</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Этим объекты типа <SPAN CLASS="svoj">bytes</SPAN> отличаются от текстовых
+строк, где индексное значение и срез строки длиной 1 означают строку длины 1:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"cat"</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s[0]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'c'</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s[0:1]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'c'</SPAN>.<BR><BR>
+<A NAME="3.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.2 Тип bytearray</H4>
+<P>Объекты <SPAN CLASS="svoj">bytearray</SPAN> являются изменяемым вариантом объектов
+<SPAN CLASS="svoj">bytes</SPAN>, т.е. представляет собой изменяемую последовательность целых чисел
+<SPAN CLASS="svoj">x</SPAN> в диапазоне <SPAN CLASS="svoj">0 <= x < 256</SPAN>.<BR> 
+<SPAN CLASS="txt_abz">Литеральные </SPAN>формы создания объектов типа
+<SPAN CLASS="svoj">bytearray</SPAN> не используются. Эти объекты могут быть созданы с помощью
+конструктора класса &ndash; встроенной функции
+<SPAN CLASS="svoj">bytearray([source[, encoding[, errors]]])</SPAN>
+(см. <A HREF="../LAB1/lab.htm#bytearray">подраздел 8.1</A> лаб. раб. №1).
+ Необязательный аргумент <SPAN CLASS="svoj">source</SPAN> используется для указания нескольких
+вариантов создания объекта <SPAN CLASS="svoj">bytearray</SPAN>:
+<UL CLASS="list">
+<LI> если аргументом является целое число &ndash; создается заполненный нулями (null-байтами)
+объект bytearray указанной длины:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytearray</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(5)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+bytearray(b'\x00\x00\x00\x00\x00')</SPAN>;<BR><BR>
+<LI> если аргументом является итерабельный объект &ndash; создается объект bytes из
+последовательности целых чисел указанного объекта, которые должны находится в диапазоне
+0 <= x < 256:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytearray</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([7,255,0])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+bytearray(b'\x07\xff\x01')</SPAN>;<BR><BR>
+<LI> если аргументом является строка &ndash; она преобразуется в объект bytearray с использованием
+метода str.encode(), при этом обязательно должен быть указан аргумент encoding и опционально
+errors:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytearray</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'utf-8'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+bytearray(b'cat')</SPAN>;<BR><BR>
+<LI> если аргументом является объект, применяющий буферный протокол, двоичные данные из буфера
+используются для инициализации объекта bytearray;
+<LI> если аргумент не указан &ndash; создается объект bytearray нулевой длины:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bytearray</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+bytearray(b'')</SPAN>.<BR><BR>
+</UL>
+<A NAME="3.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.3 Операции над объектами типов bytes и bytearray</H4>
+<P>Оба типа &ndash; и <SPAN CLASS="svoj">bytes</SPAN>, и <SPAN CLASS="svoj">bytearray</SPAN>,
+являясь последовательностями:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Sequence</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(bytes(2), Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(bytearray(2), Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR><BR>
+поддерживают все операции, присущие базовым последовательностям
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3).<BR>
+<SPAN CLASS="txt_abz">Благодаря </SPAN>общему использованиюю ASCII текста, как базиса для двоичного
+протокола, объекты типов <SPAN CLASS="svoj">bytes</SPAN>) и <SPAN CLASS="svoj">bytearray</SPAN>)
+используют почти все методы, присущие текстовым строкам
+(см. <A HREF="../LAB2/lab.htm#2.6">подраздел 2.6</A> лаб. работы №1), за исключением:  
+<UL CLASS="list">
+<LI> метода str.encode(), который преобразует текстовые строки в объекты bytes;
+<LI> методов str.format() и str.format_map(), которые используются для форматирования текста при
+выводе на экран;
+<LI> методов str.isidentifier(), str.isnumeric(), str.isdecimal() и str.isprintable(), которые
+используются для проверки свойств текстовых строк и обычно не применяются в двоичных протоколах.
+</UL>
+<P>Все остальные строковые методы поддерживаются, хотя иногда с небольшими различиями в
+функциональности:
+<UL CLASS="list">
+<LI> Методы объектов типов <SPAN CLASS="svoj">bytes</SPAN> и <SPAN CLASS="svoj">bytearray</SPAN> не
+принимают строки, как аргументы своих методов, точно так же, как строки не принимают объекты
+<SPAN CLASS="svoj">bytes</SPAN> в качестве своих аргументов:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">a=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">a.replace(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'u'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cut'</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">b=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">b'cat'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">b.replace(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">b'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">b'u'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'cut'</SPAN>;<BR><BR>
+<LI> в операциях поиска (in, count(), find(), index(), rfind() и rindex()) могут быть
+использованы как целые числа в диапазоне от 0 до 255 включительно, так и последовательности типов
+bytes и bytearray.
+</UL>
+<P>Экземпляры как типа <SPAN CLASS="svoj">bytes</SPAN>, так и типа
+<SPAN CLASS="svoj">bytearray</SPAN> поддерживают метод
+<SPAN CLASS="svoj">decode(encoding="utf-8", errors="strict")</SPAN>, который является обратным по
+отношению к методу <SPAN CLASS="svoj">str.encode()</SPAN> и возвращает строку, являющуюся
+результатом декодирования заданной последовательности байтов. По умолчанию кодировка имеет значение
+'utf-8', обработка ошибки &ndash; "strict", что означает выработку исключения UnicodeError при
+обнаружении ошибки кодирования, другими возможными значениями являются: 'ignore', 'replace' и
+'xmlcharrefreplace', а также любое другое имя, которое зарегистрировано в codecs.register_error.
+Приведем примеры использования методов <SPAN CLASS="svoj">encode()</SPAN> для строк и
+<SPAN CLASS="svoj">decode()</SPAN> для объектов <SPAN CLASS="svoj">bytes</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.encode(encoding=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'utf-8'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'cat'</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">b'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.decode()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">b=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"питон"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.encode()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">b</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+b'\xd0\xbf\xd0\xb8\xd1\x82\xd0\xbe\xd0\xbd'</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">b.decode()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'питон'</SPAN>.<BR>
+<A NAME="ind"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H3>Индивидуальные задания</H3>
+<P>1 Разработать программу на языке Python, которая выполняет следующее:
+<UL CLASS="list">
+<LI> 1.1 Создает кортеж a_tuple, элементами которого являются объекты следующих типов
+(см. колонку "Тип" табл. №1): 
+<UL CLASS="list2">
+<LI> 1 &ndash; целое число;
+<LI> 2 &ndash; число с плавающей точкой;
+<LI> 3 &ndash; логическое значение;
+<LI> 4 &ndash; строка;
+<LI> 5 &ndash; список;
+<LI> 6 &ndash; кортеж.
+</UL>
+<LI> 1.2 Проверяет, является ли объект a_tuple: 
+<UL CLASS="list2">
+<LI> контейнером;
+<LI> итератором;
+<LI> итерабельным объектом;
+<LI> последовательностью;
+<LI> изменяемой последовательностью.
+</UL>
+<LI> 1.3 Изменить значение одного из элементов объекта a_tuple путем преобразования его сначала в
+список, а затем снова в кортеж.
+<LI> 1.4 Создает объект a_range согласно колонке "Диапазон" табл. №1.
+<LI> 1.5 Выводит на экран значения объекта a_range, используя (см. колонку "Вывод" табл. №1): 
+<UL CLASS="list2">
+<LI> 1 &ndash; оператор for;       
+<LI> 2 &ndash; конструктор списка; 
+<LI> 3 &ndash; конструктор кортежа. 
+</UL>
+</UL>    
+<P>2. Разработать программу, которая:
+<UL CLASS="list">
+<LI> 2.1 Выполняет все функции программы  "ana.py" (см. <a href="#1.3">подраздел 1.3 </a>). При
+этом формирует до пяти анаграмм средней сложности (степень сложности определяет студент).
+<LI> 2.2 Расширяет функциональность программы следующим образом (см. колонку "Вариант" табл. №1):
+<UL CLASS="list2">
+<LI> Вариант 1 &ndash; если пользователь дал правильное решение, то ему предоставляется возможность
+выбрать более сложный вариант анаграммы (всего три уровня сложности);
+<LI> Вариант 2 &ndash; если пользователь дал неправильное решение, то ему предоставляется
+возможность выбрать более легкий вариант анаграммы (всего три уровня сложности);
+<LI> Вариант 3 &ndash; пользователю предоставляется возможность получить подсказку: первую букву
+слова, затем слудующую за ней и т.д. (всего три подсказки);
+<LI> Вариант 4 &ndash; пользователю предоставляется возможность получить подсказку: последнюю
+букву слова, затем предыдущую и т.д. (всего три подсказки);
+<LI> Вариант 5 &ndash; пользователю предоставляется возможность получить следующую подсказку: по
+его запросу в виде строки, например, ***а**, означающей &ndash; содержит ли исходное слово букву
+"а" в указанном месте слова, или нет. Программа отвечает утвердительно, если это так, и
+отрицательно в противном случае (всего три подсказки).
+</UL>
+</UL> 
+<P><table align="center" width="50%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 1 &ndash; Перечень индивидуальных заданий</CAPTION>
+<TR><TH>Номер<BR>п/п<TH>Тип<BR>элемента<TH>Диапазон<TH>Вывод<TH>Вариант
+<TR ALIGN="center"><TD>1<TD>1,2,3,5<TD>1,25<TD>1<TD>1
+<TR ALIGN="center"><TD>2<TD>2,3,5,6<TD>2,32,2<TD>2<TD>2
+<TR ALIGN="center"><TD>3<TD>3,4,5,6<TD>-10,10<TD>3<TD>3
+<TR ALIGN="center"><TD>4<TD>1,6,3,5<TD>-7,21,3<TD>1<TD>4
+<TR ALIGN="center"><TD>5<TD>2,5,4,3<TD>11<TD>2<TD>5
+<TR ALIGN="center"><TD>6<TD>1,2,3,5<TD>1,60,5<TD>3<TD>1
+<TR ALIGN="center"><TD>7<TD>2,3,5,6<TD>20,0,-2<TD>1<TD>2
+<TR ALIGN="center"><TD>8<TD>3,4,5,6<TD>1,25<TD>2<TD>3
+<TR ALIGN="center"><TD>9<TD>1,6,3,5<TD>2,32,2<TD>3<TD>4
+<TR ALIGN="center"><TD>10<TD>2,5,4,3<TD>-10,10<TD>1<TD>5
+<TR ALIGN="center"><TD>11<TD>1,2,3,5<TD>-7,21,3<TD>2<TD>1
+<TR ALIGN="center"><TD>12<TD>2,3,5,6<TD>11<TD>3<TD>2
+<TR ALIGN="center"><TD>13<TD>3,4,5,6<TD>1,60,5<TD>1<TD>3
+<TR ALIGN="center"><TD>14<TD>1,6,3,5<TD>20,0,-2<TD>2<TD>4
+<TR ALIGN="center"><TD>15<TD>2,5,4,3<TD>1,25<TD>3<TD>5
+<TR ALIGN="center"><TD>16<TD>1,2,3,5<TD>2,32,2<TD>1<TD>1
+<TR ALIGN="center"><TD>17<TD>2,3,5,6<TD>-10,10<TD>2<TD>2
+<TR ALIGN="center"><TD>18<TD>3,4,5,6<TD>-7,21,3<TD>3<TD>3
+<TR ALIGN="center"><TD>19<TD>1,6,3,5<TD>11<TD>1<TD>4
+<TR ALIGN="center"><TD>20<TD>2,5,4,3<TD>1,60,5<TD>2<TD>5
+</TABLE>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>

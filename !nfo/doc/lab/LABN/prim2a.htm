@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Тестирование пользователя с использованием технологии AJAX</TITLE>
+<link rel="stylesheet" href="../lab.css"> 
+</head>
+<body>
+<h1>Тестирование</h1>
+<button onclick="subm1()">Начать <br>тестирование</button>&nbsp
+<button onclick="subm2()">Указать <br>ответ</button><p>
+<div id='div' />
+<script>
+  var myDiv=document.getElementById("div");
+  xhr=new XMLHttpRequest();
+  function subm1() {
+    myDiv.innerHTML='';
+    var name=prompt('Введите фамилию и имя','');
+    if(name) {
+      myDiv.innerHTML='';
+      var group=prompt('Введите номер группы','');
+      if(! group) group='';
+      var user_data={'name':name, 'group':group };
+      alert(user_data['name']+'  '+user_data['group']);
+      var json_data=JSON.stringify(user_data);
+      alert(json_data);
+      xhr.open('GET','http://zykov/PYTHON/_json.py?r='+Math.random()+'&json_data='+json_data); 
+      xhr.send(null);                      
+    }
+    else alert("Фамилия и имя не введены");
+  }
+
+  function subm2() {
+    var answer=prompt('Введите ответ в виде трех двоичных цифр','');    
+    if (answer) {
+       xhr.open('GET','http://zykov/PYTHON/testing.py?r='+Math.random()+'&answer='+answer);
+       xhr.send(null);
+    }
+    else alert("Ответ не указан")
+  }
+
+  xhr.onerror=function(e) { 
+    myDiv.innerHTML+=" Ошибка получения данных из сервера";  // "<P><SPAN STYLE='color:blue;font-size:5.5mm'>"+ resp+"</SPAN>"
+  }
+  xhr.onload=function() {
+      resp=this.responseText;   
+      myDiv.innerHTML=resp;
+  }              //   http://localhost/PYTHON/get_results.py?name=all
+</script>
+<!--
+<form name="test">
+<input style="txt">
+</form>
+-->
+</body>
+</html> 
+                 

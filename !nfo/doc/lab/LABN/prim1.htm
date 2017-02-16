@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Обмен объектами формата JSON между клиентом и серверм с помощью технологии AJAX</title>
+</head>
+<body>
+<div id="myDiv" />
+<script>                      
+  var obj={'name':'Tom Smith','age':21};
+  var str_json=JSON.stringify(obj);
+  s='12345678';             
+  var myDiv=document.getElementById("myDiv");                   
+  var xhr=new XMLHttpRequest();
+  xhr.open("GET", "http://zykov/PYTHON/_json.py?r="+ Math.random()+'&user_data='+str_json); 
+  xhr.onerror=function(e) { 
+    myDiv.innerHTML+=" Error";
+  }
+  xhr.onload=function() {
+    str2_json=this.response;
+    obj2=JSON.parse(str2_json);
+    s='<br>';
+    for (i in obj2) {
+      s+=i+' = '+ obj2[i]+'<br>';
+    }
+    myDiv.innerHTML="<span style='font-size:5.3mm'>Атрибуты объекта, возвращаемого сервером: <br>"+
+       "<span style='color:blue; font-size:6.mm' "+s+"</span>";
+  } 
+  xhr.send(null); 
+</script>
+</body>
+</html> 
+                 

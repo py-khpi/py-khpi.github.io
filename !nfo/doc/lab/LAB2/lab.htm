@@ -1,0 +1,1361 @@
+<HTML>                                     
+<HEAD>
+<TITLE>Лабораторная работа 2: Модули. Строки</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">
+<STYLE>TH,TD { font-size:5.5mm; border:1 double blue } </STYLE>
+</HEAD>
+<BODY>
+<H1> ЛАБОРАТОРНАЯ РАБОТА №2</H1>
+<H2> <SPAN CLASS="beg">Тема: </SPAN>Модули. Строки</H2>
+<H2> <SPAN CLASS="beg">Цель: </SPAN>
+Рассмотрение способов подключения модулей, а также функций и методов работы с текстом</H2>
+<A id="beg"></A>
+<H3>ОГЛАВЛЕНИЕ</H3> 
+<A CLASS="com" HREF="#1">1 Использование стандартных модулей <BR>
+<A CLASS="com" HREF="#1.1">1.1 Подключение модулей<BR>
+<A CLASS="com" HREF="#1.2">1.2 Модуль builtins<BR>
+<A CLASS="com" HREF="#1.3">1.3 Модуль sys<BR>
+<A CLASS="com" HREF="#1.4">1.4 Модуль string<BR>
+<A CLASS="com" HREF="#2">2 Строки<BR>
+<A CLASS="com" HREF="#2.1">2.1 Задание строк в виде литералов<BR>
+<A CLASS="com" HREF="#2.2">2.2 Задание строк с помощью конструктора str() <BR>
+<A CLASS="com" HREF="#2.3">2.3 Операции со строками <BR>
+<A CLASS="com" HREF="#2.4">2.4 Индексация строк<BR>
+<A CLASS="com" HREF="#2.5">2.5 Срезы строк<BR>
+<A CLASS="com" HREF="#2.6">2.6 Встроенные функции строк<BR>
+<A CLASS="com" HREF="#2.7">2.7 Методы строк<BR>
+<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<A id="1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>1 Использование стандартных модулей</H4>
+<P>Модуль на языке Python &ndash; это файл с расширением <SPAN CLASS="svoj">.py</SPAN>, содержащий
+операторы и определения функций и классов, как правило, общей области применения. Программы на
+языке Python тоже представляют собой файлы с расширением <SPAN CLASS="svoj">.py</SPAN>, но в
+отличие от модулей, которые используются для подключения к другим программам, предназначены для
+непосредственного выполнения.<BR>
+<SPAN CLASS="txt_abz">При </SPAN>импорте модуля, т.е. подключении модуля к программе, интерпретатор
+ищет файл с именем, например <SPAN CLASS="svoj">my_module.py</SPAN>, сначала в текущем каталоге,
+затем в каталогах, указанных в переменной окружения PYTHONPATH, затем в зависящих от платформы
+путях, заданных по умолчанию, а также в специальных файлах с расширением
+<SPAN CLASS="svoj">.pth</SPAN>, которые находятся в стандартных каталогах.<BR>
+<SPAN CLASS="txt_abz">Программист </SPAN>может внести изменения в PYTHONPATH и в
+<SPAN CLASS="svoj">.pth</SPAN>, добавив туда свой путь. Каталоги, в которых осуществляется поиск,
+указаны в переменной <SPAN CLASS="svoj">sys.path</SPAN> (см. <A HREF="#1.3">подраздел 1.3</A>).<BR>
+<SPAN CLASS="txt_abz">Большие </SPAN>программы, как правило, состоят из стартового файла &ndash;
+файла верхнего уровня, и набора файлов-модулей. Главный файл выполняет функции управления
+программой.<BR>
+<SPAN CLASS="txt_abz">В </SPAN>то же время модуль &ndash; это не только физический файл. Модуль
+представляет собой набор компонентов. В этом смысле модуль &ndash; это пространство имен
+(англ. namespace), и все имена внутри модуля называются атрибутами &ndash; такими, например, как
+функции и переменные. Для выяснения имен, определенных в модуле, используется встроенная функция
+<SPAN CLASS="svoj">dir()</SPAN>
+(см. <A HREF="../LAB1/lab.htm#dir">подраздел 8.1</A> лаб. раб. №1). Она возвращает отсортированный
+список строк.<BR>
+<SPAN CLASS="txt_abz">Python </SPAN>распространяется с библиотекой стандартных модулей. Библиотека
+включает в себя более 200 модулей, которые выполняют платформенно-зависимую поддержку таких задач,
+как: интерфейс к операционной системе, управление объектами, поиск, сеть и Internet, GUI и т.д.<BR>
+<SPAN CLASS="txt_abz">Полный </SPAN>список стандартных модулей можно найти на
+<A HREF="http://docs.python.org/3/library/">http://docs.python.org/3/library/</A> или на
+<A HREF="http://docs.python.org/3/py-modindex.html">http://docs.python.org/3/py-modindex.htm</A>.
+<BR><SPAN CLASS="txt_abz">В </SPAN>данном практикуме рассмотрены следующие стандартные модули:
+<UL CLASS="list">
+<LI> builtins (см. <A HREF=#1.2>подраздел 1.2</A>); 
+<LI> sys (см. <A HREF=#1.3>подраздел 1.3</A>);
+<LI> string &ndash; содержат описания строковых констант
+(см. <A HREF="#1.4">подраздел 1.4</A>);
+<LI> collections и collections.abc &ndash; содержат описания ABC-классов
+(см. <A HREF="../LAB3/lab.htm#1">раздел 1</A> лаб. раб. №3), которые не являются встроенными
+типами и, следовательно, не описаны в модуле builtins;
+<LI> random (см. <A HREF="../LAB4/lab.htm#1.2">подраздел 1.2</A> лаб. раб. №4);
+<LI> cgitb (см. <A HREF="../LAB7/lab.htm#3.1">подраздел 3.1</A> лаб. раб. №7);
+<LI> cgi (см. подразделы <A HREF="../LAB7/lab.htm#3.2">3.2</A> и 
+<A HREF="../LAB7/lab.htm#3.3">3.3</A> лаб. раб. №7);
+<LI> os (см. подразделы <A HREF="../LAB7/lab.htm#3.3">3.3</A> лаб. раб. №7 и
+<A HREF="../LAB8/lab.htm#1.4">1.4</A> лаб. раб, №8).
+</UL>
+<P> Помимо встроенных модулей в программах могут быть также использованы модули, разработанные
+пользователями (см. <A HREF="/!PYTHON/LAB6/lab.htm#3">раздел 3</A> лаб. раб. №6).
+<A id="1.1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.1 Подключение модулей</H4>
+<P>Имеется несколько способов подключения модуля:
+<UL CLASS="list">
+<LI> с помощью оператора import, за которым следует название модуля:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">some_module</SPAN>.<BR><BR>
+В этом случае обращение к отдельным компонентам модуля, например, вызов функций
+<SPAN CLASS="svoj">func1()</SPAN> и <SPAN CLASS="svoj">func2()</SPAN>, описанных в модуле,
+выполняется с использованием префикса, представляющего собой имя модуля
+<SPAN CLASS="svoj">some_module</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">some_module.func1()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">some_module.func2();</SPAN><BR><BR>
+<LI> с помощью оператора from, за которым следует название модуля, оператор import и
+название компонента модуля (если компонентов несколько, они перечисляются через запятую):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">some_module</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">func1()</SPAN>.<BR><BR>
+В этом случае вызов функции осуществляется по ее имени без использованя префикса модуля:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">func1()</SPAN>.<BR><BR>
+При таком варианте подключения модуля существует опасность конфликта пространств имен, если в
+программе уже используется имя func1. Чтобы этого избежать можно переименовать имя компонента
+модуля:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">some_module</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">func1</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">as </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">my_func1</SPAN>;<BR><BR>
+<LI> с помощью оператора from, за которым следует название модуля, оператор import и *:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">any_module</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">*</SPAN>.<BR><BR>
+В этом случае к пространству имен программы подключаются все имена модуля.
+</UL>
+<A id="1.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.2 Модуль builtins</H4>
+<P>Модуль <SPAN CLASS="svoj">builtins</SPAN> обеспечивает прямой доступ ко всем встроенным
+идентификаторам языка Python: встроенным функциям и встроенным константам 
+(см. подразделы <A HREF="../LAB1/lab.htm#8"> 8.1</A> и
+ <A HREF="../LAB1/lab.htm#8.2"> 8.2</A> лаб. раб. №1). Загружается автоматически при запуске
+интерпретатора и поэтому обычно не требует явной загрузки.<BR>
+<SPAN CLASS="txt_abz">Однако </SPAN>в некоторых случаях, например, когда пользователь описывает
+функцию <SPAN CLASS="svoj">open()</SPAN>, которая вызывает встроенную функцию
+<SPAN CLASS="svoj">open()</SPAN>, загрузить модуль <SPAN CLASS="svoj">builtins</SPAN> необходимо.
+При этом вызов встроенной функции осуществляется с использованием имени модуля:
+<SPAN CLASS="svoj">builtins.open()</SPAN>. 
+<A id="1.3"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.3 Модуль sys</H4>
+<P>Модуль <SPAN CLASS="svoj">sys</SPAN> обеспечивает доступ к некоторым переменным и функциям,
+которые взаимодействуют с интерпретатором языка Python, что позволяет получить после подключения
+модуля <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys</SPAN>.<BR><BR>
+такие данные:
+<UL CLASS="list">
+<LI> sys.builtin_module_names &ndash; указывает кортеж строк (описание кортежей см. в
+<a href="../LAB4/lab.htm#1">разделе 1 </a> лаб. раб. №4), содержащий имена всех доступных модулей:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys.builtin_module_names</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue"> <BR>
+('_ast', '_bisect', '_blake2', '_codecs', '_codecs_cn', '_codecs_hk', '_codecs_iso2022',
+'_codecs_jp', '_codecs_kr', '_codecs_tw', '_collections', '_csv', '_datetime', '_functools',
+'_heapq', '_imp', '_io', '_json', '_locale', '_lsprof', '_md5', '_multibytecodec', '_opcode',
+'_operator', '_pickle', '_random', '_sha1', '_sha256', '_sha3', '_sha512', '_signal', '_sre',
+'_stat', '_string', '_struct', '_symtable', '_thread', '_tracemalloc', '_warnings', '_weakref',
+'_winapi', 'array', 'atexit', 'audioop', 'binascii', 'builtins', 'cmath', 'errno', 'faulthandler',
+'gc', 'itertools', 'marshal', 'math', 'mmap', 'msvcrt', 'nt', 'parser', 'sys', 'time', 'winreg',
+'xxsubtype', 'zipimport', 'zlib')</SPAN>; <BR><BR>
+<LI> sys.exec_prefix &ndash; указывает каталог установки интерпретатора Python: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys.exec_prefix </SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+'C:\\Users\\ZYKOV\\AppData\\Local\\Programs\\Python\\Python36-32' </SPAN>;<BR><BR>
+<LI> sys.executable &ndash; указывает путь к интерпретатору Python: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys.executable</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+'C:\\Users\\ZYKOV\\AppData\\Local\\Programs\\Python\\Python36-32\\pythonw.exe'</SPAN>;<BR><BR>
+<LI> sys.float_info &ndash; указывает информацию о типе данных float: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys.float_info</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+sys.float_info(max=1.7976931348623157e+308, max_exp=1024, max_10_exp=308,
+min=2.2250738585072014e-308, min_exp=-1021, min_10_exp=-307, dig=15, mant_dig=53,
+epsilon=2.220446049250313e-16, radix=2, rounds=1) </SPAN>;<BR><BR>
+<LI> sys.float_repr_style &ndash; указывает информацию о применении встроенной функции repr() для
+типа float;
+<LI> sys.getdefaultencoding() &ndash; возвращает используемую кодировку:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">getdefaultencoding</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">as </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">encoding</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">encoding()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'utf-8'</SPAN>; <BR><BR>
+<LI> sys.getfilesystemencoding() &ndash; возвращает кодировку файловой системы:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys.getfilesystemencoding() </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'mbcs'</SPAN>
+<SPAN STYLE="font-size:7mm; color:red"># multibyte character set </SPAN>;<BR><BR>
+<LI> sys.int_info &ndash; информация о типе int: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys.int_info</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+sys.int_info(bits_per_digit=15, sizeof_digit=2) </SPAN>; <BR><BR>
+<LI> sys.maxsize &ndash; максимальное значение числа типа Py_ssize_t (2**31 на 32-битных и
+2**63 на 64-битных платформах);
+<LI> sys.maxunicode &ndash; максимальное число бит для хранения символа Unicode (Python 3.6.0
+&ndash; 1114111 (0x10FFFF));
+<LI> sys.modules &ndash; словарь имен загруженных модулей;
+<LI> sys.path &ndash; содержит список строк с именами каталогов, в которых происходит поиск
+модулей. Он инициализируется из значения переменной окружения PYTHONPATH и встроенного значения
+по умолчанию:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys.path</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue"> 
+<br>['',<br>
+'C:\\Users\\ZYKOV\\AppData\\Local\\Programs\\Python\\Python36-32\\Lib\\idlelib',
+'C:\\Users\\ZYKOV\\AppData\\Local\\Programs\\Python\\Python36-32\\python36.zip',
+'C:\\Users\\ZYKOV\\AppData\\Local\\Programs\\Python\\Python36-32\\DLLs',
+'C:\\Users\\ZYKOV\\AppData\\Local\\Programs\\Python\\Python36-32\\lib',
+'C:\\Users\\ZYKOV\\AppData\\Local\\Programs\\Python\\Python36-32',
+'C:\\Users\\ZYKOV\\AppData\\Local\\Programs\\Python\\Python36-32\\lib\\site-packages']
+</SPAN>;<BR><BR>
+<LI> sys.version &ndash; указывает версию языка Python и другие данные (это та же информация, что
+выводиптся в первой строке интерактивного окна Python Shell (см. <A HREF="../LAB1/lab.htm#1.1">
+подраздел 1.1"</A> лаб. раб. №1)):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">sys.version </SPAN> <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+'3.6.0 (v3.6.0:41df79263a11, Dec 23 2016, 07:18:10) [MSC v.1900 32 bit (Intel)]'</SPAN>;<BR><BR>
+<LI> sys.version_info &ndash; указывает кортеж, содержащий пять компонентов номера версии:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">version_info</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+sys.version_info(major=3, minor=6, micro=0, releaselevel='final', serial=0)</SPAN>.<BR>
+</UL>
+<A id="1.4"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.4 Модуль string</H4>
+<P>Модуль <SPAN CLASS="svoj">string</SPAN> содержит полезные классы и методы, а также следующие
+строковые константы:
+<UL CLASS="list">
+<LI> string.ascii_letters &ndash; содержит заглавные и строчные буквы латинского алфавита: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">string </SPAN>
+<SPAN STYLE="font-size:7mm; color:red"># подключение модуля string</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">string.ascii_letters</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'</SPAN>;<BR><BR>
+<LI> string.ascii_lowercase &ndash; содержит строчные буквы латинского алфавита;
+<LI> string.ascii_uppercase &ndash; содержит заглавные буквы латинского алфавита;
+<LI> string.digits &ndash; содержит цифры: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">string.digits</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'0123456789'</SPAN>;<BR><BR>
+<LI> string.hexdigits &ndash; содержит символы для 16-ричных цифр: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">string.hexdigits</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'0123456789abcdefABCDEF'</SPAN>;<BR><BR>
+<LI> string.octdigits &ndash; содержит восьмиричные цифры: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">string.octdigits</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'01234567'</SPAN>;<BR><BR>
+<LI> string.punctuation &ndash; содержит ASCII-символы, которые считаются символами пунктуации: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">string.punctuation</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+'!"#$%&\'()*+,-./:;<=>?@ [\\]^_`{|}~'</SPAN>;<BR><BR>
+<LI> string.printable &ndash; содержит символы, которые считаются печатаемыми. Они всключают
+символы, содержащиеся в константах digits, letters, punctuation и whitespace;
+<LI> string.whitespace &ndash; содержит все символы, которые считаются разделительными
+(whitespace). В большинстве систем это символы пробела (space), \t &ndash; табуляции (tab), 
+\n &ndash; новой строки (linefeed), \r &ndash; возврата каретки (return), \x0b &ndash; вертикальной
+табуляции (vertical tab) и \x0c &ndash; перевода на новую страницу при печати (formfeed ): <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">string.whitespace</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">' \t\n\r\x0b\x0c'</SPAN>;<BR>
+</UL> 
+<A id="2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>2 Строки</H4>
+<P>Строки (англ. strings) в языке Python &ndash; неизменяемые последовательности 
+(см. <A HREF="../LAB3/lab.htm#1.4">подраздел 1.4</A> лаб. раб. №3) символов в кодировке
+Unicode, которые имеют тип (класс) <SPAN CLASS="svoj">str</SPAN> и используются для хранения и
+представления текстовой информации, т.е. любых данных, которые могут быть представлены в текстовой
+форме. <BR>
+<SPAN CLASS="txt_abz">
+Как и для большинства других объектов, для создания объектов класса <SPAN CLASS="svoj">str</SPAN>,
+т.е. строк, имеется два варианта &ndash; либо задав значение в виде строкового литерала
+(см. <a href="#2.1">подраздел 2.1 </a>), либо с помощью конструктора класса &ndash; встроенной
+функции <SPAN CLASS="svoj">str()</SPAN> (см. <a href="#2.2">подраздел 2.2 </a>).
+<A id="2.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">2.1 Создание строк с помощью литералов</H4>
+<P>Строки можно задавать в виде литералов с использованием:
+<UL CLASS="list">
+<LI> одиночных кавычек:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00f0">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Строка может включать "двойные" кавычки'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Строка может включать "двойные" кавычки</SPAN>;<BR><BR>
+<LI> двойных кавычек:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00f0">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Эта строка может включать 'одиночные' кавычки"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Эта строка может включать
+'одиночные' кавычки </SPAN>;<BR><BR>
+<LI> тройных кавычек, которые могут быть составлены:
+<UL CLASS="list2">
+<LI> из трех одиночных кавычек:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00f0">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'''Используются 'одиночные' кавычки'''</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Используются 'одиночные' кавычки
+</SPAN>;<BR><BR>
+<LI> из трех двойных кавычек:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00f0">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"""Используются "двойные" кавычки"""</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Используются "двойные" кавычки.
+</SPAN><BR><BR>
+</UL>
+<LI> префикса f и кавычек любого вида. При этом литерал содержит поля замещения, указанные в
+фигурных скобках, которые представляют выражения, значения которых определяются при выполнении
+программы и подставляются в литерал:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">name=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Том'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">f</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Его звать {name}'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Его звать Том' </SPAN><BR>
+
+ 
+</UL>
+<P>Для совместимости с версиями 2.x языка Python, начиная с версии 3.3, разрешено использование
+префикса "u", который для версий 3.3 и выше ни на что не влияет:<BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">u'cat'</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN><BR> <BR> 
+<SPAN CLASS="txt_abz">Для </SPAN>помещения в строку символов, выполняющих в языке Python служебные
+функции (<SPAN STYLE="color:blue; font-size:7mm; font-weight:bold">'</SPAN>,
+<SPAN STYLE="color:blue; font-size:7mm; font-weight:bold">"</SPAN> и
+<SPAN STYLE="color:blue; font-size:7mm; font-weight:bold">\</SPAN>, а также символов, связанных с
+работой клавиатуры, используются наборы символов, называемые ESC-последовательностями. В таблице 1
+приведено соотношение между ESC-последовательностями и символами, вставляемыми в строку при выводе
+вместо них.
+<TABLE ALIGN=center WIDTH="70%" border cellspacing="0">
+<CAPTION> <p class="ba">Таблица 1 &ndash; Соотношение между ESC-последовательностями и символами
+</CAPTION>
+<TR><TH>ESC-последовательность<TH>Символ
+<TR><TD ALIGN=center>\'<TD ALIGN=center>'
+<TR><TD ALIGN=center>\"<TD ALIGN=center>"
+<TR><TD ALIGN=center>\\<TD ALIGN=center>\
+<TR><TD ALIGN=center>\b<TD ALIGN=center>забой
+<TR><TD ALIGN=center>\n<TD ALIGN=center>новая строка
+<TR><TD ALIGN=center>\f (\x0c)<TD ALIGN=center>новая страница
+<TR><TD ALIGN=center>\r<TD ALIGN=center>возврат каретки
+<TR><TD ALIGN=center>\t<TD ALIGN=center>горизонтальная табуляция
+<TR><TD ALIGN=center>\v (\x0b)<TD ALIGN=center>вертикальная табуляция
+<TR><TD ALIGN=center>\a<TD ALIGN=center>звонок
+<TR><TD ALIGN=center>\uhhhh<TD ALIGN=center>16-битовый символ Юникода в 16-ричном представлении  
+<TR><TD ALIGN=center>\Uhhhh… <TD ALIGN=center>32-битовый символ Юникода в 16-ричном представлении
+<TR><TD ALIGN=center>\xhh<TD ALIGN=center>16-ричное значение символа   
+<TR><TD ALIGN=center>\ooo<TD ALIGN=center>8-ричное значение символа
+<TR><TD ALIGN=center>\0<TD ALIGN=center>символ Null
+</TABLE>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<BR> 
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что для воспроизведения звука по <SPAN CLASS="svoj">\a</SPAN>
+необходимо запустить программу не из среды разработки, а по двойному щелчку по файлу.<BR> 
+<SPAN CLASS="txt_abz">Ниже  </SPAN>приводится пример использования ESC-последовательностей
+для задания горизонтальной табуляции и новой строки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00f0">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"It's cat\tand that is dog\nnew string"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">It's cat&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;and that is dog</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">new string</SPAN><BR><BR>
+
+<SPAN CLASS="txt_abz">Для </SPAN>экранирования большинства ESC-последовательностей необходимо перед
+строкой указать букву <SPAN CLASS="svoj">r</SPAN> или <SPAN CLASS="svoj">R</SPAN>. При этом
+создаются исходные строки ("raw strings"):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00f0">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"1\t2\n\x33"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">3</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00f0">print (</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">r"1\t2\n\x33"</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1\t2\n\x33</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Длинные </SPAN>строки можно располагать на нескольких рядках кода, используя
+символ обратного слэша ("\"):<BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"word1 "</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">\</SPAN><BR>
+<SPAN STYLE="margin-left:2.7cm; font-size:7mm; color:green">"word2 "</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">\</SPAN><BR>
+<SPAN STYLE="margin-left:2.7cm; font-size:7mm; color:green">"word3"</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">word1 word2 word3</SPAN>.<BR> 
+<SPAN CLASS="txt_abz">Одной </SPAN>из особенностей тройных кавычек является их применение для
+задания многострочного текста с соблюдением всех разделительных символов, при этом
+ESC-последовательности экранируются:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00f0">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'''<BR>
+<SPAN STYLE="margin-left:3.5cm; ">"Из всех вещей, что нас окружают,</SPAN> <BR>
+<SPAN STYLE="margin-left:3.5cm; ">ничто есть величайшее" </SPAN><BR>
+<SPAN STYLE="margin-left:5.0cm; ">Леонардо да Винчи '''</SPAN> </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR><BR>
+<SPAN STYLE="font-size:7mm; color:blue">
+<SPAN STYLE="margin-left:3.5cm; ">"Из всех вещей, что нас окружают,</SPAN> <BR>
+<SPAN STYLE="margin-left:3.5cm; ">ничто есть величайшее" </SPAN><BR>
+<SPAN STYLE="margin-left:5.0cm; ">Леонардо да Винчи </SPAN> </SPAN> <BR><BR>
+<SPAN CLASS="txt_abz">Другой </SPAN>особенностью тройных кавычек являетеся их использование для
+документирования функций (см. <A HREF="../LAB6/lab.htm#1.1">подраздел 1.1</A>лаб. раб. №6) и
+классов (см. <A HREF="../LAB11/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №11). <BR>
+<SPAN CLASS="txt_abz">Модуль </SPAN>string (см. <a href="#1.4">подраздел 1.4 </a>) содержит
+строковые константы: все заглавные (uppercase) буквы, строчные (lowercase) буквы , цифры, символы
+пунктуации (punctuation) и разделительные символы (whitespace).<BR>
+<SPAN CLASS="txt_abz">В </SPAN>табл. 2 представлены все разделительные символы.
+<A id="tabl2"></A>
+<TABLE ALIGN=center WIDTH="50%" border cellspacing="0">
+<CAPTION><p class="ba">Таблица 2 &ndash; Разделительные символы</CAPTION>
+<TR><TH>ESC-последовательность<TH>ASCII-наименование<TH>Наименование
+<TR ALIGN=center><TD><TD>SP<TD>пробел
+<TR ALIGN=center><TD>'\n'<TD>NL<TD>новая строка
+<TR ALIGN=center><TD>'\r '<TD>CR<TD>возврат каретки
+<TR ALIGN=center><TD>'\t '<TD>HT<TD>горизонтальная табуляция
+<TR ALIGN=center><TD>'\v' (\x0b)<TD>VT<TD>вертикальная табуляция
+<TR ALIGN=center><TD>'\f' (\x0c)<TD>FF<TD>новая форма
+</TABLE> 
+<A id="2.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">2.2 Создание строк с помощью конструктора класса</H4>
+<P> Строки могут быть созданы также с помощью конструктора класса &ndash;
+встроенной функции <SPAN CLASS="svoj">str(object='', encoding='utf-8', errors='strict')</SPAN>,
+которая возвращает представление объекта <SPAN CLASS="svoj">object</SPAN> в виде строки:
+<UL CLASS="list">
+<LI> если аргумент функции object опущен, то возвращается пустая строка: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">''</SPAN>;<BR> <BR>
+<LI> если аргументы encoding и errors не заданы, то функция str(object) с помощью метода
+__str__() возвращает представление объекта в печатном виде:
+<UL CLASS="list2">
+<LI> если аргументом функции является значение типа str, то возвращается строка с этим значением:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN>;<BR><BR>
+<LI> если аргументом функции является значение другого типа, то оно преобразуется в тип str и
+возвращается в виде строки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.25-e1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'0.125'</SPAN>;<BR><BR>
+</UL>
+<LI> если для объекта object не определен метод __str__(), то неявно вызывается встроенная функция
+repr() (см. <a href="#2.5">подраздел 2.5 </a>)<BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">type</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.33))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">"&lt;class 'float'>"</SPAN>;<BR><BR>
+<LI> если хотя бы один из аргументов encoding или errors задан, аргумент object должен быть
+двоичным объектом (т.е. иметь тип bytes или bytearray,
+(см. <A HREF="../LAB4/lab.htm#3">раздел 3</A> лаб. раб. №4). В этом случае функция 
+str(bytes, encoding, errors) эквивалентна методу decode(encoding, errors) объекта bytes
+(см. <A HREF="../LAB4/lab.htm#3.3">подраздел 3.3</A> лаб. раб. №3) и осуществляет
+декодирование двоичной последовательности в строку с использованием кодека, заданного арнументом
+encoding (значение по умолчанию, равное 'utf-8', берется из sys.getdefaultencoding()) и обработчика
+ошибок (аргумент errors). Если encoding неизвестен, вырабатывается исключение LookupError. Аргумент
+errors задает режим обработки ошибок: если его значение равно 'strict' (значение по умолчанию), то
+при ошибке возникает исключение ValueError, при значении 'ignore' ошибки игнорируются и при
+значении 'replace' &ndash; вместо символа, который не мог быть декодирован вставлятся символ
+U\FFFD. 
+</UL>
+<p> Число байтов, необходимых для хранения Unicode строк в памяти (для Python 3.4) зависит от
+наибольшего значения кода символа в строке:
+<UL CLASS="list">
+<LI> для символов, которые могут быть выражены в ASCII и Latin1 кодировке (U+0000-U+00FF),
+используется 1 байт на код;
+<LI> для символов, которые могут быть быражены в BMP кодировке (U+0000-U+FFFF), используется 2
+байта на код;
+<LI> для символов, которые не могут быть быражены в BMP кодировке (U+10000-U+10FFFF), используется
+4 байта на код.
+</UL>
+<P>Укажем, что BMP (Basic Multilangual Plane) означает базовую многоязыковую плоскость Юникода
+(первые 65536 символов), в которую входят и символы кириллицы. 
+<A id="2.3"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">2.3 Операции со строками</H4>
+<P>Над строками можно выполнять следующие операции:
+<UL CLASS="list">
+<LI> x in S &ndash; равно True, если строка S содержит символ x, иначе равно False
+<SPAN style="outline:blue dashed 1px">(операция, общая для последовательностей, 
+см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3) </SPAN>. Может быть
+использована для проверки вхождения подстроки в строку: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Comp'</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Computer'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'comp'</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Computer'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI> x not in S &ndash; равно False, если строка S содержит символ x, иначе равно True
+<SPAN style="outline:blue dashed 1px">(операция, общая для последовательностей,
+см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3)</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'comp'</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">not in </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Computer'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<LI> S + T &ndash; выполняется операция конкатенации между строками S и T
+<SPAN style="outline:blue dashed 1px">(операция, общая для последовательностей,
+см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3)</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Операция'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">t= </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' конкатенации'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s+t</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Операция конкатенации'</SPAN>.<BR> <BR>
+<SPAN CLASS="txt_abz">Python </SPAN>поддерживает для операции конкатенации расширенную форму
+оператора присваивания (см. <A HREF="../LAB1/lab.htm#6">подраздел 6.1</A> лаб. раб. №1):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s+=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'s'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cats'</SPAN>.<BR><BR>
+Операция конкатенации может быть выполнена без использования операторов "+": <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"cat" " and " "dog"</SPAN><BR></SPAN>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat and dog'</SPAN>,<BR><BR>
+но только в том случае, когда операнды задаються в виде литералов (без использования переменных).
+Иначе вызывается ошибка: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">" and " "dog"</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red"> SyntaxError: invalid syntax <BR><BR>
+<LI> n*S (S*n) &ndash; выполняется n-кратное копирование строки S
+<SPAN style="outline:blue dashed 1px">(операция, общая для последовательностей,
+см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3)</SPAN>: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'1'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">+6*s</SPAN></SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'1000000'</SPAN>.<BR> 
+</UL> <P>
+<A id="2.4"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">2.4 Индексация строк</H4>
+<P>Хотя строки представляют собой неизменяемые последовательности символов, доступ к их отдельным 
+символам допускается. Каждый символ строки имеет свой номер (индекс). Python поддерживает две
+системы нумерации символов:
+<UL CLASS="list">
+<LI> нумерация слева направо &ndash; самый левый символ строки имеет индекс 0, последний
+&ndash; индекс, на 1 меньший числа символов строки;
+<LI> нумерация справа налево &ndash; самый правый (последний) символ строки имеет индекс -1,
+самый левый &ndash; индекс, равный числу символов строки со знаком минус.
+</UL> 
+<P>Строки поддерживают операцию получения значения элемента строки по его индексу
+<SPAN CLASS="svoj">s[i]</SPAN>, где <SPAN CLASS="svoj">s</SPAN> &ndash; строка,
+<SPAN CLASS="svoj">i</SPAN> &ndash; номер элемента
+<SPAN style="outline:blue dashed 1px">(операция, общая для последовательностей, см.
+<A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3)</SPAN>: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Computer'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s[0]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'C'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s[7]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'r'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s[-2]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'e'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s[8]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:red">
+IndexError: string index out of range</SPAN><BR> <BR>
+<SPAN CLASS="txt_abz"> </SPAN>При обращении к индексу строки, который превышает номер ее последнего
+символа, произошла ошибка и интерпретатор сообшает:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">IndexError:</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">индекс строки вне диапазона.</SPAN>
+<A id="2.5"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">2.5 Срезы строк</H4>
+<P>Помимо обращения к отдельным символам строки (см. <a href="#2.4">подраздел 2.4 </a>) Python
+допускает обращение к отдельным последовательностям символов строки, которые называются срезами
+(англ. slices) строки. В общем случае операции со срезами, 
+<SPAN style="outline:blue dashed 1px">которые являются операциями, общими для последовательностей 
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3)</SPAN>, представляется
+следующей конструкцией: <BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">s[i:j:k]</SPAN>,<BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN>где:
+<UL CLASS="list">
+<LI> s &ndash; строка, которая может быть задана переменной или литералом строкового типа;
+<LI> i &ndash; номер символа строки, с которого начинается срез;
+<LI> j &ndash; номер символа строки, который следует после последнего символа среза, т.е. этот
+символ не входит в срез;
+<LI> k &ndash; интервал перебора номеров строки, например, если k=2, то символы перебираются
+через один.
+</UL>
+<P>Причем каждый из параметров <SPAN CLASS="svoj">i</SPAN>, <SPAN CLASS="svoj">j</SPAN> или
+<SPAN CLASS="svoj">k</SPAN> может быть опущен (даже все):
+<UL CLASS="list">
+<LI> если опущен i &ndash; нумерация среза начинается с индекса 0;
+<LI> если опущен j &ndash; последним символом среза будет последний символ строки;
+<LI> если опущен k &ndash; подразумевается, что k=1, т.е. символы среза указываются подряд
+слева направо (для указания последовательности символов справа налево необходимо для k указывать
+отрицательные значения).
+</UL>
+<P>Срезы с неправильными границами обрабатываются следующим образом:
+<UL CLASS="list">
+<LI> если верхняя граница среза больше длины строки, то она уменьшается до длины строки;
+<LI> если нижняя граница больше верхней, то возвращается пустая строка
+</UL>
+<P>Примеры срезов:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Микропроцессор'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2[5:12]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'процесс'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2[:5]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Микро'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0123456789'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">[::2]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'02468'.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">В </SPAN>срезах можно использовать нумерацию справа налево:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2[-9:]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'процессор'</SPAN>
+<P CLASS="ba">и выбирать символы среза справа налево:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0123456789'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">[-1:-11:-1]<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'9876543210'</SPAN><BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN>Пример задания пустого среза:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0123456789'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">[7:2]<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">''</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что операции со срезом являются общими для
+последовательностей
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2 </A> лаб. раб. №3).
+<A id="2.6"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">2.6 Встроенные функции строк</H4>
+<P>При работе со строками могут быть использованы следующие встроенные функции
+(см. <A HREF="../LAB1/lab.htm#8">подраздел 8.1</A> лаб. раб. №1):
+<UL CLASS="list">
+<LI> <A HREF="../LAB1/lab.htm#chr">сhr(сode)</A> &ndash; возвращает строку из одного символа,
+который соответствует числовому значению аргумента, заданному в ASCII или Unicode коде в диапазоне
+от 0 до 1114111 (0x10FFFF):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">chr</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1092)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'ф'</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">При </SPAN>превышении диапазона вырабатывается исключение ValueError.
+Функция сhr(сode) является обратной функции ord(). Она эквивалентна функции uniсhr(сode), которая
+используется в версиях 2.x языка Python;
+<LI> <A HREF="../LAB1/lab.htm#len">len()</A> &ndash; возвращает длину строки (число ее
+символов):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">6</SPAN>.<BR><BR> 
+<SPAN CLASS="txt_abz">Функция </SPAN>len(s) эквивалентна методу s.__len__():<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__len__()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">6</SPAN>.<BR> <BR>
+<SPAN CLASS="txt_abz">Функция len() является операцией, общей для последовательностей
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3);
+<LI> <A HREF="../LAB1/lab.htm#max">max()</A> &ndash; возвращает символ строки с максимальным
+числовым значением согласно таблице ASCII или Unicode:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">max</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'y'</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Функция </SPAN>max() является операцией, общей для последовательностей
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3);
+<LI> <A HREF="../LAB1/lab.htm#min">min()</A> &ndash; возвращает символ строки с минимальным
+числовым значением согласно таблице ASCII или Unicode:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">min</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'P'</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Функция </SPAN>min() является операцией, общей для последовательностей
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3);
+<LI> <A HREF="../LAB1/lab.htm#ord">ord(char)</A> &ndash; возвращает числовое значение строки
+из одного символа согласно таблице ASCII или символа Unicode:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">ord</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'ф'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1092</SPAN>.<BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">ord</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">[0])</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">80</SPAN>;<BR> <BR>
+<LI> <A HREF="../LAB1/lab.htm#repr"> repr(object)</A> &ndash; возвращает строку, в большинстве
+случаев содержащую представление объекта, предназначенное для работы интерпретатора. Например, в
+форме, пригодной для использования в функции eval():<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">repr</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">"'cat'"</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">eval</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"'cat'"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN>,<BR><BR>
+а значение, возвращаемое функцией str() нельзя использовать как аргумент функции eval():<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">eval</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+NameError: name 'cat' is not defined</SPAN><BR><BR> 
+<SPAN CLASS="txt_abz">В </SPAN>других случаях возвращается строка, содержащая заключенные в угловые
+скобки данные: наименование типа объекта вместе с дополнительной информацией, часто включающей
+наименование объекта и его адрес в памяти: <BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">repr</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">type</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.33))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">"&lt;class 'float'>"</SPAN>.<BR><BR>
+</UL> 
+<A id="2.7"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">2.7 Методы строк</H4>
+<P>При работе со строками могут быть использованы следующие методы (<SPAN CLASS="svoj">S</SPAN>
+&ndash; любая строка, которая может быть представлена либо в виде строкового литерала, либо в виде
+переменной типа <SPAN CLASS="svoj">str</SPAN>):
+<UL CLASS="list">
+<LI> S.capitalize() &ndash; возвращает строку s с первой заглавной буквой (если первый символ
+строки &ndash; буква):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">string</SPAN>.<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.capitalize()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Cat'</SPAN>;<BR><BR>
+<LI> S.casefold(...) &ndash; возвращает вариант строки S, подходящий для сравнения без учета
+регистра: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.casefold()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN>,<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.casefold()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN>;<BR><BR>
+<LI> S.center(width [, fillchar]) &ndash; возвращает S, выравненную по центру строки шириной
+width, свободные места слева и справа от s заполняются символами fillchar (по умолчанию пробел),
+если число заполнителей нечетно, то справа помещается на один заполнитель больше. Если длина строки
+равна или больше width &ndash; возвращает строку S:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.center(12,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'_'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'___Python___'</SPAN>;<BR><BR>
+<LI> S.count( sub[, start[, end]]) &ndash; возвращает число встретившихся подстрок sub в
+строке S[start:end], необязательные аргументы start и end интерпретируются как параметры среза, в
+примере подсчитывается число нулей в строке, начиная с индекса 8 до конца строки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0000000100100011'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.count(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,8)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">5</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz" </SPAN>
+<SPAN style="outline:blue solid 1px">Метод является операцией, общей для последовательностей
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3)</SPAN>;                             
+<LI> S.encode([encoding[, errors]]) &ndash; возвращает последовательность байтов
+(см. <A HREF="../LAB4/lab.htm#3.1"> подраздел 3.1</A> лаб. раб. №4), являющуюся результатом
+кодирования строки S с помощью кодека, указанного аргументом encoding (по умолчанию &ndash; 
+'utf-8') (см. <A HREF="../LAB4/lab.htm#3.3"> подраздел 3.3</A> лаб. раб. №4). Аргумент errors может
+быть указан для задания режим обработки ошибки: по умолчанию &ndash; 'strict', указывающий, что при
+возникновении ошибки будет выработано исключение UnicodeEncodeError, другими возможными значениями
+являются: 'ignore', 'replace' и 'xmlcharrefreplace', а также любое другое имя, которое
+зарегистрировано в codecs.register_error;  
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<LI> S.endswith(T[, start[, end]]) &ndash; проверяет, заканчивается ли строка S строкой T,
+если указаны start[, end], то вместо S берется ее срез:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cats'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.endswith(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'s'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.endswith(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'s'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI> S.expandtabs([tabsize]) &ndash; возвращает строку S, в которой все знаки горизонтальной
+табуляции заменены пробелами, их число указанно аргументом tabsize (по умолчанию 8):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">1\t2\t3\t4'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.expandtabs(5)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'1 &nbsp&nbsp&nbsp&nbsp
+2 &nbsp&nbsp&nbsp&nbsp3 &nbsp&nbsp&nbsp&nbsp 4'</SPAN>;<BR><BR>
+<LI> S.find(T[,start[,end]]) &ndash; если строка T не найдена в S, возвращает -1, иначе
+возращает индекс первой позиции в S, с которой совпала строка T. Если указаны start[, end], то
+вместо S берется ее срез:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat and dog'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.find(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">8</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.find(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,0,5)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">-1</SPAN>;<BR><BR>
+<LI> S.format(*args, **kwargs) &ndash; осуществляет форматирование строк, используя подстановки из
+args и kwargs;
+<LI> S.index(T[,start[,end]]) &ndash; работает так же, как S.find(T[,start[,end]]), но
+если строка T не найдена, вырабатывает ислючение ValueError: substring not found (подстрока не
+найдена):<BR><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.index(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'pig'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">ValueError: substring not found</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Метод </SPAN> является операцией, общей для последовательностий
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3);                             
+<LI> S.isalnum() &ndash; возвращает True, если S.isalnum() &ndash; возвращает True, если содержит
+хотя бы один символ и все ее символы содержит хотя бы один символ и все ее символы являются буквами
+или цифрами, иначе возвращает False:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'5_cats'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isalnum()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'5cats'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isalnum()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">''</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isalnum()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI> S.isalpha() &ndash; возвращает True, если содержит хотя бы один символ и все ее символы
+являются буквами, иначе возвращает False:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'one cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isalpha()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isalpha()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<LI> S.isdecimal() &ndash; возвращает True, если все символы S являются десятичными символами
+(decimals), иначе возвращает False. К десятичным символам относятся цифры, а также все символы,
+которые могут быть использованы для формирования чисел с десятичным основанием, например, с помощью
+Юникода:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'23'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isdecimal()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'\u0032\u0033'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'23'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c.isdecimal()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">''</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isdecimal()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI> S.isdigit() &ndash; возвращает True, если s содержит хотя бы один символ и все ее символы
+являются цифрами (digits), иначе возвращает False. Цифры включают десятичные символы и цифры,
+которые требуют обработки, например, показатели степени:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'u0032\u00B3\'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'2<sup>3</sup>'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c.isdecimal()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c.isdigit()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<LI> S.isidentifier() &ndash; возвращает True, если S является идентификатором, заданным в
+соответствии с правилами языка:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'name_1'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isidentifier()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'_'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isidentifier()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'-'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isidentifier()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI> S.islower() &ndash; возвращает True, если S содержит хотя бы один символ и все ее символы
+являются строчными буквами, иначе возвращает False:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'123'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.islower()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.islower()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.islower()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<LI> S.isnumeric() &ndash; возвращает True, если все символы строки S являются числовыми
+символами (numeric characters), иначе возвращает False. Числовые символы включают цифровые символы
+и все символы, которые в Юникоде формируют числовые значения, например, значение дроби, равное
+одной пятой:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'\u2155'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'1/5'</sup>'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c.isdecimal()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c.isdigit()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c.isnumeric()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<LI> S.isprintable() &ndash; возвращает True, если все символы строки S являются печатными или
+строка пуста, иначе возвращает False. Непечатными являются те символы, которые определены в
+базе данных Юникода как "Other” (”Другие”) или “Separator” (”Разделители”), исключая символ пробела
+(ASCII код равен 0x20), который считается печатным:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'www'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c.isprintable()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'\u0007'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c.isprintable()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">''</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isprintable()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<LI> S.isspace() &ndash; проверяет, не является ли S пустой строкой и все ли ее символы являются
+пробелами, символами табуляции, возврата каретки или новой строки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'\t\n\r'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isspace()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' \t\n\r cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isspace()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI> S.istitle() &ndash; проверяет, не является ли S пустой строкой и находится ли она в
+титульном режиме (“title case”) &ndash; в этом режиме заглавные буквы могут появится только в
+начале строки или после некоторых символов, которые не являются  буквами. Строчные буквы могут
+появится только после заглавных:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'A cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.istitle()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'A Cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.istitle()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<LI> S.isupper() &ndash; проверяет, не является ли S пустой строкой и все ли ее буквы являются
+заглавными (небуквенные символы не проверяются):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'A Cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isupper()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'A CAT'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.isupper()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<LI> S.join(iterable) &ndash; аргумент iterable должен быть итерабельным объектом
+(см. <A HREF="../LAB3/lab.htm#1.2">подраздел 1.2</A> лаб. раб. №3), который содержит
+последовательность строк. Возвращаемое значение представляет собой строку, состоящую из строк
+объекта iterable, соединенных между собой строкой S. Например, если объект list_a является списком
+строк (см. <A HREF="../LAB3/lab.htm#2.4">подраздел 2.4</A> лаб. раб. №3):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">list_a=[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'rabbit'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN>,<BR><BR>
+тогда метод join():<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' and '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.join(list_a)</SPAN><BR>
+возвратит строку:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat and dog and rabbit'</SPAN>;<BR><BR>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<LI> S.ljust(width [, fillchar]) &ndash; возвращает S, выравненную по левому краю строки шириной
+width, свободные места справа от S заполняются символами fillchar (по умолчанию пробел), если длина
+строки равна или больше width &ndash; возвращает строку S:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.ljust(10)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Python &nbsp;&nbsp;&nbsp;'</SPAN>;<BR><BR>
+<LI> S.lower() &ndash; возвращает копию S, в которой все заглавные буквы заменены строчными:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"It's a Cat"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.lower()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">"it's a cat"</SPAN>;<BR><BR>
+<LI> S.lstrip([c]) &ndash; возвращает S с удаленными из строки всеми начальными символами,
+которые указаны в строке c (по умолчанию берется строка, содержащая все разделительные символы
+(см. <A HREF="#tabl2">табл. 2</A> ):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' \n \r \tcat \n\t and \t dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.lstrip()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat \n\t and \t dog'</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'_____cat______'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.lstrip(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'_'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat______'</SPAN>;<BR><BR>
+<LI> S.partition(sep) &ndash; выполняет поиск в строке S первого появления разграничителя строки
+sep. Если S содержит разграничитель, то возвращается кортеж (pre, sep, post), где  pre &ndash;
+часть S до разграничителя, sep &ndash; сам разграничитель и post &ndash; часть S после
+разграничителя (кортежи рассмотрены в <A HREF="../LAB4/lab.htm#1">разделе 1</A> лаб. раб. №4).
+Если разграничитель не найден &ndash; возвращается трехэлементный кортеж (S, '', '') :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat and dog'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.partition(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">('Cat', ' ', 'and dog')</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.partition(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">','</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">('Cat and dog', '', '')</SPAN>;<BR><BR>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<LI> S.replace(old,new[,max]) &ndash; возвращает строку S, в которой осуществлена замена подстрок
+old подстроками new. По умолчанию делается замена всех найденных подстрок, необязательный аргумент
+max показывает, сколько подстрок нужно заменить:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat, white dog and black dog play together'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.replace(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'small dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Cat, white small dog and black dog play together</SPAN>;<BR><BR>
+<LI> S.rfind(T[,start[,end]]) &ndash; аналогичен методу S.find(T[,start[,end]]), но возвращает
+начальный индекс последнего вхождения T:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat and small cat'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.find(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">0</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat and small cat'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.rfind(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">14</SPAN>;<BR><BR>
+<LI> S.rindex(T[, start[,end]]) &ndash; аналогичен методу S.index(T[, start[, end]]), но
+возвращает индекс последнего совпадения строки T в строке S:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat and dog'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.index(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">3</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.rindex(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7</SPAN>;<BR><BR>
+<LI> S.rjust(width[, fillchar]) &ndash; возвращает S, выравненную по правому краю строки шириной
+width, свободные места слева от S заполняются символами fillchar (по умолчанию пробел), если длина
+строки равна или больше width &ndash; возвращает строку S:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.rjust(10)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">' &nbsp;&nbsp;&nbsp;Python'</SPAN>;<BR><BR>
+<LI> S.rpartition(sep) &ndash; аналогичен методу S.partition(sep), но ищет последенее появление
+разграничителя:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat and dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.partition(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">('Cat', ' ', 'and dog')</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat and dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.rpartition(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">('Cat and', ' ', 'dog')</SPAN>;<BR><BR>
+<LI> S.rsplit(sep[,max]) &ndash; аналогичен методу S.split(sep[,max]), за исключением того, что
+если число частей строки S превышает max, то неразделенная часть будет помещена не в конец списка,
+а в его начало:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>  
+<SPAN STYLE="font-size:7mm; color:green">'Cat and dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.rsplit(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">None</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">,1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">['cat and', 'dog']</SPAN>;<BR><BR>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<LI> S.rstrip([C]) &ndash; возвращает S с удалением из нее всех конечных символов, которые указаны
+в строке C (по умолчанию берется строка, содержащая все разделительные символы
+(см. <A HREF="#tabl2">табл. 2</A>):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat and dog\n \r'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.rstrip()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat and dog'</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'_____cat______'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.lstrip(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'_'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'_____cat'</SPAN>;<BR><BR>
+<LI> Ы.split([ыуз[,max]]) &ndash; возвращает список строк, полученных путем разделения Ы на части с
+помощью разделителя sep (см. <A HREF="../LAB3/lab.htm#2.4">подраздел 2.4</A> лаб. раб. №3). По
+умолчанию в качестве разделителя используется любой из разделительных символов
+(см. <A HREF="#tabl2">табл. 2</A>). Необязательный аргумент max определяет максимальное число
+частей, на которые может делиться строка S &ndash; число элементов возвращаемого списка не должно
+превышать max+1:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat, small dog\n and\tbig dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">.split()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+['Cat,', 'small', 'dog', 'and', 'big', 'dog']</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat_and_dog_'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.split(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'_'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">['Cat', 'and', 'dog', '']</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat and dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.split(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">None</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">,1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">['Cat', 'and dog']</SPAN>;<BR><BR>
+<LI> S.startswith(T[, start[, end]]) &ndash; проверяет, начинаетсяли строка S строкой T, если
+указаны start[, end], то вместо S берется ее срез:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'A cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.startswith(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'A '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.startswith(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'A '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<LI> S.strip([C]) &ndash; возвращает s с удаленными из строки всеми начальными и конечными
+символами, которые указаны в строке C (по умолчанию берется строка, содержащая все разделительные
+символы (см. <A HREF="#tabl2">табл. 2</A> ):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'\r\n\tcat and dog\r\n'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.strip()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat and dog'</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'_____cat______'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.strip(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'_'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN>;<BR><BR>
+<LI> S.swapcase() &ndash; возвращает копию S, у которой каждый строчный символ заменен заглавным,
+а каждый заглавный &ndash; строчным:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat and Dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.swapcase()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cAT AND dOG'</SPAN>;<BR><BR>
+<LI> S.title() &ndash; возвращает копию S, у которой первый символ каждого слова является
+заглавной буквой, а остальные &ndash; строчными:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'CAT and DOG'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.title()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Cat And Dog'</SPAN>;<BR><BR>
+<LI> S.translate(new[,drop]) &ndash; используется для трансляции или удаления любого символа
+строки S. Аргумент new должен быть строкой из 256 символов, и каждый символ результата x
+определяется как new[ord(x)];
+<LI> S.upper() &ndash; возвращает копию s, у которой каждый строчный символ заменен заглавным:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat and Dog'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.upper()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'CAT AND DOG'</SPAN>;<BR><BR>
+<LI> S.zfill(w) &ndash; возвращает копию S, заполненную слева символами '0' до ширины w:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'25'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.zfill(10)</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'0000000025'</SPAN>.
+</UL>
+<A id="ind"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>Индивидуальные задания</H4>
+<P>Разработать программу на языке Python, которая выполняет следующее:
+<UL CLASS="list">
+<LI> Вводит фамилию, имя и отчество студента в виде одной строки.
+<LI> Определяет срез этой строки согласно колонке "Срез" табл. 3.
+<LI> Применяет к строке метод согласно колонке "Метод" табл. 3.
+<LI> Выводит на экран 5 вопросов, по одному на каждую тему согласно колонке "Темы" табл. 3.<BR>
+Перечень тем:   
+<UL CLASS="list2">
+<LI> 1. Операции с числами; 
+<LI> 2. Функции строк; 
+<LI> 3. ABC-классы; 
+<LI> 4. Целые числа; 
+<LI> 5. Задание строк; 
+<LI> 6. Срезы строк; 
+<LI> 7. Методы строк; 
+<LI> 8. Операторы ввода/вывода; 
+<LI> 9. Условный оператор; 
+<LI> 10. Операторы цикла. 
+</UL>
+<LI> Получает ответы и проверяет их правильность.
+<LI> Подсчитывает сумму баллов и выводит на экран фамилию студента и полученную им оценку.
+</UL>
+<P><table align="center" width="50%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 3 &ndash; Перечень индивидуальных заданий</CAPTION>
+<TR><TH>Номер<BR>п/п<TH>Срез<TH>Метод<TH>Темы
+<TR ALIGN="center"><TD>1<TD>2:7<TD>find()<TD>1,2,3,4,5
+<TR ALIGN="center"><TD>2<TD>:10<TD>replace()<TD ALIGN=center>6,7,3,4,5
+<TR ALIGN="center"><TD>3<TD>7:<TD>upper()<TD ALIGN=center>6,2,8,4,5
+<TR ALIGN="center"><TD>4<TD>2:12:2<TD>swapcase()<TD ALIGN=center>6,2,3,5,9
+<TR ALIGN="center"><TD>5<TD>3:8<TD>lower()<TD ALIGN=center>2,3,4,6,10
+<TR ALIGN="center"><TD>6<TD>:6<TD>center()<TD ALIGN=center>2,3,5,7,8
+<TR ALIGN="center"><TD>7<TD>8:<TD>count()<TD ALIGN=center>2,3,4,7,9
+<TR ALIGN="center"><TD>8<TD>:12,3<TD>endswith()<TD ALIGN=center>2,3,4,8,10
+<TR ALIGN="center"><TD>9<TD>1:5<TD>index()<TD ALIGN=center>1,2,5,6,7
+<TR ALIGN="center"><TD>10<TD>:14<TD>ljust()<TD ALIGN=center>1,2,3,6,10
+<TR ALIGN="center"><TD>11<TD>4:<TD>rfind()<TD ALIGN=center>1,2,3,4,9
+<TR ALIGN="center"><TD>12<TD>3::2<TD>rindex()<TD ALIGN=center>6,7,3,4,5
+<TR ALIGN="center"><TD>13<TD>-8:-1 <TD>rjust()<TD ALIGN=center>6,2,8,4,9
+<TR ALIGN="center"><TD>14<TD>:-2<TD>startswith()<TD ALIGN=center>6,8,3,5,9
+<TR ALIGN="center"><TD>15<TD>5:-3 <TD>title()<TD ALIGN=center>2,5,4,6,10
+<TR ALIGN="center"><TD>16<TD>-2-6:-2<TD>zfill()<TD ALIGN=center>2,4,5,7,8
+<TR ALIGN="center"><TD>17<TD>-3:1:-1<TD>replace()<TD ALIGN=center>5,3,4,7,9
+<TR ALIGN="center"><TD>18<TD>1:-1 <TD>find()<TD ALIGN=center>2,3,4,8,9
+<TR ALIGN="center"><TD>19<TD>:-8 <TD>isidentifier()<TD ALIGN=center>4,2,5,6,7
+<TR ALIGN="center"><TD>20<TD>-4::-2 <TD>islower()<TD ALIGN=center>8,2,3,6,10
+</TABLE>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>

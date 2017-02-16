@@ -24,47 +24,36 @@
 <span id="soft"></span>
 ## Програмні засоби та інструменти
 
-1. [Python 3.5.1](https://www.python.org/downloads/release/python-351/) - у комплекті надається інтегроване середовище розробки.
+1. [Python 3.6.0](https://www.python.org/downloads/release/python-360/) - у комплекті надається інтегроване середовище розробки.
 
 2. [Simple Python style checker](https://github.com/pycqa/pep8) - перевірка початкового кода на відповідність [PEP 8](http://www.python.org/dev/peps/pep-0008).
 
 3. [Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html) <span id="doxy"></span> - система документування початкового коду. Додатково встановити:
 
-	- [Graphviz](http://www.graphviz.org/Download.php) - Graph Visualization Software;
-	- [Mscgen](http://www.mcternan.me.uk/mscgen/) - Message Sequence Chart Renderer.
-
-4. [TortoiseSVN](http://tortoisesvn.net/downloads.html) <sup><abbr title="SVN-репозиторій використовувати за розсудом викладача">[1](#note_svn)</abbr></sup> - Subversion (SVN) client. В лабораторіях ОЦ НТУ "ХПІ" включити використання *proxy-сервера* в меню *TortoiseSVN/Settings/Network*:
-
-	- Enable Proxy Server;
-	- Server address: `172.17.10.2`;
-	- Port: `3128`.
-
-5. [SVN Hosting](https://www.assembla.com) <sup><abbr title="SVN-репозиторій використовувати за розсудом викладача">[1](#note_svn)</abbr></sup> - веб-сервіс управління версіями:
-
-	- потрібна попередня реєстрація [GET STARTED WITH FREE REPOSITORIES](https://www.assembla.com/repositories);
-	- при реєстрації обов'язково вказувати **Username** у вигляді **surname_name** - прізвище та ім'я розробника [латинкою в нижньому регістрі](http://translit.kh.ua/?lat&passport);
+- [Graphviz](http://www.graphviz.org/Download.php) - Graph Visualization Software;
+- [Mscgen](http://www.mcternan.me.uk/mscgen/) - Message Sequence Chart Renderer.
 
 ---
 
 <span id="references"></span>
 ## Рекомендації
 
-- **Використовувати:**
+1. **Використовувати:**
 
-	- [Style Guide](https://www.python.org/dev/peps/pep-0008).
-	- [Викиучебник](https://ru.wikibooks.org/wiki/Python).
-	- [Python Documentation](https://docs.python.org/3).
-		- [Tutorial](https://docs.python.org/3/tutorial).
-		- [Language Reference](https://docs.python.org/3/reference).
-		- [Library Reference](https://docs.python.org/3/library).
+- [Style Guide](https://www.python.org/dev/peps/pep-0008).
+- [Викиучебник](https://ru.wikibooks.org/wiki/Python).
+- [Python Documentation](https://docs.python.org/3).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Tutorial](https://docs.python.org/3/tutorial).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Language Reference](https://docs.python.org/3/reference).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Library Reference](https://docs.python.org/3/library).
 
-- **Ознайомитись:**
+2. **Ознайомитись:**
 
-	- [What’s New in Python](https://docs.python.org/3/whatsnew).
-	- [Python HOWTOs](https://docs.python.org/3/howto).
-	- [Best practices for writing Python code](http://docs.python-guide.org/en/latest).
-	- [Code Like a Pythonista](http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html) ([переклад рос.](https://habrahabr.ru/post/88972/)).
-	- [Python Tips, Tricks, and Hacks](http://www.siafoo.net/article/52) ([переклад рос.](http://habrahabr.ru/post/85238/), [pdf](http://idzaaus.org/static/files/articles/Python_Tips,_Tricks,_and%20Hacks_\(rus\).pdf)).
+- [What’s New in Python](https://docs.python.org/3/whatsnew).
+- [Python HOWTOs](https://docs.python.org/3/howto).
+- [Best practices for writing Python code](http://docs.python-guide.org/en/latest).
+- [Code Like a Pythonista](http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html) ([переклад рос.](https://habrahabr.ru/post/88972/)).
+- [Python Tips, Tricks, and Hacks](http://www.siafoo.net/article/52) ([переклад рос.](http://habrahabr.ru/post/85238/), [pdf](http://idzaaus.org/static/files/articles/Python_Tips,_Tricks,_and%20Hacks_\(rus\).pdf)).
 
 ---
 
@@ -72,25 +61,27 @@
 ## Лабораторні роботи
 
 |  №  | Тема     |
-|----:|:---------|
-|  1  | [Основы языка Python.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB1/lab.htm?_format=raw) |
-|  2  | [Модули. Строки.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB2/lab.htm?_format=raw) |
-|  3  | [ABC-классы. Списки.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB3/lab.htm?_format=raw) |
-|  4  | [Кортежи. Диапазоны. Двоичные последовательности.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB4/lab.htm?_format=raw) |
-|  5  | [Множества. Словари. Генераторы.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB5/lab.htm?_format=raw) |
-|  6  | [Разработка функций и модулей пользователя.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB6/lab.htm?_format=raw) |
-|  7  | [Разработка CGI скриптов на языке Python.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB7/lab.htm?_format=raw) |
-|  8  | [Работа с файлами на языке Python.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB8/lab.htm?_format=raw) |
-|  9  | [Регулярные выражения.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB9/lab.htm?_format=raw) |
-| 10  | [Использование технологии AJAX.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB10/lab.htm?_format=raw) |
-| 11  | [Создание пользовательских классов.](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB11/lab.htm?_format=raw) |
+|:---:|:---------|
+|  1  | [1](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB1/lab.htm?_format=raw) |
+|  2  | [2](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB2/lab.htm?_format=raw) |
+|  3  | [3](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB3/lab.htm?_format=raw) |
+|  4  | [4](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB4/lab.htm?_format=raw) |
+|  5  | [5](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB5/lab.htm?_format=raw) |
+|  6  | [6](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB6/lab.htm?_format=raw) |
+|  7  | [7](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB7/lab.htm?_format=raw) |
+|  8  | [8](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB8/lab.htm?_format=raw) |
+|  9  | [9](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB9/lab.htm?_format=raw) |
+| 10  | [10](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB10/lab.htm?_format=raw) |
+| 11  | [11](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB11/lab.htm?_format=raw) |
+| 12  | [12](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB11/lab.htm?_format=raw) |
+| 13  | [13](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB11/lab.htm?_format=raw) |
 
 <span id="lab_todo"></span>
 ### Спільні завдання
 
 |  №  | Завдання |
 |:---:|:---------|
-|  1  | Розробити програму для рішення [індивідуального завдання](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab). |
+|  1  | Розробити програму для рішення індивідуального завдання |
 |  2  | Виконати [рефакторинґ](https://refactoring.guru/) з урахуванням загальних [вимог](#lab_requirements). |
 |  3  | Підготувати до перевірки опис розробленої програми у вигляді [звіту](#lab_report). |
 |  4  | Виправити програму з урахуванням отриманих зауважень. |
@@ -107,50 +98,26 @@
 
 3. **Коментувати** текст програми для обробки пакетом [Doxygen](#doxy).
 
-4. **Початковий** код розташовувати в репозиторії лише той, що успішно компілюється та відповідає [Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008).
+4. **Назву** особистої директорії *surname* з відповідним номером роботи *XX* використовувати для іменування директорій **рішень**, **проектів** і **звітів** лабораторних робіт. Наприклад:
 
-5. **Повідомлення** до коміту - що саме ви зберігаєте - має бути зрозумілим. На початку повідомлення вказувати:
+- студент з особистим каталогом `shevchenko`
+- для проектів двох лабораторних робіт використовує наступні шляхи і назви файлів:
 
-	- **номер** тікета (завдання) - номер у [таблиці](#lab_todo), що містить список спільних завдань та зауважень;
-	- **тему/компонент** до якого належить коміт. Наприклад:
-
-		```
-#1, #3 shevchenko01: завдання виконано, звіт підготовлений до перевірки
-#2 task01: отформатирован текст и добавлены комментарии
-#4 Locator: алгоритм пошуку оптимізовано
-#4 task02: удалены лишние файлы
-#4 raeth: fix regression after [a002b90]
-		```
-
-6. **Назву** особистої директорії *surname* з відповідним номером роботи *XX* використовувати для іменування директорій **рішень**, **проектів** і **звітів** лабораторних робіт. Наприклад:
-
-	- студент з особистим каталогом `shevchenko`
-	- для проектів двох лабораторних робіт використовує наступні шляхи і назви файлів:
-
-		```
+```
 shevchenko/src/shevchenko01/shevchenko01.py
 shevchenko/src/shevchenko02/shevchenko02.py
-		```
-	- для звітів:
+```
 
-		```
+- для звітів:
+
+```
 shevchenko/doc/shevchenko01/shevchenko01.odt
 shevchenko/doc/shevchenko01/shevchenko01.pdf
 shevchenko/doc/shevchenko02/shevchenko02.odt
 shevchenko/doc/shevchenko02/shevchenko02.pdf
-		```
+```
 
-7. **Checkout URL** для доступу до особистої директорії формується додаванням до *Checkout URL* спільного сховища назви особистої директорії. Наприклад:
-
-	- загальне сховище має *Checkout URL:*
-
-		`https://subversion.assembla.com/svn/kitXX-2016-py/`
-
-	- тоді *Checkout URL* для доступу до особистої директорії *shevchenko*:
-
-		`https://subversion.assembla.com/svn/kitXX-2016-py/shevchenko`
-
-8. **Дотримуватися** принципів, що виводяться інтерпретатором *Python* по команді `import this`.
+5. **Дотримуватися** принципів, що виводяться інтерпретатором *Python* по команді `import this`.
 
 <span id="lab_report"></span>
 ### Звіт
@@ -165,7 +132,7 @@ shevchenko/doc/shevchenko02/shevchenko02.pdf
 	- A4 з полями: **2.5 см** зліва, **2 см** праворуч, **2 см** зверху, **2 см** знизу;
 	- гарнітура: **Times New Roman**; кегль: **14**; міжрядковий інтервал: **одинарний**;
 	- відступ першого рядка абзацу: **1.27 см**; вирівнювання: **у ширину**;
-	- приклад див. у файлі [oop_appendix_2.pdf](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/oop_appendix_2.pdf?_format=raw).
+	- приклад див. у файлі [oop_appendix_2.pdf]().
 
 3. **Структура** звіту:
 

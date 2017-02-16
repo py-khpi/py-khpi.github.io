@@ -1,0 +1,963 @@
+<HTML>
+<HEAD>
+<TITLE>Лабораторная работа 5: Множества. Словари. Генераторы</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">
+<STYLE>TH,TD{font-size:6mm;border:1 double blue}</STYLE>
+</HEAD>
+<BODY>
+<A href="go.js">lab</A>
+<H1> ЛАБОРАТОРНАЯ РАБОТА №5</H1>
+<H2> <SPAN CLASS="beg">Тема: </SPAN>Множества. Словари. Генераторы</H2>
+<H2> <SPAN CLASS="beg">Цель: </SPAN>
+Рассмотрение способов работы с множествами, словарями и генераторами </H2>
+<A NAME="beg"></A>
+<H3>ОГЛАВЛЕНИЕ</H3> 
+
+<A CLASS="com" HREF="#1">1 Множества<BR>
+<A CLASS="com" HREF="#1.1">1.1 Создание множеств<BR>
+<A CLASS="com" HREF="#1.2">1.2 Добавление элементов к множеству<BR>
+<A CLASS="com" HREF="#1.3">1.3 Удаление элементов из множества<BR>
+<A CLASS="com" HREF="#1.4">1.4 Сравнение и копирование множеств<BR>
+<A CLASS="com" HREF="#1.5">1.5 Операции над множествами<BR>
+<A CLASS="com" HREF="#2">2 Словари<BR>
+<A CLASS="com" HREF="#2.1">2.1 Создание словарей<BR>
+<A CLASS="com" HREF="#2.2">2.2 Методы словарей<BR>
+<A CLASS="com" HREF="#3">3 Генераторы<BR>
+<A CLASS="com" HREF="#3.1">3.1 Использование генератора для формирования списка<BR>
+<A CLASS="com" HREF="#3.2">3.2 Использование генератора для формирования множества<BR>
+<A CLASS="com" HREF="#3.3">3.3 Использование генератора для формирования словаря<BR>
+<A CLASS="com" HREF="#4">4 Копирование объектов<BR>
+<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+
+<A NAME="1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>1 Множества</H4>
+<P>Объекты множества в языке Python представляют собой неупорядоченные контейнеры
+(см. <a href="../LAB3/lab.htm#1.1">подраздел 1.1</a> лаб. раб. №3) уникальных хэшируемых
+объектов. <BR>
+<SPAN CLASS="txt_abz">Объект </SPAN>является хэшируемым, если он имеет значение хэш-функции,
+которое не меняется в течение времени существования объекта, т.е. поддерживает метод
+<SPAN CLASS="svoj">__hash__()</SPAN> и может быть сравним с другими объектами с помощью метода
+<SPAN CLASS="svoj">__eq__()</SPAN>
+(см. <a href="../LAB3/lab.htm#1.3">подраздел 1.3</a> лаб. раб. №3). Все хэшируемые объекты
+являются неизменяемыми объектами и принадлежат ABC-классу Hashable (см.
+<a href="../LAB3/lab.htm#1">раздел 1</a> лаб. раб. №3).<BR>
+<SPAN CLASS="txt_abz">Хэшируемость </SPAN>объектов позволяет использовать их в качестве элементов
+множества и ключей словарей (см. <A HREF="#2.1">подраздел 2.1</A>), поскольку эти структуры данных
+используют значения хэш-функции.<BR>
+<SPAN CLASS="txt_abz">В </SPAN>языке Python все встроенные неизменяемые объекты (такие, как числа,
+логические значения, строки и кортежи) являются хэшируемыми:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">collections </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Hashable</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.25e-1, Hashable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">False</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, Hashable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Web'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, Hashable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">((1,2,3),collections.Hashable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR><BR>
+в то время как изменяемые контейнеры, такие как изменяемые множества
+(см. <a href="#1.1">подраздел 1.1</a>), словари (см. <a href="#2.1">подраздел 2.1</a>) и списки
+(см. <a href="../LAB3/lab.htm#2">раздел 2</a> лаб. раб. №3) &ndash; нет:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">], Hashable</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Объекты, </SPAN>которые являются экземплярами созданных пользователем
+классов, являются хэшироваными по умолчанию, при сравнении между собой они не равны и значения их
+хэшей являются значениям их <SPAN CLASS="svoj">id()</SPAN>.<BR> 
+<SPAN CLASS="txt_abz">Объекты </SPAN>множества могут быть использованы при проверке на наличие
+элементов в последовательности, при удалении дубликатов из последовательности и при выполнении
+математических операций над множествами, таких как объединение, пересечение и вычитание. <BR>
+<SPAN CLASS="txt_abz">Имеется </SPAN>два встроенных типа (класса) множеств:
+<SPAN CLASS="svoj">set</SPAN> и <SPAN CLASS="svoj">frozenset</SPAN>
+(см. <A HREF="#2.1">подраздел 2.1</A>). <BR>
+<SPAN CLASS="txt_abz">Тип </SPAN><SPAN CLASS="svoj">set</SPAN> является изменяемым множеством или
+просто множеством. Как изменяемый объект, он не может быть использован ни в качестве ключа в
+словарях, ни в качестве элемента другого множества.<BR>
+<SPAN CLASS="txt_abz">Тип </SPAN><SPAN CLASS="svoj">frozenset</SPAN> является неизменяемым
+множеством. Поэтому может быть ключом в словаре и элементом другого множества. <BR> 
+<A NAME="1.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.1 Создание множеств</H4>
+<P>Создавать экземпляры изменяемого множества (тип <SPAN CLASS="svoj">set</SPAN>) можно с помощью
+литерала, поместив в фигурные скобки элементы множества неизменяемых типов, разделенные запятыми:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set={1,2,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{'b', 1, 2, 'a'}</SPAN>,<BR><BR>
+или с помощью генератора элементов множества (см. <A HREF="#3.2">подраздел 3.2</A>).<BR>
+<SPAN CLASS="txt_abz">Проверим </SPAN>изменяемость (нехэшируемость) множеств:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_set, Hashable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Также </SPAN>для создания множества можно использовать конструктор &ndash;
+встроенную функцию <SPAN CLASS="svoj">set([iterable])</SPAN>
+(см. <A HREF="../LAB1/lab.htm#set">подраздел 8.1</A> лаб. раб. №1), аргументом которой является
+итерабельный объект. Поэтому в объекты множества можно преобразовать такие последовательности, как
+строки, списки, кортежи и диапазоны. Если строка, список, кортеж или
+диапазон содержат одинаковые элементы, после преобразования из них останется только один: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">set</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'ABBA'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{'B','A'}</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что, поскольку множество является неупорядоченным
+контейнером, то и элементы полученного множества могут указываться интерпретатором в произвольном
+порядке.<BR>
+<SPAN CLASS="txt_abz">Раз </SPAN>элементы множества не могут быть изменяемыми типами, то и
+итерабельный тип, указанный в качестве аргумента функции <SPAN CLASS="svoj">set()</SPAN> не может
+содержать изменяемые (нехэшируемые) элементы:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">set</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([1,2,[3,4]])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+TypeError: unhashable type: 'list'</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>создания объектов множества неизменяемого типа
+<SPAN CLASS="svoj">frozenset</SPAN> необходимо использовать конструктор &ndash; встроенную функцию  <SPAN CLASS="svoj">frozenset()</SPAN>
+(см. <A HREF="/!PYTHON/LAB1/lab.htm#frozenset">подраздел 8.1</A> лаб. раб. №1,
+аргументом которой является итерабельный объект:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">frozenset</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">((</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'d'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">frozenset({'d', 'a', 'c'})
+</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Экземпляры </SPAN>типов <SPAN CLASS="svoj">set</SPAN> и
+<SPAN CLASS="svoj">frozenset</SPAN>, являясь контейнерами:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">collections</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">({1,2},collections.Container)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(frozenset({1,2}), collections.Container)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">и </SPAN>не являясь последовательностями:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">({1,2},collections.Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(frozenset({1,2}), collections.Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR><BR>
+поддерживают лишь часть операций, свойственных последовательностям (те из них, которые также
+поддерживают и контейнеры):
+<UL CLASS="list">
+<LI> x in s &ndash; возвращает True,  если x содержится в s, False &ndash; в противном случае;
+<LI> x not in s &ndash; возвращает True,  если x не содержится в s, False &ndash; в противном
+случае;
+<LI> len(s) &ndash; возвращает число элементов s;
+<LI> max(s) &ndash; возвращает максимальный элемент s;
+<LI> min(s) &ndash; возвращает миниимальный элемент s.
+</UL>
+<p>Можно добавить, что объекты изменяемого множества <SPAN CLASS="svoj">set</SPAN> принадлежат
+ABC-классу <SPAN CLASS="svoj">MutableSet</SPAN>: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s={1,2,3}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(s,collections.MutableSet)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,
+<p class="ba">а объекты неизменяемого класса <SPAN CLASS="svoj">frozenset</SPAN> &ndash; нет:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">fs=frozenset(s)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(fs,collections.MutableSet)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR><BR>
+<A NAME="1.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.2 Добавление элементов к множеству</H4>
+<P>Имеется два способа добавления элементов в существующее множество:
+<UL CLASS="list">
+<LI> метод add() принимает один аргумент, который может быть любого неизменяемого типа и добавляет
+данное значение к множеству:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.add((4,5))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{'a', 1, 2, 'b', (4, 5)}</SPAN><BR><BR>
+<LI> метод update() может принимать несколько аргументов разных типов и добавлять их к множеству,
+если аргументами являются последовательности (списки, кортежи или множества), то их элементы должны
+быть хэшируемыми (неизменяемых типов) и добавляться как новые элементы множества (при этом
+одинаковые элементы удаляются):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.update([2,3],{</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">})</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{1, 2, 3, 'a', 'c', 'b', (4, 5)}</SPAN> <BR><BR>
+</UL>
+<p>Отметим, что объекты типа <SPAN CLASS="svoj">frozenset</SPAN>, будучи неизменяемыми множествами,
+не имеют методов добавления элементов к множеству.
+<A NAME="1.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.3 Удаление элементов из множества</H4>
+<P>Имеется несколько способов удаления элементов из существующего множества:
+<UL CLASS="list">
+<LI> метод discard() принимает в качестве аргумента одиночное значение и удаляет это значение
+из множества, если этого значения в множестве нет, то ничего не произойдет:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.discard(2)<SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1, 3, 4, 'b', 'c', 'a'}</SPAN>; <BR><BR>
+<LI> метод remove() также принимает в качестве аргумента одиночное значение, и также удаляет
+его из множества, но в отличие от метода discard(), если в множестве нет элемента, то будет
+выработано исключение KeyError:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.remove(<SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'<SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)<SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1, 3, 4, 'c', 'b'}</SPAN>, <BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.remove(<SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'<SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)<SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:red">KeyError: 'a'</SPAN>;<BR><BR>
+<LI>&nbsp;метод pop() удаляет из множества первый элемент и возвращает его значение:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.pop()<SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{3, 4, 'c', 'b'}</SPAN>,<BR> 
+если множество пусто &ndash; обозначается <SPAN CLASS="svoj">set()</SPAN>, то вырабатывается
+исключение:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">KeyError: 'pop from an empty set'</SPAN><BR><BR>
+С помощью метода pop() можно просмотреть все элементы множества:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:ff8000">while </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set:</SPAN><BR>
+<SPAN STYLE="margin-left:4.1cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_set.pop())</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">3</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">c</SPAN>;<BR> <BR>
+<LI> метод clear() удаляет все элементы множества, создавая пустое множество:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.clear()<SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">set()</SPAN>. <BR>
+</UL>
+<p>В логическом контексте пустое множество <SPAN CLASS="svoj">set()</SPAN> соответствует False,
+любое другое &ndash; True. <BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что объекты типа <SPAN CLASS="svoj">frozenset</SPAN>, будучи
+неизменяемыми множествами, не имеют методов удаления элементов из множества.
+<A NAME="1.4"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.4 Сравнение и копирование множеств</H4>
+<P>Python имеет несколько методов сравнения множеств:
+<UL CLASS="list">
+<LI> метод isdisjoint() принимает в качестве аргумента другое множество и возвращает значение
+True, если множенства не имеют общих элементов:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set={1,2,5,6}<SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.isdisjoint({3,7})<SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.isdisjoint({2,7})<SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI>&nbsp; метод issubset() принимает в качестве аргумента другое множество и возвращает значение
+True, если каждый элемент данного множества содержится в другом множестве:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.issubset({1,2,3,3,5,6})<SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>;<BR><BR>
+<LI> метод issuperset() принимает в качестве аргумента другое множество и возвращает значение
+True, если каждый элемент другого множества содержится в данном множестве:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.issuperset({1,6})<SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR>
+</UL>
+<P>Метод <SPAN CLASS="svoj">copy()</SPAN> используется для "поверхностного" копирования списков
+(см. <A HREF="#4">раздел 4)</A>):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_set=a_set.copy()<SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_set<SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1, 2, 5, 6}</SPAN>.<BR>
+<A NAME="1.5"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.5 Операции над множествами</H4>
+<P>Python имеет несколько методов для выполнения основных операций над множествами:
+<UL CLASS="list">
+<LI> метод union() (объединение) возвращает новое множество, содержащее все элементы каждого
+из множеств:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set={1,2,5,6,9}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_set={2,4,6,8}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.union(b_set)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1, 2, 4, 5, 6, 8, 9}</SPAN>,<BR><BR>
+метод симметричен, т.е. a_set.union(b_set)=b_set.union(a_set):</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_set.union(a_set)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1, 2, 4, 5, 6, 8, 9}</SPAN>;<BR><BR>
+<LI> метод intersection() (пересечение) возвращает новое множество, содержащее все элементы,
+которые есть и в первом множестве, и во втором:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.intersection(b_set)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{2, 6}</SPAN>,<BR><BR>
+метод симметричен;
+<LI> метод difference() (разность) возвращает новое множество, содержащее все элементы,
+которые есть в множестве a_set, но которых нет в множестве b_set:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.difference(b_set)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{9, 5, 1}</SPAN>,<BR><BR>
+этот метод не симметричен, поскольку a_set.difference(b_set) не равно b_set.difference(a_set):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_set.difference(a_set)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{8, 4}</SPAN>;<BR><BR>
+<LI> метод symmetric_difference() (симметрическая разность) возвращает новое множество,
+которое содержит только уникальные элементы обоих множеств:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set.symmetric_difference(b_set)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1, 4, 5, 8, 9}</SPAN>,<BR><BR>
+метод симметричен.
+</UL>
+<P><A NAME="2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>2 Словари</H4>
+<P>Словари в языке Python имеют тип (класс) <SPAN CLASS="svoj">dict</SPAN> и представляют собой
+множество пар вида <SPAN CLASS="svoj">ключ:значение</SPAN>. Словари в языке Python похожи на
+ассоциативные массивы языка Jaxascript.
+<A NAME="2.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.1 Создание словарей</H4>
+<P>Для создания словаря в виде литерала необходимо поместить его элементы, заданные в виде пар
+<SPAN CLASS="svoj">ключ:значение</SPAN> и разделеные запятыми, в фигурные скобки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict={</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'alpha'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:1, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'beta'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:2, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'gamma'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:3}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="fontlab3.htm-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'alpha': 1, 'beta': 2, 'gamma': 3}</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">В </SPAN>качестве ключа необходимо использовать только неизменяемые
+(хэшируемые) типы: числа (целые и с плавающей точкой), строки, логические значения, кортежи,
+диапазоны и неизменяемые множества. В качестве значения могут быть заданы любые из рассмотренных
+типов, включая изменяемые множества и словари.<BR>
+<SPAN CLASS="txt_abz">Словари </SPAN>также можно задавать с помощью конструктора &ndash; встроенной
+функции <SPAN CLASS="svoj">dict()</SPAN>
+(см. <A HREF="../LAB1/lab.htm#dict">подраздел 8.1</A> лаб. раб. №1). Если при
+вызове функция не имеет аргументов, то создается пустой список:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">dict</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{}</SPAN>,<BR><BR>
+если имеет, то для создания словаря могут быть использованы следующие варианты задания аргументов:
+<UL CLASS="list">
+<LI> именованные аргументы, которые указываются в виде пар "имя=значение"
+(см. <a href="../LAB6/lab.htm#1.1.2">подраздел 1.1.2</a> лаб. раб. №6):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">dict</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(alpha=1, beta=2, gamma=3)</SPAN>;<BR><BR>
+<LI>&nbsp; аргумент, имеющий тип словаря:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c_dict=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">dict</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">({</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'gamma'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:3, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'alpha'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:1, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'beta'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:2}) </SPAN>;<BR><BR>
+<LI> аргумент итерабельного типа, например, список, элементами которого являются кортежи,
+содержащие ровно два элемента: первый из которых задает ключ словаря, а второй &ndash; значение:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">d_dict=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">dict</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'alpha'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,1), ( </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'beta'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,2), ( </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'gamma'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,3)])</SPAN><BR>
+</UL>
+<P>Выше четырьмя разными способами были созданы словари <SPAN CLASS="svoj">a_dict()</SPAN>,
+<SPAN CLASS="svoj">b_dict()</SPAN>, <SPAN CLASS="svoj">c_dict()</SPAN> и
+<SPAN CLASS="svoj">d_dict()</SPAN>, имеющие одно и то же значение. Проверим это:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict==b_dict==c_dict==d_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Если </SPAN>ключи и значения словаря заданы последовательностями, то для
+создания словаря также можно использовать встроенную функцию
+<SPAN CLASS="svoj">zip(*iterable)</SPAN>
+(см. <A HREF="../LAB1/lab.htm#zip">подраздел 8.1</A> лаб. раб. №1), которая
+возвращает итератор, элементами которого являются кортежи, где i-й кортеж содержит i-е элементы
+каждого аргумента последовательностей или итерабельных объектов.
+Если последовательности, явдяющиеся аргументами функции, имеют разную длину, то формируемые кортежи
+имеют число элементов, равное длине минимальной последовательности. Если указан один элемент &ndash;
+функция возвращает итератор, состоящий из одноэлементных кортежей. Если аргументы не указаны &ndash;
+возвращается пустой итератор.<BR>
+<SPAN CLASS="txt_abz">Пусть, </SPAN>например, ключи словаря представлены списком
+<SPAN CLASS="svoj">key_list</SPAN>, а значения &ndash; кортежом
+<SPAN CLASS="svoj">value_tuple</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">key_list=[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">value_tuple=(1.32, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'value'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, [1,2,3], 25)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Теперь </SPAN>с помощью функции <SPAN CLASS="svoj">zip()</SPAN>, аргументами
+которой являются последовательности <SPAN CLASS="svoj">key_list</SPAN> и
+<SPAN CLASS="svoj">value_tuple</SPAN>, создаем итератор с именем <SPAN CLASS="svoj">zipped</SPAN>:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">zipped=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">zip</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(key_list, value_tuple)</SPAN>,<BR>
+<P CLASS="ba">который имеет тип <SPAN CLASS="svoj">zip</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">type</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(zipped)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">&lt;class 'zip'></SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Остается </SPAN>только преобразовать его с помощью конструктора в словарь:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">e_dict=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">dict</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(zipped)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">e_dict</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'a': 1.32, 'b': 'value', 'c': [1, 2, 3]}</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Следует </SPAN>сказать, что словари в настоящее время являются единственными
+представителями ABC-класса <SPAN CLASS="svoj">Mapping</SPAN>, объекты которого ставят в
+соответсвие неизменяемые значения произвольным объектам. Являются изменяемыми контейнерами типа
+<SPAN CLASS="svoj">Mapping</SPAN>:<BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">collections</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">({1:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,2:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,3:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">},collections.Container)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">({1:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,2:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,3:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">},collections.Mapping)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">({1:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,2:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,3:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">},collections.MutableMapping)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>получения значения словаря по ключу нобходимо воспользоваться
+выражением:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'beta'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">2</SPAN>,<BR><BR>
+если указанный ключ отсутствует &ndash; возбуждается исключение KeyError:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'delta'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">KeyError: 'delta'</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Чтобы </SPAN>получить все значения словаря следует использовать оператор
+<SPAN CLASS="svoj">for in</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">key</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict:</SPAN><BR>
+<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(key,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'='</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,a_dict[key])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">alpha = 1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">beta = 2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">gamma = 3</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Можно изменять значение ключа</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'alpha'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]=11</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'alpha': 11, 'beta': 2, 'gamma': 3}</SPAN>
+<P CLASS="ba">и добавлять новые пары в словарь:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'epsilon'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]=5</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'alpha': 22, 'beta': 2, 'gamma': 3, 'epsilon': 5}</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>удаления ключа необходимо указать:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">del </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'alpha'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'beta': 2, 'gamma': 3, 'epsilon': 5}</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Словари </SPAN>так же, как последовательности и множества поддерживают
+функцию определения числа элементов <SPAN CLASS="svoj">len()</SPAN> и оператор
+<SPAN CLASS="svoj">in</SPAN>, позволяющий определить принадлежность элемента контейнеру.<BR>
+<SPAN CLASS="txt_abz">Пустой </SPAN>словарь &ndash; {} в логическом контексте равен False, все
+остальные словари &ndash; True.
+<A NAME="2.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.2 Методы словарей</H4>
+<P>Словари поддерживают следующие методы:
+<UL CLASS="list">
+<LI> clear() &ndash; очищает словарь, возвращая значение {}:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict={1:101, 2:102, 3:103}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict.clear()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{}</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Метод </SPAN>clear() поддерживается всеми изменяемыми классами данных;
+<LI> copy() &ndash; возвращает ссылку на вновь созданный объект класса dict с теми же
+значениями (т.е. выполняет "поверхностное" копирование, см. <A HREF="#4">раздел 4</A>):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict=a_dict.copy()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'beta': 2, 'gamma': 3, 'epsilon': 5}</SPAN>.<BR> <BR>
+<SPAN CLASS="txt_abz">Метод </SPAN>copy() поддерживается всеми изменяемыми классами данных; 
+<LI> get(key[, default]) &ndash; если словарь имеет ключ key, возращает его значение, если
+нет &ndash; возвращает значение, заданное вторым аргументом (значение по умолчанию):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict.get(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'gamma'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'new_key'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'gamma'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict.get(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'delta'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'new_key'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'new_key'</SPAN>;<BR><BR>
+<LI> items() &ndash; возвращает элементы словаря в виде пар (key, value):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">items=a_dict.items()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">items</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+dict_items([('epsilon', 5), ('beta', 2), ('gamma', 3)])</SPAN><BR><BR>
+<LI> keys() &ndash; возвращает все ключи словаря:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict.keys()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+dict_keys(['beta', 'gamma', 'epsilon'])</SPAN><BR><BR>
+<LI> pop(key[, default) &ndash; если указанный ключ содержится в словаре,  удаляет его из
+словаря и возвращает его значение, иначе возвращает значение по умолчанию. Если значение по
+умолчанию не указано и ключ не содержится в словаре, то возникает исключение KeyError:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict.pop(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'gamma'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">3</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'beta': 2, 'delta': 4, 'epsilon': 5}
+</SPAN>;<BR><BR>
+<LI> popitem() &ndash; удаляет и возвращает произвольную пару вида (key, value) из словаря;
+<LI> setdefault(key[, default) &ndash; похож на метод get(), но если ключа нет в
+словаре &ndash; не только возвращает значение по умолчанию, но и устанавливает его:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict.setdefault(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'delta'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">4</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'beta': 2, 'delta': 4, 'epsilon': 5}</SPAN><BR><BR>
+<LI> update([dict2]) &ndash; возвращает слияние элементов данного словаря и словаря,
+заданного аргументом (аргумент может быть задан: в виде именованных аргументов, в виде
+итерабельного типа или в виде словаря (см. описание конструктора dict() в
+<A HREF="#2.1">подразделе 2.1</A>):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict={</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'figure'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'circle'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'color'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'green'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict.update(b_dict)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{'beta': 2, 'figure': 'circle', 'delta': 4, 'color': 'green', 'epsilon': 5}</SPAN><BR><BR>
+<LI> values() &ndash; возвращает все значения словаря:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict.values</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+dict_values([2, 'circle', 4, 'green', 5])</SPAN>.<BR><BR>
+</UL>
+<A NAME="3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>3 Генераторы</H4>
+<P>В литералах при создании списков, множеств и словарей помимо указания перечня их элементов
+(см. подразделы <A HREF="../LAB3/lab.htm#2.1">2.1</A> лаб. раб. №3, <A HREF="#1.1">1.1</A> и
+<A HREF="#2.1">2.1</A>) можно также указать генераторы элементов этих контейнеров.
+<A NAME="3.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.1 Использование генератора для формирования списка</H4>
+<P> Например, создание списка кубов целых чилел от 1 до 10 можно осуществить следующим образом:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list=[x**3 </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in  </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1, 11)]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Выражение </SPAN><SPAN CLASS="svoj">x**3 for x in range(1,11)</SPAN>
+является генераторным выражением. Оно имеет тип генератора:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">type</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(x**3 </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1, 11))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">&lt;class 'generator'></SPAN><BR><BR>
+и состоит из выражения <SPAN CLASS="svoj">x**3</SPAN>, за которым следует оператор
+<SPAN CLASS="svoj">for</SPAN> для итерабельного типа. В таком виде генераторное выражение может
+использоваться только в качестве единичного аргумента в функциях. В остальных случаях необходимо
+указывать его в скобках, например при анализе, является ли тип <SPAN CLASS="svoj">generator</SPAN>
+итерабельным:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">collections</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">((x**3 </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1, 11)), collections.Iterable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">В </SPAN>приведенном примере сформированные кубы целых чисел сохранены в
+памяти в виде списка. Для длинных последовательностей это не всегда удобно. Рассмотрим вариант
+генерации кубов чисел без сохранения их в памяти:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">gen=(x**3 </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in  </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">range</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1, 11))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">gen:</SPAN><BR>
+<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x, end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+1, 8, 27, 64, 125, 216, 343, 512, 729, 1000</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Поскольку </SPAN>значения генератора <SPAN CLASS="svoj">gen</SPAN> не
+сохранены в памяти повторное его использование ничего не дает:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">gen:</SPAN><BR>
+<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x, end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<A NAME="3.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.2 Использование генератора для формирования множества</H4>
+<P>Создадим с помощью генератора множество букв, из которых состоит предложение
+"Карл украл у Клары кораллы", представив их в верхнем регистре:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set={x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Карл украл у Клары кораллы'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.upper()}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_set</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{'О', 'Л', 'К', 'А', ' ', 'Ы', 'Р', 'У'}
+</SPAN>.<BR>
+<A NAME="3.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.3 Использование генератора для формирования словаря</H4>
+<P>В качестве последнего примера использования генераторов рассмотрим создание словаря, ключами
+которого являются числа, заданные в списке, а значениями &ndash; квадратные корни этих чисел:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">{x:x**(1/2) </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> [2, 5, 25] }</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+{25: 5.0, 2: 1.4142135623730951, 5: 2.23606797749979}</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Формировать </SPAN>элементы последовательностей также можно с использованием
+встроенной функции <SPAN CLASS="svoj">map()</SPAN>  
+(см. <A HREF="../LAB6/lab.htm#1.5.2">подраздел 1.5.2</A> лаб. раб. №6).<BR>
+<A NAME="4"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>4 Копирование объектов</H4>
+<P>В <A HREF="#1.4">подразделе 1.4</A> при описании метода <SPAN CLASS="svoj">copy()</SPAN> был
+использован термин поверхностная копия. Поскольку существует еще и глубокая копия, дадим
+разъяснение этим терминам.<BR>
+<SPAN CLASS="txt_abz">Операторы </SPAN>присваивания в языке Python не копируют объекты, они только
+сооздают ссылки на объект. Для контейнеров, которые являются изменяемыми или содержат изменяемые
+элементы, возникает иногда необходимость их копирования &ndash; чтобы можно было изменить копию, не
+изменяя исходные значения.<BR>
+<SPAN CLASS="txt_abz">Модуль </SPAN><SPAN CLASS="svoj">copy</SPAN> содержит два метода:
+<UL CLASS="list">
+<LI> один для создания поверхностной копии &ndash; copy.copy(x);
+<LI> другой для создания глубокой копии &ndash; copy.deepcopy(x).
+</UL> 
+<P>Различие между между поверхностным (англ. shallow) и глубоким (англ. deep) копированием
+имеет смысл только для составных объектов (объектов, которые содержат другие объекты, например,
+списки, словари или экземпляры классов):
+<UL CLASS="list">
+<LI> поверхностное копирование создает новый составной объект, в который включаются ссылки на
+объекты, содержащиеся в исходном объекте;
+<LI> глубокое копирование создает новый составной объект, в который рекурсивно включаются копии
+объектов, составляющих исходный объект.
+</UL> 
+<P>В качестве примера создадим и сравним поверзностную и глубокую копию словаря:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">copy</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict={1:5,2:{3:25}}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1: 5, 2: {3: 25}} </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict=copy.copy(a_dict)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1: 5, 2: {3: 25}} </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_dict[2][3]=77</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1: 5, 2: {3: 77}}</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN>Видно, что при использовании поверхностного копирования словаря
+(функции copy()) изменения в полученной копии привели к изменению оригинала. При использовании
+глубокого копирования (функции deepcopy()) этого не произойдет:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict={1:5,2:{3:25}}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> c_dict=copy.deepcopy(a_dict)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c_dict[2][3]=77</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{1: 5, 2: {3: 25}}</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>создания "поверхностной" копии помимо метода
+<SPAN CLASS="svoj">copy()</SPAN> модуля <SPAN CLASS="svoj">copy()</SPAN> можно также использовать:
+<UL CLASS="list">
+<LI> методы <SPAN CLASS="svoj">copy()</SPAN> изменяемых объектов: списков, множеств и словарей
+(см. подразделы <A HREF="../LAB3/lab.htm#2.3">2.3</A> лаб. раб. №3, <A HREF="#1.4">1.4</A> и
+<A HREF="#2.2">2.2</A>);
+<LI> срезы последовательностей
+(см. <A HREF="../LAB3/lab.htm#1.4.2">подраздел 1.4.2</A> лаб. раб. №3);
+<LI> конструкторы, аргументы которых содержат тот же тип, что и создаваемый объект
+(см. описания конструкторов всех рассмотренных типов).
+</UL> 
+<A NAME="ind"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H3>Индивидуальные задания</H3>
+<P>Разработать программу на языке Python, которая выполняет следующее:
+<UL CLASS="list">
+<LI> 1 Создает множество a_set, содержащее не менее 7 элементов любых разрешенных типов, с помощью
+(см. колонку "Множество"/"Создание" табл. №1):
+<UL CLASS="list2">
+<LI> 1 &ndash; литерала;
+<LI> 2 &ndash; конструктора;
+<LI> 3 &ndash; генератора.
+</UL>
+<LI> 2 Изменяет множество a_set с помощью методов (см. колонку "Множество"/"Методы" табл. №1): 
+<UL CLASS="list2">
+<LI> 1 &ndash; add(); 
+<LI> 2 &ndash; update(); 
+<LI> 3 &ndash; discard();
+<LI> 4 &ndash; remove();
+<LI> 5 &ndash; pop().
+</UL>
+<LI> 3 Создает итерабельный объект it_ob, содержащий не менее трех элементов, имеющихся в объекте
+a_set, и проверить, все ли элементы it_ob хэшируемы. Если нет &ndash; заменить нехэшируемые
+элементы хэшируемыми.
+<LI> 4 Преобразует объект it_ob в множество b_set и выполняет над множествами a_set и b_set
+операции (см. колонку "Множество"/"Операции" табл. №1): 
+<UL CLASS="list2">
+<LI> 1 &ndash; union(); 
+<LI> 2 &ndash; intersection(); 
+<LI> 3 &ndash; difference();
+<LI> 4 &ndash; symmetric_difference().
+</UL>
+<LI> 5 Создает словарь a_dict с помощью (см. колонку "Словарь"/"Создание" табл. №1):
+<UL CLASS="list2">
+<LI> 1 &ndash; литерала;
+<LI> 2 &ndash; конструктора с именованованными аргументами;
+<LI> 3 &ndash; конструктора с аргументом, имеющем тип словаря;
+<LI> 4 &ndash; конструктора с аргументом итерабельного типа;
+<LI> 5 &ndash; генератора.
+</UL>
+<LI> 6 Выполняет следующие методы словаря a_dict (см. колонку "Словарь"/"Методы" табл. №1):
+<UL CLASS="list2">
+<LI> 1 &ndash; clear();
+<LI> 2 &ndash; get(key[, default]);
+<LI> 3 &ndash; items();
+<LI> 4 &ndash; keys();
+<LI> 5 &ndash; pop(key[, default);
+<LI> 6 &ndash; popitem();
+<LI> 7 &ndash; setdefault(key[, default);
+<LI> 8 &ndash; update([dict2]); 
+<LI> 9 &ndash; values(). 
+</UL>
+</UL>    
+<P><P><table align="center" width="60%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 1 &ndash; Перечень индивидуальных заданий</CAPTION>
+<TR><TH rowspan="2">Номер<BR>п/п<TH colspan="3">Множество<TH colspan="2">Словарь
+<TR><TH>Создание<TH>Методы<TH>Операции<TH>Создание<TH>Методы
+<TR ALIGN="center"><TD>1<TD>3<TD>1,3<TD>4<TD>1<TD>2,5,8
+<TR ALIGN="center"><TD>2<TD>2<TD>1,4<TD>3<TD>2<TD>2,6,9
+<TR ALIGN="center"><TD>3<TD>1<TD>1,5<TD>2<TD>3<TD>3,5,1
+<TR ALIGN="center"><TD>4<TD>3<TD>2,3<TD>1<TD>4<TD>3,6,8
+<TR ALIGN="center"><TD>5<TD>2<TD>2,4<TD>4<TD>5<TD>4,5,9
+<TR ALIGN="center"><TD>6<TD>1<TD>2,5<TD>3<TD>1<TD>4,6,1
+<TR ALIGN="center"><TD>7<TD>3<TD>1,3<TD>2<TD>2<TD>7,9,5
+<TR ALIGN="center"><TD>8<TD>2<TD>1,4<TD>1<TD>3<TD>2,5,8
+<TR ALIGN="center"><TD>9<TD>1<TD>1,5<TD>4<TD>4<TD>2,6,9
+<TR ALIGN="center"><TD>10<TD>3<TD>2,3<TD>3<TD>5<TD>3,5,1
+<TR ALIGN="center"><TD>11<TD>2<TD>2,4<TD>2<TD>1<TD>3,6,8
+<TR ALIGN="center"><TD>12<TD>1<TD>2,5<TD>1<TD>2<TD>4,5,9
+<TR ALIGN="center"><TD>13<TD>3<TD>1,3<TD>4<TD>3<TD>4,6,1
+<TR ALIGN="center"><TD>14<TD>2<TD>1,4<TD>3<TD>4<TD>7,9,5
+<TR ALIGN="center"><TD>15<TD>1<TD>1,5<TD>2<TD>5<TD>2,5,8
+<TR ALIGN="center"><TD>16<TD>3<TD>2,3<TD>1<TD>1<TD>2,6,9
+<TR ALIGN="center"><TD>17<TD>2<TD>2,4<TD>4<TD>2<TD>3,5,1
+<TR ALIGN="center"><TD>18<TD>1<TD>2,5<TD>3<TD>3<TD>3,6,8
+<TR ALIGN="center"><TD>19<TD>3<TD>1,3<TD>2<TD>4<TD>4,5,9
+<TR ALIGN="center"><TD>20<TD>2<TD>1,4<TD>1<TD>5<TD>4,6,1
+</TABLE>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>

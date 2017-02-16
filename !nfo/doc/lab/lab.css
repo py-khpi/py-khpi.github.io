@@ -1,0 +1,23 @@
+body {
+  margin:1.5cm 1.5cm 2.0cm 2.5cm;
+  font-size:5.5mm; 
+  color:#000080;
+  background-color:#eeeeee;
+} 
+h1 { 
+  text-align:center; 
+  color:#d0d; 
+  text-transform:uppercase;
+  font:italic 0.25in tahoma;   
+}
+input ,textarea, option, button { 
+  background:#eeffee; 
+  color:#005000;
+  font-size:6mm; 
+  border:outset 2px black;
+} 
+
+td { 
+  vertical-align:middle; 
+} 
+

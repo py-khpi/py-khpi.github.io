@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Чтение текста из локального сервера с помощью технологии AJAX</title>
+</head>
+<body>
+<div id="myDiv" />
+<script>                      
+  var myDiv=document.getElementById("myDiv");
+  var xhr=new XMLHttpRequest();
+  xhr.open("get", "http://zykov/PYTHON/data.py?r="+Math.random());   
+  xhr.onerror=function(e) { 
+    myDiv.innerHTML+=" Error";
+  }
+  xhr.onload=function() {
+    myDiv.innerHTML+="<span style='color:blue; font-size:5.5mm'>"+this.response+"</span>";
+  }
+  xhr.send(); 
+</script>
+</body>
+</html> 
+                 

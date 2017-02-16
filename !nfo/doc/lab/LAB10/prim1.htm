@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Чтение текста из локального сервера с помощью технологии AJAX</title>
+</head>
+<body>
+<div id="myDiv" />
+<script>
+  var myDiv=document.getElementById("myDiv");
+  var xhr;
+  if(window.XMLHttpRequest) {
+    xhr=new XMLHttpRequest();
+  } else { // IE5,IE6
+    xhr=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  myDiv.innerHTML="Состояние 0 (UNSENT): Объект xhr создан; <br>";
+  xhr.open("GET", "http://zykov/data.txt?r="+Math.random(),true);
+  xhr.onreadystatechange=handleStateChange;
+  xhr.send();
+  myDiv.innerHTML+="Скрипт продолжает работать<br>";
+  function handleStateChange() {
+  switch(this.readyState) {
+    case 1: myDiv.innerHTML+="Состояние 1 (OPEND): Метод open() успешно вызван; <br>";break;
+    case 2: myDiv.innerHTML+="Состояние 2 (HEADERS RECEIVED): получены HTTP-заголовки ответа :<br>"+
+        "Content-Type: <span style='color:blue;'>"+ this.getResponseHeader("Content-Type")+
+        "</span><br>"+
+        "Date: <span style='color:blue;'>"+ this.getResponseHeader("Date")+ "</span> "
+           +this.statusText+"<br>"; break;
+    case 3: myDiv.innerHTML+="Состояние 3 (LOADING): тело ответа получено; "+ this.statusText+
+         "<br>";break;
+    case 4: { myDiv.innerHTML+="Состояние 4 (DONE) передача данных завершена "+  this.statusText+
+      "<br>";
+      if(this.status==200) {
+        try {
+           resp=this.responseText; 
+           myDiv.innerHTML+="Сервер передал: <span style='color:blue; font-size:5.5mm'>"+
+             resp+"</span><br>";
+        }
+        catch(e) { 
+           myDiv.innerHTML+="Ошибка чтения ответа: "+e.name.toString()+"  "+e.message;
+        } 
+      } else myDiv.innerHTML+="Ошибка получения данных: статус: "+this.status;
+    }
+  }
+} 
+</script>
+</body>
+</html> 
+                 

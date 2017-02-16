@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Чтение текста из локального сервера с помощью технологии AJAX</title>
+</head>
+<body>
+<div id="myDiv" />
+<script>                      
+  var myDiv=document.getElementById("myDiv");
+  var xhr=new XMLHttpRequest();
+  xhr.open("get", "http://zykov/data.txt?r="+Math.random());      
+  xhr.onreadystatechange=handleReadyState;
+  xhr.send();
+  function handleReadyState() {
+    if(this.readyState==this.DONE&&this.status==200) {
+      myDiv.innerHTML+="<span style='color:blue; font-size:5.5mm'>"+this.responseText+"</span>";
+    }
+  }
+</script>
+</body>
+</html> 
+                 

@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>Тестирование пользователя с использованием технологии AJAX</TITLE>
+<link rel="stylesheet" href="../lab.css"> 
+<script>
+  var name='',answer='', // Фамилия и ответ пользователя 
+  xhr=new XMLHttpRequest();
+  window.onload=function() {
+     myDiv=document.getElementById("div");
+//  formData=new FormData(document.getElementById('test'));
+//     alert('begin');
+     formData=new FormData();
+     formData.append('name','www12345');
+//     alert(formData.get('111'));
+//    alert('end');
+  }
+  function subm1() {
+    myDiv.innerHTML='';
+    name=prompt('Введите фамилию','');
+    if(name) {
+      xhr.open('GET','http://zykov/PYTHON/testing.py?r='+Math.random()+'&name='+name); 
+      xhr.send(null);                      
+    }
+    else alert("Имя не введено");
+  }
+  function subm2() {
+    answer=prompt('Введите ответ в виде трех двоичных цифр','');    
+    if (answer) {
+       xhr.open('GET','http://zykov/PYTHON/testing.py?r='+Math.random()+'&answer='+answer);
+       xhr.send(null);
+    }
+    else alert("Ответ не указан")
+  }
+    function subm3() {
+    myDiv.innerHTML='';
+    formData=new FormData(document.getElementById('test'));
+    formData.append('11','7777');
+    xhr.open('POST','http://zykov/PYTHON/testing.py'); 
+    var boundary='--'+String(Math.random()).slice(2);
+    var boundaryMiddle ='--'+boundary+'\n';
+    var boundaryLast ='--'+boundary+'--\n';
+    xhr.setRequestHeader('Content-Type','multipart/form-data;boundary='+boundary); 
+    xhr.send(formData);  //                    
+  }
+  
+xhr.onerror=function(e) { 
+    myDiv.innerHTML+=" Ошибка получения данных из сервера";  // "<P><SPAN STYLE='color:blue;font-size:5.5mm'>"+ resp+"</SPAN>"
+  }
+  xhr.onload=function() {
+      resp=this.responseText;   
+      myDiv.innerHTML=resp;
+  }              //   http://localhost/PYTHON/get_results.py?name=all
+</script>
+</head>
+<body>
+<h1>Тестирование</h1>       
+<form id="test" method="POST" enctype='multipart/form-data'>
+<input name="name">
+<input type='submit'>
+</form>                     
+<button onclick="subm3()">Начать <br>тестирование</button>&nbsp
+<button onclick="subm2()">Указать <br>ответ</button><p>
+<div id='div' />
+</body>
+</html> 
+                 

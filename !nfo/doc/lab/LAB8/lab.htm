@@ -1,0 +1,1005 @@
+<HTML>
+<HEAD>
+<TITLE>Лабораторная работа 8: Работа с файлами на языке Python</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">
+<STYLE>TH,TD{font-size:5.5mm; border:1 double blue}</STYLE>
+</HEAD>
+<BODY>
+<H1> ЛАБОРАТОРНАЯ РАБОТА №8</H1>
+<H2> <SPAN CLASS="beg">Тема: </SPAN>Работа с файлами на языке Python</H2>
+<H2> <SPAN CLASS="beg">Цель: </SPAN>Рассмотрение способов работы с файлами</H2>
+<A NAME="beg"></A>
+<H3>ОГЛАВЛЕНИЕ</H3> 
+<A CLASS="com" HREF="#1">1 Работа с файлами<BR>
+<A CLASS="com" HREF="#1.1">1.1 Открытие файла<BR>
+<A CLASS="com" HREF="#1.2">1.2 Методы работы с файлами<BR>
+<A CLASS="com" HREF="#1.3">1.3 Передача содержимого скрипта клиенту<BR>
+<A CLASS="com" HREF="#1.4">1.4 Использование модуля os для работы с файловой системой<BR>
+<A CLASS="com" HREF="#1.5">1.5 Использование модуля pickle для сериализации и консервации
+объектов<BR>
+<A CLASS="com" HREF="#2">2 Обработка исключений<BR>
+<A CLASS="com" HREF="#2.1">2.1 Типы исключений<BR>
+<A CLASS="com" HREF="#2.2">2.2 Использование оператора try <BR>
+<A CLASS="com" HREF="#2.3">2.3 Использование оператора raise <BR>
+<A CLASS="com" HREF="#2.4">2.4 Использование функции/оператора assert<BR>
+<A CLASS="com" HREF="#prim1">Пример №1 <BR>
+<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<A NAME="1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>1 Работа с файлами</H4>
+<P>В языке Python широко используются файлы для выполнения операций с данными, которые
+предполагается хранить длительное время. Для работы с файлами используется специальный объект
+файла, который содержит методы для чтения данных из файла и записи данных в файл.
+<A NAME="1.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.1 Открытие файла</H4>
+<P>Открыть файл можно с помощью встроенной функции <SPAN CLASS="svoj">open()</SPAN>:</P>
+<P> <SPAN CLASS="svoj">
+open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True,
+opener=None)</SPAN>
+<P>Функция открывает файл и возвращает соответствующий файловый объект для последующего
+оперирования с ним. Если файл не может быть открыт &ndash; вызывается исключение OSError:
+<UL CLASS="list">
+<LI> file &ndash; единственный обязательный параметр, задает имя как текстового, так и
+двоичного файла (и путь к файлу, если файл не находится в текущем каталоге). Также этот параметр
+может указывать дескриптор файла в виде целого числа. Если задан дескрипртор файла, то он
+закрывается, когда закрывается файл (в том случае, если аргумент closefd не равен False);
+<LI> mode &ndash; задает режимы открытия файла:
+<UL CLASS="list2">
+<LI> 'w' &ndash; открывает файл только для записи, если такой файл уже существует &ndash; его
+содержимое будет перезаписано, т.е. размер текущего файлоа будет уменьшен до нуля (truncating),
+иначе &ndash; создается новый файл для записи;
+<LI> 'r' &ndash; открыть файл только для чтения (значение по умолчанию, синоним 'rt'), указатель
+устанавливается в начало файла, если файл не найден &ndash; возникает исключение FileNotFoundError;
+<LI> 'a' &ndash; открыть файл для добавления, если файл существует &ndash; предыдущее содержимое
+файла сохраняется и указатель устанавливается в конец файла (независимо от текущего положения
+указателя файла), иначе &ndash; файл создается для записи;
+<LI> 'b' &ndash; режим двоичных данных;
+<LI> 't' &ndash; режим текстовых данных (значение по умолчанию);
+<LI> '+' &ndash; открыть файл для чтения или записи, указатель устанавливается в начало файла.
+Различие между режимами 'w+' ('w+b') и 'r+' ('r+b') следующее &ndash; если указанный файл
+существует, то в первом случае его содержимое очищается (размер становится равным нулю), а во
+втором случае &ndash; нет;
+<LI> 'x' &ndash; при попытке открыть для записи существующий файл возникает исключение
+FileExistsError (параметр введен начиная с версии Python 3.3);
+</UL>
+(значения 'w', 'r', 'a', 'b', 't', '+' и 'x'  при совместном использовании могут указываться в
+произвольном порядке). Python поддерживает два вида файлов &ndash; двоичные, при открытии которых
+для аргумента mode указано значение 'b', и текстовые, при открытии которых аргумент mode не имеет
+значения 'b'. Текстовые файлы возвращают содержимое в виде строк, а двоичные файлы &ndash; в виде
+объектов типа bytes (см. <a href="../LAB4/lab.htm#3.1">подраздел 3.1</a> лаб. раб. №4);     
+<LI> buffering &ndash; устанавливает размер буфера при работе с файлом:
+<UL CLASS="list2">
+<LI> если размер равен 0 (только для двоичных файлов), то режим буферизации не используется и
+операции чтения и записи выполняются напрямую с диска на диск; 
+<LI> если размер равен 1 (только для текстовых файлов), то используется построковая буферизация
+(значение по умолчанию);
+<LI> если размер больше 1, то для двоичных файлов устанавливается размер буфера, т.е. размер
+блоков, на которые делится файл. Размер буфера выбирается исходя из параметров устройств обмена с
+целью оптимизации выполнения файловых операций. По умолчанию его размер равен значению
+io.DEFAULT_BUFFER_SIZE:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">io</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">io.DEFAULT_BUFFER_SIZE</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">8192</SPAN><BR><BR>
+</UL>
+<LI> encoding &ndash; указывает тип кодировки (используется только для текстовых файлов).
+Значение по умолчанию можно получить, используя метод locale.getpreferredencoding():<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">locale</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">locale.getpreferredencoding()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cp1251'</SPAN><BR><BR>
+<LI> errors &ndash; указывает, как будут обрабатываться ошибки кодирования и декодирования
+(только для текстового режима):
+<UL CLASS="list2">
+<LI> если параметр не указан или указано значение 'strict' &ndash; при ошибке вырабатывается
+исключение ValueError;
+<LI> 'ignore' &ndash; игнорирует ошибку;
+<LI> 'replace' &ndash; вызывает установку маркера (например, "?") в том месте, где произошла
+ошибка;
+<LI> 'xmlcharrefreplace' &ndash; заменяет соответствующим XML-символом;
+<LI> backslashreplace' &ndash; заменяет ESC-последовательностью с обратным слэшем;
+</UL>
+<LI> newline &ndash; определяет, как будут обрабатываться символы конца строки:
+<UL CLASS="list2">
+<LI> если параметр не указан или указано значение None &ndash; осуществляется следующая трансляция
+символов конца строки: при записи в файл &ndash; символ \n преобразуется в форму, специфичную для
+платформы (\n для Unix и \r\n для Windows), при чтении из файла: из формы, специфичной для
+платформы в символ \n;
+<LI> если указан параметр '', трансляция символов конца строки не выполняется;
+</UL>
+<LI> closefd &ndash; определяет, будет ли закрыт дескриптор файла после закрытия файла:
+<UL CLASS="list2">
+<LI> если closefd = True (значение по умолчанию) &ndash; будет;
+<LI> если closefd = False &ndash; нет;
+</UL>
+<LI> opener &ndash; указывает объект ABC-класса callable (например, функцию), который может быть
+использован для открытия файла.
+</UL>
+<P>Тип файла устанавливается при его открытии в соответствии с указанными значениями аргументов
+<SPAN CLASS="svoj">mode</SPAN> и <SPAN CLASS="svoj">buffering</SPAN> функции
+<SPAN CLASS="svoj">open()</SPAN>:
+<UL CLASS="list">
+<LI> текстовый файл (класс _io.TextIOWrapper) &ndash; все режимы, в которых аргумент mode не
+содержит признак 'b' (binary);
+<LI> двоичный файл с буферизацией для записи (класс _io.BufferedWriter) &ndash; mode='wb' или
+mode='ab' и buffering<>0;
+<LI> двоичный файл с буферизацией для чтения (класс _io.BufferedReader) &ndash; mode='rb' и
+buffering<>0;
+<LI> двоичный файл с буферизацией для записи и чтения (класс _io.BufferedRandom) &ndash; 
+все режимы, в которых параметр mode содержит признаки 'b+' и buffering<>0;
+<LI> двоичный файл без буферизации (класс _io.FileIO) &ndash; все режимы, в которых аргумент mode
+содержит признак 'b' и buffering=0.
+</UL>
+<P>Текстовые файлы отличаются тем, что содержат строки, осуществляют кодирование и декодирование
+символов и обработку символов новой строки.<BR> 
+<SPAN CLASS="txt_abz">Пример </SPAN>открытия текстового файла для записи:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'w'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Указав </SPAN>ссылку на файл, можно определить его параметры:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:blue">
+&lt;_io.TextIOWrapper name='text.txt' mode='w' encoding='cp1251'></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR><BR>
+т.е. это:
+<UL CLASS="list">
+<LI> текстовый файл класса io.TextIOWrapper;
+<LI> режим работы &ndash; запись;
+<LI> кодировка символов &ndash; 'cp1251'.
+</UL>
+<A NAME="1.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.2 Методы работы с файлами</H4>
+<P>После создания текстового файла для работы с ним могут быть использованы следующие методы:
+<UL CLASS="list">
+<LI> write(строка) пишет в файл, открытый для записи, указанную строку, возвращая число
+записанных символов:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.write(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'First line\n'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">11</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.write(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Second line\n'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">12</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Записывать </SPAN>в текстовый файл можно только данные класса строки. Попытка
+записать в этот файл данные другого типа, например, последовательности байтов (см. описание класса
+bytes в <A HREF="../LAB4/lab.htm#3.1">подразделе 3.1</A> лаб. раб. №4) приведет к исключению:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">b=b'0123456789abcdef'</SPAN>
+<SPAN STYLE="font-size:7mm; color:red"> # тип bytes</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.write(b)</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:red">TypeError: must be str, not bytes</SPAN><BR><BR>
+<LI> read([число_байт]) &ndash; читает в одну строку из файла, открытого для чтения, число
+байтов, указанное в качестве необязательного аргумента. Если метод вызывается без аргументов или
+значением аргумента является -1, то читается весь файл. Если файл уже был прочитан до конца
+(встретился символ EOF), то метод read() возвращает пустую строку:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.read()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'First line\nSecond line\n'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.read(15)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'First line\nSeco'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI> readline() &ndash; читает из файла, открытого для чтения, строку:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.readline()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'First line\n'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.readline()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Second line\n'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.readline()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">''</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI> readlines([число_байт]) &ndash; читает из файла, открытого для чтения, все строки файла,
+возвращая список строк. Если указан необязательный параметр, то читается заданное число байт,
+затем дополнительно читаются байты до конца текущей строки (т.е. строки не обрываются):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.readlines()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+['First line\n', 'Second line\n']</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.readlines(5)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+['First line\n']</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Текстовый </SPAN>файл можно прочитать в цикле построчно:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#аа8000">for</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">line</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">f:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(line)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">First line<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Second line
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI> writelines(список) &ndash; записывает в файл строки, заданные в виде списка:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">dig=[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'1'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'2'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'3'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'a'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.writelines(dig)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">('text.txt')</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#аа8000">for</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">line</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">f:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(line)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">First line<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Second line<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">123
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI> close() &ndash; закрывает файл, перенося все сделанные в нем изменения на диск, возвращая
+ресурсы операционной системе. Необходимо закрывать все файлы, которые больше не используются,
+т.к. не закрытый файл может привести к потере данных. После закрытия обращение к файлу
+автоматически вызывает ошибку:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.close()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.writelines(dig)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+ValueError: I/O operation on closed file</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.readlines()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+['First line\n', 'Second line\n', '123']</SPAN><BR><BR>
+<LI> readable() &ndash; возвращает значение True, если файл открыт для чтения, и False в
+противном случае:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#аа8000">f.readable()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR>
+<LI> writable() &ndash; возвращает значение True, если файл открыт для записи, и False в
+противном случае:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#аа8000">f.writable()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR>
+<LI> seek(на_сколько_байт[, откуда]) &ndash; перемещает указатель текущего положения файла на
+заданное количество байт от позиции, указанной вторым аргументом:
+<UL CLASS="list2">
+<LI> 0 &ndash; начало файла (значение по умолчанию);
+<LI> 1 &ndash; текущая позиция в файле;
+<LI> 2 &ndash; конец файла;
+</UL>
+При этом, число байт для перемещения может быть как положительным (вперед), так и отрицательным
+(назад). Для проверки этого метода создаем двоичный файл для записи и чтения:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text2.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'w+b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
+Записываем в него последовательность байтов из переменной b (b'0123456789abcdef'):<BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.write(b)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">16</SPAN>,<BR><BR>
+перемещаем указатель файла на 5 байтов вперед (относительно начала файла):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.seek(5)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">5</SPAN><BR><BR>
+и читаем один байт из файла:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.read(1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'5'</SPAN><BR>
+<LI> tell() &ndash; возвращает значение текущей позиции в файле:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.tell()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">6</SPAN><BR><BR>
+Перемещаем указатель файла на 3 позиции относительного текущего положения:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.seek(3,1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">9</SPAN><BR><BR>
+и читаем 4 байта:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.read(4)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'9abc'</SPAN><BR><BR>
+И наконец, перемещаем указатель файла на 9 позиций назад относительно конца файла:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.seek(-9,2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7</SPAN><BR>
+и читаем байты из этой позиции до конца файла:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.read()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'789abcdef'</SPAN><BR><BR>
+<LI>&nbsp;seekable &ndash; возвращает значение True, если объект поддерживает метод seek(), и False
+в противном случае:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.seekable()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<LI> truncate([размер]) &ndash; урезает файл до указанного размера, если аргумент не задан &ndash;
+до указателя текущего положения. Метод не работает для файла, открытого в режиме "только чтение":
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.seek(8)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">8</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">f.truncate()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">8</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.read()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'01234567'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">f.truncate(5)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">5</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.read()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">b'01234'</SPAN><BR>
+</UL>
+<A NAME="1.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.3 Передача содержимого скрипта клиенту</H4>
+<p>Работа с текстовыми файлами на языке Python показана в небольшом клиент-серверном приложении, в
+котором сервер предоставляет пользователю тексты запрашиваемых скриптов. <BR>
+<SPAN CLASS="txt_abz">Клиентская </SPAN>часть реализована в виде <a href="#prim1">примера №1</a>,
+в котором HTML-форма содержит поле ввода имени файла ("filename") и кнопки "Сброс" и
+"Получить файл":
+<A NAME="prim1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<P><A CLASS="out" HREF="prim1.htm">Пример №1</A><BR><BR>
+<SPAN CLASS="html">&lt;!DOCTYPE html> </SPAN><BR>
+<SPAN CLASS="html">&lt;html&gt;<BR>
+<SPAN CLASS="html">&lt;head&gt;<BR>
+<SPAN CLASS="html">&lt;title>Передача файла клиенту&lt;/title><BR>
+<SPAN CLASS="html">&lt;link rel="stylesheet" href="file:///D:/!PYTHON/lab.css"><BR>
+<SPAN CLASS="html">&lt;/head&gt;<BR>
+<SPAN CLASS="html">&lt;body&gt;<BR>
+<SPAN CLASS="html">&lt;h1>Передача файла клиенту&lt;/h1><BR>
+<SPAN CLASS="html">&lt;form method="get" action="http://zykov/PYTHON/get_file_form.py"><BR>
+<SPAN CLASS="html">Имя файла:<BR>
+<SPAN CLASS="html">&lt;input type="text" class="form" name="filename">&lt;br>&lt;br><BR>
+<SPAN CLASS="html">&lt;input type="reset" value="Сброс" class="kn"&gt;&amp;nbsp;&amp;nbsp;<BR>
+<SPAN CLASS="html">&lt;input type="submit" value="Получить файл" class="kn"&gt;<BR>
+<SPAN CLASS="html">&lt;/form><BR>
+<SPAN CLASS="html">&lt;/body><BR>
+<SPAN CLASS="html">&lt;/html>
+<P> После ввода пользователем имени требуемого файла и нажатия кнопки "Получить
+файл" браузер передает введенное имя файла серверному приложению
+<SPAN CLASS="svoj">get_file_form.py</SPAN>:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+#!c: . . . /Python35-32/python.exe</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Content-Type: text/html\n"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#FF8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">cgi, cgitb, my_cgi</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">file=cgi.parse()[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"filename"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">][0]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#ff8000">try</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:3.6cm; font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(file, encoding=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"utf-8"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:3.6cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(my_cgi.H,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"CGI: передача содержимого скрипта "</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,file)</SPAN><BR>
+<SPAN STYLE="margin-left:3.6cm; font-size:7mm; color:#FF8000">for</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">el</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">f:</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">my_cgi.D,el)</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#ff8000">except</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">FileNotFoundError</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(my_cgi.D,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Файл "</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, file, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">" не найден"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN>,<BR><BR>
+которое:
+<UL CLASS="list">                                           
+<LI> с помощью метода cgi.parse() получает имя файла, содержащего требуемый скрипт;
+<LI> пробует с использованием оператора try/except (см. <a href="#2.2">подраздел 2.2 </a>) открыть
+этот файл для чтения;
+<LI> если файл с таким именем не найден &ndash; возникает исключение "FileNotFoundError", которое
+обрабатывается секцией except &ndash; клиенту сообщается, что такой файл не найден. На этом
+выполнение скрипта завершается;
+<LI> если файл найден, открывает его и передает клиенту сообщение "CGI: передача файла" с
+указанием имени файла;
+<LI> построчно считывает и передает клиенту содержимое файла.
+</UL>
+<p> Если указать имя скрипта, который осуществляет приведенные выше действия, т.е. серверного
+приложения <SPAN CLASS="svoj">get_file_form.py</SPAN>, то клиент получит следующую Web-страницу,
+содержащую текст требуемого скрипта:
+<P STYLE='text-align:center;color:#0000b0; font-size:7mm; font-weight:bold'> 
+CGI: передача содержимого скрипта get_file_form.py </P>
+<P class="ba" STYLE='margin-left:1.5cm;color:#0000b0; font-size:6mm'>
+#!c:/ . . . Python35-32/python.exe<br><br> 
+print("Content-Type: text/html\n")<br><br> 
+import cgi, cgitb, my_cgi <br><br>
+file=cgi.parse()["filename"][0] <br><br>
+try : <br><br>
+f= open (file, encoding= "utf-8" ) <br><br>
+print (my_cgi.H, "CGI: передача содержимого скрипта " ,file) <br><br>
+for el in f:  my_cgi.D,el) <br><br>
+except FileNotFoundError : print (my_cgi.D, "Файл " , file,  " не найден" ). <br><br>
+</p>
+<A NAME="1.4"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.4 Использование модуля os для работы с файловой системой</H4>
+<P>Модуль <SPAN CLASS="svoj">os</SPAN> имеет ряд методов, которые можно использовать для работы
+с файлами:
+<UL CLASS="list">
+<LI> rename(имя_файла, новое_имя_файла) &ndash; переименовует файл:<BR><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text2.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.readlines()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+'First line\nSecond line\nThrid line\n'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text3.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+FileNotFoundError: [Errno 2] No such file or directory: 'text3.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Фрагмент </SPAN>кода показывает,  что файл text2.txt содержит данные,
+а файла text3.txt нет. Теперь с помощью метода rename() модуля os переименуем файл text2.txt в
+файл text3.txt<BR><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.close()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">os</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.rename(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text2.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text3.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
+и попытается открыть файлы text2.txt и text3.txt и прочитать из них данные:<BR><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text2.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+FileNotFoundError: [Errno 2] No such file or directory: 'text2.txt'</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text3.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.readlines()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+'First line\nSecond line\nThrid line\n'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f.close()</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Результаты </SPAN>подтверждают правильность работы функции rename()
+по переименованию файлов;
+<LI> remove(имя_файла) &ndash; удаляет указанный файл:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.remove(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text3.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'text3.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+FileNotFoundError: [Errno 2] No such file or directory: 'text3.txt'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI> getcwd() &ndash; возвращает путь к текущему каталогу, например:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.getcwd()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'F:\\DISK_D\\PYTHON\\LAB'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI> chdir(путь) &ndash; сделать каталог, указанный аргументом, текущим каталогом, например:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.chdir('F:\\DISK_D\\PYTHON')</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.getcwd()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'F:\\DISK_D\\PYTHON'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI> listdir(путь) &ndash; возвращает в виде списка содержимое указанного каталога
+(если путь не задан &ndash; текущего):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.listdir()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+['LAB', 'LAB.rar', 'python', 'Python_book', 'SAMPLES', 'THEORY', 'ТЕОРИЯ']</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI>&nbsp; mkdir(имя_нового_каталога) &ndash; создает новый каталог:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.chdir('TEMP')</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.listdir()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+['LAB', 'LAB.rar', 'python', 'Python_book', 'SAMPLES', 'TEMP', 'THEORY', 'ТЕОРИЯ']</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+<LI> rmdir(путь) &ndash; удаляет указанный каталог:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.chdir('TEMP')</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">os.listdir()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+['LAB', 'LAB.rar', 'python', 'Python_book', 'SAMPLES', 'THEORY', 'ТЕОРИЯ']</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">;</SPAN><BR><BR>
+</UL>
+<A NAME="1.5"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod1">1.5 Использование модуля pickle для сериализации и консервации объектов</H4>
+<P>Файлы в языке Python могут содержать или строки (текстовые файлы), или последовательности
+байтов (двоичные файлы). Чтобы сохранить в файле данные других типов, необходимо преобразовать
+их в строки (класс str) или в последовательности байтов (классы bytes и bytesarray). Это
+называется сериализацией объектов.<BR>
+<SPAN CLASS="txt_abz">Модуль </SPAN><SPAN CLASS="svoj">pickle </SPAN>содержит методы, позволяющие
+выполнить преобразование объектов разных типов и запись их в файлы:
+<UL CLASS="list">
+<LI>&nbsp;dumps(объект) &ndash; преобразует объект в последовательность байтов типа bytes:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">a_dict={</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'name'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Tom'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'sport'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'tennis'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">pickle</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">s_dump=pickle.dumps(a_dict)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">s_dump</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+b'\x80\x03}q\x00(X\x05\x00\x00\x00sportq\x01X\x06\x00\x00\x00tennisq\x02X\x04\x00\x00\x00name
+q\x03X\x03\x00\x00\x00Tomq\x04u.'</SPAN><BR><BR>
+<LI> loads(объект bytes) &ndash; выполняет обратную операцию &ndash; возвращает исходную
+форму сериализованного методом dumps() объекта:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">b_dict=pickle.loads(s_dump)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">b_dict</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:blue">{'sport': 'tennis', 'name': 'Tom'}</SPAN><BR><BR>
+<LI> dump(объект, ссылка_на_файл) &ndash; преобразует объект в последовательность байтов и в
+таком виде записывает в двоичный файл, т.е. выполняет операции сериализации и консервации объекта:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f2=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'dump1.dat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'w+b'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">pickle.dump(a_dict,f2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">f2.seek(0)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">0</SPAN><BR><BR>
+<LI> load(ссылка_на_файл) &ndash; читает из файла данные, преобразует их в исходную форму и
+возращает:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">c_dict=pickle.load(f2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">c_dict</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{'sport': 'tennis', 'name': 'Tom'}</SPAN><BR><BR>
+</UL>
+<p>Методы консервации </SPAN><SPAN CLASS="svoj">pickle.dump()</SPAN> и деконсервации
+</SPAN><SPAN CLASS="svoj">pickle.load()</SPAN> данных были использованы для сохранения и чтения
+набора тестов и словаря данных пользоваетеля при его тестировании (см. подразделы
+<a href="../LAB10/lab.htm#2.2.2"> 2.2.2 </a> и <a href="../LAB10/lab.htm#2.2.3"> 2.2.3</a>
+лаб. раб. №10).
+
+
+
+
+
+
+<A NAME="2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>2 Обработка исключений</H4>
+<P>В программах на языке Python могут возникнуть ошибки двух типов:
+<UL CLASS="list">
+<LI> синтаксические ошибки, которые возникают при грамматическом разборе кода (парсинге от
+англ. parsing);
+<LI> исключительные ситуации или просто иключения, которые возникают при работе кода. 
+</UL>
+<P>Если синтаксические ошибки могут обрабатываться только интерпретатором, то исключения могут                                                                                            
+быть обработаны также пользователем.
+<A NAME="2.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.1 Типы исключений</H4>
+<P>Python имеет следующие встроенные типы исключений:
+<UL CLASS="list">
+<LI> BaseException &ndash; базовый класс для всех встроенных исключений;
+<LI> Exception &ndash; все встроенные исключения, а также все пользовательские исключения должны
+наследоваться из этого класса;
+<LI> SystemExit &ndash; исключение, порождаемое функцией sys.exit при выходе из программы;
+<LI> SystemExit &ndash; исключение, порождаемое функцией sys.exit при выходе из программы.
+<LI> KeyboardInterrupt &ndash; возникает при прерывании программы пользователем (обычно комбинацией
+клавиш Ctrl+C;
+<LI> GeneratorExit &ndash; возникает при вызове метода close объекта generator;
+<LI> StopIteration &ndash; возникает встроенной функцией next, если в итераторе больше нет
+элементов;
+<LI> ArithmeticError &ndash; арифметическая ошибка;
+<LI> FloatingPointError &ndash; возникает при неудачном выполнении операции с плавающей
+запятой;
+<LI> OverflowError &ndash; возникает, когда результат арифметической операции слишком велик
+для представления. Не появляется при обычной работе с числами (так как Python поддерживает длинные
+числа), но может возникать в некоторых других случаях;
+<LI> ZeroDivisionError &ndash; деление на ноль;
+<LI> AssertionError &ndash; выражение в функции assert ложно; 
+<LI> AttributeError &ndash; объект не имеет данного атрибута (значения или метода)
+<LI> BufferError &ndash; операция, связанная с буфером, не может быть выполнена;
+<LI> EOFError &ndash; функция input() наткнулась на конец файла и не смогла при этом ничего
+прочитать;
+<LI> ImportError &ndash; не удалось импортирование модуля или его атрибута;
+<LI> LookupError &ndash; некорректный индекс или ключ;
+<LI> IndexError &ndash; индекс не входит в диапазон элементов;
+<LI> KeyError &ndash; несуществующий ключ (в словаре, множестве или другом объекте);
+<LI> MemoryError &ndash; недостаточно памяти;
+<LI> NameError &ndash; не найдено переменной с таким именем;
+<LI> UnboundLocalError &ndash; сделана ссылка на локальную переменную в функции, но переменная
+не определена ранее;
+<LI> OSError &ndash; ошибка, связанная с системой;
+<LI> io.BlockingIOError &ndash; возникает, когда используется блоковая операция ввода/вывода
+при неблокированном потоковом вводе/выводе;
+<LI> ChildProcessError &ndash; неудача при операции с дочерним процессом;
+<LI> ConnectionError &ndash; базовый класс для исключений, связанных с подключениями;
+<LI> BrokenPipeError &ndash; возникает, когда запись в контейнер невозможна;
+<LI> ConnectionAbortedError &ndash; возникает, когда подключение прекращино устройством;
+<LI> ConnectionRefusedError &ndash; возникает, когда попытка подключиться отвергнута
+устройством;
+<LI> ConnectionResetError &ndash; возникает, когда попытка подключиться сброшена устройством;
+<LI> FileExistsError &ndash; попытка создания файла или директории, которые уже существуют;
+<LI> InterruptedError &ndash; системный вызов прерван входящим сигналом;
+<LI> IsADirectoryError &ndash; ожидался файл, а это директория;
+<LI> NotADirectoryError &ndash; ожидалась директория, а это файл;
+<LI> PermissionError &ndash; не достаточно прав доступа;
+<LI> ProcessLookupError &ndash; указанного процесса не существует;
+<LI> TimeoutError &ndash; возникает, когда заканчивается интервал времени работы системной
+функции;
+<LI> ReferenceError &ndash; попытка доступа к атрибуту со слабой ссылкой;
+<LI> RuntimeError &ndash; возникает, когда исключение не попадает ни под одну из других категорий;
+<LI> SyntaxError &ndash; синтаксическая ошибка;
+<LI> &ndash; неправильные отступы;
+<LI> TabError &ndash; смешивание в отступах табуляции и пробелов;
+<LI> SystemError &ndash; внутренняя ошибка;
+<LI> ValueError &ndash; функция получает аргумент правильного типа, но некорректного значения;
+<LI> UnicodeError &ndash; ошибка, связанная с кодированием / раскодированием Unicode в строках;
+<LI> UnicodeEncodeError &ndash; исключение, связанное с кодированием Unicode;
+<LI> UnicodeDecodeError &ndash; исключение, связанное с декодированием Unicode;
+<LI> UnicodeTranslateError &ndash; исключение, связанное с переводом Unicode;
+<LI> Warning &ndash; предупреждение.
+</UL>
+<A NAME="2.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.2 Использование оператора try</H4>
+<P>Для обработки исключений используется оператор <SPAN CLASS="svoj">try</SPAN>, который в общем
+случае имеет следующую структуру:<BR><BR>
+<SPAN STYLE="margin-left:5.0cm; font-size:7.2mm">try:</SPAN><BR>
+<SPAN STYLE="margin-left:6.0cm; font-size:7.2mm">&lt;блок></SPAN><BR>
+<SPAN STYLE="margin-left:5.0cm; font-size:7.2mm">except &lt;тип исключения>:</SPAN><BR>
+<SPAN STYLE="margin-left:6.0cm; font-size:7.2mm">&lt;блок></SPAN><BR>
+<SPAN STYLE="margin-left:5.0cm; font-size:7.2mm">[else:</SPAN><BR>
+<SPAN STYLE="margin-left:6.0cm; font-size:7.2mm">&lt;блок>]</SPAN><BR>
+<SPAN STYLE="margin-left:5.0cm; font-size:7.2mm">[finally:</SPAN><BR>
+<SPAN STYLE="margin-left:6.0cm; font-size:7.2mm">&lt;блок>]</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Отдельные </SPAN> части (секции) оператора <SPAN CLASS="svoj">try</SPAN>
+имеют следующее назначение:
+<UL CLASS="list">
+<LI> в секции try указывается фрагмент кода, подлежащий проверке на правильность выполнения.
+Если во время выполнения возникает исключение, выполнение передается секции except и оставшаяся
+часть кода секции try не выполняется. Если исключение не возникает, управление секции except вообще
+не передается и эта секция не выполняется;
+<LI> в секции except задается тип обрабатываемого исключения одним из следующих способов:
+<UL CLASS="list2">
+<LI> если тип исключения не указан &ndash; будет обрабатываться любое из возникших в секции try
+исключений;
+<LI> если указан тип одного исключения &ndash; будет обрабатываться именно это исключение. Если
+возникнет любое другое исключение, оно будет передано на обработку вышестоящему оператору try. Если
+ни один из операторов программы не обрабатывает возникшее исключение, его обработает интерпретатор
+стандартным образом;
+<LI> если указано в виде кортежа несколько типов исключений &ndash; будет обрабатываться любое из
+них; 
+</UL>
+<LI> в отличие от секций try и except секция else не является обязательной. Она выполняется тогда,
+когда в секции try не возникло исключений; 
+<LI> секция finally, если указана в операторе try, выполняется всегда после завершения работы
+секции try, независимо от того, произошло исключение, или нет. Используется в случаях, когда
+нужно выполнить определенные действия всегда, например, при операциях с файлами в любом случае
+необходимо закрыть файл.  
+</UL>
+</UL>
+<P>В операторе <SPAN CLASS="svoj">try</SPAN> может быть указано несколько секций
+<SPAN CLASS="svoj">except</SPAN>, что позволяет обрабатывать несколько исключений независимо.<BR> 
+<SPAN CLASS="txt_abz">Приведем </SPAN>пример, в котором вводятся числа с клавиатуры и вычисляются
+их обратные значения. Поскольку при ошибке ввода или по незнанию может быть введено число 0 и
+возникнуть исключение деления на 0 (<SPAN CLASS="svoj">ZeroDivisionError</SPAN>), то для обработки
+этой ситуации используется оператор <SPAN CLASS="svoj">try</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">while True </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">try</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:7.0cm; font-size:7mm; color:black">c=1/</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Введите число '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">))</SPAN><BR>
+<SPAN STYLE="margin-left:7.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c= '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,c)</SPAN><BR>
+<SPAN STYLE="margin-left:7.0cm; font-size:7mm; color:#ff8000">break </SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">except</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">ZeroDivisionError</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:7.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Ошибка: деление на 0'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:blue">Введите число </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">0</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:blue">Ошибка: деление на 0</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:blue">Введите число</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">5</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:blue">c= 0.2</SPAN><BR><BR>
+<SPAN CLASS="txt_abz"></SPAN>После ввода нуля возникает и обрабатывается исключение
+<SPAN CLASS="svoj">ZeroDivisionError</SPAN>, сообщая пользователю об ошибке ввода. При повторном
+вводе числа на экран выводится его обратное значение &ndash; 0.2. <BR>
+<span class="txt_abz">Использование </span>оператора <SPAN CLASS="svoj">try</SPAN> для обнаружения
+и обработки исключения <SPAN CLASS="svoj">FileNotFoundError</SPAN> при открытии файла показано в
+<a href="#1.3">подразделе 1.3 </a>.
+<A NAME="2.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.3 Использование оператора raise</H4>
+<P>В языке Python имеется возможность вырабатывать исключения программно (в основном при отладке
+скриптов). Это делается с помощью оператора <SPAN CLASS="svoj">raise</SPAN>. Пвриведем пример его
+использования для генерации ислючения <SPAN CLASS="svoj">ZeroDivisionError</SPAN>, изменив
+предыдущий пример:<BR><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">try</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">raise</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">ZeroDivisionError</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#ff8000">except</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">ZeroDivisionError</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Ошибка: деление на 0'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Ошибка: деление на 0</SPAN><BR>
+<A NAME="2.4"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.4 Использование функции/оператора assert</H4>
+<P>Для проверки правильности выполнения отдельных выражений может быть также использована функция
+<SPAN CLASS="svoj">assert()</SPAN> (для аналогичных целей может быть также применен оператор
+<SPAN CLASS="svoj">assert</SPAN>). Аргументом этой функции является выражение на языке Python,
+которое выражает некоторое условие. Функция проверяет это условие и, если оно не выполняется,
+генерирует исключение <SPAN CLASS="svoj">AssertionError</SPAN>. <BR> 
+<SPAN CLASS="txt_abz">В </SPAN>качестве примера использования функции
+<SPAN CLASS="svoj">assert</SPAN> рассмотрим тот же случай ввода чисел с клавиатуры и их анализ.
+Только на этот раз, чтобы соответствовать требованиям их дальнейшей обработки, числа должны быть
+больше нуля:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN> 
+<SPAN STYLE="font-size:7mm; color:#ff8000">try</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:black">c=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Введите число '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">))</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">assert</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(c>=0)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'c= '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,c)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#ff8000">except</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">AssertionError</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Ошибка: введено отрицательное число'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Введите число</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">-4</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Ошибка: введено отрицательное число</SPAN><BR>
+<A NAME="ind"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H3>Индивидуальные задания</H3>
+<P>Разработать приложение на базе технологии "клиент-сервер". <BR>
+<SPAN CLASS="txt_abz">В </SPAN> задачи клиентской части входит: разработать HTML-документ,
+содержащий форму, обязательными элементами которой являются:
+<UL CLASS="list">                                           
+<LI> три текстовых поля для задания данных, выбранных согласно колонке "Данные" табл. 1:
+<UL CLASS="list2">
+<LI> 1 &ndash; Фамилия, инициалы;
+<LI> 2 &ndash; Наименование университета;
+<LI> 3 &ndash; Наименование факультета;
+<LI> 4 &ndash; Наименование кафедры;
+<LI> 5 &ndash; Наименование специальности;
+<LI> 6 &ndash; Курс;
+<LI> 7 &ndash; Наименование группы;
+<LI> 8 &ndash; Телефон;
+<LI> 9 &ndash; Мобильный телефон;
+<LI> 10 &ndash; Электронная почта;
+</UL>
+<LI> кнопка для передачи данных на сервер.
+</UL>
+<P>В задачи серверной части входит: 
+<UL CLASS="list"> 
+<LI> принять данные из формы;
+<LI> создать каталог "CGI" и сделать его текущим;
+<LI> записать имена и значения полученных данных соответственно в файлы
+"names.txt" и "values.txt" с помощью методов, заданных колонкой
+"Методы"/"Запись" табл. 1 (первая цифра &ndash; для файла "names.txt", вторая
+&ndash; для файла "values.txt"):
+<UL CLASS="list2">
+<LI> 1 &ndash; write();
+<LI> 2 &ndash; writelines();
+</UL>
+<LI> определить длину файлов "names.txt" и "values.txt";
+<LI> прочитать и передать клиенту содержимое файла "values.txt" с помощью
+метода, заданного колонкой "Методы"/"Чтение" табл. 1:
+<UL CLASS="list2">
+<LI> 1 &ndash; read();
+<LI> 2 &ndash; readline();
+<LI> 3 &ndash; readlines();
+</UL>
+<LI> Создать с помощью встроенных функций bytes() range() (см. разделы
+<a href="file:///D:/!PYTHON/LAB4/lab.htm#3">3 </a> и
+<a href="file:///D:/!PYTHON/LAB4/lab.htm#2">2 </a>) лаб. раб. №4)
+последовательность чисел длиной, заданной колонкой "Длина" табл. 1 и записать
+ее в двоичный файл "binary_data.dat";
+<LI> Прочитать значение байта файла "binary_data.dat", номер которого задан
+колонкой "Номер" табл. 1;
+<LI> Переместить указатель файла соответственно значениям колонок "Смещение" и
+"Откуда" табл. 1 и прочитать значения трех байтов;
+<LI> Проверить с использованием оператора <SPAN CLASS="svoj">try</SPAN> и
+встроенной функции <SPAN CLASS="svoj">assert()</SPAN>, выполняется ли условие,
+заданное колонкой "Условие" табл. 1, для целого числа, введенного функцией
+<SPAN CLASS="svoj">input()</SPAN>:
+</UL>
+<P><table align="center" width="60%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 1 &ndash; Параметры индивидуальных заданий</CAPTION>
+<TR><TH ROWSPAN="2">Номер<BR>п/п<TH ROWSPAN="2">Данные<TH colspan="2">Методы
+<TH ROWSPAN="2">Длина<TH ROWSPAN="2">Номер<TH ROWSPAN="2">Смещение
+<TH ROWSPAN="2">Откуда<TH ROWSPAN="2">Условие
+<TR><TH>записи<TH>чтения
+<TR ALIGN=center><TD>1<TD>1, 2, 6<TD>1<TD>3<TD>20<TD>11<TD>17<TD>0<TD>1
+<TR ALIGN=center><TD>2<TD>1, 2, 7<TD>2<TD>2<TD>16<TD>5<TD>7<TD>1<TD>2
+<TR ALIGN=center><TD>3<TD>1, 2, 8<TD>1<TD>1<TD>25<TD>20<TD>-4<TD>2<TD>3
+<TR ALIGN=center><TD>4<TD>1, 2, 9<TD>2<TD>3<TD>10<TD>4<TD>6<TD>0<TD>4
+<TR ALIGN=center><TD>5<TD>1, 2, 10<TD>1<TD>2<TD>12<TD>6<TD>-1<TD>1<TD>5
+<TR ALIGN=center><TD>6<TD>1, 3, 6<TD>2<TD>1<TD>18<TD>14<TD>-10<TD>2<TD>1
+<TR ALIGN=center><TD>7<TD>1, 3, 7<TD>1<TD>3<TD>15<TD>13<TD>6<TD>0<TD>2
+<TR ALIGN=center><TD>8<TD>1, 3, 8<TD>2<TD>2<TD>24<TD>12<TD>8<TD>1<TD>3
+<TR ALIGN=center><TD>9<TD>1, 3, 9<TD>1<TD>1<TD>8<TD>2<TD>-2<TD>2<TD>4
+<TR ALIGN=center><TD>10<TD>1, 3, 10<TD>2<TD>3<TD>14<TD>8<TD>10<TD>0<TD>5
+<TR ALIGN=center><TD>11<TD>1, 4, 6<TD>1<TD>2<TD>26<TD>20<TD>-12<TD>1<TD>1
+<TR ALIGN=center><TD>12<TD>1, 4, 7<TD>2<TD>1<TD>9<TD>8<TD>-5<TD>2<TD>2
+<TR ALIGN=center><TD>13<TD>1, 4, 8<TD>1<TD>3<TD>19<TD>17<TD>14<TD>0<TD>3
+<TR ALIGN=center><TD>14<TD>1, 4, 9<TD>2<TD>2<TD>13<TD>9<TD>3<TD>1<TD>4
+<TR ALIGN=center><TD>15<TD>1, 4, 10<TD>1<TD>1<TD>30<TD>15<TD>-20<TD>2<TD>5
+<TR ALIGN=center><TD>16<TD>1, 5, 6<TD>2<TD>3<TD>11<TD>1<TD>10<TD>0<TD>1
+<TR ALIGN=center><TD>17<TD>1, 5, 7<TD>1<TD>2<TD>17<TD>5<TD>-9<TD>1<TD>2
+<TR ALIGN=center><TD>18<TD>1, 5, 8<TD>2<TD>1<TD>21<TD>20<TD>-20<TD>2<TD>3
+<TR ALIGN=center><TD>19<TD>1, 5, 9<TD>1<TD>3<TD>23<TD>10<TD>19<TD>0<TD>4
+<TR ALIGN=center><TD>20<TD>1, 5, 10<TD>2<TD>2<TD>27<TD>7<TD>12<TD>1<TD>5
+</TABLE>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>

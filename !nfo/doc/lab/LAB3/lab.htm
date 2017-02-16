@@ -1,0 +1,1069 @@
+<HTML>                                     
+<HEAD>
+<TITLE>Лабораторная работа 3: ABC-классы. Списки</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">
+<STYLE>TH,TD { font-size:5mm; border:1 double blue } </STYLE>
+</HEAD>
+<BODY>
+<H1> ЛАБОРАТОРНАЯ РАБОТА №3</H1>
+<H2> <SPAN CLASS="beg">Тема: </SPAN>ABC-классы. Списки</H2>
+<H2> <SPAN CLASS="beg">Цель: </SPAN>
+Рассмотрение особенностей использования ABC-классов и списков</H2>
+<A id="beg"></A>
+<H3>ОГЛАВЛЕНИЕ</H3> 
+<A CLASS="com" HREF="#1">1 ABC-классы<BR>
+<A CLASS="com" HREF="#1.1">1.1 Контейнеры<BR>
+<A CLASS="com" HREF="#1.2">1.2 Итераторы<BR>
+<A CLASS="com" HREF="#1.3">1.3 Хэширование объектов<BR>
+<A CLASS="com" HREF="#1.4">1.4 Последовательности<BR>
+<A CLASS="com1" HREF="#1.4.1">1.4.1 Протокол последовательности<BR>
+<A CLASS="com1" HREF="#1.4.2">1.4.2 Операции, общие для последовательностей<BR>
+<A CLASS="com" HREF="#1.5">1.5 Оператор цикла for in <BR>
+<A CLASS="com" HREF="#2">2 Списки<BR>
+<A CLASS="com" HREF="#2.1">2.1 Создание списков<BR>
+<A CLASS="com" HREF="#2.2">2.2 Поддержка списками общих свойств последовательностей<BR>
+<A CLASS="com" HREF="#2.3">2.3 Поддержка списками операций, общих для изменяемых
+последовательностей<BR>
+<A CLASS="com" HREF="#2.4">2.4 Использование других методов при работе со списками<BR>
+<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<A id="1"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>1 ABC-классы и протоколы</H4>
+<P>Помимо типов (классов) данных программы язык Python имеет и так называемые абстрактные базовые
+классы (англ. abstract base classes) &ndash; ABC-классы, каждый из которых объединяет данные
+нескольких различных типов, имеющих общие свойства. Например, к ABC-классу контейнер
+(англ. container) относятся все типы данных, которые имеют в своем составе более одного объекта
+(см. <A HREF="#1.1">подраздел 1.1</A>).
+<BR>
+<SPAN CLASS="txt_abz">В </SPAN>табл. 1 приведены названия ABC-классов, классы, их порождающие, и
+атрибуты.
+<TABLE ALIGN=center WIDTH="60%" border cellspacing="0">
+<CAPTION><p class="ba">Таблица 1 &ndash; ABC-классы</CAPTION>
+<TR><TH>ABC-класс<TH>Базовые ABC-классы<TH>Атрибуты, методы
+<TR ALIGN=center><TD>Container (см. <A HREF="#1.1">подраздел 1.1</A>)<TD> <TD>__contains__
+<TR ALIGN=center><TD>Hashable (см. <A HREF="#1.3">подраздел 1.3</A>)<TD> <TD>__hash__
+<TR ALIGN=center><TD>Iteruble (см. <A HREF="#1.2">подраздел 1.2</A>)<TD> <TD>__iter__
+<TR ALIGN=center><TD>Iterator (см. <A HREF="#1.2">подраздел 1.2</A>)<TD>Iteruble<TD>__next__
+<TR ALIGN=center><TD>Sized <TD> <TD>__len__
+<TR ALIGN=center><TD>Callable <TD> <TD>__call__
+<TR ALIGN=center><TD>Sequence (см. <A HREF="#1.4">подраздел 1.4</A>) <TD>Container,<BR>Iteruble<BR>
+Sized <TD>__getitem__,<BR> __len__
+<TR ALIGN=center><TD>MutableSequence (см. <A HREF="#1.4">подраздел 1.4</A>)<TD>Sequence
+<TD>__getitem__,<BR> __len__,<BR>__setitem__,<BR>__delitem__
+<TR ALIGN=center><TD>Set(см. <A HREF="../LAB5/lab.htm#1">раздел 1</A> лаб. раб. №5) <TD>
+<TD>__contains__,<BR>__iter__,<BR>__len__
+<TR ALIGN=center><TD>MutableSet (см. <A HREF="../LAB5/lab.htm#1">раздел 1</A> лаб. раб. №5)
+<TD> Set<TD>__contains__,<BR>__iter__,<BR>__len__,<BR>
+__setitem__,<BR>__delitem__
+<TR ALIGN=center><TD>Mapping (см. <A HREF="../LAB5/lab.htm#2">раздел 2</A> лаб. раб. №5)
+<TD>Sized,<BR> Iterable,<BR> Container <TD>__getitem__,<BR>__iter__,<BR>__len__
+<TR ALIGN=center><TD>MutableMapping (см. <A HREF="../LAB5/lab.htm#2">раздел 2</A> лаб. раб. №5)
+<TD>Mapping <TD>__getitem__,<BR>__setitem__,<BR>__delitem__,<BR>__iter__,<BR> __len__
+</TABLE>
+<P>В отличие от встроенных типов, которые хранятся в модуле <SPAN CLASS="svoj">builtins</SPAN>
+(см. <A HREF="../LAB2/lab.htm#1.2">подраздел 1.2</A> лаб. раб. №2) и автоматически загружаются в
+память при вызове интерпретатора, ABC-классы описаны в модуле
+<SPAN CLASS="svoj">collections</SPAN>. Поэтому для их использования необходимо подключить к
+программе этот модуль. Начиная с версии Python 3.3 ABC-классы помещены в новый модуль
+<SPAN CLASS="svoj">collections.abc</SPAN>. При этом с целью обеспечения обратной совместимости
+сохранена возможность доступа к ABC-классам по-прежнему через модуль
+<SPAN CLASS="svoj">collections</SPAN>. Использование модуля <SPAN CLASS="svoj">collections</SPAN>
+и ABC-классов см. в подразделах <A HREF="#1.1">1.1</A>, <A HREF="#1.2">1.2</A>,
+<A HREF="#1.3">1.3</A>, <A HREF="#1.4.1">1.4.1</A>, <A HREF="#2.1">2.1</A> данной лабораторной
+работы, в <A HREF="../LAB4/lab.htm#2">разделе 2</A> и в подразделах
+<A HREF="../LAB4/lab.htm#1.1">1.1</A>, <A HREF="../LAB4/lab.htm#3.3">3.3</A>
+лаб. раб. №4, в <A HREF="../LAB5/lab.htm#1"> разделе 1</A> и в подразделах
+<A HREF="../LAB5/lab.htm#2.1">2.1</A>, <A HREF="../LAB5/lab.htm#3.1">3.1</A>
+лаб. раб. №5.<BR>
+<SPAN CLASS="txt_abz">Модуль </SPAN><SPAN CLASS="svoj">collections</SPAN> помимо ABC-классов также
+содержит специализированные типы контейнеров, обеспечивающие альтернативы встроенным типам
+</SPAN><SPAN CLASS="svoj">list</SPAN>, </SPAN><SPAN CLASS="svoj">tuple</SPAN>, 
+</SPAN><SPAN CLASS="svoj">dict</SPAN> и др. Например,
+<SPAN CLASS="svoj">collections.deque</SPAN> (очереди),
+<SPAN CLASS="svoj">collections.nametuple</SPAN> (именнованные кортежи),  
+<SPAN CLASS="svoj">collections.OrderedDict</SPAN> (упорядоченные словари) и др.<BR>
+<SPAN CLASS="txt_abz">Протоколы </SPAN>в языке Python подобны интерфейсам в других языках в том,
+что определяют набор методов, который объекты должны поддерживать при использовании протокола, но
+отличаются тем, что разпознаются на уровне языка и имеют синтаксическую поддержку. Использование
+протоколов приведено в подразделах <A HREF="#1.1">1.1</A>, <A HREF="#1.2">1.2</A> и
+<A HREF="#1.4">1.4</A>.
+<A id="1.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.1 Контейнеры</H4>
+<P>Контейнеры &ndash; это объекты, которые содержат произвольное число других объектов. Они
+принадлежат ABC-классу <SPAN CLASS="svoj">container</SPAN> (см. табл. 1). Контейнеры делятся на
+последовательности (см. <A HREF=#1.4>подраздел 1.4</A>), множества 
+(см. <A HREF="../LAB5/lab.htm#1">раздел 1</A> лаб. раб. №5) и словари
+(см. <A HREF="../LAB5/lab.htm#2">раздел 2</A> лаб. раб. №5).<BR>
+<SPAN CLASS="txt_abz">Все </SPAN>объекты-контейнеры, поддерживая протокол контейнера, имеют
+специальный метод <SPAN CLASS="svoj">__contains__(other)</SPAN>, который проверяет, содержится ли в
+данном объекте объект <SPAN CLASS="svoj">other</SPAN>, и возвращает значение True, если содержится,
+и значение False, если нет.<BR>
+<SPAN CLASS="txt_abz">Возьмем </SPAN> два объекта: строку "It's a string" и целое число 32,
+заданные литералами, и попытаемся вызвать для них метод
+<SPAN CLASS="svoj">__contains__()</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"It's a string"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__contains__(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"string"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"It's a string"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__contains__(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"cat"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Т.е. метод <SPAN CLASS="svoj">__contains__()</SPAN></SPAN> определил, что
+подстрока "string" является частью строки "It's a string", а подстрока "cat" &ndash; нет.
+Следовательно, строки являются контейнерами.<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(32).__contains__(3)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+AttributeError: 'int' object has no attribute '__contains__' </SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>числа использование метода
+<SPAN CLASS="svoj">__contains__()</SPAN> привело к возникновению исключения AttributeError (ошибка
+атрибута), поскольку целочисленный объект не имеет этого метода.  Поэтому целые числа не являются
+контейнерами.<BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что число 32 взято в скобки для устранения лексической
+неоднозначности &ndash; последовательность символов "32." интерпретатор воспринимает не как целое
+число, за которым следует оператор точка, а как число с плаващей точкой. Поэтому в этом случае (без
+использования скобок) будет зафиксирована синтаксическая.ошибка.<BR>
+<SPAN CLASS="txt_abz">Метод </SPAN><SPAN CLASS="svoj">__contains__()</SPAN> вызывается при
+выполнении операторов <SPAN CLASS="svoj">in</SPAN> и <SPAN CLASS="svoj">not in</SPAN> для
+определения вхождения или невхождения одного объекта в состав другого объекта (см. подразделы
+<A HREF="#1.4.2">1.4.2</A> и <A HREF="#2.2">2.2</A>).<BR>
+<SPAN CLASS="txt_abz">При </SPAN>создании пользователем контейнера необходимо в объявлении класса
+описать метод <SPAN CLASS="svoj">__contains__()</SPAN>.<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>определения, является ли некий объект контейнером или нет, можно
+также воспользоваться модулем <SPAN CLASS="svoj">collections</SPAN> (см. <A HREF=#1>раздел 1</A>)
+для получения ABC-класса <SPAN CLASS="svoj">Container</SPAN> и встроенной функцией
+<SPAN CLASS="svoj">isinstance(object, classinfo)</SPAN>
+(см. <A HREF="../LAB1/lab.htm#isinstance">подраздел 8.1</A> лаб. раб. №1), которая возвращает True,
+если объект, указанный аргументом <SPAN CLASS="svoj">object</SPAN> является экземпляром класса,
+заданного аргументом <SPAN CLASS="svoj">classinfo</SPAN>. Если <SPAN CLASS="svoj">object</SPAN> не
+является объектом указанного типа, то функция возвращает значение False.<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>проверки возьмем те же два объекта: строку и число и, загрузив
+описание ABC-класса <SPAN CLASS="svoj">Container</SPAN> из модуля
+<SPAN CLASS="svoj"> collections:</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> Container</SPAN>,<BR><BR>
+определим с помощью функции <SPAN CLASS="svoj">isinstance()</SPAN>, принадлежат ли эти объекты
+классу <SPAN CLASS="svoj">container</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"It's a string"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, Container)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(32, Container)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Новая проверка </SPAN>подтвердила, что строки являются контейнерами, а целые
+числа (см. <A HREF="../LAB1/lab.htm#4.1.1">подроздел 4.1.1</A> лаб. раб. №1) &ndash; нет.
+Также не являются контейнерами числа с пдавающей точкой, комплексные числа и значения логического
+типа (см. подрозделы
+<A HREF="../LAB1/lab.htm#4.1.2">4.1.2</A>, <A HREF="../LAB1/lab.htm#4.1.3">4.1.3</A> и
+<A HREF="../LAB1/lab.htm#4.2"> 4.2</A> лаб. раб. №1).
+<A id="1.2"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.2 Итераторы</H4>
+<P>Python поддерживает концепцию итерации контейнеров. Ее реализация осуществляется с помощью двух
+методов, которые позволяют классам, определенным пользователем, поддерживать итерации.<BR>
+<SPAN CLASS="txt_abz">Первый </SPAN>из этих методов &ndash; <SPAN CLASS="svoj">__iter__()</SPAN>,
+примененный к объекту-контейнеру: <SPAN CLASS="svoj">container.__iter__()</SPAN>, обеспечивает
+этому объекту поддержку итераций. Метод возвращает объект-итератор (англ. iterator) для
+объекта-контейнера, что делает его итерабельным (или перечисляемым) объектом
+(англ. iterable object). Если контейнер поддерживает несколько типов итерации, то для каждого вида
+итерации должен быть определен свой итератор, например, для объекта структуры дерева, должны быть
+определены два интератора &ndash; один для обхода дерева "сначала вниз", другой &ndash;
+"сначала вправо".<BR>
+<SPAN CLASS="txt_abz">Итераторы-объекты </SPAN>поддерживают следующие два метода, которые вместе
+составляют протокол итератора:
+<UL CLASS="list">
+<LI> iterator.__iter__() &ndash; возвращает объект-итератор. Это необходимо для того, чтобы
+итераторы, как и контейнеры, могли быть использованы в операторах for in;
+<LI> iterator.__next__() &ndash; возвращает очередной элемент контейнера. Если элементов
+больше нет &ndash; вырабатывает исключение StopIteration.
+Python определяет несколько объектов-итераторов для поддержки итераций для общих и специальных
+типов последовательностей, словарей и других более специализированных форм.
+</UL>
+<P> Проверим, является ли строка "cat" итерабельным объектом: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> Iterable, Iterator</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"cat"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, Iterable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"cat"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, Iterator)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Поскольку </SPAN>строки являются итерабельными объектами, но не итераторами,
+создадим для строки "cat" объект-итератор <SPAN CLASS="svoj">i</SPAN>: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">i=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__iter__()</SPAN><BR><BR>
+<p class="ba">
+и, используя метод __iter__(), получим все символы этой строки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">i.__next__()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'c'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">i.__next__()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'a'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">i.__next__()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'t'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">i.__next__()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">StopIteration</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Когда </SPAN>символы строки закончились, вырабатывается исключение
+<SPAN CLASS="svoj">StopIteration</SPAN>.<BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что при вызове для объекта-итератора метода
+<SPAN CLASS="svoj">__iter__()</SPAN> новый объект-итератор не создается, а возвращается ссылка на
+исходный объект:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(i)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">33426320</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(i.__iter__())</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">33426320</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Вместо </SPAN>метода <SPAN CLASS="svoj">__next__()</SPAN> можно использовать
+встроенную функцию <SPAN CLASS="svoj">next()</SPAN>
+(см. <A HREF="../LAB1/lab.htm#next">подраздел 8.1</A> лаб. раб. №1). <BR>
+<SPAN CLASS="txt_abz">Укажем, </SPAN>что все встроенные типы последовательностей
+(см. <A HREF="#1.4">подраздел 1.4</A>) являются итерабельными типами.<BR>
+<SPAN CLASS="txt_abz">Вместо </SPAN> метода <SPAN CLASS="svoj">__iter__()</SPAN> можно использовать
+встроенную функцию <SPAN CLASS="svoj">iter(object[, sentinel])</SPAN>
+(см. <A HREF="../LAB1/lab.htm#iter">подраздел 8.1</A> лаб. раб. №1), которая возвращает
+объект-итератор.
+<A id="1.3"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.3 Хэширование объектов</H4>
+<P>Встроенная функция <SPAN CLASS="svoj">hash(object)</SPAN>
+(см. <A HREF="../LAB1/lab.htm#hash">подраздел 8.1</A> лаб. раб. №1) возвращает
+хэш-значение (англ. hash value) объекта (если он его имеет), представленное числом. Хэш-значения
+используются для ускорения сравнения ключей словарей при их просмотре
+(см. <A HREF="../LAB5/lab.htm#2">раздел 2</A> лаб. раб. №5). Если значения объектов
+численно равны, то хэш-функция возвращает одинаковые значения (даже если объекты принадлежат
+разным типам). Наример:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">hash</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">hash</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.0)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN><BR> <BR>
+<SPAN CLASS="txt_abz">Объект </SPAN>является хэшируемым (англ. hashable), если он имеет
+хэш-значение, которое не меняется в течение срока его существования. Для этого требуется, чтобы для
+объектп был определен специальный метод <SPAN CLASS="svoj">__hash__()</SPAN>, и чтобы он мог быть
+сравним с другими объектами, т.е. для него также должен быть определен специальный метод
+<SPAN CLASS="svoj">__eq__()</SPAN> (см. операции сравнения в
+<A HREF="../LAB1/lab.htm#6.2">подразделе 6.2</A> лаб. раб. №1).
+Хэшируемые объекты принадлежат ABC-классу <SPAN CLASS="svoj">Hashable</SPAN> (см. табл. 1).<BR>
+<SPAN CLASS="txt_abz">Хэшируемость </SPAN>объекта дает возможность ему быть использованым в
+качестве ключа словаря (см. <A HREF="../LAB5/lab.htm#2.1">подраздел 2.1</A> лаб. раб. №5),
+а также в качестве элементов множеств, поскольку их структуры данных внутренне используют
+хэш-значения (см. <A HREF="../LAB5/lab.htm#1">раздел 1</A> лаб. раб. №5).<BR>
+<SPAN CLASS="txt_abz">Все </SPAN>хэшируемые объекты являются неизменяемыми объектами языка Python.
+В то время как ни один изменяемый контейнер не является хэшированным объектом.<BR>
+<SPAN CLASS="txt_abz">Объекты, </SPAN>которые являются экземплярами пользовательских классов,
+хэшируемы по умолчанию, они при сравнении дают неравентсво и их хэш-значениями являются значения
+их 4<SPAN CLASS="svoj">id()</SPAN>.<BR>
+<SPAN CLASS="txt_abz">Специальный </SPAN>метод <SPAN CLASS="svoj">__hash__()</SPAN> вызывается при
+выполнении встроенной функции <SPAN CLASS="svoj">hash()</SPAN> и при выполнении операций над
+элементами хэшируемых контейнеров. Метод <SPAN CLASS="svoj">__hash__()</SPAN> должен возвращать
+число. Единственным условием равенства объектов, является равенство их хэш-значений. Выше
+установлено, что объекты 1 и 1.0 имеют одинаковые хэш-значения. Поэтому эти объекты равны:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">1==1.0</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR> <BR>
+<SPAN CLASS="txt_abz"> Отметим, </SPAN>что функция <SPAN CLASS="svoj">hash()</SPAN> обрезает
+возращаемое значение для методов <SPAN CLASS="svoj">__hash__()</SPAN> пользовательских классов до
+значения 2**31 (4 байта) на 32-битных и 2**63 (8 байтов) на 64-битных платформах. <BR>
+<SPAN CLASS="txt_abz"> Если </SPAN>класс не определил метод <SPAN CLASS="svoj">__eq__()</SPAN>, он
+не должен определять и метод <SPAN CLASS="svoj">__hash__()</SPAN>. Если в классе был определен
+<SPAN CLASS="svoj">__eq__()</SPAN>, но не определен <SPAN CLASS="svoj">__hash__()</SPAN>, его
+экземпляры не могут использоваться как элементы в хэшируемых коллекциях. Если класс определяет
+изменяемые объекты и объявляяет метод <SPAN CLASS="svoj">__eq__()</SPAN>, он не должен объявлять
+метод <SPAN CLASS="svoj">__hash__()</SPAN>, поскольку применение хэшируемых коллекций
+предусматривает, чтобы их ключи были неизменяемыми объектами.<BR>
+<SPAN CLASS="txt_abz"> Определенные </SPAN>пользователями классы имеют методы
+<SPAN CLASS="svoj">__eq__()</SPAN> и <SPAN CLASS="svoj">__hash__()</SPAN> по умолчанию. Сравнение
+со всеми объектами дает неравнество (кроме сравнения объекта с самим собой) и 
+<SPAN CLASS="svoj">x.__hash__()</SPAN> возвращает соответствующее значение, такое что из
+<SPAN CLASS="svoj">x == y</SPAN> следует, что <SPAN CLASS="svoj">x</SPAN> есть <SPAN CLASS="svoj">y</SPAN>
+и <SPAN CLASS="svoj">hash(x) == hash(y)</SPAN>.<BR>
+<SPAN CLASS="txt_abz"> Класс, </SPAN>который переопределяет <SPAN CLASS="svoj">__eq__()</SPAN> и не
+определяет <SPAN CLASS="svoj">__hash__()</SPAN> будет иметь неявно установленное значение
+<SPAN CLASS="svoj">__hash__()</SPAN>, равное None. Когда метод <SPAN CLASS="svoj">__hash__()</SPAN>
+класса равен None, экземпляры этого класса вызовут ошибку TypeError при попытке программы получить
+их хэш-значение, и будут правильно идентифицированы как нехэшируемые объекты при проверке
+с помощью вызова функции <SPAN CLASS="svoj">isinstance(obj, collections.Hashable)</SPAN>.<BR>
+<SPAN CLASS="txt_abz">Класс, </SPAN>который переопределяет <SPAN CLASS="svoj">__eq__()</SPAN> и
+нуждается в применении метода <SPAN CLASS="svoj">__hash__()</SPAN> родительского класса, должен в
+явном виде указать это интерпретатору, устанавливая
+<SPAN CLASS="svoj">__hash__ = &lt;ParentClass>.__hash__</SPAN>. <BR>
+<SPAN CLASS="txt_abz">Класс, </SPAN>который переопределяет <SPAN CLASS="svoj">__eq__()</SPAN> и
+желает подавить поддержку хэширования, должен включить <SPAN CLASS="svoj">__hash__ = None</SPAN> в
+описание класса. <BR>
+<SPAN CLASS="txt_abz">Класс, </SPAN>который так определяет свой собсвтенный метод
+<SPAN CLASS="svoj">__hash__()</SPAN>, что это вызывет ошибку TypeError, не будет правильно
+идентифицирован вызовом функции <SPAN CLASS="svoj">isinstance(obj, collections.Hashable)</SPAN>.<BR>
+<SPAN CLASS="txt_abz">Рассмотрим </SPAN>теперь взаимосвязь между понятиями кэшируемости объектов и
+их изменяемости. В языке Python все объекты, которые имеют хэш, являются неизменяемыми и ни один
+изменяемый объект не имеет хэш. Это означает, что из хэшируемости объекта следует его
+неизменяемость, а из изменяемости следует его нехэшируемость. Но эти понятия не равнозначны, 
+поскольку из неизменяемости объъекта не следует его хэшируемость.<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>примера определим, изменяемыми или неизменяемыми являются такие
+объекты как строки и числа с плавающей точкой. Для этого воспользуемся 
+<SPAN CLASS="svoj">ABC-классом</SPAN> (см. <A HREF=#1>раздел 1</A>) и встроенной функцией
+<SPAN CLASS="svoj">isinstance(object, classinfo)</SPAN>
+(см. <A HREF="../LAB1/lab.htm#isinstance">подраздел 8.1</A> лаб. раб. №1):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Hashable </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, Hashable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(0.25, Hashable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Т.е. </SPAN>строки и числа сплавающей точкой являются хэшируемыми, а,
+следовательно, неизменяемыми объектами (так же, как целые числа, комплекстные числа и данные
+логического типа).
+<A id="1.4"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.4 Последовательности</H4>
+<P> Последовательностями, т.е. объектами, относящимися к ABC-классу
+<SPAN CLASS="svoj">Sequence</SPAN>, в языке Python являются контейнеры
+(см. <A HREF="#1.1"> подраздел 1.1</A>), которые поддерживают протокол последовательности
+(см. <A HREF="#1.4.1"> подраздел 1.4.1</A>). 
+<A id="1.4.1"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod1">1.4.1 Протокол последовательности</H4>
+<P> Чтобы объекты могли поддерживать протокол последовательности, требуется чтобы для них были
+определены следующие два специальных метода: 
+<UL CLASS="list">
+<LI>  __len__() &ndash; возвращает число элементов последовательности (n);
+<LI>  __getitem__(key) &ndash; возвращает значение элемента последовательности для данного
+ключа key.
+Значение ключа должно быть положительным целым числом в диапазоне от 0 до n-1 или отрицательным в
+диапазоне от -1 до -n.
+</UL>
+<P>Проверим, определены ли эти методы для строк и целых чисел:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__len__()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">3</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(125).__len__()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+AttributeError: 'int' object has no attribute '__len__'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__getitem__(1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'a'</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Результаты </SPAN>показывают, что строки поддерживают оба метода протокола и
+поэтому являются последовательностями. А целые числа не поддерживают уже первый метод (второй
+&ndash; тоже) и, следовательно, не принадлежат классу <SPAN CLASS="svoj">Sequence</SPAN>. Отметим,
+что доступ к значениям элементов последовательности по их номерам означает упорядоченность значений
+последовательностей.<BR>
+<SPAN CLASS="txt_abz"><BR>
+<SPAN CLASS="txt_abz">Чтобы </SPAN>объекты относилисть к ABC-классу
+<SPAN CLASS="svoj">Mutable Sequence</SPAN> &ndash; изменяемой последовательности, необходимо,
+чтобы для них были определены дополнительно еще два специальных метода:
+<UL CLASS="list">
+<LI> __setitem__(key, value) &ndash; добавляет в последовательность значение value,
+соответствующее ключу key;
+<LI>  __delitem__(key) &ndash; удаляет из последовательности элемент, соответствующий ключу
+key.
+</UL>
+<P>Проверим, являются ли строки изменяемой последовательностью. Попробуем изменить второй символ
+строки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__setitem__(1, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'u'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+AttributeError: 'str' object has no attribute '__setitem__'</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Т.е., </SPAN>строки не имеют атрибута <SPAN CLASS="svoj">__setitem__</SPAN> 
+и, следовательнло, не принадлежат к классу изменяемых последовательностей. Это неизменяемые
+объекты.<BR>
+<SPAN CLASS="txt_abz">К </SPAN>четырем основным правилам предъявляются такде такие требования:
+<UL CLASS="list">
+<LI> если ключ в последовательности является отрицательным числом, то отчет индексов
+элементов последовательности начинается с конца;
+<LI> ключи дожны быть соответствующего тииа, иначе возникает исключение TypeError;
+<LI> если индекс последовательности правильного типа, но превосходит разрешенный диапазон,
+возникает исключение IndexError.
+</UL>
+<P>Осуществить проверку, является ли некоторый объект неизменяемой последовательностью, можно и
+по-другому, не привлекая протокол последовательности, а используя встроенную функцию 
+<SPAN CLASS="svoj">isinstance()</SPAN> (см. <A HREF="../LAB1/lab.htm#isinstance"> подраздел 8.1</A>
+лаб. раб. №1) и <SPAN CLASS="svoj">ABC-классы</SPAN>:
+<SPAN CLASS="svoj">Sequence</SPAN> и <SPAN CLASS="svoj">MutableSequence</SPAN>
+(см. <A HREF="#1">раздел 1</A>):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Sequence, MutableSequence</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, MutableSequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Т.е. </SPAN>получаем тот же результат &ndash; строки действительно являются
+неизменяемыми последовательностями. <BR>
+<SPAN CLASS="txt_abz">К </SPAN>базовым последовательностям относяться следующие типы данных:
+<UL CLASS="list">
+<LI> списки (см. <A HREF="#2">раздел 2</A>); 
+<LI> кортежи</A> (см. <A HREF="../LAB4/lab.htm#1">раздел 1</A> лаб. раб. №4); 
+<LI> диапазоны (см. <A HREF="../LAB4/lab.htm#2">раздел 2</A> лаб. раб. №4).
+</UL>
+<P>К дополнительным последовательностям относятся следующие типы данных:
+<UL CLASS="list">
+<LI> текстовые последовательности (строки)
+(см. <A HREF="../LAB2/lab.htm#2">раздел 2</A> лаб. раб. №2);
+<LI> двоичные последовательности (см. <A HREF="../LAB4/lab.htm#3">раздел 3</A>
+лаб. раб. №4).
+</UL>
+<A id="1.4.2"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod1">1.4.2 Операции, общие для последовательностей</H4>
+<P> Все указанные выше типы последовательностей относятся к итерабельным типам данных
+(см. <A HREF="#1.2">подраздел 1.2</A>). Ниже приводится список операций, которые являются общими
+для этих последовательностей. Операции для последовательностей приводятся в порядке возрастания
+приоритета (в скобках указаны соответствующие им специальные методы). <SPAN CLASS="svoj">S</SPAN>
+и <SPAN CLASS="svoj">T</SPAN> обозначают последовательности одного типа,
+<SPAN CLASS="svoj">x</SPAN> &ndash; элемент последовательности, <SPAN CLASS="svoj">i</SPAN>,
+<SPAN CLASS="svoj">j</SPAN>, <SPAN CLASS="svoj">k</SPAN> и <SPAN CLASS="svoj">n</SPAN> &ndash;
+целые числа. <BR>
+<SPAN CLASS="txt_abz">Для </SPAN>каждой операции указана ссылка на соответствующую ей операцию над
+строками, которые были рассмотрены в <a href="../LAB2/lab.htm#2">разделе 2 </a>лаб. раб №2:
+<UL CLASS="list">
+<LI> x in S &ndash; равно True, если элемент из S равен x, иначе False (S.__contains__(x))
+(см. <A HREF="../LAB2/lab.htm#2.3">раздел 2.3</A> лаб. раб. №2);
+<LI> x not in S &ndash; равно False, если элемент из S равен x, иначе True
+(см. <A HREF="../LAB2/lab.htm#2.3">раздел 2.3</A> лаб. раб. №2);
+<LI> S + T &ndash; выполняется операция конкатенации между S и T (S.__add__(T))
+(см. <A HREF="../LAB2/lab.htm#2.3">раздел 2.3</A> лаб. раб. №2);
+<LI> S * n or n * S &ndash; выполняется n раз копирование и конкатенация S (S.__mul__(n));
+<LI> S[i] &ndash; берется i-й элемент S
+(см. <A HREF="../LAB2/lab.htm#2.4">раздел 2.4</A> лаб. раб. №2) (S.__getitem(i));
+<LI> S[i:j] &ndash; срез S с i-го элемента по j-й
+(см. <A HREF="../LAB2/lab.htm#2.5">раздел 2.5</A> лаб. раб. №2);
+<LI> S[i:j:k] &ndash; срез S с i-го элемента по j-й с шагом k
+(см. <A HREF="../LAB2/lab.htm#2.5">раздел 2.5</A> лаб. раб. №2);
+<LI> встроенная функцмя len(container) &ndash; возвращает длину (количество элементов) для
+контейнера (см. <a href="#1.1">подраздел 1.1</a>), эквивалентна методу S.__len__()
+(см. <A HREF="../LAB2/lab.htm#2.6">раздел 2.6</A> лаб. раб. №2); 
+<LI> встроенная функцмя min(iteruble[,keyword_only]) &ndash; если итерабельный объект iteruble не
+пуст, возвращает его минимальный элемент. В противном случае &ndash; возвращает пустой итерабельный
+объект keyword_only (см. <A HREF="../LAB2/lab.htm#2.6">раздел 2.6</A> лаб. раб. №2);
+<LI> встроенная функцмя max(iteruble[,keyword_only]) &ndash; если итерабельный объект iteruble не
+пуст, возвращает его максимальный элемент. В противном случае &ndash; возвращает значение
+keyword_only (см. <A HREF="../LAB2/lab.htm#2.6">раздел 2.6</A> лаб. раб. №2);
+<LI> метод s.index(x[, i[, j]]) &ndash; возвращает индекс первого вхождения x в s (начиная с
+индекса i и до индекса j)
+(см. <A HREF="../LAB2/lab.htm#2.7">подраздел 2.7</A> лаб. раб. №2):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'1020304050'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">.index(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">,2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">3</SPAN>;<BR> 
+<LI>  метод s.count(x) &ndash; возвращает число вхождений x в s
+(см. <A HREF="../LAB2/lab.htm#2.7">подраздел 2.7</A> лаб. раб. №2):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'1020304050'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">.count(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">5</SPAN>.<BR>
+</UL>
+<P>Отметим, что операции <SPAN CLASS="svoj">in</SPAN> и <SPAN CLASS="svoj">not in</SPAN> имеют тот
+же приоритет, что и операции сравнения. Операции "+" и "*" имеют такой же приоритет, как и
+соответствующие операции над числами.<BR> 
+<SPAN CLASS="txt_abz">Последовательности </SPAN>одинаковых типов также поддерживают операции
+сравнения. Две последовательности будут равны, если имеют одинаковый тип, равное число элементов и
+все элементы одной последовательности равны соответствующим элементам другой последовательности.<BR> 
+<SPAN CLASS="txt_abz">Единственной </SPAN>операцией, которая поддерживается неизменяемыми
+последовательностями и не поддерживается изменяемыми последовательностями, является вызов
+встроенной функции <SPAN CLASS="svoj">hash()</SPAN> (см. <A HREF="#1.3">подраздел 1.3</A>). Эта
+поддержка позволяет использовать неизменяемые последовательности, такие как кортежи
+(см. <A HREF="../LAB4/lab.htm#1">разделе 1</A> лаб. раб. №4), в качестве ключей словарей
+(см. <A HREF="../LAB5/lab.htm#2.1">подраздел 2.1</A> лаб. раб. №5) и сохранять их
+в экземплярах объектов <SPAN CLASS="svoj">set</SPAN> и <SPAN CLASS="svoj">frozenset</SPAN>
+(см. <A HREF="../LAB5/lab.htm#1">раздел 1</A> лаб. раб. №5).<BR>
+<SPAN CLASS="txt_abz">Помимо </SPAN>применения последовательностей встроенных типов пользователь
+может, используя выше приведенные методы правил, создавать собственные типы данных, являющиеся
+последовательностями.
+<A id="1.5"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.5 Оператор цикла for in</H4>
+<P>Оператор цикла <SPAN CLASS="svoj">for in</SPAN> представляет собой цикл обхода заданной
+последовательности элементов, которая должна быть итерабельным объектом, и выполнения в своем теле
+различных операций над ними. Имеет следующую форму:<BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">for &lt;элемент> in
+&lt;последовательность элементов>:</SPAN><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">&lt;блок>
+</SPAN>.<BR>
+<SPAN CLASS="txt_abz">При </SPAN>выполнении оператора <SPAN CLASS="svoj">for in</SPAN>
+интерпертатор осуществляет следующие действия. Сначала для итерабельного объекта вызывает метод
+<SPAN CLASS="svoj">__iter__</SPAN>, чтобы получить его итератор. Затем последовательно для
+итератора вызывается метод <SPAN CLASS="svoj">__next__</SPAN>, который возвращает очередной 
+элемент последовательности, до тех пор, пока не возникнет исключение
+ <SPAN CLASS="svoj">StopIteration</SPAN>. Эти действия соответствуют протоколу итераций (см. 
+<A HREF="#1.2">подраздел 1.2</A>).<BR>
+<SPAN CLASS="txt_abz">Поскольку </SPAN>строка представляет собой последовательность и,
+следовательно, является итерабельным типом (см. <A HREF="#1.2">подраздел 1.2</A>), то можно
+использовать оператор <SPAN CLASS="svoj">for in</SPAN> для перебора всех символов строки и вывода
+их с дополнительным пробелом:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Микропроцессор'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">for</SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> l</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">in</SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> s:</SPAN><BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(l,end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">М и к р о п р о ц е с с о р</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN>По умолчанию функция <SPAN CLASS="svoj">print()</SPAN> после вывода
+сообщения на экран осуществляет перевод строки. Однако с помощью параметра
+<SPAN CLASS="svoj">end=&lt;символ></SPAN>можно указать символ, которым будет заканчиваться вывод.
+В данном случае это пробел. 
+<A id="2"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>2 Списки</H4>
+<P>Списки в языке Python имеют тип (класс) <SPAN CLASS="svoj">list</SPAN> и представляют собой 
+последовательности элементов, значениями которых, в отличие от строк, могут быть данные разных
+типов, в том числе и списки. Другим отличием списков от строк является то, что они являются
+изменяемыми объектами (см. <A HREF="../LAB2/lab.htm#2">раздел 2</A> лаб. раб. №2),
+т.е. значения элементов списка можно изменять без создания нового списка. Списки в языке Python
+похожи на индексные массивы языка Jaxascript.
+<A id="2.1"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.1 Создание списков</H4>
+<P> Существует два подхода для создания списка:
+<UL CLASS="list">
+<LI> первый подход заключается в использовании квадратных скобок для задания литерала списка:
+<UL CLASS="list2">
+<LI> литерал может содержать элементы списка, разделенные запятыми:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list=[0.01, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Web'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, [1,2,3]]</SPAN>;<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[0.01, 'Web', [1, 2, 3]]</SPAN>;<BR><BR>
+<LI> литерал может содержать генератор элементов списка
+(см. <A HREF="../LAB5/lab.htm#3.1">подраздел 3.1</A> лаб. раб. №5);
+<LI> если литерал ничего не содержит &ndash; создается пустой список:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list=[]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[]</SPAN>;<BR><BR>
+</UL>
+<LI> второй подход предусматривает использование конструктора &ndash; встроенной функции
+<SPAN CLASS="svoj">list([iterable])</SPAN>
+(см. <A HREF="../LAB1/lab.htm#list">подраздел 8.1</A> лаб. раб. №1), аргумент которой &ndash;
+итерабельный тип данных преобразуется в список:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_list=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">list </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Python'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+['P', 'y', 't','h','o','n']</SPAN>.<BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">type </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(b_list)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+&lt'class 'list'></SPAN>.<BR> <BR>
+<SPAN CLASS="txt_abz">Если </SPAN>аргументом конструктора является объект типа list, то создается
+копия списка, если аргумент не указан &ndash; создается пустой список.
+</UL>
+<P>В логическом контексте пустой список (<SPAN CLASS="svoj">[]</SPAN>) соответствует False, любой
+другой &ndash; True. <BR>
+<SPAN CLASS="txt_abz">Проверим, </SPAN>являются ли списки итерабельными объектами
+(см. <A HREF="#1.2">подраздел 1.2</A>):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Iterable</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([1,2,3], Iterable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR>
+<SPAN CLASS="txt_abz">Все </SPAN>итерабельные объекты поддерживают следующие встроенные функции:
+<UL CLASS="list">                                  
+<LI> all([iterable]) &ndash; возвращает True, если все значения итерабельного объекта имеют
+значение True или если итерабельный объект пуст:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">all</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([1,2,3])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">all</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">all </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([1,2,0])</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI> any([iterable]) &ndash; возвращает True, если хотя бы одно значение итерабельного объекта
+равно True. Если итерабельный объект пуст, возвращает False:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">any</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([1,2,0])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">any </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([])</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">any </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([0,0,0])</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+</UL>
+<P>Теперь проверим, являются ли списки изменяемыми последовательностями
+(см. также проверку для строк в <A HREF="#1.4.1">подразделе 1.4.1</A>):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from </SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> collections</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Sequence, MutableSequence</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_list, Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_list, MutableSequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Действительно, </SPAN>списки являются изменяемыми последовательностями.
+<A id="2.2"></A>
+<p> A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.2 Поддержка списками операций, общих для последовательностей</H4>
+<P>Будучи последовательностями, списки поддерживают все операции, которые являются общими для всех
+типов последовательностей (см. <A HREF="#1.4.2">подраздел 1.4.2</A>): 
+<UL CLASS="list">
+<LI> x in s &ndash; равно True, если элемент из s равен x, иначе False. В списках используется
+для проверки вхождения элемента в список:<BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Web'</SPAN>
+<SPAN STYLE="font-size:7mm; color:red">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">1</SPAN>
+<SPAN STYLE="font-size:7mm; color:red">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>;<BR><BR>
+<LI> x not in s &ndash; равно False, если элемент из s равен x, иначе True;
+<LI> s + t &ndash; выполняется операция конкатенации между s и t (объединение списков):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_list)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">36877496</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list+=[0x25]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[0.01, 'Web', [1, 2, 3], 37]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_list)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">36877496</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Видно, </SPAN>что для изменяемых типов операция конкатенации не создает
+нового объекта, поскольку значение функции id(), т.е. адрес объекта, остается неизменным. Меняется
+только его значение. В отличие от неизменяемого типа, для которого операция конкатенации создает
+новый объект с другим адресом:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(s)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">35173984</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s+=</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'s'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cats'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(s)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">37084672</SPAN>;<BR><BR>
+<LI> s * n or n * s &ndash; выполняется n раз копирование ссылок элементов s:<BR><BR>                 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">[1,2,3]*2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[1, 2, 3, 1, 2, 3]</SPAN>;<BR> <BR>
+<LI> s[i] выбирается i-й элемент s. Индексация списков похожа на индексацию строк &ndash; индексы
+могут быть как положительными, так и отрицательными числами:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[1]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Web'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[-2]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[1, 2, 3].</SPAN><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>доступа к элементам списка, которые сами являются списками,
+необходимо указывать в квадратных скобках два индекса &ndash; первый для элементов основного списка,
+второй &ndash; для элементов внутреннего списка. Степень вложенности списков не ограничена:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[2][0]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN>;<BR><BR>
+<LI> s[i:j] &ndash; срез s с i-го элемента по j-й:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[:2]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[0.01, 'Web']</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[::-1]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[37,[1, 2, 3], 'Web', 0.01]</SPAN>;<BR><BR> 
+<LI> s[i:j:k] &ndash; срез s с i-го элемента по j-й с шагом k:<BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[1:4:2]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">['Web', 37]</SPAN>;<BR><BR>
+<LI> встроенная функцмя len(s) (см. <A HREF="../LAB1/lab.htm#len">подраздел 8.1</A> лаб. раб. №1)
+&ndash; возвращает длину (количество элементов) для аргумента s, который может быть
+последовательностью любого типа, множеством (см. <A HREF="../LAB5/lab.htm#1">раздел 1</A>
+лаб. раб. №5) или словарем (см. <A HREF="../LAB5/lab.htm#2">раздел 2</A> лаб. раб. №5):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(a_list)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4</SPAN>;<BR> 
+<LI> встроенная функцмя min(s) (см. <A HREF="../LAB1/lab.htm#min">подраздел 8.1</A> лаб. раб. №1)
+&ndash; возвращает минимальный элемент s. Для списков необходимо, чтобы их элементы были сравнимы
+между собой, т.е. все элементы должны быть или числами, или строками, или списками:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">min</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([4,2,7])</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">2</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">min</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'www'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN><BR>  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'cat'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">min</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([[11,2],[10,7],[26,0]])</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[10, 7]</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">min</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">,77])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">TypeError: unorderable types: int() >
+str()</SPAN>;<BR><BR>
+<LI> встроенная функцмя max(s) (см. <A HREF="../LAB1/lab.htm#max">подраздел 8.1</A> лаб. раб. №1)
+&ndash; возвращает максимальный элемент s: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">max</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">([1,9],[3,1])</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[3, 1]</SPAN>;<BR> <BR>
+<LI> метод s.index(x[, i[, j]]) &ndash; возвращает индекс первого вхождения x в s (начиная с
+индекса i и до индекса j):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green"></SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">[0,1,1,0,2,2,0,3,3,0,4,4].index(0,4)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">6</SPAN>.<BR> <BR>
+<span CLASS="txt_abz">Если </SPAN>искомого элемента нет в списке:<BR><BR>
+<SPAN STYLE="font-size:7mm; color:black">[0,1,1,0,2,2,0,3,3,0,4,4].index(5)</SPAN>,<BR><BR>
+выводится сообщение об ошибке:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">ValueError: 5 is not in list</SPAN>,<BR><BR>
+т.е. элемент 5 не найден в списке;
+<LI> метод s.count(x) &ndash; возвращает число вхождений x в s:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">[0,1,1,0,2,2,0,3,3,0,4,4].count(0)</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4</SPAN><BR><BR>
+</UL> 
+<A id="2.3"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.3 Поддержка списками операций, общих для изменяемых последовательностей</H4>
+<P>Поскольку списки являются изменяемыми последовательностями
+(см. <A HREF="#2.1">подраздел 2.1</A>), они поддерживают все операции, которые являются общими для
+любой изменяемой последовательности <SPAN CLASS="svoj">s</SPAN></SPAN>:
+<UL CLASS="list">
+<LI> s[i] = x &ndash; i-й элемент последовательности s принимает значение x:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[3]=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'37'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[0.01, 'Web', [1, 2, 3], '37']</SPAN>;<BR><BR>
+<LI> s[i:j] = t &ndash; срез последовательности s от i до j заменяется содержимым объекта
+итерабельного типа t (t должен иметь ту же длину, что и срез):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[1:3]=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'ab'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[0.01, 'a', 'b', '37']</SPAN>;<BR><BR>
+<LI> del s[i:j] &ndash; то же самое, что s[i:j] = [], т.е. удаление элементов среза:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">del </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[1:3]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[0.01, '37']</SPAN>;<BR><BR>
+<LI> s[i:j:k] = t &ndash; элементы среза s[i:j:k] заменяются значениями итерабельного типа t;
+<LI> del s[i:j:k] &ndash; элементы среза s[i:j:k] удаляются из списка;
+<LI> s.append(x) &ndash; добавляет элемент x к концу последовательности (то же самое, что и
+s[len(s):len(s)] = [x]):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list.append(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">True</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[0.01, '37', True]</SPAN>;
+<LI> s.clear() &ndash; удаляет все элементы из последовательности s (то же самое, что и del s[:]):
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_list=[10,20,30]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_list.clear()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[]</SPAN>;<BR><BR>
+<LI> s.copy() &ndash; создает "поверхностную" (англ. shallow) копию s (то же самое, что и s[:]):
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_list=a_list.copy()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[0.01, '37', True]</SPAN>;<BR><BR>
+<LI> s.extend(t) &ndash; расширяет s содержимым объекта итерабельного типа t (то же самое, что и
+s[len(s):len(s)] = t):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list.extend([</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'X'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Y'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[0.01, '37', True, 'X', 'Y'];</SPAN><BR>
+<LI> s.insert(i, x) &ndash; вставляет x в последовательность s на место элемента с индексом i
+(то же самое, что и s[i:i] = [x]) <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list.insert(2,[1,3,2])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[0.01, '37', [1, 3, 2], True, 'X', 'Y'];</SPAN>
+<BR><BR>
+<LI> s.pop([i]) &ndash; возвращает значение элемента с индексом i, а сам элемент удаляется из
+последовальности s:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list.pop(1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'37'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[0.01, [1, 3, 2], True, 'X', 'Y'],</SPAN><BR><BR>
+по умолчанию значение индекса i равно -1, поэтому если индекс не указан, то возвращается значение и
+и происходит удаление последнего элемента последоваетельности: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list.pop()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Y'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[0.01, [1, 3, 2], True, 'X']</SPAN><BR><BR>
+<LI> s.remove(x) &ndash; удаляет первый элемент последовательности s, который равен x (s[i] == x):
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list.remove(0.01)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[[1, 3, 2], True, 'X']</SPAN>,<BR><BR>
+если x не найден &ndash; возникает исключение ValueError:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list.remove(0.01)</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:red">ValueError: list.remove(x): x not in list;</SPAN><BR><BR>
+<LI> s.reverse() &ndash; переставляет элементы последовательности в обратном порядке:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list.reverse()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">['X', True, [1, 3, 2]]</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Эту же </SPAN>операцию можно выполнить, используя срез списка:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a_list[::-1]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">[[1, 3, 2], True, 'X']</SPAN><BR><BR>
+</UL>
+<A id="2.4"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.4 Использование других методов при работе со списками</H4>
+<P>Объекты класса <SPAN CLASS="svoj">list</SPAN>, кроме описанных выше, имеют также метод
+<SPAN CLASS="svoj">list.sort()</SPAN>, который выполняет сортировку элементов списка (будет
+рассмотрен в <A HREF="../LAB6/lab.htm#1.4">подразделе 1.4</A> лаб. раб. №6, поскольку в
+общем случае при его использовании требуется знать, как создаются пользовательские функции).
+</UL>
+<P>С работой со списками связаны и два метода класса <SPAN CLASS="svoj">str</SPAN>:
+<UL CLASS="list">
+<LI> s.split([sep[,index]]) &ndash; возвращает список строк, используя разделитель sep, если
+аргумент sep не задан, в качестве разделителя применяется пробел. Второй необязательный аргумент
+указывает на индекс последнего элемента списка, если не указан &ndash; без ограничений (см. также
+<A HREF="../LAB2/lab.htm#2.6">подраздел 2.6</A> лаб. раб. №2):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat and dog'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.split()</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">['cat', 'and', 'dog']</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s.split(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">['cat', 'and dog']</SPAN><BR><BR>
+<LI> s.join(seq) &ndash; возвращает строку, состоящую из элементов последовательности (списка),
+указанной в качестве аргумента. Разделителем этой строки, является значение строки, которая
+применяет этот метод
+(см. также <A HREF="../LAB2/lab.htm#2.6">подраздел 2.6</A> лаб. раб. №2<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'-'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.join([</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'1'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'2'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'3'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'1-2-3'</SPAN><BR>
+</UL>
+<A id="ind"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>Индивидуальные задания</H4>
+<P>Разработать программу на языке Python, которая выполняет следующее:
+<UL CLASS="list">
+<LI> 1 Создает список a_list, элементами которого являются объекты типов: int, float, bool, strl
+и list (элементы задаются в любом порядке).
+<LI> 2 Для каждого элемента списка a_list определяет:
+<UL CLASS="list2">
+<LI> 2.1 тип элемента;
+<LI> 2.2 ABC-класс (если элемент принадлежит к некоторому ABC-классу).
+</UL>
+<LI> 3 Для списка a_list выполняет операции, номера которых заданы в колонке "Операции" табл. №2:
+<UL CLASS="list2">
+<LI> 1 &ndash; s[i]=x;
+<LI> 2 &ndash; s[i:j]=t; 
+<LI> 3 &ndash; s.append(x); 
+<LI> 4 &ndash; s.extend(t); 
+<LI> 5 &ndash; s.insert(i,x); 
+<LI> 6 &ndash; s.pop([i]); 
+<LI> 7 &ndash; s.remove(x); 
+<LI> 8 &ndash; s.reverce(). 
+</UL>
+<LI> 4 Создает строку s, содержащую слова или числа (см. колонку "Cтрока"/"Содержимое"
+табл. №2), разделенные символами, указанными в колонке "Cтрока"/"Разделитель" табл. №2:
+<UL CLASS="list2">
+<LI> 1 &ndash; знак подчеркивания ("_"); 
+<LI> 2 &ndash; дефис ("-"); 
+<LI> 3 &ndash; символ "<span style="f0nt-style:normal"> | </span>"; 
+<LI> 4 &ndash; символ "&";
+<LI> 5 &ndash; символ "#".
+</UL>
+<LI> 5 Преобразует строку s в список b_list, элементами которого являются строки или числа
+(согласно колонки "Cтрока"/"Содержимое" табл. №2).
+<LI> 6 Выполняет над элементами списка b_list функции, указанные в колонке "Функции":
+<UL CLASS="list2">
+<LI> 1 &ndash; len(), min(); 
+<LI> 2 &ndash; len(), max();
+<LI> 3 &ndash; min(), max(). 
+</UL>
+<LI> 7 Выводит результаты выполнения функций на экран. 
+</UL>                             
+<P><table align="center" width="50%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 2 &ndash; Перечень индивидуальных заданий</CAPTION>
+<TR><TH rowspan="2">Номер<BR>п/п<TH rowspan="2">Операции<TH colspan="2">Строка
+<TH rowspan="2">Фукции
+<TR><TH>Содержимое <TH>Разделитель
+<TR ALIGN="center"><TD>1<TD>1,3,6<TD>слова<TD>1<TD>1
+<TR ALIGN="center"><TD>2<TD>2,4,5<TD>числа<TD>2<TD>2
+<TR ALIGN="center"><TD>3<TD>3,7,8<TD>слова<TD>3<TD>3
+<TR ALIGN="center"><TD>4<TD>4,6,1<TD>числа<TD>4<TD>1
+<TR ALIGN="center"><TD>5<TD>5,2,8<TD>слова<TD>5<TD>2
+<TR ALIGN="center"><TD>6<TD>7,2,1<TD>числа<TD>1<TD>3
+<TR ALIGN="center"><TD>7<TD>3,8,4<TD>слова<TD>2<TD>1
+<TR ALIGN="center"><TD>8<TD>1,3,6<TD>числа<TD>3<TD>2
+<TR ALIGN="center"><TD>9<TD>2,4,5<TD>слова<TD>4<TD>3
+<TR ALIGN="center"><TD>10<TD>3,7,8<TD>числа<TD>5<TD>1
+<TR ALIGN="center"><TD>11<TD>4,6,1<TD>слова<TD>1<TD>2
+<TR ALIGN="center"><TD>12<TD>5,2,8<TD>числа<TD>2<TD>3
+<TR ALIGN="center"><TD>13<TD>7,2,1<TD>слова<TD>3<TD>1
+<TR ALIGN="center"><TD>14<TD>3,8,4<TD>числа<TD>4<TD>2
+<TR ALIGN="center"><TD>15<TD>1,3,6<TD>слова<TD>5<TD>3
+<TR ALIGN="center"><TD>16<TD>2,4,5<TD>числа<TD>1<TD>1
+<TR ALIGN="center"><TD>17<TD>3,7,8<TD>слова<TD>2<TD>2
+<TR ALIGN="center"><TD>18<TD>4,6,1<TD>числа<TD>3<TD>3
+<TR ALIGN="center"><TD>19<TD>5,2,8<TD>слова<TD>4<TD>1
+<TR ALIGN="center"><TD>20<TD>7,2,1<TD>числа<TD>5<TD>2
+</TABLE>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+        `

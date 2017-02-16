@@ -1,0 +1,845 @@
+<HTML>
+<HEAD>
+<TITLE>Лабораторная работа 7: Разработка CGI скриптов на языке Python</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">
+<STYLE>TH,TD{font-size:5.5mm;border:1 double blue}</STYLE>
+</HEAD>
+<BODY>
+<H1> ЛАБОРАТОРНАЯ РАБОТА №7</H1>
+<H2> <SPAN CLASS="beg">Тема: </SPAN>Разработка CGI скриптов на языке Python</H2>
+<H2> <SPAN CLASS="beg">Цель: </SPAN>
+Рассмотрение особенностей разработки серверных приложений</H2>
+<A NAME="beg"></A>
+<H3>ОГЛАВЛЕНИЕ</H3> 
+<A CLASS="com" HREF="#1">1 Особенности интерфейса CGI<BR>
+<A CLASS="com" HREF="#1.1">1.1 Формат передаваемых данных<BR>
+<A CLASS="com" HREF="#1.2">1.2 Конфигурирование Web-сервера<BR>
+<A CLASS="com" HREF="#1.3">1.3 Коды статуса запроса<BR>
+<A CLASS="com" HREF="#2">2 Разработка клиентской части приложения<BR>
+<A CLASS="com" HREF="#3">3 Особенности разработки CGI скриптов, реализующих серверную часть
+приложения<BR>
+<A CLASS="com" HREF="#3.1">3.1 Использование модуля cgitb<BR>
+<A CLASS="com" HREF="#3.2">3.2 Методы модуля cgi<BR>
+<A CLASS="com" HREF="#3.3">3.3 Разработка CGI скрипта с использованием метода parse() модуля cgi<BR>
+<A CLASS="com" HREF="#prim1">Пример №1 <BR>
+<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<A NAME="1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>1 Особенности интерфейса CGI </H4>
+<P>Одним из средств, которые позволяют осуществить взаимодействие между клиенской и серверной
+частями приложения, является интерфейс CGI (Common Gateway Interface &ndash; общий шлюзовый
+интерфейс), имеющий реализации как для Windows-ориентированных программ, так и для приложений,
+функционирующих в среде Unix. Этот интерфейс разработан так, чтобы для создания серверного
+приложения можно было использовать любой язык программирования, который может работать со
+стандартными устройствами ввода/вывода. Серверная часть приложения, которая обрабатывает данные
+клиента, полученные с использованием CGI-интерфейса, называется CGI-приложением.<BR> 
+<SPAN CLASS="txt_abz">При </SPAN>использовании CGI-приложений информация на Web-странице клиента,
+предназначенная для передачи на сервер, предствляется в виде HTML-форм.<BR> 
+<SPAN CLASS="txt_abz">Итерфейс CGI </SPAN>вместе с HTML-формой были разработаны в 1991 Марком
+Андерссеном и Эриком Бином в национальном центре суперкомпьютерных приложений NCSA
+(Center for Supercomputing Applications) при университете штата Иллинойс (США) в ходе работы над
+браузером NCSA Mosaic, первым браузером под операционную систему Microsoft Windows. На основе его
+исходного кода были разработаны браузеры Netscape Navigator и Micosoft Internet Explorer. 
+<A NAME="1.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.1 Формат передаваемых данных </H4>
+<P>При передаче данных формы на сервер с использованием CGI-интерфейса с помощью атрибутов
+<SPAN CLASS="svoj">method</SPAN> и <SPAN CLASS="svoj">enctype</SPAN> тега &lt;form> могут быть
+указаны метод передачи и MIME-тип данных.<BR> 
+<SPAN CLASS="txt_abz">MIME</SPAN> (Multipurpose Internet Mail Extensions
+&ndash; многоцелевые расширения почты Internet, произносится как <майм>) &ndash; первоначально
+стандарт, описывающий передачу различных типов данных по электронной почте. Сейчас &ndash;
+спецификация для кодирования информации и форматирования сообщений таким образом, чтобы их можно
+было пересылать по сети Internet.<BR>
+<SPAN CLASS="txt_abz">Формат MIME поддерживает передачу нескольких блоков данных в пределах одного
+сообщения. Причем блоки могут передаваться не только в виде одноуровневой последовательности, но в
+виде иерархии с вложением элементов друг в друга.<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>обозначения множественного содержимого используются типы
+<SPAN CLASS="svoj">multipart/*</SPAN>. Работа с такими типами осуществляется по правилам, описанным
+в RFC 2046.<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>передачи множественного сообщения в заголовок Content-Type
+добавляется атрибут boundary (граница), который обозначает последовательность символов,
+разделяющих части сообщения. Граница может состоять из цифр, букв и символов <'()+_,-./:=?>. При
+использовании специальных символов (не цифр и букв) значение параметра boundary следует заключать в
+двойные кавычки. Максимальная длина границы &ndash; 70 символов.<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>формы допускается использовать следующие два MIME-типа данных:
+<UL CLASS="list">
+<LI> application/x-www-form-urlencoded;
+<LI> multipart/form-data.
+</UL>
+<P>Первый тип данных (url-кодированные) задается по умолчанию и используется при передаче любых
+данных формы (за исключением файлов). Второй тип может быть указан только для метода POST, задает
+структуру данных, имеющую несколько частей, и используется при передаче файлов из формы на сервер.<BR> 
+<SPAN CLASS="txt_abz">Если </SPAN>MIME-тип не указан (что является типичным) или указан тип
+<CLASS="svoj">application/x-www-form-urlencoded</SPAN>, то имена полей формы и их значения
+передаются на сервер в таком формате: 
+<P><SPAN style="font-size:6.5mm">имя=значение&имя=значение&имя=значение& . . .  </SPAN>
+<P>При этом используется url-кодирование передаваемых имен и значений, которое заключается в
+следующем:
+<UL CLASS="list">
+<LI> незарезервированные (англ. unreserved) ASCII символы, т.е. символы, представляющие сами себя:
+буквы латинского алфавита, цифры и символы <span style="color:blue; font-size:6.5mm">
+_ - . ~</span>, передаются без url-кодирования;
+<LI> зарезервированные (англ. reserved) ASCII символы (
+<span style="color:blue; font-size:6.5mm"> ! * ' ( ) ; : @ & = + $ , / ? % # [ ]</span> ) и 
+некоторые другие символы (в их число попали символы кириллицы) перед передачей на сервер
+преобразуются в последовательности из трех символов вида %XX, где XX &ndash; ASCII-символы
+16-ричных цифр, задающие число, которое является ASCII-кодом url-кодируемого символа;
+<LI> все символы пробелов заменяются символами "+" или %20.
+</UL>
+<A NAME="1.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.2 Конфигурирование Web-сервера</H4>
+<P>При разработке приложения в рамках технологии "клиент-сервер" необходимо выбрать Web-сервер и
+осуществить его конфигурирование. В примерах, приведенных в описании данной лабораторной работы,
+предполагается использование сервера Apache. Он является кросс-платформенным и нашел широкое
+применение у разработчиков клиент-серверных приложений. Однако для выполнения данной работы можно
+выбрать любой из доступных Web-серверов.<BR>
+<SPAN CLASS="txt_abz">Конфигурирование </SPAN>сервера Apache осуществляется путем задания
+необходимых значений директивам, содержавшимся в его файле конфигурации
+<SPAN CLASS="svoj">httpd.conf</SPAN>. Поскольку этот файл содержит довольно много директив,
+приведем лишь некоторые из них, имеющих прямое отношение к выполняемой работе (в скобках указано
+заданное значение директивы):
+<UL CLASS="list">
+<LI> ServerRoot &ndash; задает верхнюю директорию сервера, в которой хранятся его файлы
+конфигурирования, журнала и ошибок (<SPAN STYLE="color:#0000A0">  "D:/ . . . /Apache Group/Apache"
+</SPAN>);
+<LI> ServerName &ndash; задает имя хоста с Web-сервером (<SPAN STYLE="color:#0000A0">zykov</SPAN>),
+в качестве имени можно также указывать DNS-имя (если имеется) или IP-адрес; 
+<LI> DocumentRoot &ndash; задает директорию, в которой хранятся документы сервера, в том числе
+серверные приложения на языке Python
+(<SPAN STYLE="color:#0000A0">"D:/ . . . /Apache Group/Apache/root"</SPAN>);
+<LI> DefaultType &ndash; задает MIME-тип данных, принимаемый по умолчанию
+(<SPAN STYLE="color:#0000A0">text/plain;charset=windows-1251</SPAN>);
+<LI> ScriptAlias /cgi-bin/ &ndash; задает директорию, содержащую CGI-приложения
+(<SPAN STYLE="color:#0000A0">
+"D:/ . . . /Apache Group/Apache/cgi-bin/"</SPAN>).
+</UL>
+<P>Остальные директивы файла конфигурации <SPAN CLASS="svoj">httpd.conf</SPAN> необходимо
+просмотреть (все они имеют комментарии) и при необходимости изменить их начальные значения.<BR>
+<SPAN CLASS="txt_abz">При </SPAN>всяком изменении значений конфигурационного файла необходимо
+осуществлять перезапуск Web-сервера.<BR>
+<SPAN CLASS="txt_abz">Если </SPAN> серверное приложение задается не в виде
+<SPAN CLASS="svoj">exe</SPAN>-файла, а является программой, написанной на языке Python и заданной
+в виде файла с расширением <SPAN CLASS="svoj">.py</SPAN>, то необходимо дополнительно выполнить
+следующие изменения в конфигурационном файле <SPAN CLASS="svoj">Apache</SPAN>:
+<UL CLASS="list">
+<LI> для подкаталога "D:/ . . . /Apache Group/Apache/root" в строке Options Indexes FollowSymLinks
+MultiViews добавить <i>execCGI</i>:<BR>
+<SPAN STYLE="color:#0000A0">Options Indexes FollowSymLinks MultiViews ExecCGI</SPAN>
+<LI> убрать комментарии в строке #AddHandler cgi-script .cgi и добавить <i>.py</i>:<BR>
+<SPAN STYLE="color:#0000A0">AddHandler cgi-script .cgi .py</SPAN>
+</UL>
+<A NAME="1.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.3 Коды статуса запроса</H4>
+<P>Коды статуса (Status) используются в http-протоколе для передачи сервером браузеру статуса
+запроса. Поле статуса заголовка содержит три цифры, за которыми следует строка текста, поясняющая
+код. Коды статуса сгруппированы по первой цифре:
+<UL CLASS="list">
+<LI> 1xx &ndash; информационные;
+<LI> 2xx &ndash; указывают, что запрос был обработан успешно, например:
+<UL CLASS="list2">
+<LI> "200 OK" &ndash; обычное значение;
+<LI> "204 No Response" &ndash; означает, что Web-страница не будет передана клиенту;
+</UL>
+<LI> 3xx &ndash; указывают, что клиент перенаправлен по другому адресу, например,
+"301 Document Moved" (для запроса установлен новый URL);
+<LI> 4xx &ndash; ошибка клиента, например, "404 Not Found" (документ по указанному адресу не
+найден);
+<LI> 5xx &ndash; ошибка сервера, например, "500 Internal Server Error" (внутренняя ошибка
+сервера).
+</UL>
+<P>Полный список кодов статуса можно найти по адресу:<BR> 
+<A HREF="http://www.w3.org/hypertext/WWW/Protocols/HTTP/HTRESP.html">
+<SPAN CLASS="html">http://www.w3.org/hypertext/WWW/Protocols/HTTP/HTRESP.html</A>. 
+<A NAME="2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>2 Разработка клиентской части приложения</H4>
+<P>Клиентская часть приложения содержит HTML-документ, реализованный в виде примера
+<A HREF="#prim1">№1</A>, содержащего форму (тег <SPAN CLASS="svoj">&lt;form></SPAN>), с помощью
+которого осуществляется прием данных от клиента и передача с использованием интерфейса CGI
+(см. <A HREF="#1">раздел 1</A>) запроса для обработки серверной программе<SPAN CLASS="svoj">
+cgi_parse_form.py</SPAN>.<BR>
+<SPAN CLASS="txt_abz">HTML-форма </SPAN> <A HREF="#prim1">примера №1</A> имеет поля,
+предоставляющие пользователю такие возможности:
+<UL CLASS="list">
+<LI> с помощью текстового поля "name" &ndash;  ввести имя пользователя;
+<LI> с помощью переключателя "check1" &ndash; получить и проверить данные, переданные серверу;
+<LI> с помощью переключателя "check2" &ndash; получить переменные окружения;
+<LI> с помощью переключателя "check3" &ndash; получить рисунок;
+<LI> с помощью тега &lt;select> ("help") &ndash; получить подсказку о создании объектов следующих
+типов: 
+<UL CLASS="list2">
+<LI> строки ("str");
+<LI> списка ("list");
+<LI> кортежа ("tuple");
+<LI> множества ("set");
+<LI> словаря ("dict").
+</UL></UL>
+<p>Свойства элементов формы (цвет и размер символов, выравнивание текста, цвет фона и др.)
+заданы с помощью файла <SPAN CLASS="svoj">lab.css</SPAN>, который подключается к HTML-документу
+<A HREF="#prim1">примера №1</A> и содержит следующие CSS:<BR><BR>
+<SPAN CLASS="html_par"> body { </SPAN><BR> 
+<SPAN CLASS="html_par2"> margin:1.5cm 1.5cm 2.0cm 2.5cm; </SPAN><BR>
+<SPAN CLASS="html_par2"> font-size:5.5mm; </SPAN><BR> 
+<SPAN CLASS="html_par2"> color:#000080; </SPAN><BR>
+<SPAN CLASS="html_par2"> background-color:#eeeeee; </SPAN><BR>
+<SPAN CLASS="html_par"> } </SPAN><BR> 
+<SPAN CLASS="html_par">h1 { </SPAN><BR> 
+<SPAN CLASS="html_par2"> text-align:center; </SPAN><BR> 
+<SPAN CLASS="html_par2"> color:#d0d; </SPAN><BR> 
+<SPAN CLASS="html_par2"> text-transform:uppercase; </SPAN><BR>
+<SPAN CLASS="html_par2"> font:italic  0.25in tahoma; </SPAN><BR>   
+<SPAN CLASS="html_par"> } </SPAN><BR>
+<SPAN CLASS="html_par"> input, textarea, option, button { </SPAN><BR>
+<SPAN CLASS="html_par2"> background:#eeffee; </SPAN><BR>
+<SPAN CLASS="html_par2"> color:#005000; </SPAN><BR>
+<SPAN CLASS="html_par2"> font-size:6mm; </SPAN><BR>
+<SPAN CLASS="html_par2"> border:outset 2px black; </SPAN><BR>
+<SPAN CLASS="html_par"> } </SPAN><BR>
+<SPAN CLASS="html_par"> td { </SPAN><BR>
+<SPAN CLASS="html_par2"> vertical-align:middle; </SPAN><BR>
+<SPAN CLASS="html_par"> } </SPAN><BR>
+<A NAME="prim1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<P><A CLASS
+="out" HREF="prim1.htm">Пример №1</A><BR><BR>
+<SPAN CLASS="html">&lt;!DOCTYPE html> </SPAN><BR>
+<SPAN CLASS="html">&lt;html&gt; </SPAN><BR>
+<SPAN CLASS="html">&lt;head&gt; </SPAN><BR>
+<SPAN CLASS="html">&lt;title>Обработка данных формы&lt;/title> </SPAN><BR>
+<SPAN CLASS="html">&lt;link rel="stylesheet" href="lab.css"> </SPAN><BR>
+<SPAN CLASS="html">&lt;/head&gt; </SPAN><BR>
+<SPAN CLASS="html">&lt;body&gt; </SPAN><BR>
+<SPAN CLASS="html">&lt;h1>Обработка данных формы&lt;/h1> </SPAN><BR>
+<SPAN CLASS="html">&lt;form method="get" action="http://zykov/PYTHON/cgi_parse_form.py"> </SPAN><BR>
+<SPAN CLASS="html">&lt;table align="center" width="50%" style="color:#000080;font-size:6mm"> 
+</SPAN><BR>
+<SPAN CLASS="html">&lt;tr> &lt;td> Введите имя </SPAN><BR> 
+<SPAN CLASS="html">&lt;td>&lt;input type="text" size="10" class="form" name="name" </SPAN><BR>
+<SPAN CLASS="html">&lt;tr>&lt;td cols="2"> </SPAN><BR>
+<SPAN CLASS="html">&lt;span style="margin-left:2cm; outline:1px solid blue;font-size:5.5mm">
+Отметьте то, что хотите получить </SPAN><BR>
+<SPAN CLASS="html"> &lt;/span> </SPAN><BR>
+<SPAN CLASS="html">&lt;tr>&lt;td>Данные HTML-формы </SPAN><BR>
+<SPAN CLASS="html">&lt;td>&lt;input type="checkbox" name="check1" value="data"> </SPAN><BR>
+<SPAN CLASS="html">&lt;tr>&lt;td>Переменные окружения
+&lt;td>&lt;input type="checkbox" name="check2"> </SPAN><BR>
+<SPAN CLASS="html">&lt;tr>&lt;td>Рисунки&lt;td>&lt;input type=checkbox name="check3" value="img">
+</SPAN><BR>
+<SPAN CLASS="html">&lt;tr> &lt;td>Примеры формирования </SPAN><BR>
+<SPAN CLASS="html">&lt;td>&lt;select name="help" size="3" multiple class="form"> </SPAN><BR>
+<SPAN CLASS="html">&lt;option value="str"> строки </SPAN><BR>
+<SPAN CLASS="html">&lt;option value="list"> списка </SPAN><BR>
+<SPAN CLASS="html">&lt;option value="tuple"> кортежа </SPAN><BR>
+<SPAN CLASS="html">&lt;option value="set"> множества </SPAN><BR>
+<SPAN CLASS="html">&lt;option value="dict"> словаря </SPAN><BR>
+<SPAN CLASS="html">&lt;/select> </SPAN><BR>
+<SPAN CLASS="html">&lt;tr> &lt;td>
+&lt;input type="reset" value="Сброс" class="kn"&gt;&amp;nbsp;&amp;nbsp; </SPAN><BR>
+<SPAN CLASS="html">&lt;input type="submit" value="Передача" class="kn"> </SPAN><BR>
+<SPAN CLASS="html">&lt;/table>&lt;br> </SPAN><BR>
+<SPAN CLASS="html">&lt;/form> </SPAN><BR>
+<SPAN CLASS="html">&lt;/body> </SPAN><BR>
+<SPAN CLASS="html">&lt;/html> </SPAN><BR>
+<A NAME="3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>3 Особенности разработки CGI скриптов, реализующих серверную часть приложения</H4>
+<P>CGI скриптом будем называть программу (скрипт), которая выполняется на стороне сервера и
+использует интерфейс CGI (см. <a href="#1">раздел 1</a>) для взаимодействия с клиетнтской
+частью.<BR>
+<SPAN CLASS="txt_abz">Программа </SPAN>на языке Python, выполняемая на Web-сервере, имеет два
+основных отличия от программ, выполняемым на стороне клиента:
+<UL CLASS="list">
+<LI> во-первых они должны иметь следующие начальные строки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+#!c:/ . . . /Python/Python35-32/python.exe </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Content-Type: text/html"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">()</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red"># Основная часть скрипта</SPAN><BR><BR>
+<LI> во-вторых, функция print() выводит данные не на экран, а в выходной файл, который передается
+сервером браузеру.
+</UL>
+<P>Первая строка программы начинается с двух символов <SPAN CLASS="svoj">#!</SPAN>, которые иногда
+(в том числе в документации языка Python) называются <SPAN CLASS="svoj">shebang</SPAN>, после
+которых указывается путь к интерпретатору языка Python
+(<SPAN CLASS="svoj">#!c:/ . . . /Python/Python35-32/python.exe</SPAN>), что позволяет серверу
+вызвать интерпретатор для обработки скрипта. Отметим, что слово <SPAN CLASS="svoj">shebang</SPAN>,
+по одной из версий, образовано названиями этих двух начальных символов &ndash;
+<SPAN CLASS="svoj">sh[arp]+bang</SPAN> (<SPAN CLASS="svoj">bang</SPAN> &ndash; одно из названий
+восклицательного знака).<BR>
+<SPAN CLASS="txt_abz">Затем </SPAN>указывается заголовок <SPAN CLASS="svoj">http</SPAN> протокола,
+который отделяется от его тела пустой строкой, реализованной функцией
+<SPAN CLASS="svoj">print()</SPAN>. В <SPAN CLASS="svoj">http</SPAN>-заголовке задан параметр,
+который указывает, как данные, переданные сервером, будут интерпретироваться браузером на стороне
+клиента. В данном случае будет сформирована Web-страница. Если для параметра
+<SPAN CLASS="svoj">Content-Type</SPAN> будет задано значение <SPAN CLASS="svoj">text/plain</SPAN>,
+то браузер воспримет данные, переданные сервером, как простой текст и в случае передачи
+HTML-документа выведет на экран его содержимое (подобно режиму "Просмотр HTML-кода").<BR>
+<SPAN CLASS="txt_abz">Необходимо </SPAN>отметить, что <SPAN CLASS="svoj">http</SPAN>-заголовок с
+параметром <SPAN CLASS="svoj">Content-Type</SPAN> применим в серверных приложениях, использующих
+интерфейс CGI. В сдучае использования для обмена данными с клиентом технологии AJAX
+(см. <a href="../LAB10/lab.htm#1">раздел 1 </a> лаб. раб. №10) этот <SPAN CLASS="svoj">http</SPAN>
+-заголовок применять не следует. <BR>
+<SPAN CLASS="txt_abz">Имеется </SPAN>несколько способов получения доступа к данным HTML-формы,
+переданным на сервер. В данной лабораторной работе выбран способ, основанный на использовании
+метода parse() модуля cgi (см. <A HREF="#3.3">подраздел 3.3</A>). Для реализации этого способа
+к серверной программе необходимо подключить следующие модули языка Python:
+<UL CLASS="list">
+<LI> cgitb (см. подразделы  <A HREF="#3.1">3.1</A> и <A HREF="#3.3">3.3</A>);
+<LI> cgi (см. подразделы  <A HREF="#3.2">3.2</A> и <A HREF="#3.3">3.3</A>); 
+</UL>
+<P>
+<SPAN STYLE="font-size:7mm; color:#FF8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">cgitb, cgi</SPAN><BR>
+<A NAME="3.1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.1 Использование модуля cgitb</H4>
+<P>Модуль <SPAN CLASS="svoj">cgitb</SPAN> (cgi traceback &ndash; cgi отладчик) предназначен для
+формирования в случае возникновения исключения при работе CGI скрипта отладочной информации, 
+содержащей фрагмент кода программы, в котором отмечена строка с ошибкой, описание исключения и
+некоторые другие данные, например, путь к выполняемой программе.<BR>
+<SPAN CLASS="txt_abz">Формат </SPAN>и способы предоставления этих данных пользователю или
+администратору задаются c помощью метода
+<SPAN CLASS="svoj">enable([display[,logdir[,context[,format]]]])</SPAN> при
+инициализации модуля. Все параметры метода являются необязательными и задают следующее:
+<UL CLASS="list">
+<LI> display &ndash; определяет, выводить ли информацию об исключении на экран: display=1
+(значение по умолчанию), или нет: display=0. Рекомендуется, в целях безопасности, использовать
+значение display=1 только при отладке программы;
+<LI> logdir &ndash; указывает полный путь к подкаталогу, куда будет записываться файлы с
+информацией об исключении, например, для данного компьютера: "D:/ . . . Apache/root/Python/TMP" 
+(значение по умолчанию None);
+<LI> context &ndash; указывает размер в строках фрагмента скрипта, в котором произошла ошибка
+(по умолчанию имеет значение 5, две строки до строки с ошибкой и две строки после);
+<LI>&nbsp; format &ndash; указывает в каком формате будут формироваться отладочные данные:
+<UL CLASS="list2">
+<LI> html &ndash; в виде HTML-документа (значение по умолчанию);
+<LI> plain &ndash; в виде простого текста.
+</UL></UL>
+<p>Модуль <SPAN CLASS="svoj">cgitb</SPAN> нашел применение в серверной программе
+<SPAN CLASS="svoj">cgi_parse_form.py</SPAN> во время ее отладки. При его инициализации: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">cgitb.enable(logdir=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">
+"D:/ . . . Apache Group/Apache/root/Python/TMP/"</SPAN>, context=7)</SPAN><BR><BR>
+
+были указаны: путь к каталогу, содержащему отладочную информацию (<SPAN CLASS="svoj">logdir</SPAN>),
+и размер фрагмента программы (число строк), содержащего ошибку (<SPAN CLASS="svoj">context</SPAN>).
+Значения остальных параметров заданы по умолчанию.
+<A NAME="3.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.2 Методы модуля cgi</H4>
+<P>Модуль  <SPAN CLASS="svoj">cgi</SPAN> имеет следующие методы, которые могут быть искользованы
+при разработке CGI скриптов:
+<UL CLASS="list">
+<LI> parse(fp=None, environ=os.environ, keep_blank_values=False, strict_parsing=False)
+&ndash; выполняет синтаксический разбор запроса (строки QUERY_STRING), полученной или из переменных
+окружения (по умоляанию os.environ), или из файла fp (по умолчанию sys.stdin).<BR>
+<SPAN CLASS="txt_abz">Параметр </SPAN>keep_blank_values указывает, как будут обрабатываться
+незаполненные поля HTML-формы: если keep_blank_values=True, то этим полям будет присвоено значение
+пустой строки. Если keep_blank_values=False (значение по умолчанию), то это означает, что этих
+полей нет. <BR>
+<SPAN CLASS="txt_abz">Параметр </SPAN>strict_parsing указывает, как будут обрабатываться ошибки
+синтаксического разбора (парсинга): если strict_parsing=False (значение по умолчанию), то ошибки
+будут игнорироваться. Если strict_parsing=True, то будет вырабатываться исключение ValueError;
+<LI> parse_multipart(fp, pdict) &ndash; выполняет синтаксический разбор входных данных типа
+multipart/form-data (этот тип используется при передаче файла на сервер). Параметры fp и pdict
+указывают соответственно на входной файл и словарь, содержащий другие параметры в http-заголовке
+Content-Type;
+<LI> parse_header(string) &ndash; выполняет синтаксический разбор MIME-заголовка, например,
+Content-Type на основное значение и словарь параметров;
+<LI> test() &ndash; общий тест CGI-скрипта. Выводит http-заголовки и свю информацию, переданную в
+скрипт из HTML-формы;
+<LI> print_environ() &ndash; выводит переменные окружения:
+<P STYLE="font-size:5mm; font-weight:bold">Shell Environment:</P>
+<P CLASS="ba" STYLE="font-size:5.5mm;">
+COMSPEC C:\Windows\system32\cmd.exe <BR>
+DOCUMENT_ROOT d:/disk_f/disk_d/program files/apache group/apache/root<BR>
+GATEWAY_INTERFACE CGI/1.1 <BR>
+HTTP_ACCEPT text/html, application/xhtml+xml, */* <BR>
+HTTP_ACCEPT_ENCODING gzip, deflate <BR>
+HTTP_ACCEPT_LANGUAGE ru-RU <BR>
+HTTP_CONNECTION Keep-Alive <BR>
+HTTP_DNT 1 <BR>
+HTTP_HOST zykov <BR>
+HTTP_USER_AGENT Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko <BR>
+PATH C:\Program Files\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;<BR>
+C:\Windows\System32\WindowsPowerShell\v1.0\;C:\FPC\2.6.0\bin\i386-Win32;<BR>
+C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;
+C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;<BR>
+C:\Program Files\Autodesk\Backburner\;C:\Program Files\TortoiseSVN\bin
+QUERY_STRING name=%FB%FB&check2=on <BR>
+REMOTE_ADDR 172.17.72.142 <BR>
+REMOTE_PORT 1899 <BR>
+REQUEST_METHOD GET <BR>
+REQUEST_URI /PYTHON/work_form.py?name=%FB%FB&check2=on <BR>
+SCRIPT_FILENAME d:/disk_f/disk_d/program files/apache group/apache/root/python/work_form.py <BR>
+SCRIPT_NAME /PYTHON/work_form.py <BR>
+SERVER_ADDR 172.17.72.142 <BR>
+SERVER_ADMIN admin@purple.ntu <BR>
+SERVER_NAME zykov <BR>
+SERVER_PORT 80 <BR>
+SERVER_PROTOCOL HTTP/1.1 <BR>
+SERVER_SIGNATURE &lt:ADDRESS>Apache/1.3.31 Server at zykov Port 80&lt;/ADDRESS> <BR>
+SERVER_SOFTWARE Apache/1.3.31 (Win32) <BR>
+SYSTEMROOT C:\Windows WINDIR C:\Windows;
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<LI> print_form(form) &ndash; выводит форму в формате HTML; 
+<LI> print_directory() &ndash; выводит текущий каталог в формате HTML:
+<P STYLE="font-size:5mm; font-weight:bold">Current Working Directory:</P>
+<P STYLE="font-size:5mm;">
+d:\disk_f\disk_d\program files\apache group\apache\root\python;</P>
+<LI> print_environ_usage() &ndash; печатает список полезных (используемых в CGI) переменных
+окружения в формате HTML:
+<P STYLE="font-size:5.5mm; font-weight:bold">These environment variables could have been set:</P>
+<P CLASS="ba" STYLE="font-size:5mm;">
+AUTH_TYPE<BR> 
+CONTENT_LENGTH<BR> 
+CONTENT_TYPE <BR>
+DATE_GMT <BR>
+DATE_LOCAL <BR>
+DOCUMENT_NAME <BR>
+DOCUMENT_ROOT <BR>
+DOCUMENT_URI <BR>
+GATEWAY_INTERFACE <BR>
+LAST_MODIFIED <BR>
+PATH <BR>
+PATH_INFO <BR>
+PATH_TRANSLATED <BR>
+QUERY_STRING <BR>
+REMOTE_ADDR <BR>
+REMOTE_HOST <BR>
+REMOTE_IDENT <BR>
+REMOTE_USER <BR>
+REQUEST_METHOD <BR>
+SCRIPT_NAME <BR>
+SERVER_NAME <BR>
+SERVER_PORT <BR>
+SERVER_PROTOCOL <BR>
+SERVER_ROOT <BR>
+SERVER_SOFTWARE <BR>
+In addition, HTTP headers sent by the server may be passed in the environment as well. Here are
+some common variable names:
+HTTP_ACCEPT <BR>
+HTTP_CONNECTION<BR> 
+HTTP_HOST <BR>
+HTTP_PRAGMA <BR>
+HTTP_REFERER <BR>
+HTTP_USER_AGENT;</P>
+<LI> escape(s, quote=False) &ndash; преобразует символы '&', '<' и '>' в
+ESC-последовательности.
+Это может быть использовано при необходимости выводить на экран текст, который может содержать
+такие символы. Если необязательный флаг quote имеет значение True, символы двойной кавычки (")
+также преобразуется (может быть полезно при использовании значений HTML атрибутов, взятых в
+кавычки, например, &lt;A HREF="...">). Отметим, что одиночные кавычки никогда не преобразуются.
+</UL>
+<A NAME="3.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.3 Разработка CGI скрипта с использованием метода parse() модуля cgi</H4>
+<P>Для получения доступа к данным, переданным браузером из HTML-формы клиента серверу, можно
+воспользоваться  методом <SPAN CLASS="svoj">parse()</SPAN> модуля <SPAN CLASS="svoj">cgi</SPAN>,
+все параметры которого имеют значения, заданные по умолчанию. Для параметра
+<SPAN CLASS="svoj">keep_blank_values</SPAN> такое значение равно 0, что означает, что незаполненные
+поля HTML-формы сервером не будут обрабатываться (см. <a href="#3.2">подраздел 3.2</a>). <BR>
+<SPAN CLASS="txt_abz">Поскольку </SPAN>предполагается, что пользователь в поле ввода имени свое имя
+может не указывать, то для обработки этого поля в любом варианте (заполненном и незаполненном),
+необходимо при вызове метода <SPAN CLASS="svoj">parse()</SPAN> явно задать значение параметра
+<SPAN CLASS="svoj">keep_blank_values</SPAN> (остальные параметры имеют значения, заданные по
+умолчанию):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">
+form=cgi.parse(keep_blank_values=1)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Этот </SPAN>метод возвращает данные HTML-формы, полученные сервером, в виде
+словаря <SPAN CLASS="svoj">form</SPAN>, ключами которого являются имена полей формы (заданные
+атрибутами <SPAN CLASS="svoj">name</SPAN>), а значения полей формы представлены в виде списков.
+Причем поля HTML-формы, заданные тегом <SPAN CLASS="svoj">&lt;input></SPAN>, которые имеют одиночные
+значения, являются одноэлемнтными списками, поля, которые могут иметь множественное значение
+(например, тег <SPAN CLASS="svoj">&lt;select></SPAN> с атрибутом
+<SPAN CLASS="svoj">multiple</SPAN>), являются списками с несколькими элементами.<BR>
+<SPAN CLASS="txt_abz">Поэтому </SPAN>доступ к значениям полей HTML-формы можно получить следующим
+образом:
+<UL CLASS="list">
+<LI> для одиночного значения, например, поля с именем name:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">
+data=form["name"][0]</SPAN><BR><BR>
+<LI> для k-го значения поля с множественными значенниями, например, тега &lt;select> с
+именем sel:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">
+data=form["sel"][k]</SPAN><BR><BR>
+</UL>
+<P>Серверная программа после приема и обработки данных формирует ответ в виде HTML-документа,
+который отсылается клиенту и воспроизводится браузером на стороне клиента в виде Web-страницы. Для
+упрощения форматирования текста были разработаны следующие форматы представления данных в виде
+констант языка Python:
+<UL CLASS="list">
+<LI> для заголовка:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black"></SPAN>H=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">
+"&lt;p style='text-align:center;color:#0000b0; font-size:7mm; font-weight:bold'>"</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:bkack">(H,</SPAN>
+<SPAN STYLE="text-align:center;color:green">'Формат "H" заголовка'</SPAN>
+<SPAN STYLE="font-size:7mm; color:bkack">)</SPAN><BR>
+<p style='text-align:center;color:#0000b0; font-size:7mm; font-weight:bold'>Формат "H" заголовка</p>
+<LI> для другого заголовка:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black"></SPAN>H2=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">
+"&lt;p style='text-align:center;color:#00b0b0; font-size:7.5mm; font-style:italic; font-weight:bold'>" </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:bkack">(H2,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Формат "H2" заголовка'</SPAN>
+<SPAN STYLE="font-size:7mm; color:bkack">)</SPAN><BR>
+<P STYLE='text-align:center;color:#00b0b0; font-size:7.5mm; font-style:italic'
+>Формат "H2" заголовка</SPAN><BR><BR>
+<LI> для текста<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black"></SPAN>D=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">
+"&lt;p style='margin-left:1.5cm;color:#0000b0; font-size:5.7mm'>"</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:bkack">(D,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Текстовые данные'</SPAN>
+<SPAN STYLE="font-size:7mm; color:bkack">)</SPAN><BR>
+<P STYLE='margin-left:1.5cm;color:#0000b0; font-size:5.7mm'>Формат текстовых данных</SPAN><BR><BR>
+</UL>
+<P> Поскольку эти константы могут быть использованы разными программами при форматировании данных,
+отсылаемых клиенту, они помещены в модуль <SPAN CLASS="svoj">my_mod</SPAN>, который реализован в
+виде файла <SPAN CLASS="svoj">my_mod.py</SPAN>.<BR>
+<SPAN CLASS="txt_abz">В </SPAN>качестве примера использования метода
+<SPAN CLASS="svoj">parse()</SPAN> модуля <SPAN CLASS="svoj">cgi</SPAN> для доступа к данным
+HTML-формы рассмотрим приложение, клиенткая часть которого реализована в виде
+<A HREF="#prim1">примера №1</A>, а серверная &ndash; в виде CGI скрипта
+<SPAN CLASS="svoj">cgi_parse_form.py</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+#!c:/ . . . /Python/Python35-32/python.exe </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Content-Type: text/html"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">()</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#FF8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">cgi, cgitb</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#FF8000">from</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">os</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">environ</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">as </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">env</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#FF8000">from</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">my_mod</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">*</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">HELP={</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'str'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'строки: s=\'Python\''</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">'list'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'списка: a_list=[255,"web",1.33,True]'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">'tuple'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'кортежа: a_tuple=(\'name\',100)'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">'set'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'множества: a_set={1,2,\'a\',\'b\'}'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">'dict'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'словаря: a_dict={\'name\':\'Bob\',\'sport\':\'football\'}'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">}</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">cgitb.enable(logdir=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">
+"D:/ . . . Apache Group/Apache/root/Python/TMP/"</SPAN>, context=7)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">
+form=cgi.parse(keep_blank_values=1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">name=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'клиент'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#FF8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'name'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">][0]: name=form[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'name'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">][0]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(H2,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Ув. "</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,name,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"!"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, sep=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">""</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#FF8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"check1" </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">or </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"check2" </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">or </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"check3" </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">or </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"help" </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form:</SPAN><BR>
+<SPAN STYLE="margin-left:3.2cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Вам предоставляются:'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:3.2cm; font-size:7mm; color:#FF8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'check1' </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form:</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(H,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Данные HTML-формы:"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(D, form)</SPAN><BR>
+<SPAN STYLE="margin-left:3.2cm; font-size:7mm; color:#FF8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'check2' </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form:</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(H,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Переменные окружения:"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(D,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'REQUEST_METHOD= '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, env[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'REQUEST_METHOD'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(D,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'QUERY_STRING= '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, env[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'QUERY_STRING'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(D,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'HTTP_USER_AGENT= '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, env[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'HTTP_USER_AGENT'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN><BR>
+<SPAN STYLE="margin-left:3.2cm; font-size:7mm; color:#FF8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'check3' </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form:</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(H,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Рисунки:"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(H,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"&lt;img src='everest.jpg'>"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(H,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"&lt;img src='flower.jpg'>"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:3.2cm; font-size:7mm; color:#FF8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'help' </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form:</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(H,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Примеры создания:"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:4.9cm; font-size:7mm; color:#FF8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">el</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">form[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'help'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]:</SPAN><BR>
+<SPAN STYLE="margin-left:6.6cm; font-size:7mm; color:#aF00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(D, HELP[el]) </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#FF8000">else </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN>
+<SPAN STYLE="font-size:7mm; color:#aF00af">print </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> 'Вы действительно ничего не хотите заказать?' </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN>,<BR><BR>
+которая выполняет следующие действия:
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<UL CLASS="list">
+<LI> в первых строках указывает путь к интерпретатору языка Python 3.3 и формирует http-заголовок
+(см. <A HREF="#3">раздел 3</A>);
+<LI> подключает модули языка Python (cgi, cgitb и os), а также пользовательский модуль my_mod,
+который содержит форматы для представления данных, отсылаемых клиенту;
+<LI> инициализирует обработчик ошибок, указывая следующие параметры вывода диагностической
+информации:
+<UL CLASS="list2">
+<LI> данные выводить на экран (значение по умолчанию) и одновременно сохранять в виде файла в
+каталоге TMP (путь к нему задается параметром logdir);
+<LI> фрагмент скрипта, включающий строку с отмеченной ошибкой, составляет 7 строк;
+</UL>
+<LI> получает с помощью метода parse(keep_blank_values=1) модуля cgi в виде словаря данные
+HTML-формы (включая незаполненные поля), переданные клиентом;
+<LI> обращается к пользователю по имени, например, "Ув. Smith T." (если имя не было введено,
+то вместо имени используется слово "клиент"), сообщает об предоставлении данных (если они были
+заказаны):
+<P STYLE='text-align:center;color:#00b0b0; font-size:7.5mm; font-style:italic; font-weight'>
+"Ув. Smith T.! Вам предоставляются: "</P>
+и передает требуемые данные;
+<LI> если был передан запрос на получение данных HTML-формы, переданных серверу (например, с
+целью проверки правильности обмена данными между клиентом и сервером), то клиенту передается
+содержимое словаря form:
+<P STYLE='text-align:center;color:#0000b0; font-size:7mm; font-weight:bold'> 
+Данные HTML-формы: </P>
+<P STYLE='margin-left:1.5cm;color:#0000b0; font-size:6mm'>
+{'name': [''], 'check2': ['on'], 'check3': ['img'], 'help': ['str', 'list', 'set', 'dict'],
+'check1': ['data']} 
+</P>
+из которого следует, что в HTML-форме клиента не было заполнено только два поля: "name"
+тега &lt;input> и "tuple" тега &lt;select> (см. <a href="#2">раздел 2 </a>);
+<LI>&nbsp; если был передан запрос на получение переменных окружения, то клиенту передаются
+значения следующих переменных окружения: "REQUEST_METHOD", "QUERY_STRING" и "HTTP_USER_AGENT":
+<P STYLE='text-align:center;color:#0000b0; font-size:7mm; font-weight:bold'> 
+Переменные окружения: </P>
+<P STYLE='margin-left:1.5cm;color:#0000b0; font-size:6mm'>
+REQUEST_METHOD= GET
+<P STYLE='margin-left:1.5cm;color:#0000b0; font-size:6mm'>
+QUERY_STRING= name=Smith+T.&check1=request&check2=on&check3=img 
+<P STYLE='margin-left:1.5cm;color:#0000b0; font-size:6mm'>
+HTTP_USER_AGENT= Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko</SPAN>;</P>
+Значения переменных окружения были получены с помощью свойства environ модуля os, в котором
+содержатся значения переменных окружения в виде пар "имя:значение". Например, значение QUERY_STRING
+может быть определено и передано следующим образом:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">from</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">os</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">environ</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">as </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">env</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(env[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'QUERY_STRING'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Использование </SPAN>модуля os для работы с файловой системой см. в
+<a href="../LAB8/lab.htm#1.4">подразделе 1.4</a> лаб. раб. №8;
+<LI> если был передан запрос на получение рисунков, то клиенту передаются рисунки "everest.jpg" и
+'flower.jpg';
+<LI> если был передан запрос на получение подсказки по формированию данных следующих типов: строки,
+списка, кортежа, множества или словаря, то клиенту передаются примеры создания данных запрашиваемых
+типов. Наример, списка и словаря:
+<P STYLE='text-align:center;color:#0000b0; font-size:7mm; font-weight:bold'> 
+Примеры формирования данных</P>
+<P STYLE='margin-left:1.5cm;color:#0000b0; font-size:6mm'>
+Списки: a_list=[255,"web",1.33,True] 
+<P STYLE='margin-left:1.5cm;color:#0000b0; font-size:6mm'>
+Словари: a_dict={{'name':'Ronaldo','sport':'football'}</P>
+<LI> если клиент не заполнил ни одно поле HTML-формы, то ему сообщается: 
+<P STYLE='text-align:center;color:#00b0b0; font-size:7.5mm; font-style:italic; font-weight'>
+"Ув. клиент! Вы действительно ничего не хотите заказать?"</P>
+</P>
+</ul>
+<p>Результаты работы программы <SPAN CLASS="svoj">cgi_parse_form.py</SPAN>, полученные при
+использовании браузеров Internet Explorer, Chrome, Firefox, Opera и Safari, показывают, что она
+правильно обрабатывает различные поля HTML-формы как с использованием латинских букв, так и при
+использовании кириллицы. Поэтому способ доступа к данным, переданным клиентом серверу, основанный
+на использовании метода <SPAN CLASS="svoj">cgi.parse()</SPAN>, является основным и будет в
+дальнейшем исиользоваться как при обработке данных HTML-формы
+(см. <a href="#prim1">пример №1</a>), так и при передаче данных клиента с использованием технологии
+AJAX (см. <a href="../LAB10/lab.htm#prim1">пример №1</a> лаб. раб. №10).
+<A NAME="ind"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H3>Индивидуальные задания</H3>
+<P>Разработать приложение на базе технологии "клиент-сервер". При этом клиентская часть передает
+на сервер имя пользоватекля и номера функций, а серверная часть, написанная на языке Python,
+выполняет эти функции и возвращает пользователю результат.<BR>
+<SPAN CLASS="txt_abz">В </SPAN> задачи клиентской части входит: разработать HTML-документ,
+содержащий форму, обязательными элементами которой являются:
+<UL CLASS="list">                                           
+<LI> текстовое поле для ввода имени пользователя;
+<LI> теги (&lt;select> или &lt;input type="checkbox">), заданные колонкой "Теги" табл. 1, которые
+позволяют сделать пользователю следующий выбор:
+<UL CLASS="list2">
+<LI> выполнять или не выполнять функцию первой группы;
+<LI> выполнять или не выполнять функцию второй группы;
+<LI> выполнять или не выполнять функцию третьей группы;
+</UL>
+<LI> кнопки для сброса данных формы и для передачи их на сервер.
+</UL>
+<P>Функции по группам делятся следующим образом:
+<UL CLASS="list">                                           
+<LI> группа 1:
+<UL CLASS="list2">
+<LI>а) &ndash; найти сумму положительных чисел; 
+<LI>б) &ndash; найти сумму четных чисел; 
+<LI>в) &ndash; найти произведение чисел, взятых по абсолютной величине; 
+<LI>г) &ndash; найти среднее арифментическое чисел;
+<LI>д) &ndash; найти произведение нечетных чисел.  
+</UL>
+<LI>&nbsp;группа 2:
+<UL CLASS="list2">
+<LI>а) &ndash; найти минимальное число среди положительных чисел; 
+<LI>б) &ndash; найти максимальное число среди отрицательных чисел; 
+<LI>в) &ndash; найти минимальное число среди чисел, взятых по абсолютной величине. 
+</UL>
+<LI> группа 3:
+<UL CLASS="list2">
+<LI>а) &ndash; выполнить сортировку чисел, взятых по абсолютной величине; 
+<LI>б) &ndash; выполнить сортировку чисел, взятых по молулю 3. 
+</UL></UL>
+<P>В задачи серверной части входит: 
+<UL CLASS="list">                                           
+<LI> разработка трех функций, заданных колонкой "Функции" табл. 1;
+<LI> генерация случайных чисел, их диапазон и количество заданы колонками "Диапазон" и
+"Количество" табл. 1);
+<LI> прием и анализ данных, полученных из формы с целью определения:
+<UL CLASS="list2">
+<LI> имени пользователя;
+<LI> тех функций, которые надо выполнять; 
+</UL>
+<LI> выполнение указанных функций над полученными случайными числами;
+<LI> формирование HTML-документа, в котором указаны случайные числа и результаты вычислений,
+и передача его пользователю.
+</UL>
+<P><table align="center" width="50%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 1 &ndash; Перечень индивидуальных заданий</CAPTION>
+<TR><TH ROWSPAN=2>Номер<BR>п/п<TH ROWSPAN=2>Теги<TH COLSPAN=2>Случайные числа<TH COLSPAN=3>Функции
+<TR><TH>Диапазон<TH>Количество<TH>Группа 1<TH>Группа 2<TH>Группа 3
+<TR ALIGN=center><TD>1<TD>input<TD>(-5, 5)<TD>10<TD>а)<TD>а)<TD>а)
+<TR ALIGN=center><TD>2<TD>select<TD>(-7, 21)<TD>20<TD>б)<TD>б)<TD>б)
+<TR ALIGN=center><TD>3<TD>input<TD>(-20, 5)<TD>7<TD>в)<TD>в)<TD>а)
+<TR ALIGN=center><TD>4<TD>select<TD>(-25, 40)<TD>22<TD>г)<TD>а)<TD>б)
+<TR ALIGN=center><TD>5<TD>input<TD>(-7, 12)<TD>8<TD>д)<TD>б)<TD>а)
+<TR ALIGN=center><TD>6<TD>select<TD>(-22, 15)<TD>21<TD>а)<TD>в)<TD>б)
+<TR ALIGN=center><TD>7<TD>input<TD>(-12, 31)<TD>40<TD>б)<TD>а)<TD>а)
+<TR ALIGN=center><TD>8<TD>select<TD>(-14, 8)<TD>8<TD>в)<TD>б)<TD>б)
+<TR ALIGN=center><TD>9<TD>input<TD>(-13, 20)<TD>50<TD>г)<TD>в)<TD>а)
+<TR ALIGN=center><TD>10<TD>select<TD>(-4, 3)<TD>12<TD>д)<TD>а)<TD>б)
+<TR ALIGN=center><TD>11<TD>input<TD>(-33, 44)<TD>16<TD>а)<TD>б)<TD>а)
+<TR ALIGN=center><TD>12<TD>select<TD>(-55, 66)<TD>33<TD>б)<TD>в)<TD>б)
+<TR ALIGN=center><TD>13<TD>input<TD>(-7, 5)<TD>14<TD>в)<TD>а)<TD>а)
+<TR ALIGN=center><TD>14<TD>select<TD>(-19, 28)<TD>50<TD>г)<TD>б)<TD>б)
+<TR ALIGN=center><TD>15<TD>input<TD>(-8, 5)<TD>7<TD>д)<TD>в)<TD>а)
+<TR ALIGN=center><TD>16<TD>select<TD>(-24, 26)<TD>36<TD>а)<TD>а)<TD>б)
+<TR ALIGN=center><TD>17<TD>input<TD>(-11, 9)<TD>19<TD>б)<TD>б)<TD>а)
+<TR ALIGN=center><TD>18<TD>select<TD>(-9, 3)<TD>13<TD>в)<TD>в)<TD>б)
+<TR ALIGN=center><TD>19<TD>input<TD>(-17, 42)<TD>39<TD>г)<TD>а)<TD>а)
+<TR ALIGN=center><TD>20<TD>select<TD>(-3, 3)<TD>11<TD>д)<TD>б)<TD>б)
+</TABLE>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>

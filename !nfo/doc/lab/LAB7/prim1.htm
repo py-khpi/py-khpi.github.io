@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<title>Обработка данных формы </title>
+<link rel="stylesheet" href="../lab.css">
+</head>
+<body>
+<h1>Обработка данных формы</h1>
+<form method="GET" action="http://zykov/PYTHON/cgi_parse_form.py">
+<table align="center" style="color:#000080; font-size:6.5mm">
+<tr> <td> Введите имя
+<td> <input type="text" size="10" name="name">
+<tr> <td cols="2"> 
+<span style="margin-left:2cm; outline:1px solid blue;font-size:5.5mm">
+Отметьте то, что хотите получить </span>
+<tr> <td> Данные HTML-формы
+<td> <input type="checkbox" name="check1">
+<tr> <td> Переменные окружения
+<td> <input type="checkbox" name="check2">
+<tr> <td> Рисунки
+<td> <input type="checkbox" name="check3" value="img">
+<tr> <td valign="top">Примеры создания
+<td><select name="help" size="4" multiple class="form">
+<option value="str"> строки
+<option value="list"> списка
+<option value="tuple"> кортежа
+<option value="set"> множества
+<option value="dict"> словаря
+</select>
+<tr> <td> <input type="reset" value="Сброс"> &nbsp;&nbsp;
+<input type="submit" value="Передача" >
+</table>
+</form>
+</body>
+</html> 
+
+<!-- ACTION="http://www.zykov.ageron.info/PYTHON/work_form.py" -->

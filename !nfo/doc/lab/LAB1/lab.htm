@@ -1,0 +1,2465 @@
+<HTML>                                     
+<HEAD>
+<TITLE>Лабораторная работа 1: Основы языка Python</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">
+</HEAD>
+<BODY>
+<H1> ЛАБОРАТОРНАЯ РАБОТА №1</H1>
+<H2> <SPAN CLASS="beg">Тема: </SPAN>Основы языка Python</H2>
+<H2> <SPAN CLASS="beg">Цель: </SPAN>
+Рассмотрение среды разработки, типов данных, операторов и функций вывода и ввода данных</H2>
+<A id="beg"></A>
+<H3>ОГЛАВЛЕНИЕ</H3> 
+<A CLASS="com" HREF="#vv"> Введение <BR>
+<A CLASS="com" HREF="#1">1 Среда разработки <BR>
+<A CLASS="com" HREF="#1.1">1.1 Программирование в интерактивном режиме <BR>
+<A CLASS="com" HREF="#1.2">1.2 Использование встроенной системы помощи <BR>
+<A CLASS="com" HREF="#1.3">1.3 Программирование в сценарном режиме <BR>
+<A CLASS="com1" HREF="#1.3.1">1.3.1 Описание панели инструментов <BR>
+<A CLASS="com1" HREF="#1.3.2">1.3.2 Работа в сценарном режиме <BR>
+<A CLASS="com" HREF="#2">2 Использование специальных методов<BR>
+<A CLASS="com" HREF="#3">3 Понятие объекта<BR>
+<A CLASS="com" HREF="#3.1">3.1 Идентичность объектов<BR>
+<A CLASS="com" HREF="#3.2">3.2 Типы объектов<BR>
+<A CLASS="com" HREF="#3.3">3.3 Значения объектов<BR>
+<A CLASS="com" HREF="#4">4 Встроенные типы данных<BR>
+<A CLASS="com" HREF="#4.1">4.1 Числа<BR>
+<A CLASS="com1" HREF="#4.1.1">4.1.1 Целые числа<BR>
+<A CLASS="com1" HREF="#4.1.2">4.1.2 Числа с плавающей точкой<BR>
+<A CLASS="com1" HREF="#4.1.3">4.1.3 Комплексные числа<BR>
+<A CLASS="com1" HREF="#4.1.4">4.1.4 Операции с числами<BR>
+<A CLASS="com1" HREF="#4.1.5">4.1.5 Функции для работы с числами<BR>
+<A CLASS="com1" HREF="#4.1.6">4.1.6 Побитовые операции над целыми числами<BR>
+<A CLASS="com" HREF="#4.2">4.2 Логический тип<BR>
+<A CLASS="com" HREF="#4.3">4.3 Проверка типа объекта <BR> 
+<A CLASS="com" HREF="#5">5 Ввод и вывод данных <BR>
+<A CLASS="com" HREF="#5.1">5.1 Функция print() <BR>
+<A CLASS="com" HREF="#5.2">5.2 Функция input() <BR>
+<A CLASS="com" HREF="#6">6 Операторы<BR>
+<A CLASS="com" HREF="#6">6.1 Оператор присваивания<BR>
+<A CLASS="com" HREF="#6.2">6.2 Условный оператор<BR>
+<A CLASS="com" HREF="#6.3">6.3 Оператор цикла while<BR>
+<A CLASS="com" HREF="#6.4">6.4 Оператор pass<BR>
+<A CLASS="com" HREF="#7">7 Приоритет операций<BR>
+<A CLASS="com" HREF="#8">8 Встроенные идентификаторы<BR>
+<A CLASS="com" HREF="#8">8.1 Встроенные функции<BR>
+<A CLASS="com" HREF="#8.2">8.2 Встроенные константы<BR>
+<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<A id="vv"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<H4>Введение</H4>
+<P>Python &ndash; мощный и простой в использовании язык программирования, разработанный Гвидо ван
+Россумом (Guido van Rossum) в 1991 году. Название языка произошло не от вида пресмыкающихся. Автор
+назвал язык в честь популярного британского комедийного телешоу 1970-х годов «Летающий цирк Монти
+Пайтона». Тем не менее название языка чаще ассоциируют именно со змеей, нежели с фильмом &ndash;
+пиктограммы файлов в Microsoft Windows изображают змеиные головы.<BR>
+<SPAN CLASS="txt_abz">Отличительными </SPAN>особенностями языка Python являются:
+<UL CLASS="list">
+<LI> простота использования &ndash; с точки зрения профессионального программиста легкость языка
+Python обеспечивает высокую производительность труда: программы на Python простые и требуют меньше
+времени на разработку и отладку;
+<LI> Python &ndash; объектно-ориентированный язык, имеющий преимущество перед C# и Java в том, что
+для этих языков ООП-подход выполняется неукоснительно. Это делает короткие программы избыточно
+сложными. В Python заложена другая модель &ndash; решение о том, использовать или нет ООП-приемы
+принимает программист в зависимости от типа и сложности программ. Python совмещает функциональность
+и гибкость;
+<LI> легкость интеграции с другими языками программирования, например, C, C++ или Java &ndash;
+программа на Python может использовать сильные стороны этих языков (скажем, быстродействие C, C++)
+не поступаясь простотой разработки;
+<LI> кроссплатформенность &ndash; Python может работать на всех платформах: от миниатюрного Palm до
+суперкомпьютера Cray. На ПК Python поддерживают операционные системы Windows, Linux, Macintosh и
+др.;
+<LI> Python &ndash; это бесплатная система с открытым исходным кодом: можно, например делать копии
+Python, в том числе и модифицированные, можно даже их продавать.
+</UL>
+<P>Таким образом, Python &ndash; это язык программирования, известный своей простотой и
+элегантностью исходного кода, эффективностью, а также поддержкой выдающегося сообщества
+программистов. Благодаря наличию невероятного количества качественных библиотек, Python широко
+используется в разных областях от применения в NASA и CERN, процессинга электронных платежей и до
+создания популярных онлайн игр. <BR>
+<SPAN CLASS="txt_abz">При </SPAN>изучении языка Python помимо рассмотрения материала, изложенного в
+данном лабораторном практикуме, а также в других литературных источниках, полезно ознакомится со
+следующей документацией языка Python версии 3.6.0:
+<UL CLASS="list">
+<LI> <A HREF="https://docs.python.org/3/">https://docs.python.org/3/>Python 3.6</A> &ndash;
+содержит полную информацию, включая установку интерпретатора, описание языка, изменения,
+произошедшие в новой версии, и др.; 
+<LI> <A HREF="http://docs.python.org/3.6/tutorial/">http://docs.python.org/3.6/tutorial/</A>
+&ndash; содержит полное описание языка;
+<LI> <A HREF="http://docs.python.org/3/library/stdtypes.html">
+http://docs.python.org/3/library/stdtypes.html</A>) &ndash; содержит описание всех встроенных
+типов;
+<LI> <A HREF="http://docs.python.org/3/library/functions.html">
+http://docs.python.org/3/library/functions.html</A> &ndash; содержит описание всех встроенных
+функций; 
+<LI> <A HREF="http://docs.python.org/3/whatsnew/3.0.html">
+http://docs.python.org/3/whatsnew/3.0.html</A> &ndash; содержит перечень изменений в версии 3.0
+языка Python по сравнению с версиями 2.x.
+</UL>
+<p> Ссылки на документацию языка Python 3.6.0 можно также получить, находясь в среде разработки
+IDLE (см. подразделы <a href="#1.1">1.1</a> и <a href="#1.3">1.3</a>), по нажатию клавиши F1. 
+<A id="1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>1 Среда разработки</H4>
+<P>В комплект поставки Python входит интегрированная среда разработки IDLE (Integrated DeveLopment
+Environment), в которой редактирование программы выполняется намного удобнее, чем в простом
+текстовом редакторе или терминале. IDLE также имеет встроенную систему отладки, позволяющую
+запускать программу построчно, что облегчает процесс поиска ошибок. <BR>
+<SPAN CLASS="txt_abz">IDLE </SPAN>написана на языке Python с использованием GUI-инструментария
+tkinter, поэтому легко запускается в любой операционной системе, для которой существует реализация
+Python.<BR>
+<SPAN CLASS="txt_abz">Графический </SPAN>пользовательский интерфейс GUI (Graphical User Interface)
+&ndash; это разновидность пользовательского интерфейса, в котором элементы интерфейса (меню, кнопки,
+значки, списки и т. п.), представленные пользователю на дисплее, исполнены в виде графических
+изображений. В отличие от интерфейса командной строки (типа старого DOS системы  Windows),
+в GUI пользователь имеет свободный доступ ко всем элементам интерфейса экрана и может ими управлять
+с помощью клавиатуры или мыши (см. <A HREF="../LAB13/lab.htm#1">раздел 1</A>
+лаб. раб. №13).<BR>
+<SPAN CLASS="txt_abz">Отличительные </SPAN>черты среды IDLE Python:
+<UL CLASS="list">
+<LI> запрограммирована на коде Python с использованием GUI-инструментария tkinter;
+<LI> кроссплатформенна: работает на Windows и Unix;
+<LI> имеет многооконный текстовый редактор с функцией многократной отмены, подсветкой
+синтаксиса Python и многими другими свойствами;
+<LI> использует отладчик с возможностью задавать точки прерывания, осуществлять просмотр и
+пошаговое выполнение кода.
+</UL>
+<P>Таким образом IDLE Python является интерактивным интерпретатором. Интегрированная среда
+разработки имеет два основных режима работы:
+<UL CLASS="list">
+<LI> интерактивный (см. <a href="#1.2">подраздел 1.2</a>);
+<LI> сценарный (см. <a href="#1.3.2">подраздел 1.3.2</a>).
+</UL>
+<A id="1.1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.1 Программирование в интерактивном режиме</H4>
+<P>Для запуска интерактивной сессии необходимо выбрать IDLE (Python GUI) в меню Пуск или на панели
+задач. На экране появится окно Shell (Python 3.6.0 Shell), содержащее:
+<UL CLASS="list">
+<LI> панель инструментов с полями (меню): File, Edit, Shell, Debug, Options, Windows и Help
+(см.  <a href="#1.3">подраздел 1.3</a>));
+<LI> информацию:
+<UL CLASS="list2">
+<LI> о версии языка: Python 3.6.0 (v3.6.0:41df79263a11;
+<LI> о дате ее создания: Dec 23 2016, 07:18:10;
+<LI> об используемой разрядности: [MSC v.1900 32 bit (Intel)] on win32; 
+</UL>
+<LI> приглашение к работе в виде трех символов >>>. 
+</UL>
+<P>Интерактивный режим можно использовать в качестве калькулятора: например, набрав после
+приглашения 2+3 и нажав Enter, получаем на экране:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 2+3</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">5</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Но </SPAN>основным назначением интерактивного режима является
+непосредственное выполнение операторов языка Python. Это может быть использовано для проверки
+работоспособности отдельных фрагментов программы.<BR>
+<SPAN CLASS="txt_abz">Например, </SPAN>следующий фрагмент программы имеет две строки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:red"> # Вывод данных на экран</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:green"> "Hello,world!"</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Первая сторока </SPAN>начинается с символа <SPAN CLASS="svoj">#</SPAN>
+и является комментарием, который не обрабатывается интерпретатором. Комментарий продолжается до
+конца строки (т.е в языке Python все комментарии являются однострочными, при этом не допускается
+использование перед символом # кавычек. <BR>
+<SPAN CLASS="txt_abz">Вторая </SPAN>строка осуществляет вывод сообщения в окно среды разработки.
+После нажатия клавиши Enter программа начнет выполняться. На экран выводится сообщение о найденной
+синтаксической ошибке:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:red">SyntaxError: Missing parentheses in call to 'print'</SPAN><BR>
+<P CLASAS="ba">Ошибка возникла из-за того, что для вывода на экран сообщения был использован
+оператор <SPAN CLASS="svoj">print</SPAN>, который применяется только в версиях языка Python до 3.x.
+Версии 3.x обратно не совместимы с версиями 2.x. Об отличиях версии 3.0 от 2.x см.
+<A HREF="http://docs.python.org/3/whatsnew/3.0.html">
+http://docs.python.org/3/whatsnew/3.0.html</A>).<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>версий 3.x  языка Python вместо оператора
+<SPAN CLASS="svoj">print</SPAN> необходиммо использовать встроенную (built-in) функцию
+<SPAN CLASS="svoj">print()</SPAN> (описание встроенных функций см. в
+<A HREF="http://docs.python.org/3/library/functions.html">
+http://docs.python.org/3/library/functions.html</A>, а также в <A HREF="#8">подразделе 8.1</A>).
+Описание функции <SPAN CLASS="svoj">print()</SPAN> приведено в <A HREF="#5.1">подразделе 5.1</A>.
+В данном примере функция вызывается с единственным аргументом, который указывает данные, выводимые
+на экран:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:red"> # Вывод данных на экран</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Hello,world!"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">После запуска </SPAN>программы на экране появляется сообщение:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Hello,world!</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Как </SPAN>видим, среда разработки осуществляет синтаксическую подсветку
+текста на экране: комментарии и сообщения об ошибке имеют красный цвет, вызовы функций &ndash;
+сиреневый, строки &ndash; зеленый, результаты вывода на экран &ndash; синий, ключевые (служебные)
+слова &ndash; оранжевый, остальные символы и слова &ndash; черный.<BR>
+<SPAN CLASS="txt_abz">Необходимо </SPAN>отметить, что в отличие от большинства других языков
+программирования язык Python для разделения операторов использует не точку с запятой, а перевод
+строки.
+<A id="1.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.2 Использование встроенной системы помощи</H4>
+<P> Помимо справочной информации о языке Python, которую можно получить из внешних источников
+(см. <A HREF="#vv">Введение</A>), интерпретатор имеет внутреннюю систему оказания помощи,
+реализованную в виде встроенной функции <SPAN CLASS="svoj">help([object])</SPAN>, которая
+используется в интерактивном режиме. Если ни один аргумент функции не задан: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">help</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">()</SPAN>,<BR> <BR> 
+на экран выводится текст, поясняющий работу функции (здесь приводится только часть текста: его
+первая и последняя строки), а также приглашение к интерактивному режиму помощи (help>):<BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Welcome to Python 3.3! This is the interactive help utility.</SPAN><BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">. . .</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+or summary contain a given string such as "spam", type "modules spam". </SPAN><BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">help> </SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Приведем </SPAN>сокращенный перевод этого текста.
+<P STYLE="font-size:6.5mm; font-style:italic">После </SPAN>приветствия указывается о необходимости
+изучения документации по языку Python и сообщается как получить помощь. Для этого после выведенного
+на экран приглашения для ввода (<SPAN CLASS="svoj">help></SPAN>) необходимо ввести имя любого
+модуля (англ. module), ключевого слова (англ. keyword), символа (англ. symbol) или темы (англ.
+topics). Чтобы получить список доступных модулей, ключевых слов, символов или тем языка Python,
+необходимо ввести соответственно "modules", "keywords", "symbols" или "topics". Для выхода из
+интерактивного режима помощи в интерактивный режим интерпретатора неоюбходимо ввести "quit".
+<P>Например, для получения полного списка ключевых слов языка необходимо указать
+<SPAN CLASS="svoj">"keywords"</SPAN>:<BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">help> </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"keywords"</SPAN><BR> <BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Here is a list of the Python keywords.  Enter any keyword to get more help. </SPAN><BR> <BR> 
+<TABLE WIDTH="60%" STYLE="margin-left:1.5cm; color:blue;">
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">False
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">def
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">if
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">raise
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">None
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">del
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">import
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">return
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">True
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> elif
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">in
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">try
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">and
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> else  
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">is 
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">while
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">as
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> except
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">lambda 
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">with
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">assert
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">finally
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> nonlocal
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> yield
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">break 
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> for 
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> not
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">class 
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> from
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> or
+<TR>
+<TD STYLE="border-width:0; width:4cm; font-size:7mm">continue 
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> global
+<TD STYLE="border-width:0; width:4cm; font-size:7mm"> pass                
+</TABLE><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">help> </SPAN><BR> <BR>
+<SPAN CLASS="txt_abz">Теперь </SPAN>можно получить информацию о любом ключевом слове, набрав его
+имя после приглашения <SPAN CLASS="svoj">help></SPAN>. Для возврата в интерактивный режим
+интерпретатора необходимо набрать "quit":<BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">help> </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">quit</SPAN><BR> <BR>
+<SPAN CLASS="txt_abz">После </SPAN>этого следует небольшой текст, сообщающий о том, что осуществлен
+переход к интерпретатору языка Python. <BR>
+<SPAN CLASS="svoj">Если </SPAN> необходимо получить справку о некотором объекте, нужно вызвать
+функцию <SPAN CLASS="svoj">help()</SPAN> с указанием имени объекта в качестве ее аргумента.
+Например, для получения справочной информации о функции
+<SPAN CLASS="svoj">print()</SPAN> необходимо вызвать  <SPAN CLASS="svoj">help("print")</SPAN>:<BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">help</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"print"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">На </SPAN>экране появляется информация о назначении функции и ее аргументах:
+<BR> <BR>
+<SPAN STYLE="font-size:7mm; color:blue">
+Help on built-in function print in module builtins:</SPAN> <BR> <BR>
+<SPAN STYLE="font-size:7mm; color:blue">print(...)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue"> 
+Prints the values to a stream, or to sys.stdout by default.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Optional keyword arguments:</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+file: a file-like object (stream); defaults to the current sys.stdout.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+sep:  string inserted between values, default a space.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+end:  string appended after the last value, default a newline.</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+flush: whether to forcibly flush the stream.</SPAN> <BR><BR>
+<SPAN CLASS="txt_abz">На </SPAN>русском языке эта информация приведена в 
+<A HREF="#5.1">подразделе 5.1</A> при описании функции <SPAN CLASS="svoj">print()</SPAN>.<BR>
+<SPAN CLASS="txt_abz">Укажем, </SPAN>что система помощи работает для модулей, классов и функций,
+только если те были снабжены строками документации (см. объявления функции и класса соответственно
+в подразделах <A HREF="../LAB6/lab.htm#1.1"> 1.1</A> лаб. раб. №6 и
+<A HREF="../LAB11/lab.htm#1.1"> 1.1</A> лаб. раб. №11). <BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что для получения информации о возможностях и режимах работы
+самой среды IDLE необходимо воспользоваться пунктом "IDLE help" меню "help" панели инструментов
+(см. <a href="#1.3.1">подраздел 1.3.1</a>). <BR>
+<SPAN CLASS="txt_abz">Кроме </SPAN>встроенной, для языка Python существуют и улучшенные
+интерактивные оболочки, напримр, IPython и bpython.
+<A id="1.3"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">1.3 Программирование в сценарном режиме </H4>
+<P>При работе в интерактивном режиме система отвечает мгновенно. С одной стороны это хорошо, так
+как сразу можно видеть результат. Но для создания программ, которые сохранялись бы в памяти и могли
+быть запущены позднее, этот режим не подходит. Для этой цели в среде разработки предусмотрен
+сценарный режим (см. <a href="#1.3.2">подраздел 1.3.2 </a>). В нем можно создавать, редактировать,
+загружать и сохранять программу.
+<A id="1.3.1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod1">1.3.1 Описание панели инструментов</H4>
+<p> Панель инструментов имеет следующие меню, предназначенные для задания различных режимов работы
+среды разработки IDLE:
+<UL CLASS="list">
+<LI> меню File (окна "Shell" и "Editor"):
+<UL CLASS="list2">
+<LI> New File (Ctrl+N) &ndash; создает окно "Editor" для редактирования нового файла(может быть
+создано несколько таких окон);
+<LI> Open (Ctrl+O) &ndash; открывает существующий файл;
+<LI> Recent Files &ndash; открывает список используемых файлов (нужный файл необходимо отметить
+щелчком мышки);
+<LI> Open Module... (Alt+M) &ndash; открывает существующий модуль (поиск ведется в sys.path);
+<LI> Class Browser (Alt+C) &ndash; показывает функции, классы и методы в виде дерева в текущем окне
+"Editor";
+<LI> Path Browser &ndash; показывает sys.path директорий, модулей, функций, классов и методов в
+виде дерева;
+<LI> Save (Ctrl+S) &ndash; сохраняет содержимое текущего окна в ассоциированном с ним файле, если
+он один. Окна, которые были изменены после открытия и последние сохраненные окна отмечаются
+звездочкой (*) соответственно перед и после наименования окна. Если ассоциированного файла нет,
+выполняется команда Save As;
+<LI> Save As... (Ctrl+Shift+S) &ndash; сохраняет содержимое окна в указанном файле. Этот файл
+становится ассоциированным файлом для окна;
+<LI> Save Copy As... (Alt+Shift+S)  &ndash; сохраняет содержимое окна в другом файле без изменения
+ассоциированного файла;
+<LI> Print Window (Ctrl+P) &ndash; печатает содержимое окна на принтере, заданном по умолчанию;
+<LI> Close (Alt+F4) &ndash; закрывает текущее окно (если содержимое окна не сохранено, спрашивает,
+нужно ли его сохранять);
+<LI> Exit (Ctrl+Q) &ndash; закрывает текущие окна и выходит из среды IDLE (если имеются окна с
+несохраненным содержимым, спрашивает, надо ли его сохранять);
+</ul>
+<LI> меню Edit (окна "Shell" и "Editor") &ndash; содержит описание команд редактора; 
+<LI> меню Shell (только окно "Shell"):
+<UL CLASS="list2">
+<LI> View Last Restart (F6) &ndash; осуществляет скролирование окна "Shell" до последнего рестарта;
+<LI> Restart Shell (Ctrl+F6) &ndash; осуществляет рестарт для очистки окружения;
+<LI> Interrupt Execution (Ctrl+C) &ndash; прекращает выполнение программы;
+</ul>
+<LI> меню Debug (только окно "Shell") &ndash; содержит описание команд отладчика;
+<LI> меню Format (только окно "Editor") &ndash; выполняет форматирование текста программы;
+<LI> меню Run (только окно "Editor"):
+<UL CLASS="list2">
+<LI> Check Module (Alt+X) &ndash; проверяет синтаксис только что открытого модуля в окне "Editor".
+Если модуль не сохранен, спрашивает, надо ли сохранять. Если обнаружена ошибка, указывается в окне
+"Editor" ее приблизительное местоположение;
+<LI> Run Module (F5) &ndash; осуществляет проверку модуля (как в пункте Check Module). Если ошибок
+не обнаружено, выполняет модуль. Результаты выполнения помещаются в окно "Shell", которое остается
+активным. В это время можно использовать полученные результаты;
+</ul>
+<LI> меню Options (окна "Shell" и "Editor") &ndash; выполняет конфигурирование среды IDLE
+(задает шрифт, его размер, цвет и др.);
+<LI> меню Window (окна "Shell" и "Editor"):
+<UL CLASS="list2">
+<LI> Zoom height (Alt+2) &ndash; измененяет высоту окна;
+<LI> "Python 3.6.0 Shell" &ndash; возвращает к окну "Shell";
+</ul>
+<LI> меню Help (окна "Shell" и "Editor"):
+<UL CLASS="list2">
+<LI> about IDLE &ndash; содержит общие сведения о среде IDLE;
+<LI> IDLE help &ndash; описывает режимы работы и возможности среды IDLE;
+<LI> Python Docs (F1) &ndash; указывает ссылки на документацию языка Python 3.6.0; 
+<LI> Turtle Demo &ndash; демонстрирует возможности модуля turtle, который разработан как средство
+обучения детей программированию. 
+</ul>
+</ul>
+<A id="1.3.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod1">1.3.2 Работа в сценарном режиме</H4>
+<p>В сценарный режим можно перейти из интерактивного, выбрав в меню <SPAN CLASS="svoj">File</SPAN>
+пункт <SPAN CLASS="svoj">New Window </SPAN> (Cntr+N) (см. <a href="#1.3.1">подраздел 1.3.1</a>).
+Появляется новое окно "Edit". В нем необходимо создать текст программы, например, <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red"># -*- coding utf-8 -*-</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">"Hello, world!"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR>
+<P CLASAS="ba">Затем, выбрав в меню <SPAN CLASS="svoj">File</SPAN> пункт
+<SPAN CLASS="svoj">Save As</SPAN>, задать путь к файлу, который будет содержать программу, указав
+расширение <SPAN CLASS="svoj">.py</SPAN>, например,
+<SPAN CLASS="svoj">1.py</SPAN>, и нажать Сохранить.<BR>
+<SPAN CLASS="txt_abz">Если </SPAN>первой строкой кода является строка указанного в примере вида,
+т.е. начинающаяся с символов <SPAN CLASS="svoj"># -*- . . . </SPAN>, она указывает кодировку, в
+которой был создан текст программы &ndash; в данном случае в кодировке UTF-8 (от англ. Unicode
+Transformation Format, 8-bit — «формат преобразования Юникода, 8-битный») — одна из общепринятых и
+стандартизированных кодировок текста, которая позволяет хранить символы Юникода, используя
+переменное количество байт (от 1 до 6). <BR>
+<SPAN CLASS="txt_abz">В </SPAN>версиях Python 3.x все символы по умолчанию представляются в
+кодировке Юникода (см. <a href="../LAB2/lab.htm#2">раздел 2.2.3</a> лаб. раб. №2), в отличие от
+версий Python 2.x, в которых такой кодировкой яляляется ASCII. Поэтому требуется преобразовать
+тексты всех внешних файлов, в том числе и программ, в кодировку UTF-8. Например, если
+текст программы был создан в кодировке <SPAN CLASS="svoj">cp-1252</SPAN>
+(<SPAN CLASS="svoj">window-1252</SPAN>), то необходимо в первой строке кода указать:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red"># -*- coding cp-1252 -*- </SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Ддя </SPAN> внешних файлов, созданных текстовыми редакторами в кодировке
+UTF-8 (в том числе при разработке программ с использованием интегрированной среды разработки IDLE)
+задание в первой строке кодировки:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red"># -*- coding utf-8 -*- </SPAN> 
+<p class="ba">не является обязательным (предполагается заданным по умолчанию) и в последующих
+примерах использоваться не будет. <BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что в тех случаях, когда в программе необходимо указать путь
+к интерпретатору, например при использовании скриптов на языке Python в качестве серверных
+приложений, первая строка кода должна указывать путь к интерпретатору
+(см. <a href="../LAB10/lab.htm#2.2.3">подраздел 2.2.3</a> лаб. раб. №10), а кодировка текста 
+(при необходимости) будет указываться во второй строке. <BR>
+<SPAN CLASS="txt_abz">Для </SPAN>запуска программы с предварительной проверкой нужно выбрать пункт
+Run Module в меню Run или нажать F5. В окне Shell добавляется строка RESTART и результат работы
+программы: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+ ================================ RESTART ================================<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Hello,world!</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>последующего запуска этой программы из интерактивного режима
+необходимо, выбрав в меню <SPAN CLASS="svoj">File</SPAN> пункт <SPAN CLASS="svoj">Open</SPAN>,
+загрузить программу <SPAN CLASS="svoj">1.py</SPAN> в окно "Edit" и запустить ее на выполнение, как
+было указано выше.<BR>
+<SPAN CLASS="txt_abz">Если </SPAN>по результатам выполнения программы необходимо внести в нее
+изменения, то они вносятся в окне "Edit" и сохраняются в памяти путем выбора в меню
+<SPAN CLASS="svoj">File</SPAN> пункта <SPAN CLASS="svoj">Save</SPAN>. <BR>
+<SPAN CLASS="txt_abz">Однако, </SPAN>если попытаться запустить эту программу не из среды
+разработки Python, а по двойному щелчку мышки по файлу с расширением <SPAN CLASS="svoj">.py</SPAN>,
+то на экране промелькнет консольное окно и исчезнет. Чтобы удержать результат работы программы на
+экране, необходимо добавить в программу функцию <SPAN CLASS="svoj">input()</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">"Hello, world!"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">"Для завершения программы нажмите Enter"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR><BR>
+<SPAN CLASS="txt_abz">Описание </SPAN>функции <SPAN CLASS="svoj">input()</SPAN> приведено в
+<A HREF="#5.2">подразделе 5.2</A>.<BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что одновременное использование интерактивного и
+сценарного режимов при создании и отладке программы создает предпосылки для наиболее эффективной
+и качественной работы.
+<A id="2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>2 Использование специальных методов</H4>
+<P>В языке Python знаки подчеркивания (англ. underscores) помимо обычного использования в
+идентификаторах подобно другим языкам программирования (см. <A HREF="#6">подраздел 6.1</A>) имеют
+и специальное назначение:
+<UL CLASS="list">
+<LI> одиночный знак подчеркивания, стоящий в начале имени объекта указывает на его
+ограниченное (англ. weak) использование. Например, при работе оператора: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">from</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">M</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">import</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">*</SPAN><BR><BR>
+к программе будут подключены все объекты модуля <SPAN CLASS="svoj">M</SPAN> кроме тех, чьи имена
+начинаются с одиночного знака подчеркивания (подключение модулей см. в
+<A HREF="../LAB2/lab.htm#1.1">подразделе 1.1</A> лаб. раб. №2). Другим примером является применение
+начального знака подчеркивания доя наименования атрибутов, предназначенных для использования внутри
+описания класса, но разрешенных для даступа из клиентского кода
+(см. <A HREF="../LAB11/lab.htm#2.3">подраздел 2.3</A> лаб. раб. №11); 
+<LI> одиночный знак подчеркивания, стоящий в конце имени используется для предотвращения
+совпадения с ключевым словом. Например, для обозначения переменной, в которой произходит
+накапливание суммы, вместо имени sum (название встроенной функции) можно использовать имя sum_; 
+<LI> двойной знак подчеркивания, стоящий в начале имени атрибута, означает его использование
+только внутри описания класса и запрет доступа из клиентского кода
+(см. <A HREF="../LAB11/lab.htm#2.3">подраздел 2.3</A> лаб. раб. №11); 
+<LI> двойные знаки подчеркивания, стоящие как в начале, так и в конце идентификатора, служит
+для обозначения специальных (англ. special) или, как их еще называют, магических (англ. magic)
+методов.Такое обозначение специальных методов сделано с целью избежать коллизий в адресном
+пространстве. Поэтому пользователи не должны использовать знаки подчеркивания таким образом. 
+</UL>
+<P>Специальные методы во многом составляют ядро яз ыка Python, поскольку:
+<UL CLASS="list">
+<LI> используются при описании встроенных типов (классов);
+<LI> формируют протоколы:
+<UL CLASS="list2">
+<LI> контейнера (см. <A HREF="../LAB3/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №3);
+<LI> итератора (см. <A HREF="../LAB3/lab.htm#1.2">подраздел 1.2</A> лаб. раб. №3);
+<LI> последовательностей
+(см. <A HREF="../LAB3/lab.htm#1.4.1">подраздел 1.4.1</A> лаб. раб. №3);
+</UL>
+<LI> вызываются при выполнении арифметических и побитовых операций
+(см. подразделы <A HREF="#4.1.4">4.1.4</A> и <A HREF="#4.1.6">4.1.6</A>);
+<LI> вызываются при выполнении встроенных функций для работы с числами
+(см. <A HREF="#4.1.5">подраздел 4.1.5</A>); 
+<LI> вызываются при выполнении операторов присваивания
+(см. таблицу 1 в <A HREF="#6">подразделе 6.1</A>);
+<LI> вызываются при выполнении операций сравнения (см. <A HREF="#6.2">подраздел 6.2</A>);
+<LI> могут быть также применены при описании пользовательских классов
+(см. <A HREF="../LAB11/lab.htm#1">раздел 1</A> лаб. раб. №11).
+</UL>
+<A id="3"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>3 Понятие объекта</H4>
+<P> Все данные, которые использованы в программах на языке Python, а также отношения между данными,
+являются объектами. Поэтому понятия "объект" и "данные" являются синонимами. Каждый объект имеет
+следующие свойства:
+<UL CLASS="list">
+<LI> идентичность;
+<LI> тип;
+<LI> значение.
+</UL>
+<A id="3.1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.1 Идентичность объектов</H4>
+<P>Идентичность (identity) является неизменяемым свойством объекта в течение времени его
+существования, задается при его создании и представляет собой уникальное целое число. В реализации
+CPython указывает на адрес объекта в памяти. Значение идентичности объекта может быть получено с
+помощью встроенной функции <SPAN CLASS="svoj">id()</SPAN>
+(см. описание встроенных функций в <A HREF="#id">подразделе 8.1</A>). Например, объект,
+представленный числом 25, имеет значение идентичности, равное 505894688:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(25)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">505894688</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Проверить идентичность</SPAN> двух объектов можно с помощью операторов
+<SPAN CLASS="svoj">is</SPAN> и <SPAN CLASS="svoj">is not</SPAN>. Операция
+<SPAN CLASS="svoj">is</SPAN> возвращает значение True при их идентичности:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s=5</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af8000">is </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">5</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR><BR>
+и значение False при отсутствии идентичности:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af8000">is </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'5'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR><BR>
+Операция <SPAN CLASS="svoj">is not</SPAN> возвращает противоположное значение:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af8000">is not </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'5'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR><BR>
+<A id="3.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<p> <H4 CLASS="pod">3.2 Типы объектов</H4>
+<P>Python является языком со строгой динамической типизацией. Строгая типизация означает следующее:
+<UL CLASS="list">
+<LI> любой объект данных (переменная, константа, выражение) в языке всегда имеет строго
+определенный тип, который фиксируется или на момент компиляции (статическая типизация) или
+определен во время выполнения (динамическая типизация);
+<LI> допускается присваивание переменной только значения, имеющего строго тот же тип данных, что и
+переменная (эти же ограничения действуют и при передаче параметров функции);
+<LI> каждая операция требует параметров строго определенных типов;
+<LI> неявные преобразования типов не допускаются;
+</UL>
+<P> Каждый объект языка Python имеет свой тип (<SPAN CLASS="svoj">type</SPAN>), который является
+неизменяемым свойством и определяет операции, поддерживаемые объектом, и его возможные значения.
+Поскольку данные являются объектами, а любой объект принадлежит классу (class), который определяет
+его свойства, то понятия "класс" и "тип" являются синонимами.<BR>
+<SPAN CLASS="txt_abz">В </SPAN>языке Python все является объектом, в том числе тип объекта и его
+класс. Для определения типа объекта используется встроенная функция
+<SPAN CLASS="svoj">type()</SPAN>, которая, если указан один аргумент
+(см. описание встроенных функций в <A HREF="#type">подразделе 8.1</A>), возвращает его тип
+(класс) в форме <SPAN CLASS="svoj">&lt;class 'тип данных'></SPAN>, например, целое число<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">type</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(-55)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">&lt;class 'int'></SPAN>.<BR><BR>
+имеет тип <SPAN CLASS="svoj">int</SPAN> (см. описание целых чисел в
+<A HREF="#4.1">подразделе 4.1</A>). Проверим утверждение, что тип объекта сам является объектом:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">type</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">type</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(-55))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">&lt;class 'type'></SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Определить </SPAN>класс (тип) объекта также можно, используя атрибут
+__class__:<BR><BR>                  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">2.3e-1.__class__</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">&lt;class 'float'></SPAN><BR><BR>
+(см. описание чисел с плавающей точкой в <A HREF=#4.1.2>подразделе 4.1.2</A>).<BR>
+<SPAN CLASS="txt_abz">При </SPAN>описании языка Python также используется термин "instance", под
+которым понимается конкретный образец или экземпляр класса, поэтому этот термин является синонимом
+слова "объект".
+<A id="3.3"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">3.3 Значения объектов</H4>
+<P>Объекты, в зависимости от того, могут быть изменены их значения или нет, делятся на изменяемые
+объекты (mutable objects) и неизменяемые объекты (immutable objects). Для определения, явояется
+ли данный объект изменяемым или нет, можно использовать функцию <SPAN CLASS="svoj">hash()</SPAN>
+(см. <A HREF="#hash">подраздел 8.1</A> данной лаб. раб. и
+<A HREF="../LAB3/lab.htm#1.3">подраздел 1.3</A> лаб. раб. №3). <BR>
+<SPAN CLASS="txt_abz">Неизменяемые </SPAN>объекты могут создаваться и уничтожаться, но не могут
+менять число, последовательность и значения своих элементов. Все рассматриваемые в данной
+лабораторной работе объекты (целые числа, числа с плавающей точкой, комплексные числа
+и данные логиченского типа) являются неизменяемыми обхектами. <BR>
+<SPAN CLASS="txt_abz">Изменяемые</SPAN> объекты могут изменять значения своих элементов, могут
+вставлять новые элементы в начале, в середине и в конце последовательности своих элементов.
+Примером изменяемого типа являются списки
+(см. <A HREF="../LAB3/lab.htm#2">раздел 2</A> лаб. раб. №3).<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>задания значений объектам могут быть использованы как литералы
+(любые разрешенные для данного типа значения, представленные в синтаксически правильной для языка
+Python форме), так и конструкторы соответствующено типа (см. разделы <A HREF=#4.1.1>4.1.1</A>,
+<A HREF=#4.1.2>4.1.2</A>, <A HREF=#4.1.3>4.1.3</A> и <A HREF=#4.2>4.2</A>). <BR>
+<SPAN CLASS="txt_abz">Объекты </SPAN> явно не уничтожаются, но после того, как они становятся
+недоступными, происходит удаление их из памяти системными средствами сборки мусора.
+<A id="4"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>4 Встроенные типы данных</H4>
+<P>Python имеет большое количество встроенных типов данных (для версии 3.6.0 они приведены по
+адресу <A HREF="http://docs.python.org/3/library/stdtypes.html">
+http://docs.python.org/3/library/stdtypes.html</A>). Наиболее важные из них:
+<UL CLASS="list">
+<LI> числа (см. <A HREF=#4.1>подраздел 4.1</A>);
+<LI> логический тип (см. <A HREF=#4.2>подраздел 4.2</A>);
+<LI> текстовые последовательности (строки)
+(см. <A HREF="../LAB2/lab.htm#2">раздел 2</A> лаб. раб. №2);
+<LI> списки (см. <A HREF="../LAB3/lab.htm#2">раздел 2</A> лаб. раб. №3);
+<LI> кортежи (см. <A HREF="../LAB4/lab.htm#1">раздел 1</A> лаб. раб. №4);
+<LI> диапазоны (см. <A HREF="../LAB4/lab.htm#2">раздел 2</A> лаб. раб. №4);
+<LI> двоичные последовательности (см. <A HREF="../LAB4/lab.htm#3">раздел 3</A> лаб. раб. №4);
+<LI> множества (см. <A HREF="../LAB5/lab.htm#1">раздел 1</A> лаб. раб. №5);
+<LI> словари (см. <A HREF="../LAB5/lab.htm#2">раздел 2</A> лаб. раб. №5);
+<LI> генераторы</A> (см. <A HREF="../LAB5/lab.htm#3">подраздел 3</A> лаб. раб. №5);
+<LI> файловые типы</A> (см. <A HREF="../LAB8/lab.htm#1">раздел 1</A> лаб. раб. №8);
+<LI> объект, не имеющий значение (Null object) &ndash; возращается функциями, которые не имеют явно
+заданного оператором return значения. Не поддерживает никаких операций. Имеется только один такой
+объект, он именуется встроенной константой None (см. <a href="#8.2">подраздел 8.2 </a>). В
+логическом контексте имеет значение False;
+<LI> объект NotImplemented &ndash; возвращается при выполнении операций, когда в них указываются
+типы данных, которые эти операции не поддерживают (см. использование метода __add__() в
+<A HREF="#4.1.4">подразделе 4.1.4</A>). Имеется только один такой объект, он именуется
+встроенной константой NotImplemented (см. <a href="#8.2">подраздел 8.2 </a>). В логическом
+контексте NotImplemented имеет значение True.
+</UL>
+<P>Кроме них существуют и многие другие типы данных. В языке Python все является объектом,
+поэтому в нем имеются также и такие типы, как модуль, функция, класс, метод и даже скомпилированный
+код.
+<A id="4.1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.1 Числа</H4>
+<P>Числа (англ. numeric types) являются неизменяемыми объектами и подразделяются на:
+<UL CLASS="list">
+<LI> целые числа (см. <A HREF=#4.1.1> подраздел 4.1.1</A>);
+<LI> числа с плавающей точкой (см. <A HREF=#4.1.2> подраздел 4.1.2</A>);
+<LI> комплексные числа (см. <A HREF=#4.1.3> подраздел 4.1.3</A>).
+</UL>
+<A id="4.1.1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.1.1 Целые числа</H4>
+<P>Целые числа со знаком (англ. integers) принадлежат типу (классу) <SPAN CLASS="svoj">int</SPAN>.
+Они имеют формально неограниченный размер (фактически их размер ограничен конечным объемом памяти
+компьютера). Значения целых чисел, во-первых, могут быть заданы в виде целочисленных литералов:
+<UL CLASS="list">
+<LI> в десятичной форме:<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> -125</SPAN>;<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">-125</SPAN><BR>
+<LI> в десятичной форме с использованием знака подчеркивания:<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 1_000_000</SPAN>;
+<SPAN STYLE="margin-left:4cm; font-size:7mm; color:red"># Эта форма введена в версии 3.6.0
+для улучшения читаемости</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1000000</SPAN> <BR>
+<LI> в двоичной форме (имеют префикс 0b/0B):<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 0b110011</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">51</SPAN>;<BR>
+<LI> в восмеричной форме (имеют префикс 0o/0O):<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 0o25</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">21</SPAN>;<BR>
+<LI> в 16-ричной форме (имеют префикс 0x/0X):<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 0Xa5</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">165</SPAN>.<BR>
+</UL>
+<P> Во-вторых, целые числа могут быть созданы с помощью конструктора класса &ndash; встроенной
+функции <SPAN CLASS="svoj">int(x [,base])</SPAN>, которая:
+<UL CLASS="list">
+<LI> если аргумент не задан &ndash; возращает значение 0;
+<LI> если аргумент задан в виде целого числа &ndash; возращает его значение (в этом случае проще
+использовать литерал);
+<LI> если аргументом является число с плавающей точкой &ndash; оно преобразуется в целое путем
+отбрасывания дробной части, например:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.9)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(-1.1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">-1</SPAN>;<BR>
+<LI> если аргументом является строковый литерал, он должен содержать только цифры и буквы,
+соответствующие заданной системе счисления. По умолчанию задана десятичная система. С помощью
+второго необязательного аргумента <SPAN CLASS="svoj">base</SPAN> можно задать систему счисления по
+основанию от 2 до 36. При этом строка может содержать цифры от 0 до 9 и латинские буквы от a/A до
+z/Z: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'z'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,36)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">35</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Можно </SPAN>также использовать литералы по основанию 2, 8 и 16, указывая их
+с префиксами <SPAN CLASS="svoj">0b/0B</SPAN>, <SPAN CLASS="svoj">0o/0O</SPAN> или
+<SPAN CLASS="svoj">0x/0X</SPAN>, так же как числовые литералы задаются в коде программы. В этом
+случае значение <SPAN CLASS="svoj">base</SPAN> должно быть 0:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'0x10'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,0)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">16</SPAN>;<BR>
+<LI> если аргумент имеет логический тип (см. <a href="#4.2">подраздел 4.2</a>) &ndash; возвращает
+1 для значения True и 0 для значения False.<BR><BR>
+</UL>
+<P> Отметим, что при использовании вместо встроенной функции <SPAN CLASS="svoj">int()</SPAN>
+специального метода <SPAN CLASS="svoj">x.__int__()</SPAN>, <SPAN CLASS="svoj">x</SPAN> должен быть
+числом:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">0.026e3.__int__()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">26</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">'3'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__int__()</SPAN>,<BR><BR>
+иначе выводится сообщение об ошибке:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+AttributeError: 'str' object has no attribute '__int__'</SPAN>;<BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>представления целых чисел в виде строк 
+(см. <a href="../LAB2/lab.htm#2">раздел 2 </a> лаб. раб. №2) можно использовать следующие
+встроенные функции (см. <A HREF="#8">подраздел 8.1</A>):
+<UL CLASS="list">
+<LI> <A HREF="#bin">bin()</A> &ndash; возвращает целочисленный аргумент в двоичной
+форме:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">bin</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(25)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'0b11001'</SPAN>;<BR><BR>
+<LI> <A HREF="#oct">oct()</A> &ndash; возвращает целочисленный аргумент в 8-ричной
+форме:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">oct</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(25)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'0o31'</SPAN>;<BR><BR>
+<LI> <A HREF="#hex">hex()</A> &ndash; возвращает целочисленный аргумент в
+16-ричной форме: <BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">hex</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(25)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'0x19'</SPAN>.<BR>
+</UL>
+<p>Дополнительную информацию о целых числах можно получить, использовав метод
+<SPAN CLASS="svoj">int_info</SPAN> модуля <SPAN CLASS="svoj">sys</SPAN>
+(см. <a href="../LAB2/lab.htm#1.3">подраздел 1.3 </a> лаб. раб. №2).
+<A id="4.1.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.1.2 Числа с плавающей точкой</H4>
+<P>Числа с плавающей точкой (англ. floating point numbers) или вещественные числа имеют тип (класс)
+<SPAN CLASS="svoj">float</SPAN> и содержат целую и дробную части, разделенные точкой. Создаваться
+числа с плавающей точкой могут, во-первых, в виде литерала, который имеет две формы:
+<UL CLASS="list">
+<LI> в виде десятичной дроби: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 1.2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1.2</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Точка </SPAN>ставится даже  в тех случаях, когда дробной части нет.<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 1.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1.0</SPAN><BR><BR>
+<LI> в виде экспоненты {мантисса}e/E{порядок}: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 1.2e-2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">0.012</SPAN><BR><BR>
+</ul>
+<p> При выводе на экран вещественные числа преобразуются в форму десятичной дроби. Задаваться
+вещественные числа могут только в десятичной системе счисления. <BR>
+<SPAN CLASS="txt_abz">Во-вторых, </SPAN>числа с плавающей точкой могут быть созданы с помощью
+конструктора класса &ndash; втроенной функции <SPAN CLASS="svoj">float()</SPAN>, которая:
+<UL CLASS="list">
+<LI> если аргумент не задан, возращает значение 0.0;
+<LI> если аргумент задан в виде числа с плавающей точкой, возвращает значение аргумента;
+<LI> если аргументом является строка, она преобразуется в число с плавающей точкой:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">float</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'1.25E2'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">125.0</SPAN>.<BR><BR>
+</ul>
+<p> При использовании специального метода <SPAN CLASS="svoj">x.__float__()</SPAN>,
+<SPAN CLASS="svoj">x</SPAN> должен быть числом.<BR>
+<SPAN CLASS="txt_abz">Дополнительную </SPAN>информацию о вещественных числах можно получить,
+использовав метод <SPAN CLASS="svoj">float_info</SPAN> модуля <SPAN CLASS="svoj">sys</SPAN>
+(см. <a href="../LAB2/lab.htm#1.3">подраздел 1.3 </a> лаб. раб. №2).
+<A id="4.1.3"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.1.3 Комплексные числа</H4>
+<P>Комплексные числа (англ. complex numbers) имеют тип (класс) <SPAN CLASS="svoj">complex</SPAN> и
+создаются, во-первых, в виде литерала формы <SPAN CLASS="svoj">a+bj</SPAN>, где
+<SPAN CLASS="svoj">a</SPAN> задает вещественную часть числа, а <SPAN CLASS="svoj">b</SPAN> &ndash;
+мнимую (<SPAN CLASS="svoj">a</SPAN> и <SPAN CLASS="svoj">b</SPAN> могут быть числами любого типа,
+включая пип <SPAN CLASS="svoj">complex</SPAN>), например:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">comp=2+3j+1.33e-1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">comp</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(2.133+3j)</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Во-вторых, </SPAN>компрлексное число может быть создано с помощью встроенной
+фукнции &ndash; конструктора <SPAN CLASS="svoj">complex([real[, imag]])</SPAN></A>, которая создает
+комплексное число с реальной частью <SPAN CLASS="svoj">real</SPAN> и мнимой частью
+<SPAN CLASS="svoj">imag</SPAN>. Если первый параметр является строкой, он интерпретируется как
+комплексное число и функция должна вызываться без второго параметра. Второй параметр не должен быть
+строкой. Каждый аргумент может быть любого числового типа, включая комплексный. Если мнамая часть
+опущена, ее значение по умолчанию приравнивается нулю и функция выполняется подобно функциям
+<SPAN CLASS="svoj">int()</SPAN> и <SPAN CLASS="svoj">float()</SPAN>. Если опущены оба аргумента,
+возвращается значение 0j.<BR>
+<SPAN CLASS="txt_abz">Отметим,</SPAN> что когда осуществляется преобразование из строки, строка
+не должна содержать разделительных символов вокруг внутренних операторов + или -. Например, вызов
+функции <SPAN CLASS="svoj">complex('4+3j')</SPAN>:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">comp1=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">complex</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'4+3j'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">comp1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(4+3j)</SPAN><BR><BR>
+создает правильное комплексное число, а вызов функции <SPAN CLASS="svoj">complex('4 + 3j')</SPAN>
+приведет к возникновению исключения:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">comp1=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">complex</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'4 + 3j'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+ValueError: complex() arg is a malformed string</SPAN>,<BR><BR>
+т.е.аргументом функции <SPAN CLASS="svoj">complex()</SPAN> является неправильно сформированая
+строка.<BR>
+<SPAN CLASS="txt_abz">Класс </SPAN><SPAN CLASS="svoj">complex</SPAN> поддерживает свойства:
+<UL CLASS="list">
+<LI> real &ndash; указывает вещественную часть числа<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">comp1.real</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4.0</SPAN>;<BR><BR>
+<LI> imag &ndash; указывает мнимую часть числа<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">comp1.imag</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">3.0</SPAN><BR><BR>
+</UL>
+<P CLASS="ba"> и метод <SPAN CLASS="svoj">conjugate()</SPAN></SPAN>, который возвращает
+сопряженное комплексное число<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">comp.conjugate()</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(4-3j)</SPAN><BR>
+ <A id="4.1.4"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.1.4 Операции с числами</H4>
+<P>Все числа (за исключением комплексных чисел) поддерживают следующие операции (в скобках указаны
+соответствующие им специальные методы, если операция имеет два операнда, то приводится также метод
+с обратным использованием операндов:
+<UL CLASS="list">
+<LI> x+y &ndash; выполняется сложение чисел x и y, если одно из чисел имеет тип float, то тип
+результата также будет float<BR> (x.__add__(y) и y.__radd__(x)) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 2+3.0e-1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">2.3</SPAN>;<BR><BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что при использовании специальных методов для целых чисел
+форма:<BR><BR>                  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">2.__add__(2+3.0e-1)</SPAN><BR><BR>
+дает синтаксическую ошибку:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">SyntaxError: invalid syntax</SPAN>,<BR><BR>
+поскольку фрагмент "2." интерпретируется как число с плавающей точкой. Поэтому значение целого
+числа необходимо взять в скобки:<BR><BR>                  
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(2).__add__(3.0e-1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">NotImplemented</SPAN>;<BR><BR>
+В этом случае уже не появляется сообщение об синтаксической ошибке. Однако вместо результата
+выполненной операции сложения на экран выводится значение объекта NotImplemented. Это говорит о
+том, что для указанных типов операндов метод .__add__() не применим, поскольку требует, в отличие
+от операции сложения, чтобы оба операнда были целыми числами:<BR><BR>
+<SPAN STYLE="margin-left:0.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(2).__add__(3)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">5</SPAN>;<BR><BR>
+<LI> x-y &ndash; выполняется вычитание чисел x и y, если одно из чисел имеет тип float, то
+тип результата также будет float<BR>
+ (x.__sub__(y) и y.__rsub__(x)) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 5-12.75</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">-7.75</SPAN>;<BR><BR>
+<LI> x*y &ndash; выполняется умножение чисел x и y, если одно из чисел имеет тип float, то
+тип результата также будет float<BR>
+ (x.__mul__(y) и y.__rmul__(x)) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 0.77e1*3.456</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">26.6112</SPAN>;<BR><BR>
+<LI> x/y &ndash; выполняется деление чисел x и y, возвращается значение с типом float, даже
+если и делимое, и делитель имеют тип int<BR>
+ (x.__truediv__(y) и y.__rtruediv__(x)) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 2/3</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">0.6666666666666666</SPAN>,<BR><BR>
+как это видно из результата, точность чисел с плавающей точкой равна 15 десятичным знакам в дробной
+части;<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">12/3</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4.0</SPAN>;<BR><BR>
+<LI> x//y &ndash; выполняется целочисленное деление x на y, результат – целое число
+(округление до ближайшего целого и для положительных, и для отрицательных чисел происходит в
+сторону минус бесконечности<BR>
+ (x.__floordiv__(y) и y.__rfloordiv__(x)) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 17//4</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4</SPAN>;<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> -17//4</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">-5</SPAN>;<BR><BR>
+<LI> x%y &ndash; выполняется деление x на y по модулю (определяется остаток от целочисленного
+деления)<BR>
+ (x.__mod__(y) и y.__rmod__(x)):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 17%4</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN>;<BR><BR>
+<LI> x**y</B> &ndash; выполняется операция возведения x в степень y (результатом операции 0**0
+будет 1, как это принято в языках программирования) <BR>
+(x.__pow__(y) и y.__rpow__(x)):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 2**10</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1024</SPAN>;<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">2**(0.5) </SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1.4142135623730951</SPAN>;<BR><BR>
+<LI> -x &ndash; указывается отрицательное значение x<BR>
+ (x.__neg__();<BR>
+<LI> +x &ndash; x не меняется<BR>
+(x.__pos__()).
+</UL>
+<P>При выполнении каждого оператора вызывается соответствующий ему метод. Это позволяет для одного
+и того же оператора задавать разные действия в зависимости от типа операндов.<BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что в выражении операции выполняются в порядке их приоритета:
+наивысший приоритет имеет операция <SPAN CLASS="svoj">**</SPAN>, затем следуют операции
+<SPAN CLASS="svoj">*</SPAN>, <SPAN CLASS="svoj">/</SPAN>, <SPAN CLASS="svoj">//</SPAN> и
+<SPAN CLASS="svoj">%</SPAN>, еще более низкий приоритет имеют операции сложения и вычитания. При
+равном приоритете операции выполняются слева направо, например:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 5+6/2*4**2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">53</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Однако </SPAN>операции возведения в степень, идущие подряд, выполняются в
+обратном порядке  &ndash; справа налево. Поэтому результатом выражения
+<SPAN CLASS="svoj">2**3**2</SPAN> будет 512, а не 64:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> 2**3**2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">512</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>изменения порядка выполнения операций в выражении необходимо
+использовать скобки. 
+<A id="4.1.5"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.1.5 Функции для работы с числами</H4>
+<P>При работе с числами могут быть использованы также следующие встроенные функции
+(см. <A HREF="#8">подраздел 8.1</A>. В скобках указан соответствующий им специальный метод: 
+<UL CLASS="list">
+<LI> <A HREF="#abs">abs(x)</A> &ndash; возвращает абсолютное значение параметра x<BR>
+(x.__abs__()) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">abs</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(-7)</SPAN><BR>                                    
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7</SPAN>,<BR><BR>
+для комплексных чисел, заданных как a+bj, функция считается по формуле (a**2+b**2)**(1/2):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">abs</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(4+3j)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">5.0</SPAN>;<BR><BR>
+<LI> <A HREF="#divmod">divmod(x,y)</A> &ndash; имеет два параметра: x задает делимое,
+y &ndash; делитель, возвращает кортеж (см. <A HREF=lab2.htm#2.1>подраздел 2.1</A> лабораторной
+работы №2), элементами которого являются соответственно результаты операций // и % над
+параметрами<BR>
+x.__divmod__(y) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">divmod</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(17,3)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(5, 2)</SPAN>;<BR><BR>
+<LI> <A HREF="#pow">pow(x,y)</A> &ndash; возвращает результат возведения первого параметра
+в степень, заданную вторым параметром (функция аналогична операции **)<BR>
+ (x.__pow__(y) или x.__rpow__(y)):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">pow</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(3,4)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">81</SPAN>;<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(3).__rpow__(4)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">64</SPAN>;<BR><BR>
+<LI> <A HREF="#round">round(x[, n])</A> &ndash; возвращает число с плавающей точкой, округленное
+до n цифр после десятичной точки. Если аргумент n опущен или равен 0 &ndash; возвращает целое
+число. Для встроенных типов, поддерживающих функцию round(), значения округляются до числа,
+ближайшего к 10 в степени минус n. Если два значения одинаково близки, то округление идет в
+направлении четного числа<BR>  (x.__round__(n) или x.__rround__(n)):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">round</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.333,2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1.33</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">round</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(2.5)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">round</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(3.5)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4</SPAN>.<BR>
+</UL>
+<P>Отметим, что поведение функции <SPAN CLASS="svoj">round()</SPAN> для чисел с плавающей точкой
+может вызвать удивление: например:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">round</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(2.675, 2)</SPAN><BR><BR>
+дает<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">2.67</SPAN><BR><BR>
+вместо ожидаемых 2.68. Это связано с тем обстоятельством, что большинство десятичных дробей не
+может быть точно представлено в форме числа с плавающей точкой.<BR>
+<SPAN CLASS="txt_abz">Помимо </SPAN>встроенных функций при работе с целыми числами можно
+воспользоваться текже следующими методами класса <SPAN CLASS="svoj">int</SPAN>:
+<UL CLASS="list">
+<LI> int.bit_length() &ndash; возвращает число битов, необходимых для представления целого
+числа в двоичной форме, исключая знак и начальные нули:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">n=2014</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">n.bit_length()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">11</SPAN>.<BR>
+</UL>
+<A id="4.1.6"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.1.6 Побитовые операции над целыми числами</H4>
+<P>Python поддерживает также побитовые операции над целыми числами. Пусть операнды a и b имеют
+следующие значения:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a=60</SPAN>
+<SPAN STYLE="font-size:7mm; color:red"># 0b00111100</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b=13</SPAN>
+<SPAN STYLE="font-size:7mm; color:red"># 0b00001101</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>работы с этими операндами могут быть использованы следующие
+операторы (в скобках указаны соответствующие им специальные методы): 
+<UL CLASS="list">
+<LI> & &ndash; выполняет побитовую операцию И <BR>
+(a.__and__(b) и b.__rand__(a)):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a&b</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">12</SPAN> 
+<SPAN STYLE="font-size:7mm; color:red"># 0b00001100</SPAN>;<BR><BR>
+<LI> | &ndash; выполняет побитовую операцию ИЛИ<BR>
+(a.__or__(b) и b.__ror__(a)) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a|b</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">61</SPAN> 
+<SPAN STYLE="font-size:7mm; color:red"># 0b00111101</SPAN>;<BR><BR>
+<LI> ^ &ndash; выполняет побитовую операцию ИСКЛЮЧАЮЩЕЕ ИЛИ (XOR)<BR>
+(a.__xor__(b) и b.__rxor__(a)):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a^b</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">49</SPAN> 
+<SPAN STYLE="font-size:7mm; color:red"># 0b00110001</SPAN>;<BR><BR>
+<LI> ~ &ndash; выполняет унарную операцию побитового инвертирования<BR>
+(a.__invert__() :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">~a</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">-61</SPAN> 
+<SPAN STYLE="font-size:7mm; color:red"># 0b110000011</SPAN>;<BR><BR>
+<LI> >> &ndash; выполняет сдвиг левого операнда вправо на число разрядов, заданное правым
+опрерандом<BR>
+(a.__rshift__(b) и b.__rrshift__(a)) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a>>2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">15</SPAN> 
+<SPAN STYLE="font-size:7mm; color:red"># 0b00001111</SPAN>;<BR><BR>
+<LI> << &ndash; выполняет сдвиг левого операнда влево на число разрядов, заданное правым
+опрерандом<BR>
+(a.__lshift__(b) и b.__rlshift__(a)) :<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a<<2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">240</SPAN> 
+<SPAN STYLE="font-size:7mm; color:red"># 0b11110000</SPAN>.
+</UL>
+<A id="4.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.2 Логический тип</H4>
+<P>Данные логического типа являются подклассом целых чисел <SPAN CLASS="svoj">bool(int)</SPAN> и
+могут принимать одно из двух значений: истина (англ. true) или ложь (англ. false). Язык Python
+имеют константы True и False, которые используются для непосредственного присваивания логических
+значений в виде литералов (все встроенные константы языка Python приведены в
+<A HREF="#8.2">подразделе 8.2</A>). Другим вариантом задания логических значений является
+использование конструктора класса &ndash; встроенной фукнкции <SPAN CLASS="svoj">bool([x])</SPAN>
+(см. <A HREF="#bool">подраздел 8.1</A>). <BR>
+<SPAN CLASS="txt_abz">Результатом </SPAN>вычисления выражений также может быть логическое значение.
+В определенных местах программы, например, в операторе if, интерпретатор языка ожидает, что
+результатом вычисления выражения будет логическое значение. Такие места программы называют
+логическим контекстом. Практически всякое выражение можно использовать в логическом контексте.
+Python в любом случае попытается осуществить его проверку на истинность, используя следующие
+правила:
+<UL CLASS="list">
+<LI> любое число, не равное 0, непустая строка, непустой объект и NotImplemented &ndash; принимают
+значение True;
+<LI> числа, равные 0 (0 и 0.0), пустая строка, пустые объекты и значение None &ndash; принимают
+значение False;
+<LI> операции сравнения применяются к структурам данных рекурсивно;
+<LI> операции сравнения возвращают True или False;
+<LI> логические операторы and и or возвращают истинный или ложный объект-операнд:
+<UL CLASS="list2">
+<LI> x or y &ndash; если x имеет значение False, тогда y, иначе x (в этом случае y не
+вычисляется);
+<LI> x and y &ndash; если x имеет значение False, тогда x (y не вычисляется), иначе y;
+<LI> not x &ndash; если x имеет значение False, тогда True, иначе False.
+</UL>
+</UL>
+<P>Логические операции приведены в порядке возрастания приоритета:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">True and True or False and False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">True and (True or False) and False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">not True or True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">not (False and False)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Операция </SPAN><SPAN CLASS="svoj">not</SPAN> имеет более низкий приоритет,
+чем любая нелогическая операция, например, <SPAN CLASS="svoj">not a==b</SPAN>
+интерпретируется как <SPAN CLASS="svoj">not (a==b)</SPAN>.
+<A id="4.3"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">4.3 Проверка типа объекта</H4>
+<P> В <a href="#3.2">подразделе 3.2</a> приведено описание и использование функции 
+<SPAN CLASS="svoj">type()</SPAN>, которая выполняет вывод типа (класса) указанного объекта. Иногда
+возникает необходимость не выводить значение типа объекта, а определить, принадленжит ли данный
+объект определенному типу. Для этого можно использовать встроенную функцию
+<SPAN CLASS="svoj">isinstance()</SPAN> (см. <a href="#isinstance">подраздел 8.1 </a>), которая
+имеет два аргумента &ndash; в первом указывается проверяемый тип (значение), во втором &ndash; тип
+(класс). Функция <SPAN CLASS="svoj">isinstance()</SPAN> возвращает значение True, если объект
+имеет указанный тип, и значение False &ndash; в противном случае:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.0, int)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>.<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> isinstance</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af"> int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(1.0), int)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz"></SPAN>
+Из результатов примера видно, что значение 1.0 не является литералом целого числа, а после
+произведенного преобразования с помощью конструктора <SPAN CLASS="svoj">int()</SPAN> &ndash; уже
+имеет целочисленный тип.
+<A id="5"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>5 Ввод и вывод данных</H4>
+<P>В примерах при описании функционирования среды разработки языка Python были использованы
+встроенные функции <SPAN CLASS="svoj">print()</SPAN> и <SPAN CLASS="svoj">input()</SPAN>. Сейчас
+приведем их более детальное описание.
+<A id="5.1"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">5.1 Функция print()</H4>
+<P>Функция
+<SPAN CLASS="svoj">print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)</SPAN>
+осуществляет вывод данных <SPAN CLASS="svoj">objects </SPAN> в потоковый файл. При этом:
+<UL CLASS="list">
+<LI> все неименованные аргументы value, ... преобразуются в строки;
+<LI> между ними вставляются строки-разделители, заданные именованым аргументом sep (по
+умолчанию &ndash; пробелы, т.е. sep=' ');
+<LI> в конце вывода добавляется строка завершения, заданная именованым аргументом end, (по
+умолчанию &ndash; символ новой строки, т.е. end='\n');
+<LI> файл вывода задается с помощью именованого аргумента file (по умолчанию
+file='sys.stdout'). Он должен иметь метод write(string);
+<LI> необходимость буферизации обычно определяется файлом, но если именованый аргумент flush
+(введенный в версии Python 3.3), равен True, то принудительно выполняется потоковый режим
+(по умолчанию flush=False).
+</UL>
+<P>Все именованные аргументы должны быть строками. Если именнованный аргумент не задан или имеет
+значение None, принимается значение, указанное для него по умолчанию. Если ни один из
+неименнованных аргументов не указан, будет осуществлен вывод строки <SPAN CLASS="svoj">end </SPAN>.
+<BR> <SPAN CLASS="txt_abz"></SPAN>
+Пример вывода двух значений без использования ключевых слов <SPAN CLASS="svoj">sep</SPAN> и
+<SPAN CLASS="svoj">end</SPAN>: <BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">x=25</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">y=2.5E-2</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00ff">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'x'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,x)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00ff">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'y'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,y)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+================================ RESTART ================================</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">x 25</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">y 0.025</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN><BR>
+<P CLASS="ba">и с их использованием:<BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">x=25</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">y=2.5E-2</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00ff">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'x'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,x,sep=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'='</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#af00ff">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:green">'y'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,y,sep=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'='</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">''</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+================================ RESTART ================================</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">x=25 y=0.025</SPAN><BR>
+<A id="5.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 class="pod">5.2 Функция input()</H4>
+<P>Функция <SPAN CLASS="svoj">input([prompt])</SPAN> – при наличии необязательного аргумента prompt
+выводит его в стандантный поток вывода (англ. standard output). Затем считывет данные из
+стандартного устройства ввода (англ. standard intput) и преобразует их в строки, убирая замыкающие
+символы новой строки (англ. trailing newline)</SPAN>. <BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что функция <SPAN CLASS="svoj">input()</SPAN> объединила в
+себе две функции, которые используются во второй версии языка Python &ndash; собственно функцию
+<SPAN CLASS="svoj">input()</SPAN> и функцию <SPAN CLASS="svoj">raw_input()</SPAN>, которая не
+поддерживается версиями 3.x языка Python.
+<BR> <SPAN CLASS="txt_abz"></SPAN>
+В примере показан ввод двоичного целого числа и числа с плавающей точкой: <BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">x=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Введите двоичное число "</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">),2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">y=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">float</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Введите число с плавающей точкой "</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">))</SPAN><BR>
+<BR> <SPAN CLASS="txt_abz"></SPAN>
+Кроме того, осуществлено преобразование введенных значений с помощью соответствующих конструкторов
+в целый тип и тип с плавающей точкой. Это необходимо делать в случаях, когда введенные значения
+будут использоваться для выполнения операций с числами, поскольку при вводе все значения
+преобразуются в строки.
+<A id="6"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>6 Операторы</H4>
+<H4 CLASS="pod">6.1 Оператор присваивания</H4>
+<P>Оператор присваивания имеет следующую форму:
+</SPAN><SPAN STYLE="font-size:7mm">v=expr</SPAN>, где
+<UL CLASS="list">
+<LI> v &ndash;  имя переменной;
+<LI> expr &ndash; выражение, в общем случае представляющее собой совокупность литералов
+разных типов, переменных, вызовов функций, соединенных между собой знаками операций.
+</UL> 
+<P>Переменные в языке Python не требуют явного объявления и для них не указывается изначально тип
+данных. Python относится к языкам программирования с динамической типизацией переменных.
+Переменные появляются, когда им присваивают значение, и автоматически уничтожаются при выходе из
+области видимости. Поэтому при работе оператора присваивания переменная получает не только
+значение выражения, но и его тип.<BR>
+<SPAN CLASS="txt_abz">Имена </SPAN>(идентификаторы) (англ. names, identifiers) переменных языка
+Python (), так же как и во многих других языках программирования (Pascal, C, Java, JavaScript и
+др.) могут содержать только латинские буквы, цифры и знаки подчеркивания и начинаться или с буквы,
+или со знака подчеркивания. Отметим, что в качестве идентификаторов не следует использовать
+зарезервированные (ключевые) слова (англ. keywords) языка Python. Список ключевых слов можно
+получить, например, с помощью встроенной системы помощи (см. <A HREF="#1.2">подраздел 1.2</A>).
+Имена в языке Python зависят от регистра и не имеют ограничений по числу символов. <BR>
+<SPAN CLASS="txt_abz">При </SPAN>выполнении оператора присваивания интерпретатором осуществляются
+следующие действия:
+<UL CLASS="list">
+<LI> вычисляется значение выражения, указанного справа от знака равенства, и определяется тип
+выражения;
+<LI> полученное значение заносится в свободные ячейки памяти;
+<LI> создается переменная, указанная слева от знака равенства, которая, являясь ссылкой на
+данные (объект), занесенные в память, получает значение и тип этих данных, например:<BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">n=7</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">n</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:af00af">type</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(n)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">&lt;class 'int'></SPAN>.<BR><BR>
+</UL> 
+<P>При выполнении оператора <SPAN CLASS="svoj">del</SPAN> указанная переменная перестает
+ссылаться на данные в памяти и, таким образом, теряет свое значение:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">del n</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">n</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+NameError: name 'n' is not defined</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Данные </SPAN>в памяти, на которые не указывает ни одна ссылка, в последствии
+очищаются автоматически с помощью системных средств сборки мусора.<BR>
+<SPAN CLASS="txt_abz">При </SPAN>присваивании переменной значения другой переменной
+создается еще одна ссылка на существующие данные:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s1=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'some value'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2=s1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'some value'</SPAN>,<BR><BR>
+и при удалении первой ссылки вторая сохраняет
+свое значение:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:ff8000">del </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+NameError: name 's1' is not defined</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'some value'</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Python </SPAN>допускает множественное присвоение:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s5=s4=s3=s2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s5</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'some value'</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Числа </SPAN>и строки в языке Python являются неизменяемыми типами данных.
+Это означает следующее: для переменных указанных типов нельзя изменить значение данных, хранящихся
+в памяти, на которые они ссылаются. При присваивании переменной нового значения <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">n=7</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(n)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">505894400</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">n=25</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(n)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">505894688</SPAN>.<BR><BR>
+происходит следующее &ndash; прежнее значение не изменится (оно будет в последствии автоматически
+удалено системой сборки мусора), а новое значение будет занесено в новую область памяти и теперь на
+него будет указывать ссылка <SPAN CLASS="svoj">n</SPAN>, что подтверждает встроенная функция
+<SPAN CLASS="svoj">id()</SPAN> (см. <A HREF="#id">подраздел 8.1</A>), которая показывает,
+что значение адреса переменной <SPAN CLASS="svoj">n</SPAN> стало другим. Т.е. происходит не
+изменение значения объекта, а создание нового объекта с новыми данными и адресом.<BR>
+<SPAN CLASS="txt_abz">Оператор </SPAN>присваивания имеет несколько расширенных вариантов,
+приведенных в табл. 1.
+<P><TABLE ALIGN=center WIDTH="60%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 1 &ndash; Расширенные формы оператора присваивания
+</CAPTION>
+<TR><TH>Оператор<TH>Пример<BR>использования<TH>Эквивалентная<BR>форма<TH>Соответствующий<BR>метод
+<TR><TD ALIGN=center>+=<TD ALIGN=center>x+=y<TD ALIGN=center>x=x+y<TD ALIGN=center>x.__iadd__(y)
+<TR><TD ALIGN=center>-=<TD ALIGN=center>x-=y<TD ALIGN=center>x=x-y<TD ALIGN=center>x.__isub__(y)
+<TR><TD ALIGN=center>*=<TD ALIGN=center>x*=y<TD ALIGN=center>x=x*y<TD ALIGN=center>x.__imul__(y)
+<TR><TD ALIGN=center>/=<TD ALIGN=center>x/=y<TD ALIGN=center>x=x/y<TD ALIGN=center>x.__itruediv__(y)
+<TR><TD ALIGN=center>//=<TD ALIGN=center>x//=y<TD ALIGN=center>x=x//y<TD ALIGN=center>x.__ifloordiv__(y)
+<TR><TD ALIGN=center>%=<TD ALIGN=center>x%=y<TD ALIGN=center>x=x%y<TD ALIGN=center>x.__imod__(y)
+<TR><TD ALIGN=center>**=<TD ALIGN=center>x**=y<TD ALIGN=center>x=x**y<TD ALIGN=center>x.__ipow__(y)
+<TR><TD ALIGN=center>&lt;&lt;=<TD ALIGN=center>x&lt;&lt;=y<TD ALIGN=center>x=x&lt;&lt;y<TD ALIGN=center>x.__ilshift__(y)
+<TR><TD ALIGN=center>>>=<TD ALIGN=center>x>>=y<TD ALIGN=center>x=x>>y<TD ALIGN=center>x.__irshift__(y)
+<TR><TD ALIGN=center>&=<TD ALIGN=center>x&=y<TD ALIGN=center>x=x&y<TD ALIGN=center>x.__iand__(y)
+<TR><TD ALIGN=center>|=<TD ALIGN=center>x|=y<TD ALIGN=center>x=x|y<TD ALIGN=center>x.__ior__(y)
+<TR><TD ALIGN=center>^=<TD ALIGN=center>x^=y<TD ALIGN=center>x=x^y<TD ALIGN=center>x.__ixor__(y)
+</TABLE>
+<p>В языке Python операторы обычно отделяются друг от друга символами перевода на новую строку,
+т.е. каждый оператор занимает одну строку программы. Мы этого до сих пор придерживались и будет
+поступать так в дальнейшем. Но синтаксисом языка также разрешается помещать несколько операторов
+на строке, разделяя их точкой с запятой: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">z1=5; z2=3.7; z3=1.5e-1</SPAN>.<BR><BR>
+<p>Также разрешается располагать оператор на нескольких строках, разделяя отдельные части оператора
+символами обратного слэша: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x=z1+ \</SPAN><BR>
+<SPAN STYLE="margin-left:2.8cm; font-size:7mm; color:black">z2+ \</SPAN><BR>
+<SPAN STYLE="margin-left:2.8cm; font-size:7mm; color:black">z3 \</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">8.85</SPAN>.<BR><BR>
+<A id="6.2"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">6.2 Условный оператор</H4>
+<P>Условный оператор имеет следующую форму:<BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">if &lt;условие> :<BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>&lt;блок></SPAN>
+<P>В условии указывается выражение, имеющее логический тип. Блок представляет собой одну или
+несколько строк программы (операторов), которые задаются с отступом. Визуальный блок в языке Python
+является логическим блоком и соответствует конструкции {...} в JavaScript и других C-подобных
+языках. Если условие имеет значение True, то выполняются строки, входящие в блок. В противном
+случае блок не выполняется, а управление передается следующей после условного оператора строке.<BR>
+<SPAN CLASS="txt_abz">Операторы сравнения, когорые могут использоваться в условии, приведены в
+табл. 2.
+<P><TABLE ALIGN=center WIDTH="80%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 2 &ndash; Операторы сравнения</CAPTION>
+<TR><TH>Оператор<BR>сравнения<TH>Выполняемые действия<TH>Метод,<BR>соответствующий оператору
+<TR><TD ALIGN=center>x==y<TD ALIGN=center>если операнды x и y равны,<BR>
+условие получает значение True, иначе &ndash; False<TD ALIGN=center>x.__eq__(y)
+<TR><TD ALIGN=center>x!=y<TD ALIGN=center>если операнды x и y не равны,<BR>
+условие получает значение True, иначе &ndash; False<TD ALIGN=center>x.__ne__(y)
+<TR><TD ALIGN=center>x>y<TD ALIGN=center>если значение x больше значения y,<BR>
+условие получает значение True, иначе &ndash; False<TD ALIGN=center>x.__gt__(y)
+<TR><TD ALIGN=center>x>=y<TD ALIGN=center>если значение x больше значения y или равно ему,<BR>
+условие получает значение True, иначе &ndash; False<TD ALIGN=center> (x.__ge__(y))
+<TR><TD ALIGN=center>x&lt;y<TD ALIGN=center>если значение x меньше значения y,<BR>
+условие получает значение True, иначе &ndash; False<TD ALIGN=center>x.__lt__(y)
+<TR><TD ALIGN=center>x&lt;=y<TD ALIGN=center>если значение x меньше значения y или равно ему,<BR>
+условие получает значение True, иначе &ndash; False <TD ALIGN=center>x.__le__(y)
+</TABLE>
+<P>Отметим, что в версиях Python 2.x для сравнения использовались: оператор сравнения <>
+(эвивалентный оператору !=), встроенная функция <SPAN CLASS="svoj">cmp()</SPAN> и соответствующий
+ей метод <SPAN CLASS="svoj">__cmp__()</SPAN>, которые убраны в версиях 3.x.<BR>
+<SPAN CLASS="txt_abz">При </SPAN>использовании оператора сравнения вызывается соответствующий ему
+метод, определенный для типа (класса) сравнивающихся объектов. Поэтому использование оператора
+сравнения: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x=7</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x==4</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x==7</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">равноценно </SPAN>вызову требуемого метода:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x.__eq__(4)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x.__eq__(7)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Благодаря </SPAN>этому для одного и того же оператора сравнения могут
+выполняться разные действия в зависимости от типа его операндов.<BR>
+<SPAN CLASS="txt_abz">Пример </SPAN>использования условного оператора: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">x=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Введите число'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Введите число</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">12</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">if</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(x)>=0:</SPAN><BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Число положительное'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Число положительное</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">После ввода первой строки программы </SPAN> и нажатия Enter на экран
+выводится сообщение: Введите число. После ввода числа (12) и ввода первой строки условного
+оператора среда разработки делает отступ для ввода блока. Вводится первая строка блока и дважды
+нажимается Enter (признаком завершения блока является пустая строка). На экране появляется
+результат работы этого фрагмента программы: Число положительное. <BR>
+<SPAN CLASS="txt_abz">Python  </SPAN>поддерживает множественное использование операций сравнения:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a,b,c=2,3,4</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">if</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a&lt;b&lt;c: </SPAN> 
+<SPAN STYLE="font-size:7mm; color:red">#a&lt;b and b&lt;c</SPAN> <BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'OK'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">OK</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">В </SPAN>другой форме условного оператора для задания альтернативного
+варианта добавляется служебное слово <SPAN STYLE="font-size:7mm">else</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz"> <SPAN STYLE="font-size:7.2mm">if &lt;условие> :<BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>&lt;блок1></SPAN><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">else :<BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>&lt;блок2></SPAN>.<BR>
+<SPAN CLASS="txt_abz">В </SPAN>зависимости от значения условия будет выполняться или блок1 (True),
+или блок2 (False). Следующий пример запускается в сценарном режиме:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">x=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Введите число'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#ff8000">if</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(x)>=0:</SPAN><BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Число положительное'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#ff8000">else</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Число отрицательное'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">После </SPAN>ввода этого фрагмента программы в окне редактирования выбирается
+режим Run module и программа запускается на выполнение. Результат работы программы помещается в
+окно итерактивного режима:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+ ================================ RESTART ================================<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Введите число</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">-1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Число отрицательное</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">В </SPAN>языке Python при задании альтернативных значений вместо фрагмента
+программы, занимающего четыре строки: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">X:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm;font-size:7mm; color:black">A=Y</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">else</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm;font-size:7mm; color:black">A=Z</SPAN><BR>
+<SPAN CLASS="txt_abz">можно </SPAN>применить более короткий вариант, связанный с использованием
+трехместного выражения <SPAN CLASS="svoj">if/else</SPAN>: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">A=Y </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">X</SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">else</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Z</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Python </SPAN>поддерживает также третью форму условного оператора,
+позволяющую задать несколько альтернативных вариантов:<BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">if &lt;условие1></SPAN> :<BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>&lt;блок1></SPAN><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">elif &lt;условие2>:<BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>&lt;блок2></SPAN><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>. . .</SPAN><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">elif &lt;условиеN>:<BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>&lt;блокN></SPAN><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">else :<BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>&lt;блокN+1></SPAN>.<BR>
+<SPAN CLASS="txt_abz">В </SPAN>качестве примера рассмотрим задачу определения оценки по полученным
+баллам:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:black">points=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">input</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Введите число баллов'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:black">points=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00ff">int</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(points)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#ff8000">if</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">points>80:</SPAN><BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm;">mark=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Відмінно'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#ff8000">elif</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">points>66:</SPAN><BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm;">mark=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Добре'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;mafont-size:7mm; color:#ff8000">elif</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">points>50:</SPAN><BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm;">mark=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Задовільно'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#ff8000">else</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:3.7cm; font-size:7mm;">mark=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Незадовільно'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm;font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(mark)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+ ================================ RESTART ================================<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Введите число баллов</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">80</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Добре</SPAN>.<BR>
+<A id="6.3"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">6.3 Оператор цикла while</H4>
+<P>Оператор цикла <SPAN CLASS="svoj">while</SPAN> имеет следующую форму:<BR><BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN STYLE="font-size:7.2mm">while &lt;условие> :<BR>
+<SPAN CLASS="txt_abz"> </SPAN><SPAN CLASS="txt_abz"> </SPAN>&lt;блок></SPAN>.
+<P> Пока условие имеет логическое значение True, будут циклически выполняться действия,
+указанные в блоке. Когда условие примет заначение False, управление будет передано оператору,
+следующему за блоком. Если условие изначально не выполняется, то действия, предусмотренные блоком,
+не будут выполнены вовсе.<BR>
+<SPAN CLASS="txt_abz">В </SPAN>качестве примера использования оператора цикла <SPAN CLASS="svoj">while</SPAN>
+приведем программу нахождения чисел Фибоначчи. Эти числа характеризуются тем, что каждое следующее
+число Фибоначчи равно сумме двух предыдущих. Программа находит и выводит на экран все числа
+Фибоначчи, не превышающие 50:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:red"># Определение чисел Фибоначчи</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a,b=0,1</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">while</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b<=50:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(b,end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:black">a,b=b,a+b</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1 1 2 3 5 8 13 21 34</SPAN>.<BR><BR>                                                            
+<SPAN CLASS="txt_abz">В </SPAN>теле оператора <SPAN CLASS="svoj">while</SPAN> также могут быть
+использованы операторы <SPAN CLASS="svoj">break</SPAN> и <SPAN CLASS="svoj">continue</SPAN>:
+<UL CLASS="list">
+<LI> break &ndash; выполняет внеочередное завершение цикла;
+<LI> continue &ndash; выполняет внеочередное завершение текущей итерации:<BR><BR>
+</UL> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">с=0</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">while True</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:black">с+=1</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">if</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">с>9:</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#ff8000">break</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">if</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c==3 </SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">or </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">c==5:</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#ff8000">continue</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(c,end= </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1 2 4 6 7 8 9</SPAN>.<BR>
+<A id="6.4"></A>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">6.4 Оператор pass</H4>
+<P>Оператор <SPAN CLASS="svoj">pass</SPAN> не делает ничего. Он может использоваться, когда
+синтаксически требуется присутствие оператора, но от программы не требуется действий. Например:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">while True</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">pass</SPAN>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
+# Ожидание прерывания c клавиатуры (Ctrl+C)</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">После </SPAN>нажатия класиши Ctrl+C режим ожидания заканчивается в выводом:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">  KeyboardInterrupt</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Этот </SPAN>оператор часто используется для создания минималистичных классов,
+к примеру исключений (exceptions), или для игнорирования нежелательных исключений.
+<A id="7"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>7 Приоритет операций</H4>
+<P>В таблице 3 приведены операции в порядке возрастания их приоритета. Для унарных операций x
+обозначает операнд. 
+<P><TABLE ALIGN=center WIDTH="50%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 3 &ndash; Приоритет операций</CAPTION>
+<TR><TH>Операция<TH>Описание
+<TR><TD ALIGN=center>or<TD ALIGN=center>логическое ИЛИ
+<TR><TD ALIGN=center>and<TD ALIGN=center>логическое И
+<TR><TD ALIGN=center>not x<TD ALIGN=center>логическое НЕ
+<TR><TD ALIGN=center>in, not in<TD ALIGN=center>проверка принадлежности
+<TR><TD ALIGN=center>is, is not<TD ALIGN=center>проверка идентичности
+<TR><TD ALIGN=center><,<=,>,>=,<BR>!=,== <TD ALIGN=center>операторы сравнения
+<TR><TD ALIGN=center>|<TD ALIGN=center>побитовое ИЛИ
+<TR><TD ALIGN=center>^<TD ALIGN=center>побитовое исключающее ИЛИ 
+<TR><TD ALIGN=center>&<TD ALIGN=center>побитовое И 
+<TR><TD ALIGN=center><<, >><TD ALIGN=center>побитовые сдвиги 
+<TR><TD ALIGN=center>+, -<TD ALIGN=center>сложение и вычитание 
+<TR><TD ALIGN=center>*, /, //, %<TD ALIGN=center>*, /, % умножение, деление, целочисленное деление,
+остаток 
+<TR><TD ALIGN=center>+x, -x<TD ALIGN=center>унарный плюс и смена знака 
+<TR><TD ALIGN=center>~x<TD ALIGN=center>побитовое НЕ 
+<TR><TD ALIGN=center>**<TD ALIGN=center>возведение в степень 
+<TR><TD ALIGN=center>x.атрибут<TD ALIGN=center>ссылка на атрибут 
+<TR><TD ALIGN=center>x[индекс]<TD ALIGN=center> взятие элемента по индексу 
+<TR><TD ALIGN=center>x[от:до]<TD ALIGN=center>выделение среза (от и до) 
+<TR><TD ALIGN=center>f(аргумент,...)<TD ALIGN=center>вызов функции 
+<TR><TD ALIGN=center>( ... )<TD ALIGN=center>скобки или кортеж 
+<TR><TD ALIGN=center>[ ... ]<TD ALIGN=center>список или списковое включение 
+<TR><TD ALIGN=center>{кл:зн, ...}<TD ALIGN=center>словарь пар ключ-значение 
+</TABLE>
+<P>Порядок вычислений операндов определяется такими правилами:
+<UL CLASS="list">
+<LI> операнд слева вычисляется раньше операнда справа во всех бинарных операциях, кроме
+возведения в степень;
+<LI> цепочка сравнений вида a < b < c ... y < z фактически равносильна:
+(а < b) and (b < c) and ... and (y < z);
+<LI> перед фактическим выполнением операции вычисляются нужные для нее операнды.
+В большинстве бинарных операций предварительно вычисляются оба операнда (сначала левый),
+но операции or и and, а также цепочки сравнений вычисляют такое количество операндов,
+которое достаточно для получения результата. В невычисленной части выражения в таком случае могут
+даже быть неопределенные имена. Это важно учитывать, если используются функции с побочными
+эффектами;
+<LI> аргументы функций, выражения для списков, кортежей, словарей и т.п. вычисляются
+слева-направо, в порядке следования в выражении.
+</UL>
+<P>В случае неясности приоритетов желательно применять скобки. Несмотря на то, что одни и те же
+символы могут использоваться для разных операций, приоритеты операций не меняются. 
+<A id="8"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>8 Встроенные идентификаторы</H4>
+<H4 CLASS="pod">8.1 Встроенные функции</H4>
+<P>В предыдущих разделах были описаны и использованы некоторые встроенные функции языка Python.
+Встроенные (buit-in) означает, что их можно непосредственно использовать в программе без
+подключения дополнительных модулей. В табл. 4 перечислены в алфавитном порядке имена всех
+встроенных функций языка Python 3.4. Ниже приводится их описание. Встроенные функции, которые были
+использованы в лабораторных работах, имеют соответствующие ссылки.
+<P><table align="center" width="70%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 4 &ndash; Встроенные функции языка Python 3.4</CAPTION>
+<TR><TH COLSPAN=5>Built-in functions
+<TR><TD> <A HREF="#abs">abs()</A> <TD><A HREF="#dict">dict()</A><TD> <A HREF="#help">help()</A>
+<TD><A HREF="#min">min()</A> <TD><A HREF="#setattr">setattr()</A>
+<TR><TD> <A HREF="#all">all()</A> <TD><A HREF="#dir">dir()</A><TD><A HREF="#hex">hex()</A>
+<TD><A HREF="#next">next()</A> <TD><A HREF="#slice">slice()</A>
+<TR><TD><A HREF="#any">any() </A> <TD><A HREF="#divmod">divmod()</A><TD><A HREF="#id">id()</A>
+<TD><A HREF="#object">object()</A> <TD><A HREF="#sorted">sorted()</A>
+<TR><TD><A HREF="#ascii">ascii() </A> <TD><A HREF="#enumerate">enumerate() </A><TD><A HREF="#input">input()</A>
+<TD><A HREF="#oct">oct() </A> <TD><A HREF="#staticmethod">staticmethod()</A>
+<TR><TD><A HREF="#bin">bin() </A> <TD><A HREF="#eval">eval()</A><TD><A HREF="#int">int()</A>
+<TD><A HREF="#open">open()</A> <TD><A HREF="#str">str()</A>
+<TR><TD><A HREF="#bool">bool() </A> <TD><A HREF="#exec">exec()</A><TD><A HREF="#isinstance">isinstance()</A>
+<TD><A HREF="#ord">ord()</A> <TD><A HREF="#sum">sum()</A>
+<TR><TD><A HREF="#bytearray">bytearray() </A> <TD><A HREF="#filter">filter()</A><TD><A HREF="#issubclass">issubclass()</A>
+<TD><A HREF="#pow">pow()</A> <TD><A HREF="#super">super()</A>
+<TR><TD><A HREF="#bytes">bytes() </A> <TD><A HREF="#float">float()</A><TD><A HREF="#iter">iter()</A>
+<TD><A HREF="#print">print()</A> <TD><A HREF="#tuple">tuple()</A>
+<TR><TD><A HREF="#callable">callable() </A> <TD><A HREF="#format">format()</A><TD><A HREF="#len">len()</A>
+<TD><A HREF="#property">property()</A> <TD><A HREF="#type">type()</A>
+<TR><TD><A HREF="#chr">chr() </A> <TD><A HREF="#frozenset">frozenset()</A><TD><A HREF="#list">list()</A>
+<TD><A HREF="#range">range()</A><TD><A HREF="#vars">vars()</A>
+<TR><TD><A HREF="#classmethod">classmethod() </A> <TD><A HREF="#getattr">getattr()</A><TD><A HREF="#locals">locals()</A>
+<TD><A HREF="#repr2">repr()</A> <TD><A HREF="#zip">zip()</A>
+<TR><TD><A HREF="#compile">compile() </A> <TD><A HREF="#globals">globals()</A> <TD><A HREF="#map">map()</A>
+<TD><A HREF="#reversed">reversed()</A> <TD><A HREF="#import"> __import__()</A>
+<TR><TD><A HREF="#complex">complex() </A> <TD><A HREF="#hasattr">hasattr()</A><TD><A HREF="#max">max()</A>
+<TD><A HREF="#round">round()</A><TD> 
+<TR><TD> <A HREF="#delattr">delattr() </A><TD><A HREF="#hash">hash()</A><TD><A HREF="#memoryview">memoryview()</A>
+<TD><A HREF="#set">set()</A><TD>
+</TABLE>
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<UL CLASS="list">
+<A id="abs"> 
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>abs(x)</SPAN> &ndash; возвращает абсолютное
+значение числа (см. <A HREF="#4.1.5">подраздел 4.1.5</A> );
+
+<A id="all">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>all(iterable)</SPAN> &ndash; возвращает
+значение True, если все значения итерабельного объекта имеют значение True или итерабельный объект
+пуст (см. <A HREF="../LAB3/lab.htm#2.1">подраздел 2.1</A> лаб. раб. №3);
+
+<A id="any">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>any(iterable)</SPAN> &ndash; возвращает
+значение True, если хотя бы одно значение итерабельного объекта равно True. Если итерабельный
+объект пуст, возвращает False (см. <A HREF="../LAB3/lab.htm#2.1"> подраздел 2.1</A> лаб. раб. №3);
+
+<A id="ascii">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>ascii(object)</SPAN> &ndash; так же, как
+функция repr(), возвращает строку, содержащую печатаемое представление объекта, но в отличие от
+repr() не возвращает изображения не ASCII символов, представляя их с помощью ESC-последовательностей \x, \u
+или \U:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">repr</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'ы'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">"'ы'"</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">ascii</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'ы'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">"'\\u044b'"</SPAN>;<BR><BR>
+
+<A id="bin">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>bin(x)</SPAN> &ndash; преобразует целое число
+в двоичную строку. Если x не является целым числом, т.е. не является объектом типа int, то для него
+должен быть определен метод  __index__() для преобразования в int
+(см. <A HREF="#4.1">подраздел 4.1.1</A>);
+
+<A id="bool">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>bool([x])</SPAN> &ndash; преобразует значение
+к логическому типу, используя стандартную процедуру определения истинности
+(см. <A HREF="#4.2">подраздел 4.2</A> лаб. раб. №1). Если x ложно или опущено, &ndash; возвращает
+False, в остальных случаях возвращает True;
+
+<A id="bytearray">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>bytearray([source[, encoding[, errors]]])</SPAN>
+&ndash; возвращает новый объект типа bytearray
+(см. <A HREF="../LAB4/lab.htm#3.2">подраздел 3.2</A> лаб. раб. №4);
+
+<A id="bytes">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> bytes([source[, encoding[, errors]]]) </SPAN>
+&ndash; возвращает новый объект типа bytes
+(см. <A HREF="../LAB4/lab.htm#3.1">подраздел 3.1</A> лаб. раб. №4);
+
+<A id="callable">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>callable(object)</SPAN> &ndash; возвращает
+True, если аргумент можно вызвать по имени, и False &ndash; если нет
+(см. <A HREF="../LAB6/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №6). Если возвращается
+значение True, остается возможность неудачного вызова, но если возвращается False, вызов никогда
+не будет успешным. Отметим, что экземпляры классов являются вызываемые (англ. callable), если их
+классы имеют метод __call__();
+
+<A id="chr">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>chr(code)</SPAN> &ndash; возвращает строку из
+одного символа, который соответствует числовому значению аргумента, заданному в ASCII или Unicode
+коде (см. <A HREF="../LAB2/lab.htm#2.5">подраздел 2.5</A> лаб. раб. №2). Например, chr(97)
+возвратит строку 'a'. Зта функция является обратной по отношению к функции ord().
+(см. <A HREF="../LAB2/lab.htm#2.5">подраздел 2.5</A> лаб. раб.ж №2). Допустимый диапазон
+значений составляет от 0 др 1114111 (0x10FFFF). При превышении диапазона будет вызвано
+исключение ValueError;
+
+<A id="classmethod">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> classmethod(function)</SPAN> &ndash;
+возвращает для функции, указанной аргументом, метод класса;
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<A id="compile">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+compile(source, filename, mode, flags=0, dont_inherit=False, optimize=-1)</SPAN> &ndash;
+компилирует исходный код, указанный аргументом source, в код или объект AST
+(см. <A HREF="../LAB6/lab.htm#4.1">подрездел 4.1</A> лаб. раб. №6). Объекты кода могут быть
+выполнены с помощью функций <a href="#exec">exec()</a> или <a href="#eval">eval()</a>;
+
+<A id="complex">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>complex([real[, imag]]) </SPAN> &ndash;
+создает комплексное число (см. <A HREF="#4.1.3">подраздел 4.1.3</A>);
+
+<A id="delattr">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>delattr(object, name)</SPAN> аргументами
+являются объект и строка. Строка должна быть именем одного из атрибутов объекта. Функция удаляет
+указанный атрибут объекта, например, delattr(x, 'foobar') эквивалентно del x.foobar;
+
+<A id="dict">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> dict(**kwarg), dict(mapping, **kwarg) </SPAN><BR>
+<SPAN STYLE='font-size:5.7mm; font-weight:bold'>dict(iterable, **kwarg)</SPAN> &ndash; создаeт
+новый словарь (см. <A HREF="../LAB5/lab.htm#2.1">подраздел 2.1</A> лаб. раб. №5);
+
+<A id="dir">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>dir([object])</SPAN> &ndash; если оргумент не
+указан, возвращает список имен текущей области видимости. Если аргумент указан &ndash; возвращает
+список имен (атрибутов) объекта
+(см. <A HREF="../LAB4/lab.htm#1.2">подраздел 1.2</A> лаб. раб. №4 и
+<A HREF="../LAB6/lab.htm#2.4">подраздел 2.4</A> лаб. раб. №6);
+
+<A id="divmod">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>divmod(a, b)</SPAN> &ndash; возращает частное
+и остаток от деления двух не комелексных числа (см. <A HREF="#4.1.5">подраздел 4.1.5</A>);
+
+<A id="enumerate">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> enumerate(iterable, start=0)</SPAN> &ndash;
+возвращает пронумерованный (англ. enumerate) объект. В качестве аргумента iterable может быть
+указаны последоваетльность, итерабельный объект или любой другой объект, поддерживающий итерацию.
+Например, если первым аргументом функции enumerate() укажем список
+(см. <A HREF="../LAB3/lab.htm#2">раздел 2</A> лаб. раб. №3) времен года, а
+нумерацию начнем с 1 (необязательный второй аргумент), то функция возвратит пронумерованный
+список времен года в виде кортежей (см. <A HREF="../LAB4/lab.htm#1">раздел 1</A>
+лаб. раб. №4):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">seasons=[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'зима'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'весна'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'лето'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'осень'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">list</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN> 
+<SPAN STYLE="font-size:7mm; color:#af00af">enumerate</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(seasons, start=1))</SPAN><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+[(1, 'зима'), (2, 'весна'), (3, 'лето'), (4, 'осень')]</SPAN>;<BR><BR>
+
+<A id="eval">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+eval(expression, globals=None, locals=None)</SPAN> &ndash; осуществляет грамматический разбор
+выражения и вычисляет его значение, аргументами являются: строка expression, задающая выражение, и
+необязательные словари globals и locals, указывающие пространства имен соответственно глобальных и
+локальных переменных 
+(см. <A HREF="../LAB6/lab.htm#4.3">подрездел 4.3</A> лаб. раб. №6) </SPAN>;
+
+<A id="exec">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> exec(object[, globals[, locals]]) </SPAN>
+&ndash; эта функция поддерживает динамическое выполнение кода языка Python. Аргумент object должен
+быть строкой или объектом типа code
+(см. <A HREF="../LAB6/lab.htm#4.2">подраздел 4.2</A> лаб. раб. №6);
+
+<A id="filter">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> filter(function, iterable)</SPAN> &ndash;
+возвращает итератор, созданный из элементов итерабельного типа, заданных аргументом iterable,
+путем их фильтрации с помощью функции function
+(см. <A HREF="../LAB6/lab.htm#1.5">подраздел 1.5.1</A> лаб. раб. №6);
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<A id="float">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>float([x])</SPAN> &ndash; преобразует строку
+или число в число с плавающей точкой (см. <A HREF="#4.1.2">подраздел 4.1.2</A>);
+
+<A id="format">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> format(value[, format_spec])</SPAN> &ndash;
+преобразует значение value в форматированное  представление, управляемое спецификацией формата
+(format_spec). Интерпретация формата зависит от типа значения. Однако имеется стандартный синтаксис
+форматирования, который может быть использован большинством встроенных типов данных;
+
+<A id="frozenset">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> frozenset([iterable]) </SPAN> &ndash;
+возвращает неизменяемое множество, аргументом является итерабельный объект
+(см. <A HREF="../LAB5/lab.htm#1">раздел 1</A> лаб. раб. №5);
+
+<A id="getattr">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> getattr(object, name[, default])</SPAN>
+&ndash; возвращает значение атрибута объекта object, имеющего имя, заданное строкой
+name. getattr(x, 'foobar') эквивалентно x.foobar. Если имя атрибута не указано, возвращается
+значение по умолчанию (default). Если и оно не указано, вырабатывается исключение AttributeError;
+
+<A id="globals">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>globals()</SPAN> &ndash; возращается словарь,
+представляющий таблицу текущих глобальных имен. Это всегда словарь текущего модуля, т.е.это модуль,
+который определен внутри функции или метода, не модуль, из которого были вызваны функция или метод
+(см. подразделы <A HREF="../LAB6/lab.htm#2.4">2.4</A>,
+<A HREF="../LAB6/lab.htm#4.2">4.2</A> и
+<A HREF="../LAB6/lab.htm#4.3">4.3</A> лаб. раб. №6);
+
+<A id="hasattr">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> hasattr(object, name)</SPAN> &ndash;
+возвращает значение True, если строка name, является именем одного из атрибутов объекта object,
+и False &ndash; если нет (реализована путем вызова функции getattr(object, name)) и анализа,
+вызовет ли это исключение AttributeError или нет;
+
+<A id="hash">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>hash(object)</SPAN> &ndash; возвращает
+хэш-значение (англ. hash value) объекта (если он его имеет). Хэш-значения являются целыми числами
+и используются для более быстрого сравнения ключей словаря при его просмотре
+(см. <A HREF="../LAB3/lab.htm#1.3">подраздел 1.3</A> лаб. раб. №3);
+
+<A id="help">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>help([object])</SPAN> &ndash; вызывает
+встроенную систему помощи (см. <A HREF="#1.2">подраздел 1.2</A>);
+
+<A id="hex">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>hex(x)</SPAN> &ndash; преобразует целое число
+в шестнадцатиричную строку. Если оргумент x не является объектом класса int, то должен быть
+определен метод __index__(), возвращающий целое значение. Отметим, что для получения
+шестнадцатиричной строки, представляющей число с плавающей точкой, необходимо воспользоваться
+методом float.hex() (см. <A HREF="#4.1.1">подраздел 4.1.1</A>);
+
+<A id="id">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>id(x)</SPAN> &ndash; возвращает “идентичность”
+(англ. identity) объекта в виде числа, которое является уникальным и постоянным в течение времени
+его жизни. Два объекта с непересекающимися временами жизни могут иметь одинаковые значения
+идентичности. Отметим, что при реализации CPython идентичность представляет собой адрес объекта в
+памяти (см. подразделы <A HREF="#3.1"> 3.1</A> и <A HREF="#6"> 6.1</A>);
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<A id="input">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>input([prompt])</SPAN> &ndash; при наличии
+необязательного аргумента prompt выводит его в стандантный поток вывода. Затем функция считывет
+данные из стандартного устройства ввода, преобразует их в строки, убирая замыкающие символы новой
+строки (см. <A HREF="#5.2">подраздел 5.2</A>);
+
+<A id="int">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>int(x=0)</SPAN><BR>
+<SPAN STYLE='font-size:5.7mm; font-weight:bold'>int(x, base=10)</SPAN> &ndash; преобразует x в
+целое число или возвращает 0, если аргумент не был задан
+(см. <A HREF="#4.1.1">подраздел 4.1.1</A> лаб. раб. №1);
+
+<A id="isinstance">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> isinstance(object, classinfo)</SPAN> &ndash;
+возвращает True, если объект, указанный аргументом object является экземпляром класса, заданного
+аргументом classinfo, или его подклассом (прямым, непрямым или виртуальным), и False в противном
+случае. Если object не является объектом указанного типа, то функция всегда возвращает False. Если
+аргумент classinfo не является классом (типом объекта), он может быть кортежом типов объектов, или
+может рекурсивно содержать другие такие кортежи (другие последователности типов не допускаются).
+Если же classinfo не является ни типом, ни кортежом типов или кортежей, то вырабатывается
+исключение TypeError (см. использование функции в подразделах
+<A HREF="../LAB3/lab.htm#1.1">1.1</a>,
+<A HREF="../LAB3/lab.htm#1.2">1.2</a> и
+<A HREF="../LAB3/lab.htm#1.3">1.3</a> лаб. раб. №3, в разделе <A HREF="../LAB4/lab.htm#2">2</a>,
+в подразделах <A HREF="../LAB4/lab.htm#1.1">1.1</a> и <A HREF="../LAB4/lab.htm#3.3">3.3</a>
+лаб. раб. №4, в разделе <A HREF="../LAB5/lab.htm#1">1</a>, в подразделах
+<A HREF="../LAB5/lab.htm#2.1">2.1</a> и <A HREF="../LAB5/lab.htm#3.1">3.1</a> лаб. раб. №5);
+
+<A id="issubclass">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> issubclass(class, classinfo)</SPAN> &ndash;
+возвращает значение True, есои class является подклассом (прямым, непрямым или виртуальным)
+аргумента classinfo. Класс считается подвклассом самого себя. Аргумент classinfo может быть
+кортежем объектов-классов, в котором каждый элемент должен быть проверен. В случае неудачи
+возникает исключение TypeError;
+
+<A id="iter">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> iter(object[, sentinel])</SPAN> &ndash;
+возвращает объект-итератор. Первый аргумент интерпретируется по разному в зависимости от
+присутствия второго агрумента. <BR>
+<SPAN CLASS="txt_abz">Без </SPAN>второго аргумента объект может быть или объектом-контейнером с
+поддержкой протокола итерации (метода  __iter__()), или он должен поддерживать протокол
+последовательности (метод __getitem__() с целочисленным аргументом, начинающимся с 0. Если он не
+поддерживает ни один из этих протоколов, возникает ошибка типа (TypeError).<BR>
+<SPAN CLASS="txt_abz">Если </SPAN>второй аргумент sentinel, задающий граничное значение, указан,
+тогда объект должен быть вызываемым объектом (англ. callable object). Итератор, созданный в этом
+случае будет вызывать объект без аргументов для каждого вызова своего метода __next__(). Если
+возвращаемое значение равно значению аргумента sentinel, будет вызвано исключение StopIteration.
+В остальных случаях будет возвращено значение
+(см. <A HREF="../LAB3/lab.htm#1.2">подраздел 1.2</A> лаб. раб. №3); 
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<A id="len">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>len(s)</SPAN> &ndash; возвращает длину
+(число элементов) объекта. Аргументом может быть последовательность
+(см. <A HREF="../LAB2/lab.htm#2.5">подраздел 2.5</A> лаб. раб. №2, подразделы
+<A HREF="../LAB3/lab.htm#1.4.2">1.4.2</A>  и 
+<A HREF="../LAB3/lab.htm#2.2">2.2</A> лаб. раб. №3, 
+<A HREF="../LAB4/lab.htm#2">раздел 2</A> и подразделы <A HREF="../LAB4/lab.htm#1.1">1.1</A>, 
+<A HREF="../LAB4/lab.htm#3.1">3.1</A>  и  <A HREF="../LAB4/lab.htm#3.2">3.2</A> лаб. раб. №4),
+множество (см. <A HREF="../LAB5/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №5) и словать
+(см. <A HREF="../LAB5/lab.htm#2.1">подраздел 2.1</A> лаб. раб. №5);
+
+<A id="list"><LI>
+<SPAN STYLE='font-size:5.7mm; font-weight:bold'>list([iterable])</SPAN> &ndash; возвращает значение
+в виде списка (см. <A HREF="../LAB3/lab.htm#2">раздел 2</A> лаб. раб. №3);
+
+<A id="locals">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>locals()</SPAN> &ndash; изменяет и возвращает
+словарь, представляющий таблицу текущих локальных имен. Свободные переменные возвращаются функцией
+locals(), когда она вызывается в блоке функции, но не в блоке класса. Отметим, что содержимое
+словаря не должно модифицироваться, изменения могут не повлиять на значения локальных и свободных
+переменныоъ, используемых интерпретатором (см. подразделы
+<A HREF="../LAB6/lab.htm#2.4">2.4</A>, <A HREF="../LAB6/lab.htm#4.2">4.2</A> и
+<A HREF="../LAB6/lab.htm#4.3">4.3</A> лаб. раб. №6);
+
+<A id="map">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> map(function, iterable)</SPAN> &ndash;
+возвращает итератор, сформированный из элементов iterable с помощью функции function
+(см. <A HREF="../LAB6/lab.htm#1.5.2">подраздел 1.5.2</A> лаб. раб. №6);
+
+<A id="max">
+<LI><SPAN STYLE='font-size:5.7mm; font-weight:bold'> max(iterable, *[, key, default])</SPAN> <BR>
+<SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+max(arg1, arg2, *args[, key])</SPAN> &ndash; возвращает самый большой элемент итерабельного типа
+или наибольший из двух или более аргументов. Если используется один позиционный оргумент, он должен
+быть инерабельным объектом. Возвращается его наибольший элемент 
+(см. <A HREF="../LAB2/lab.htm#2.5">подраздел 2.5</A> лаб. раб. №2, подразделы
+<A HREF="../LAB3/lab.htm#1.4.2">1.4.2</A> и <A HREF="../LAB3/lab.htm#2.2">2.2</A> лаб. раб. №3, 
+<A HREF="../LAB4/lab.htm#2">раздел 2</A> и подразделы <A HREF="../LAB4/lab.htm#1.1">1.1</A>, 
+<A HREF="../LAB4/lab.htm#3.1">3.1</A> и <A HREF="../LAB4/lab.htm#3.2">3.2</A> лаб. раб. №4),
+множество (см. <A HREF="../LAB5/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №5) и словарь
+(см. <A HREF="../LAB5/lab.htm#2.1">подраздел 2.1</A> лаб. раб. №5). Если указываются два или
+больше позиционных аргументов, возвращается наибольший из них. Функция может иметь два
+необязательных именных аргумента. Аргумент key указывает функцию упорядочевания с одним аргументом,
+подобную тем, которые используются для метода list.sort()
+(см. <A HREF="../LAB6/lab.htm#1.4">подраздел 1.4</A> лаб. раб. №6). Аргумент по умолчанию
+&ndash; объект, который будет возвращен, если итерабельный объект будет пустым. Если итерабельный
+объект будет пустым и аргумент по умолчанию не будет указан, возникнет исключение ValueError. Если
+окажется несколько максимальных значений, функция возвратит, первое встретившееся. Эти правила
+распространяются и на другие программные средства сортировки, такие как
+sorted(iterable, key=keyfunc, reverse=True)[0] и heapq.nlargest(1, iterable, key=keyfunc).
+Новое в версии 3.4 &ndash; именованный аргумент, задающий значение по умолчанию;
+
+<A id="memoryview">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>memoryview(object)</SPAN>
+&ndash; преобразует объект object в объект класса memoryview, поддерживает протокол буфера
+(англ. buffer protocol); 
+
+<A id="min">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> min(iterable, *[, key, default])</SPAN> <BR>
+<SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+min(arg1, arg2, *args[, key])</SPAN> &ndash; возвращает самый маленький элемент итерабельного типа
+или наименьший из двух или более аргументов. Если используется один позиционный оргумент, оy должен
+быть инерабельным объектом. Возвращается его наименьший элемент
+(см. <A HREF="../LAB2/lab.htm#2.5">подраздел 2.5</A> лаб. раб. №2, подразделы
+<A HREF="../LAB3/lab.htm#1.4.2">1.4.2</A>  и  <A HREF="../LAB3/lab.htm#2.2">2.2</A> лаб. раб. №3, 
+<A HREF="../LAB4/lab.htm#2">раздел 2</A> и подразделы <A HREF="../LAB4/lab.htm#1.1">1.1</A>, 
+<A HREF="../LAB4/lab.htm#3.1">3.1</A>  и <A HREF="../LAB4/lab.htm#3.2">3.2</A> лаб. раб. №4),
+множество (см. <A HREF="../LAB5/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №5) и словарь
+(см. <A HREF="../LAB5/lab.htm#2.1">подраздел 2.1</A> лаб. раб. №5). Если указываются два или
+больше позиционных аргументов, возвращается наименьший из них. Функция может иметь два
+необязательных именных аргумента. Аргумент key указывает функцию упорядочевания с одним аргументом,
+подобную тем, которые используются для метода list.sort()
+(см. <A HREF="../LAB6/lab.htm#1.4">подраздел 1.4</A> лаб. раб. №6). Аргумент по умолчанию
+&ndash; объект, который будет возвращен, если итерабельный объект будет пустым. Если итерабельный
+объект будет пустым и аргумент по умолчанию не будет указан, возникнет исключение ValueError. Если
+окажется несколько миниимальных значений, функция возвратит, первое встретившееся.
+Эти правила распространяются и на другие программные средства сортировки, такие как
+sorted(iterable, key=keyfunc, reverse=True)[0] и heapq.nlargest(1, iterable, key=keyfunc). Новое в
+версии 3.4 &ndash; именованный аргумент, задающий значение по умолчанию;
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+           
+<A id="next">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> next(iterator[, default])</SPAN> &ndash;
+возвращает следующий элемент из итератора путем вызова его метода  __next__(). Если указано
+значение по умолчанию, оно возращается когда нет следующего элемента, в остальных случаях
+вызывается исключение StopIteration
+(см. <A HREF="../LAB3/lab.htm#1.2">подраздел 1.2</A> лаб. раб. №3);
+
+<A id="object">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>object()</SPAN> &ndash; возвращает новый
+объект без особенностей (featureless object). Объект object является базовым для всех классов
+(см. <A HREF="../LAB11/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №11). Имеет методы, общие для
+экземпляров всех классов языка Python. Эта функция не принимает никаких аргументов. Отметим, что
+object не имеет метода __dict__, так что нельзя присваивать произвольные атрибуты экземплярам
+класса object;
+
+<A id="oct">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>oct(x)</SPAN> &ndash; преобразует целое число
+в восьмеричную строку. Результатом является правильное выражение языка Python. Если x не является
+объектом класса int, т.е. целым числом, он должен иметь метод __index__() для преобразания значения
+к целочисленному типу (см. <A HREF="#4.1.1">подраздел 4.1.1</A>);
+
+<A id="open">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True,
+opener=None)</SPAN>
+&ndash; открывает файл и возвращает соответствующий файловый объект
+(см. <A HREF="../LAB8/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №8);
+
+<A id="ord">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>ord(c)</SPAN> &ndash; аргументом указывается
+строка, представляющая один символ в кодировке Unicode, возвращает целое число, являющееся кодом 
+этого символа. Например, ord('a') возвращает число 97 и ord('\u2020') возвращает 8224. Эта функция
+является обратной функции chr()
+(см. <A HREF="../LAB2/lab.htm#2.5">подраздел 2.5</A> лаб. раб. №2);
+                                                                                     
+<A id="pow">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>pow(x, y[, z])</SPAN> &ndash; возвращает x в
+степени y. Если указано z, возвращает x в степени y по модулю z (вычисляется более эффективно чем
+pow(x, y) % z). Форма с двумя аргументами эквивалентна использованию оператора x**y. Аргументы
+должны быть числами. При использовании чисел разных типов применяются правила приведения типов.
+Для целых чисел результат имеет тот же тип, что и оргументы (после приведения). Но это выполняется
+только если второй аргумент не является отрицательным числом. В этом случае все аргументы
+преобразуются в вещественные числа (числа с плавающей точкой) и результат будет иметь такой же тип.
+Например, 10**2 возвращает 100, но 10**-2 возращает 0.01. Если второй аргумент отрицателен &ndash;
+третьего аргумента не должно быть. Если z присутствует, x и y должны быть целыми числами и y не
+должнен быть отрицательным числом (см. <A HREF="#4.1.5">подраздел 4.1.5</A>);
+
+<A id="print">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)</SPAN> &ndash; осуществляет вывод
+данных objects в потоковый файл (см. <A HREF="#5.1">подраздел 5.1</A>); 
+
+<A id="property">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+property(fget=None, fset=None, fdel=None, doc=None) </SPAN> &ndash; возвращает атрибут property;
+<p><A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<A id="range">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> range(stop)range(start, stop[, step]) </SPAN>
+&ndash; возвращает виртуальную последовательность чисел от start до stop - 1 с шагом step
+(см. <A HREF="../LAB4/lab.htm#2">раздел 2</A> лаб. раб. №4);
+
+<A id="repr">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>repr(object)</SPAN> &ndash; возвращает строку,
+в большинстве случаев содержащую представление объекта, предназначенное для работы интерпретатора
+(см. <A HREF="../LAB2/lab.htm#2.5">подраздел 2.5</A> лаб. раб. №2);
+
+<A id="reversed">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>reversed(seq)</SPAN> &ndash; возвращает
+обратный итератор. Аргумент seq должен быть объектом, имеющим метод __reversed__() или
+поддерживающим протокол последовательности (меотоды  __len__() и  __getitem__() с целочисленным
+аргументом, начинающимся с 0;
+
+<A id="round">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> round(number[, ndigits])</SPAN> &ndash;
+возвращает число с плавающей точкой, округленное до ndigits цифр после десятичной точки
+(см. <A HREF="#4.1.5">подраздел 4.1.5</A>);
+
+<A id="set">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>set([iterable])</SPAN> &ndash; возвращает
+изменяемое множество, аргументом является итерабельный объект
+(см. <A HREF="../LAB5/lab.htm#1">раздел 1</A> лаб. раб. №5);                
+                                                          
+<A id="setattr">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+setattr(object, name, value)</SPAN> &ndash; выполняет действия, противоположные функции getattr(). 
+Атрибутами являются объект object, строка name и произвольное значение value. Строка может быть или
+именем существующего атрибута, или новым атрибутом. Функция присваивает значение атрибуту, проверяя,
+позволяет ли объект сделать это. Например, setattr(x, 'foobar', 123) эквивалентно x.foobar = 123;
+
+<A id="slice">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>slice(stop)</SPAN><BR>
+<SPAN STYLE='font-size:5.7mm; font-weight:bold'>slice(start, stop[, step])</SPAN> &ndash;
+возвращает объект типа slice, представленный индексами, указанными диапазоном range(start, stop,
+step). Аргументы start и step по умолчанию имеют значение None. slice-объекты имеют данные только
+для чтения, атрибуты start, stop и step просто вовзращают значения (или значения по умолчанию). Эти
+объекты не имеют явной функциональности. Но могут быть использованы в Numerical Python и других
+расширениях;
+
+<A id="sorted">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> sorted(iterable[, key][, reverse])</SPAN>
+&ndash; возвращает новый отсортированный список из элементов аргумента iterable. Имеет два
+необязательных оргумента, которые должны быть указаны как именованные. Аргумент key указывает
+функцию одного аргумента, которая используепся для получения сравниваемого элемента key из каждого
+элемепнта списка: key=str.lower. Значение по умолчанию &ndash; None (прямое сравнение элементов).
+Аргумент reverse имеет логическое значение. Если он имеет значение True &ndash; элементы списка
+сортируются, как будто каждое сравнение является обратным
+(см. <A HREF="../LAB6/lab.htm#1.4">подраздел 1.4</A> лаб. раб. №6);
+
+<A id="staticmethod">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> staticmethod(function)</SPAN> &ndash;
+возвращает статический метод для функции. Для объявления статического метода необходимо
+использовать декоратор @staticmethod (см. <A HREF="../LAB11/lab.htm#2.2">2.2</A>
+лаб. раб. №11): <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">C</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:black">@</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">staticmethod</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>    
+<SPAN STYLE="font-size:7mm; color:blue">f</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(arg1, arg2, ...)</SPAN><BR><BR>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A> 
+
+<A id="str">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>str(object='')</SPAN><BR>
+<SPAN STYLE='font-size:5.7mm; font-weight:bold'> str(object[, encoding[, errors]])</SPAN> &ndash;
+возвращает представление заданного объекта в виде строки
+(см. <A HREF="../LAB2/lab.htm#2.5">подраздел 2.5</A> лаб. раб. №2);
+
+<A id="sum">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> sum(iterable[, start])</SPAN> &ndash;
+возвращает сумму элементов итерабельного объекта iterable, полученную в результате их суммирования
+слева направо. Значение необязательного аргумента start, задающего начальное значение суммы, по
+умолчанию равно 0. Элементы итерабельного объекта обычно являются числами. Найдем сумму чисел,
+заданных кортежем:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">sum</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">((2.5, 4,1.25e1))</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">19.0</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>некоторых классов есть неплохие альтернативы функции sum(): для
+конкатенации строк можно использовать join(sequence), для сложения чисел с плавающей точкой
+повышенной точности &ndash;  math.fsum(), для конкатенации нескольких итерабельных объектов &ndash;
+itertools.chain();
+
+<A id="super">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> super([type[, object-or-type]]) </SPAN>
+&ndash; возвращает прокси объект (англ. proxy object), который делегирует запросы метода базовому
+классу (см. <A HREF="../LAB12/lab.htm#2">раздел 2</A> лаб. раб. №12);
+
+<A id="tuple">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'> tuple([iterable])</SPAN> &ndash; возвращает
+кортеж (см. <A HREF="../LAB4/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №4);
+
+<A id="type">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>type(object)</SPAN> <BR>
+<SPAN STYLE='font-size:5.7mm; font-weight:bold'>type(name, bases, dict)</SPAN> &ndash;
+при задании одного аргумента object функция возвращает наименование типа объекта (см. подразделы
+<a href="#3.2">3.2 </a>, <A HREF="../LAB3/lab.htm#2.1">2.1</A> лаб. раб. №3,
+<A HREF="../LAB5/lab.htm#2.1">2.1</A> и
+<A HREF="../LAB5/lab.htm#3.1">3.1</A> лаб. раб. №5,
+<A HREF="../LAB6/lab.htm#4.1">4.1</A> лаб. раб. №6,
+<A HREF="../LAB11/lab.htm#1.1">1.1</A> лаб. раб. №11. Для проверки типа объекта
+рекомендуется </SPAN>использовать встроенную функцию <A HREF="#isinstance"> isinstance()</A>. <BR>
+<SPAN CLASS="txt_abz">При </SPAN>задании трех аргументах функция type(name, bases, dict) 
+возвращает новый класс. Это существенно для динамической формы оператора класса. Строка name
+указывает имя класса и становится атрибутом __name__, кортеж bases перечисляет базовые классы и
+становится атрибутом  __bases__ и словарь dict задает адресное пространство атрибутов класса и
+становится атрибутом  __dict__ 
+(см. <A HREF="../LAB11/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №11);
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<A id="vars">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>vars([object])</SPAN> &ndash; возвращает
+значение атрибута __dict__ для модуля, класса, экземпляра класса или других объектов, имеющих
+атрибут __dict__. Такие объекты как модули, экземпляры классов имеют изменяемые атрибуты
+__dict__, в то время как другие объекты могут иметь ограничения на изменение значения (например,
+классы используют dictproxy для предотвращения изменения словаря). Без аргумента функция vars()
+действует так же как функция locals(). Отметим, что словарь locals полезен только для чтения,
+поскольку изменения в locals dictionary игнорируются
+(см. <A HREF="../LAB6/lab.htm#2.4">2.4</A> лаб. раб. №6); 
+
+<A id="zip">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>zip(*iterable)</SPAN> &ndash; возвращает
+итератор, элементами которого являются кортежи, где i-й кортеж содержит i-е элементы каждого
+аргумента последовательностей или итераторов iterable
+(см. <A HREF="../LAB5/lab.htm#2.1">подраздел 2.1</A> лаб. раб. №5);
+
+<A id="import">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>
+ __import__(name, globals=None, locals=None, fromlist=(), level=0)</SPAN> &ndash; это функция с
+расширенными функциональными возможностями не для ежедневноого программирования. Вызывается при 
+выполнении оператора import, который может быть заменен ею с целью изменения семантики оператора.
+В других случаях делать это нежелательно.<BR>
+Функция __import__() загружает (импортирует) модуль с именем name, при этом необязательные
+аргументы globals и locals определяют, как интерпретировать имя name в контексте пакета
+(англ. package). Аргумент fromlist укахывает имена объектов или подмодулей, которые должны быть
+импортированы из модуля name. Стандартное применение не использует аргумент locals вообще, а
+globals только для определения пакета в контексте оператора import. Аргумент level указывает,
+нужно ли использовать абсолютное или относительное импортирование. Значение 0 (задается по
+умолчанию) означает выполнение только абсолютного импортирования. Положительное значение этого
+аргумента показывает число родительских каталогов для поиска относительно каталога модуля,
+вызывающего __import__(). Пример использования:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">temp=__import__(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"collections"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, fromlist=[</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Iterable"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Sequence"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">])</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">isinstance </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"WWW"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, temp.Sequence)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#ff8000">isinstance </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(2,temp.Iterable)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>
+</UL>
+<P>
+<A id="8.2"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">8.2 Встроенные константы</H4>
+<P> Python имеет следующие встроенные константы:
+<UL CLASS="list">
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>False</SPAN> &ndash; ложное значение
+логического типа bool (см. <A HREF="#6.2">подраздел 6.2</A>); 
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>True</SPAN> &ndash; истинное значение
+логического типа bool (см. <A HREF="#6.2">подраздел 6.2</A>);
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>None &ndash; </SPAN>значение типа
+NoneType. None часто используется для представления отсутствия значения, например, когда значение
+по умолчанию не передается в функцию (см. <A HREF="#4">раздел 4</A>);
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>NotImplemented</SPAN> &ndash;
+специальное значение, которое может быть возвращено при сравнении с использованием методов
+__eq__(), __lt__() и им подобных для указания того, что сравнение не может быть применено, учитывая
+тип данных второго операнда (см. <A HREF="#4">раздел 4</A>);
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>Ellipsis &ndash; </SPAN>то же самое, что
+и <b>. . .</b>. Специальное значение, используемое в основном в срезах с расширенным синтаксисом
+для определенных пользователем типов данных-контейнеров. Вне среза:<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">...</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Ellipsis;</SPAN><BR>
+<LI> <SPAN STYLE='font-size:5.7mm; font-weight:bold'>__debug__</SPAN> &ndash; константа
+принимает истинное значение, если Python начал работу не по опции <b>-O</b> в командной строке:<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">__debug__</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR>
+</UL>
+<A id="ind"></A>
+<p> <A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>Индивидуальные задания</H4>
+<P>1. Ознакомиться с интерактивным и сценарным режимами работы среды разработки программ на языке
+Python (IDLE).<br>
+<SPAN CLASS="txt_abz">2. </SPAN>Разработать программу на языке Python, которая выполняет следующее:
+<UL CLASS="list">
+<LI> с помощью встроенной системы помощи (help>) получает информацию о встроенной функции или
+операции, указанной в колонке "Help" табл. 5 (если объем данных большой &ndash; привести фрагмент
+полученных данных):
+<UL CLASS="list2"> 
+<LI> 1 &ndash; + ;
+<LI> 2 &ndash; - ;
+<LI> 3 &ndash; / ;
+<LI> 4 &ndash; // ;
+<LI> 5 &ndash; % ;
+<LI> 6 &ndash; ** ;
+<LI> 7 &ndash; abs() ;
+<LI> 8 &ndash; divmod() ;
+<LI> 9 &ndash; pow() ;
+<LI> 10 &ndash; round() ;
+<LI> 11 &ndash; & ;
+<LI> 12 &ndash; | ;
+<LI> 13 &ndash; ^ ;
+<LI> 14 &ndash; ~ ;
+</UL>
+<LI> выполняет ввод двух аргументов &ndash; первый является целым десятичным числом, а второй
+задается колонкой "Аргумент" табл. 5:
+<UL CLASS="list2"> 
+<LI> 1 &ndash; восьмеричное число;
+<LI> 2 &ndash; шестнадцатиричное число;
+<LI> 3 &ndash; число с плавающей точкой;
+</UL>
+<LI> после ввода двух аргументов &ndash; выполняет над ними арифметическую операцию, указанную
+колонкой "Операция"/"арифметическая" табл. 5;           
+<LI> проверяет тип полученного результата. Если он имеет значение float &ndash; преобразовать
+результат в целое число;
+<LI> Вывести результат операции в окно среды разработки в системе счисления по основанию,
+указанному колонкой "Основание" табл. 5:
+<LI> выполняет ввод двух аргументов &ndash; каждый представляет собой целое число, заданное в
+двоичной системе и имеющее длину 8 битов;
+<LI> осуществляет над этими аргументами побитовую операцию, указанную колонкой
+"Операция"/"побитовая" табл. 5, выполненную с помощью соответствующего специального метода;
+<LI> вывести значения операндов и результат побитовой операции в окно среды.
+</UL>
+<P><table align="center" width="50%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 5 &ndash; Перечень индивидуальных заданий</CAPTION>
+<TR><TH rowspan="2">Номер<BR>п/п<TH rowspan="2">Help<TH rowspan="2">Аргумент <TH rowspan="2">
+Основание <TH colspan="2"> Операция <tr> <TH>арифметическая<TH>побитовая
+<TR ALIGN="center"><TD>1<TD>1<TD>1<TD>16<TD>+<TD>&
+<TR ALIGN="center"><TD>2<TD>2<TD>2<TD>8<TD>-<TD>|
+<TR ALIGN="center"><TD>3<TD>3<TD>3<TD>2<TD>*<TD>^
+<TR ALIGN="center"><TD>4<TD>4<TD>1<TD>16<TD>/<TD>~
+<TR ALIGN="center"><TD>5<TD>5<TD>2<TD>8<TD>//<TD> >>
+<TR ALIGN="center"><TD>6<TD>6<TD>3<TD>2<TD>%<TD><<
+<TR ALIGN="center"><TD>7<TD>7<TD>1<TD>16<TD>**<TD>&
+<TR ALIGN="center"><TD>8<TD>8<TD>2<TD>8<TD>+<TD>|
+<TR ALIGN="center"><TD>9<TD>9<TD>3<TD>2<TD>-<TD>^
+<TR ALIGN="center"><TD>10<TD>10<TD>1<TD>16<TD>*<TD>~
+<TR ALIGN="center"><TD>11<TD>11<TD>2<TD>8<TD>/<TD> >>
+<TR ALIGN="center"><TD>12<TD>12<TD>3<TD>2<TD>//<TD> <<
+<TR ALIGN="center"><TD>13<TD>13<TD>1<TD>16<TD>%<TD>&
+<TR ALIGN="center"><TD>14<TD>14<TD>2<TD>8<TD>**<TD>|
+<TR ALIGN="center"><TD>15<TD>1<TD>3<TD>2<TD>+<TD>^
+<TR ALIGN="center"><TD>16<TD>2<TD>1<TD>16<TD>-<TD>~
+<TR ALIGN="center"><TD>17<TD>3<TD>2<TD>8<TD>*<TD> >>
+<TR ALIGN="center"><TD>18<TD>4<TD>3<TD>2<TD>/<TD><<
+<TR ALIGN="center"><TD>19<TD>5<TD>1<TD>16<TD>//<TD>&
+<TR ALIGN="center"><TD>20<TD>6<TD>2<TD>8<TD>%<TD>|
+</TABLE>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>

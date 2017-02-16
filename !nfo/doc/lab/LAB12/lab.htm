@@ -1,0 +1,756 @@
+<HTML>
+<HEAD>
+<TITLE>Лабораторная работа 12: Наследование классов</TITLE>
+<LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">                               
+<STYLE>TH,TD{font-size:5.5mm;border:1 double blue}</STYLE>
+</HEAD>
+<BODY>
+<H1> ЛАБОРАТОРНАЯ РАБОТА №12<H1>
+<H2> <SPAN CLASS="beg">Тема: </SPAN>Наследование классов</H2>
+<H2> <SPAN CLASS="beg">Цель: </SPAN>
+Рассмотрение способов создания новых классов путем их наследования </H2>
+<A NAME="beg"></A>
+<H3>ОГЛАВЛЕНИЕ</H3> 
+<A CLASS="com" HREF="#1">1 Консервация классов<BR>
+<A CLASS="com" HREF="#2">2 Наследование классов<BR>
+<A CLASS="com" HREF="#2">2.1 Наследование класса Virt_zoo<BR>
+<A CLASS="com" HREF="#2.2">2.2 Множественное наследование<BR>
+<A CLASS="com" HREF="#2.3">2.3 Наследование неизменяемых классов<BR>
+<A CLASS="com" HREF="#2.4">2.4 Создание пользоваетельских последовательностей<BR>
+<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<A NAME="1"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>1 Консервация классов</H4>
+<P>Над объектами &ndash; экземплярами классов, как и над другими объектами языка Python, могут быть
+осуществлены операции сериализации (представление объектов в строковом виде) и консервации (запись
+строкового представления объекта на диск), а также обратные им операции десериализации и
+деконсервации (см. <a href="../LAB10/lab.htm#2.2">подраздел 2.2.1</a> лаб. раб. №10). Для
+выполнения этих операциий создается класс <SPAN CLASS="svoj">My_pickle</SPAN>, который имеет два
+метода:
+<UL CLASS="list"> 
+<LI> put(self,obj) &ndash; осуществляет сериализацию и запись на диск объекта obj в файл, имя
+которого указывается при создании объекта;
+<LI> get(self) &ndash; осуществляет чтение из указанного файла и десериализацию объекта.
+</UL>
+<P> <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">My_pickle:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">import </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">pickle</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,file):</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.file=file</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">put</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,obj):</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">f=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self.file,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'wb'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">My_pickle.pickle.dump(obj,f)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">f.close()</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">get</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#FF8000">with </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">open</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self.file,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'rb'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">as </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">f:</SPAN><BR>
+<SPAN STYLE="margin-left:8.6cm; font-size:7mm; color:#FF8000">return </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">My_pickle.pickle.load(f)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Модуль </SPAN><SPAN CLASS="svoj">pickle</SPAN> описан как атрибут класса.
+Поэтому при доступе к его методам необходимо указывать имя класса:
+<SPAN CLASS="svoj">My_pickle.pickle.dump(obj,f)</SPAN>.<BR>
+<SPAN CLASS="txt_abz">Для </SPAN>проверки класса <SPAN CLASS="svoj">My_pickle</SPAN> и его методов
+создадим объект <SPAN CLASS="svoj">p1</SPAN> класса <SPAN CLASS="svoj">My_pickle</SPAN>, для
+которого в конструкторе класса укажем имя файла <SPAN CLASS="svoj">"p1.dat"</SPAN> текущего
+каталога:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">p1=My_pickle(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"p1.dat"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN>,<BR><BR>
+и объект <SPAN CLASS="svoj">v1</SPAN> класса <SPAN CLASS="svoj">Virt_zoo</SPAN>
+(см. <A HREF="file:///D:/!PYTHON/LAB11/lab.htm#2.3">подраздел 2.3</A> лаб. раб. №11):<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">v1=Virt_zoo(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'превосходно.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Появилась новая зверюшка.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">С </SPAN>помощью метода <SPAN CLASS="svoj">put()</SPAN> объекта
+<SPAN CLASS="svoj">p1</SPAN> осуществим консервацию объекта <SPAN CLASS="svoj">v1</SPAN> на диске
+в файле <SPAN CLASS="svoj">"p1.dat"</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">p1.put(v1)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">С </SPAN>помощью метода <SPAN CLASS="svoj">get()</SPAN> объекта
+<SPAN CLASS="svoj">p1</SPAN> осуществим деконсервацию данных объекта, сохраненных на диске, в
+объект <SPAN CLASS="svoj">v_new</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">v_new=p1.get()</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">И </SPAN>в заключение для объекта <SPAN CLASS="svoj">v_new</SPAN> выполним
+метод <SPAN CLASS="svoj">talk()</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">v_new.talk()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Привет! Меня зовут Колобок. Чуствую себя превосходно.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Т.е. </SPAN>операции консервации и деконсервации объекта
+<SPAN CLASS="svoj">v1</SPAN> осуществлены успешно.
+<A NAME="2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4>2 Наследование классов</H4>
+<H4 CLASS="pod">2.1 Наследование класса Virt_zoo</H4>
+<P>Для проверки наследования классов создается класс <SPAN CLASS="svoj">Smart_zoo()</SPAN>
+на базе выше рассмотренного класса <SPAN CLASS="svoj">Virt_zoo()</SPAN>
+(см. <A HREF="../LAB11/lab.htm#2.3">подраздел 2.3</A> лаб. раб. №11). При этом осуществляется:
+<UL CLASS="list"> 
+<LI> расширение конструктора нового класса путем:
+<UL CLASS="list2"> 
+<LI> добавления параметра where, указывающего место событий; 
+<LI> вывода значения параметра where;
+<LI> вызова конструктора базового класса (Virt_zoo);
+</UL>
+<LI> перегрузка метода talk();
+<LI> добавление метода tell().
+</UL>
+<P>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">Smart_zoo</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(Virt_zoo):</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self, name, mood, where):</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(where, end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">""</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">super</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">().__init__(name, mood)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">talk</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Я &ndash; " </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">+self.name+</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"." </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">tell</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,obj):</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"А ты кто?" </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black"></SPAN>obj.talk()<BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(obj.name, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">","</SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> obj.name,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"."</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, sep=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">""</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">""</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#FF8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">self.name==</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Серый волк"</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN> <BR>
+<SPAN STYLE="margin-left:8.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">" А я тебя съем!" </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#FF8000">else</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN> <BR>
+<SPAN STYLE="margin-left:8.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">" А давай дружить!" </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Отметим, </SPAN>что при вызове конструктора класса
+<SPAN CLASS="svoj">Smart_zoo</SPAN> &ndash; метода <SPAN CLASS="svoj">__init__</SPAN> сначала
+происходит вывод значения нового атрибута <SPAN CLASS="svoj">where</SPAN>, указывающего
+местонахождение зверюшки. Затем с помощью встроенной функции <SPAN CLASS="svoj">super()</SPAN>
+осуществляется вызов метода <SPAN CLASS="svoj">__init__</SPAN> родительского класса
+<SPAN CLASS="svoj">Virt_zoo</SPAN>, который выполняет все действия, предусмотренные конструктором
+этого класса (см. <A HREF="../LAB11/lab.htm#2.3">подраздел 2.3</A> лаб. раб. №11). <BR>
+<SPAN CLASS="txt_abz">Функция </SPAN><SPAN CLASS="svoj">super([type[,object_or_type]])</SPAN>
+возвращает объект, который делегирует вызов метода родительскому классу, указанному параметром
+<SPAN CLASS="svoj">type</SPAN>. Это полезно для доступа к наследуемым методам, которые
+переопределяются в классе. Если класс является единственным наследником, то параметры функции
+</SPAN><SPAN CLASS="svoj">super()</SPAN> можно опустить, т.е. для класса
+<SPAN CLASS="svoj">Smart_zoo</SPAN> выражение<BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">super</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(Smart_zoo,self).__init__(name, mood)</SPAN>
+<P CLASS="ba">эквивалентно<BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">super</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">().__init__(name, mood)</SPAN>.<BR><BR>
+<SPAN CLASS="txt_abz">Выполним </SPAN>инстанцирование двух объектов нового класса:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s1=Smart_zoo(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'превосходно.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Волшебный лес. '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Волшебный лес. Появилась зверюшка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2=Smart_zoo(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Серый волк'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'очень голодным.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Там же. '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Там же. Появилась зверюшка.</SPAN> <BR><BR>
+<SPAN CLASS="txt_abz">С </SPAN>помощью специального атрибута <SPAN CLASS="svoj">__class__</SPAN>
+можно указать для объекта любой класс в иерархии его наследования:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s1.__class__=Virt_zoo</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">С </SPAN>помощью методов <SPAN CLASS="svoj">talk()</SPAN> и
+<SPAN CLASS="svoj">tell()</SPAN> класса <SPAN CLASS="svoj">Smart_zoo</SPAN> реализуем два
+варианта диалога между двумя созданными зверюшками: Колобком (объект s1) и Серым волком (объект
+s2). В первом варианте разговор начинает Серый волк:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2.talk()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Я &ndash; Серый волк.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2.tell(s1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">А ты кто?</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Привет! Меня зовут Колобок. Чуствую себя превосходно.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Колобок, Колобок. А я тебя съем!
+</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>объекта <SPAN CLASS="svoj">s1</SPAN> был указан класс
+<SPAN CLASS="svoj">Virt_zoo</SPAN> и <SPAN CLASS="svoj">s1</SPAN> выполнил метод
+<SPAN CLASS="svoj">talk()</SPAN> в "стиле" этого класса, т.е. вывел на экран  строку
+"Привет! Меня зовут Колобок. Чуствую себя превосходно.", вместо "Я &ndash; Колобок.". <BR>
+<SPAN CLASS="txt_abz">Во </SPAN>втором варианте разговор начинает Колобок: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s1.talk()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Я &ndash; Колобок.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2.tell(s1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">А ты кто?</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Я – Серый волк.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Серый волк, Серый волк. А давай дружить!
+</SPAN><BR><BR>
+<A NAME="2.2"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.2 Множественное наследование</H4>
+<P>Python поддерживает также множественное наследование. Рассмотрим создание класса
+<SPAN CLASS="svoj">New_zoo()</SPAN>, который имеет одновременно два базовых
+класса: <SPAN CLASS="svoj">Smart_zoo</SPAN> и <SPAN CLASS="svoj">My_pickle</SPAN>. Этот класс:
+<UL CLASS="list"> 
+<LI> наследует:
+<UL CLASS="list2"> 
+<LI> из класса Smart_zoo &ndash; метод talk();
+<LI> из класса My_pickle &ndash; методы put() и get();
+</UL>
+<LI> перегружает метод tell() класса Smart_zoo.
+</UL>
+<P>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">New_zoo</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(Smart_zoo, My_pickle):</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self, name, mood, where, file):</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(where, </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Появилалсь зверюшка.' </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.name=name</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.file=file</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">tell</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,obj):</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'А ты кто? ' </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black"></SPAN>obj.talk()<BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(obj.name+</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">", я сохраню твои данные."</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.put(obj)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Для </SPAN>проверки создадим один объект класса Smart_zoo:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s1=Smart_zoo(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Золотая рыбка'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'чудесно'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Море. '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Море. Появилась зверюшка.</SPAN><BR><BR>
+и один объект объект класса New_zoo:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">new1=New_zoo('</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'хорошо.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Берег моря.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">,</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'obj.dat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Берег моря. Появилась зверюшка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">new1.talk()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Я &ndash; Колобок.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">new1.tell(s1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">А ты кто?</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Я &ndash; Золотая рыбка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+Золотая рыбка, я сохраню твои данные.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2=new1.get()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">s2.name</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Золотая рыбка</SPAN><BR>
+<A NAME="2.3"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.3 Наследование встроенных классов</H4>
+<P> Сначала </SPAN>рассмотрим наследование встроенных неизменяемых классов. Для этого создадим
+класс, который наследует класс <SPAN CLASS="svoj">float </SPAN> и осуществляет вычисление
+обратного значения заданной величины: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">Rev</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">float</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">):</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
+'''Получение обратной величины'''</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,arg):</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:black">arg=arg.__rtruediv__(1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Rev(7)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7.0</SPAN>
+<p>Результат показывает, что было возвращено исходное значение заданного аргумента (7.0) без
+вычисления его обратного значения. Это произошло потому, что при инстанцировании класса
+<SPAN CLASS="svoj">Rev() </SPAN> был получен экземпляр объекта неизменяемого типа и поэтому его
+значение не могло быть изменено при инициализации. <BR>
+<SPAN CLASS="txt_abz">Решением </SPAN>является перенос процесса вычисления обратной величины туда,
+где новый объект еще не создан. А это может быть только блок (тело) специального метода
+<SPAN CLASS="svoj">__new__()</SPAN>, который вызывается самым первым при инстанцировании класса:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">Rev</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">float</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">):</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
+'''Получение обратной величины'''</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__new__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(cls,arg):</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:black">arg=arg.__rtruediv__(1)</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:#ff8000">return </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">float</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">.__new__(cls,arg)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Rev(7)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">0.14285714285714285</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Рассмотрим </SPAN>еще один пример наследования неизменяемого класса. Создадим
+класс <SPAN CLASS="svoj">W</SPAN>, который наследует встроенный неизменяемый класс
+<SPAN CLASS="svoj">str</SPAN> и переопределяет в нем операции сравнения с помощью специальных
+методов. Вместо того, чтобы сравнивать слова между собой по величине кода их символов, как это
+делается в стандартных строках, объекты класса <SPAN CLASS="svoj">W</SPAN>, которыми являются
+слова, будут сравниваться по их длине, т.е. по числу символов: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">W</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">):</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
+'''Сравнение слов по их длине'''</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__new__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(cls,word):</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:#FF8000">if </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' ' </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">word:</SPAN> <BR>
+<SPAN STYLE="margin-left:8.0cm; font-size:7mm; color:black">word=word[:word.index(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' ' </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)]</SPAN> <BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:#FF8000">return </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">__new__(cls,word)</SPAN> <BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__gt__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,other):</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:#FF8000">return </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(self)></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(other)</SPAN> <BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__ge__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,other):</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:#FF8000">return </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(self)>=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(other)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__le__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,other):</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:#FF8000">return </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(self)<=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(other)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__lt__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,other):</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:#FF8000">return </SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(self)<</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">(other)</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Создадим </SPAN>путем инстанцирования объекты <SPAN CLASS="svoj">a</SPAN>,
+<SPAN CLASS="svoj">b</SPAN> класса <SPAN CLASS="svoj">str</SPAN> и объекты
+<SPAN CLASS="svoj">aw</SPAN>, <SPAN CLASS="svoj">bw</SPAN> класса <SPAN CLASS="svoj">W</SPAN>:
+<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">aw=W(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'cat'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">b=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'z'</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">bw=W(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'z'</SPAN> 
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR><BR>
+<SPAN CLASS="txt_abz">и </SPAN> проверим операции сравнения объекта <SPAN CLASS="svoj">a</SPAN> с
+объектом <SPAN CLASS="svoj">b</SPAN> и объекта <SPAN CLASS="svoj">aw</SPAN> с объектом
+<SPAN CLASS="svoj">bw</SPAN>: <BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a>b</SPAN>  <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">aw>bw</SPAN>  <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN>  <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a&lt;b</SPAN>  <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">aw&lt;bw</SPAN>  <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>  <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">a==b</SPAN>  <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">aw==bw</SPAN>  <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>  <BR><BR>
+<SPAN CLASS="txt_abz">Результаты </SPAN> показывают, что сравнение строк
+<SPAN CLASS="svoj">a</SPAN> и <SPAN CLASS="svoj">b</SPAN> осущестляется по величине кода их первых
+символов, а сравнение строк <SPAN CLASS="svoj">aw</SPAN> и <SPAN CLASS="svoj">bw</SPAN> &ndash;
+по их длине. Отметим, что сравнение строк <SPAN CLASS="svoj">aw</SPAN> и
+<SPAN CLASS="svoj">bw</SPAN> на равенство (операция "==") осуществлялось с использованием метода
+<SPAN CLASS="svoj">__eq__ (self,other)</SPAN> базового класса <SPAN CLASS="svoj">str</SPAN>,
+поскольку для класса <SPAN CLASS="svoj">W</SPAN> этот метод не был определен. <BR>
+<SPAN CLASS="txt_abz">Рассмотрим </SPAN> пример наследования класса <SPAN CLASS="svoj">int</SPAN> с
+перегрузкой операции сложения. Для этого создадим класс <SPAN CLASS="svoj">Mod3</SPAN>, который
+ : <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">Rev</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">float</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">):</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
+'''Получение обратной величины'''</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,arg):</SPAN><BR>
+<SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:black">arg=arg.__rtruediv__(1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">Rev(7)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7.0</SPAN>
+
+
+
+
+
+
+
+<A NAME="2.4"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H4 CLASS="pod">2.4 Создание пользоваетельских последовательностей</H4>
+<P> В качестве примера создания пользовательской последовательности рассмотрим класс
+<SPAN CLASS="svoj">My_list</SPAN>, функционально близкий к списку, но имеющий ряд методов, которых
+нет в классе <SPAN CLASS="svoj">list</SPAN>, и в то же время не поддерживающий некоторые методы
+списка: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">My_list</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
+''' Пользовательский класс, близкий к списку '''</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,values=</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">None</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">) :</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">if</SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> values </SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">is None</SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> :</SPAN><BR>
+<SPAN STYLE="margin-left:7.0cm; font-size:7mm; color:black">self.values=[]</SPAN> <BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">else</SPAN>
+<SPAN STYLE="font-size:7mm; color:black"> :</SPAN><BR>
+<SPAN STYLE="margin-left:7.0cm; font-size:7mm; color:black">self.values=values</SPAN> <BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__getitem__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,key):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Получить значение по ключу '''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">self.values[key]</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__setitem__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,key,value):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Установить значение по ключу ''' </SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:black">self.values[key]=value</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">first</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Получить значение первого элемента '''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">self.values[0]</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">last</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Получить значение последнего элемента '''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">self.values[-1]</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__iter__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Сделать последовательность итерабельной '''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">iter</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self.values)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__str__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Возвратить строковое представление объекта '''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'My_list: '</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self.values)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__len__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Возвратить длину последовательности '''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self.values)</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">__delitem__</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,key):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Удалить элемент '''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">del </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">self.values[key]</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
+<SPAN STYLE="font-size:7mm; color:blue">push</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self,value):</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
+''' Добавить элемент в конец последовательности'''</SPAN><BR>
+<SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:black">self.values[</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self):</SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(self)]=value</SPAN>
+<p> Класс <SPAN CLASS="svoj">My_list</SPAN> обладает следующими функциональными возможностями,
+реализуемых его методами:
+<UL CLASS="list">                                           
+<LI> осуществлять инстанцирование объектов и их инициализацию с помощью методов __new__() базового
+класса object и __init__(): <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m1=My_list()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2=My_list([1,2,3,4,5,6,7])</SPAN>;<BR>
+<LI> выводить на экран с помощью метода __str__() строковое представление созданных екземпляров
+класса: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(m1)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">My_list: []</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+My_list: [1, 2, 3, 4, 5, 6, 7]</SPAN>;<BR>
+<LI> получать значение элемента последовательности с помощью метода __getitem__() по его ключу
+(индексу): <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2[3]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4</SPAN>;<BR>
+<LI> изменять с помощью метода __setitem__() значение элемента последовательности: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2[3]=77</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2[3]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">77</SPAN>;<BR>
+<LI> получать с помощью метода first() значение первого элемента последовательности: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2.first()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN>;<BR>
+<LI> получать с помощью метода last() значение последнего элемента последовательности: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2.lasst()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7</SPAN>;<BR>
+<LI> добавить с помощью метода push() элемент в конец последовательности: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2.push(</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'A'</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+My_list: [1, 2, 3, 77, 5, 6, 7, 'A']</SPAN>;<BR>
+<LI> определить с помощью метода __len__() число элементов последовательности: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">8</SPAN>;<BR>
+<LI> сделать с помощью метода __iter__() последовательность итерабельной, что позволяет
+использовать оператор for in: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">for </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">i</SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">in </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2:</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(i,end=</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">' '</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+1, 2, 3, 77, 5, 6, 7, A</SPAN>;<BR>
+<LI> удалить с помощью метода  __del__() элемент последовательности: <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#FF8000">del </SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2[5]</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+My_list: [1, 2, 3, 77, 5, 7, 'A']</SPAN>;<BR>
+<LI> вернуть с помощью метода  __pop__() значение последнего элемента последовательности и удалить
+этот элемент <BR><BR> 
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:black">m2.pop()</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'A'</SPAN>;<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
+<SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
+<SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
+My_list: [1, 2, 3, 77, 5, 7]</SPAN>;<BR>
+<A NAME="ind"></A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+
+<H3>Индивидуальные задания</H3>
+<P>Разработать программу на языке Python, в которой необходимо:
+<UL CLASS="list">                                           
+<LI> 1. создать класс, наследующий родительский (базовый) класс, в качестве которого использовать
+класс, разработанный в лаб. раб. №11 (этот класс описывает поведение персонажей). При этом
+наследуемый класс должен иметь:
+<UL CLASS="list2"> 
+<LI> расширенный (по отношению к родительскому классу) конструктор (метод  __init__());
+<LI> перегружаемый метод;
+<LI> новый метод (или методы);
+</UL> 
+<LI> 2. создать второй класс (по усмотрению студента);
+<LI> 3. создать третий класс путем множественного наследования первого и второго классов (этот
+класс должен содержать методы как первого, так и второго классов); 
+<LI> 4. создать класс, который наследует неизменяемый класс float и с помощью специального метода
+__new__() преобразует значения длины и веса, заданные в одной системе единиц измерения, в другую
+согласно колонке "Преобразовать" табл. 1:
+<UL CLASS="list2"> 
+<LI> 1 &ndash; из дюймов в миллиметры;
+<LI> 2 &ndash; из сатниметров в дюймы;
+<LI> 3 &ndash; из футов в метры;
+<LI> 4 &ndash; из метров в футы;
+<LI> 5 &ndash; из фунтов в килограммы;
+<LI> 6 &ndash; из граммов в караты;
+<LI> 7 &ndash; из килограммов в унции; 
+</UL>
+<LI> 5. создать класс в виде последовательности, который должен иметь методы, номера которых
+указаны в колонке "Методы" табл. 1:
+<UL CLASS="list2"> 
+<LI> 1 &ndash; __init__(); 
+<LI> 2 &ndash; __getitem__();
+<LI> 3 &ndash; __setitem__();
+<LI> 4 &ndash; first();
+<LI> 5 &ndash; last(); 
+<LI> 6 &ndash; __iter__();
+<LI> 7 &ndash; __str__();
+<LI> 8 &ndash; __len__();
+<LI> 9 &ndash; push();
+<LI> 10 &ndash; pop ().
+</UL>
+</UL>
+<P><TABLE ALIGN=center WIDTH="50%" border cellspacing="0">
+<CAPTION ALIGN="top"><p class="ba">Таблица 1 &ndash; Перечень индивидуальных заданий</CAPTION>
+<TR><TH>Номер<BR>п/п<TH>Преобразование<TH>Методы
+<TR ALIGN=center><TD>1<TD>1<TD>1,2,3,4,6,7
+<TR ALIGN=center><TD>2<TD>2<TD>1,2,3,5,7,8
+<TR ALIGN=center><TD>3<TD>3<TD>1,2,3,6,8,9
+<TR ALIGN=center><TD>4<TD>4<TD>1,2,3,8,9,10
+<TR ALIGN=center><TD>5<TD>5<TD>1,2,4,5,7,10
+<TR ALIGN=center><TD>6<TD>6<TD>1,2,3,4,6,7
+<TR ALIGN=center><TD>7<TD>7<TD>1,2,3,5,7,8
+<TR ALIGN=center><TD>8<TD>1<TD>1,2,3,6,8,9
+<TR ALIGN=center><TD>9<TD>2<TD>1,2,3,8,9,10
+<TR ALIGN=center><TD>10<TD>3<TD>1,2,4,5,7,10
+<TR ALIGN=center><TD>11<TD>4<TD>1,2,3,4,6,7
+<TR ALIGN=center><TD>12<TD>5<TD>1,2,3,5,7,8
+<TR ALIGN=center><TD>13<TD>6<TD>1,2,3,6,8,9
+<TR ALIGN=center><TD>14<TD>7<TD>1,2,3,8,9,10
+<TR ALIGN=center><TD>15<TD>1<TD>1,2,4,5,7,10
+<TR ALIGN=center><TD>16<TD>2<TD>1,2,3,4,6,7
+<TR ALIGN=center><TD>17<TD>3<TD>1,2,3,5,7,8
+<TR ALIGN=center><TD>18<TD>4<TD>1,2,3,6,8,9
+<TR ALIGN=center><TD>19<TD>5<TD>1,2,3,8,9,10
+<TR ALIGN=center><TD>20<TD>6<TD>1,2,4,5,7,10
+</table>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
