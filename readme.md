@@ -2,9 +2,10 @@
 ==================================
 
 ## Мета
-	- **Вивчити** основи мови програмування [Python](https://ru.wikipedia.org/wiki/Python).
-	- **Ознайомитись** з [серверним програмуванням](https://en.wikipedia.org/wiki/Server-side_scripting).
-	- **Отримати** навички розробки програм з використанням принципів архітектури [клієнт-сервер](https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D0%B5%D0%BD%D1%82-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80).
+
+- **Вивчити** основи мови програмування [Python](https://ru.wikipedia.org/wiki/Python).
+- **Ознайомитись** з [серверним програмуванням](https://en.wikipedia.org/wiki/Server-side_scripting).
+- **Отримати** навички розробки програм з використанням принципів архітектури [клієнт-сервер](https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D0%B5%D0%BD%D1%82-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80).
 
 ---
 
@@ -40,9 +41,9 @@
 	- [Style Guide](https://www.python.org/dev/peps/pep-0008).
 	- [Викиучебник](https://ru.wikibooks.org/wiki/Python).
 	- [Python Documentation](https://docs.python.org/3).
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Tutorial](https://docs.python.org/3/tutorial).
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Language Reference](https://docs.python.org/3/reference).
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Library Reference](https://docs.python.org/3/library).
+		- [Tutorial](https://docs.python.org/3/tutorial).
+		- [Language Reference](https://docs.python.org/3/reference).
+		- [Library Reference](https://docs.python.org/3/library).
 
 2. **Ознайомитись:**
 	- [What’s New in Python](https://docs.python.org/3/whatsnew).
@@ -94,20 +95,17 @@
 3. **Назву** особистої директорії *surname* з відповідним номером роботи *XX* використовувати для іменування директорій **рішень**, **проектів** і **звітів** лабораторних робіт. Наприклад:
 	- студент з особистим каталогом `shevchenko`
 	- для проектів двох лабораторних робіт використовує наступні шляхи і назви файлів:
-
-```
+	```
 shevchenko/src/shevchenko01/shevchenko01.py
 shevchenko/src/shevchenko02/shevchenko02.py
-```
-
+	```
 	- для звітів:
-
-```
+	```
 shevchenko/doc/shevchenko01/shevchenko01.odt
 shevchenko/doc/shevchenko01/shevchenko01.pdf
 shevchenko/doc/shevchenko02/shevchenko02.odt
 shevchenko/doc/shevchenko02/shevchenko02.pdf
-```
+	```
 
 4. **Дотримуватися** принципів, що виводяться інтерпретатором *Python* по команді `import this`.
 
