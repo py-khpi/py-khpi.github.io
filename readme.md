@@ -62,19 +62,19 @@
 
 |  №  | Тема     |
 |:---:|:---------|
-|  1  | [1](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB1/lab.htm?_format=raw) |
-|  2  | [2](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB2/lab.htm?_format=raw) |
-|  3  | [3](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB3/lab.htm?_format=raw) |
-|  4  | [4](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB4/lab.htm?_format=raw) |
-|  5  | [5](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB5/lab.htm?_format=raw) |
-|  6  | [6](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB6/lab.htm?_format=raw) |
-|  7  | [7](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB7/lab.htm?_format=raw) |
-|  8  | [8](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB8/lab.htm?_format=raw) |
-|  9  | [9](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB9/lab.htm?_format=raw) |
-| 10  | [10](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB10/lab.htm?_format=raw) |
-| 11  | [11](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB11/lab.htm?_format=raw) |
-| 12  | [12](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB11/lab.htm?_format=raw) |
-| 13  | [13](https://www.assembla.com/spaces/khpi-py/subversion/source/HEAD/!nfo/doc/lab/LAB11/lab.htm?_format=raw) |
+|  1  | [1](https://py-khpi.github.io/!nfo/doc/lab/LAB1/lab.htm) |
+|  2  | [2](https://py-khpi.github.io/!nfo/doc/lab/LAB2/lab.htm) |
+|  3  | [3](https://py-khpi.github.io/!nfo/doc/lab/LAB3/lab.htm) |
+|  4  | [4](https://py-khpi.github.io/!nfo/doc/lab/LAB4/lab.htm) |
+|  5  | [5](https://py-khpi.github.io/!nfo/doc/lab/LAB5/lab.htm) |
+|  6  | [6](https://py-khpi.github.io/!nfo/doc/lab/LAB6/lab.htm) |
+|  7  | [7](https://py-khpi.github.io/!nfo/doc/lab/LAB7/lab.htm) |
+|  8  | [8](https://py-khpi.github.io/!nfo/doc/lab/LAB8/lab.htm) |
+|  9  | [9](https://py-khpi.github.io/!nfo/doc/lab/LAB9/lab.htm) |
+| 10  | [10](https://py-khpi.github.io/!nfo/doc/lab/LAB10/lab.htm) |
+| 11  | [11](https://py-khpi.github.io/!nfo/doc/lab/LAB11/lab.htm) |
+| 12  | [12](https://py-khpi.github.io/!nfo/doc/lab/LAB12/lab.htm) |
+| 13  | [13](https://py-khpi.github.io/!nfo/doc/lab/LAB13/lab.htm) |
 
 <span id="lab_todo"></span>
 ### Спільні завдання
