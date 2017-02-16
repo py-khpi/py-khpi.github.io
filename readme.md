@@ -2,10 +2,9 @@
 ==================================
 
 ## Мета
-
-- **Вивчити** основи мови програмування [Python](https://ru.wikipedia.org/wiki/Python).
-- **Ознайомитись** з [серверним програмуванням](https://en.wikipedia.org/wiki/Server-side_scripting).
-- **Отримати** навички розробки програм з використанням принципів архітектури [клієнт-сервер](https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D0%B5%D0%BD%D1%82-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80).
+	- **Вивчити** основи мови програмування [Python](https://ru.wikipedia.org/wiki/Python).
+	- **Ознайомитись** з [серверним програмуванням](https://en.wikipedia.org/wiki/Server-side_scripting).
+	- **Отримати** навички розробки програм з використанням принципів архітектури [клієнт-сервер](https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D0%B5%D0%BD%D1%82-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80).
 
 ---
 
@@ -29,9 +28,8 @@
 2. [Simple Python style checker](https://github.com/pycqa/pep8) - перевірка початкового кода на відповідність [PEP 8](http://www.python.org/dev/peps/pep-0008).
 
 3. [Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html) <span id="doxy"></span> - система документування початкового коду. Додатково встановити:
-
-- [Graphviz](http://www.graphviz.org/Download.php) - Graph Visualization Software;
-- [Mscgen](http://www.mcternan.me.uk/mscgen/) - Message Sequence Chart Renderer.
+	- [Graphviz](http://www.graphviz.org/Download.php) - Graph Visualization Software;
+	- [Mscgen](http://www.mcternan.me.uk/mscgen/) - Message Sequence Chart Renderer.
 
 ---
 
@@ -39,21 +37,19 @@
 ## Рекомендації
 
 1. **Використовувати:**
-
-- [Style Guide](https://www.python.org/dev/peps/pep-0008).
-- [Викиучебник](https://ru.wikibooks.org/wiki/Python).
-- [Python Documentation](https://docs.python.org/3).
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Tutorial](https://docs.python.org/3/tutorial).
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Language Reference](https://docs.python.org/3/reference).
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Library Reference](https://docs.python.org/3/library).
+	- [Style Guide](https://www.python.org/dev/peps/pep-0008).
+	- [Викиучебник](https://ru.wikibooks.org/wiki/Python).
+	- [Python Documentation](https://docs.python.org/3).
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Tutorial](https://docs.python.org/3/tutorial).
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Language Reference](https://docs.python.org/3/reference).
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [Library Reference](https://docs.python.org/3/library).
 
 2. **Ознайомитись:**
-
-- [What’s New in Python](https://docs.python.org/3/whatsnew).
-- [Python HOWTOs](https://docs.python.org/3/howto).
-- [Best practices for writing Python code](http://docs.python-guide.org/en/latest).
-- [Code Like a Pythonista](http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html) ([переклад рос.](https://habrahabr.ru/post/88972/)).
-- [Python Tips, Tricks, and Hacks](http://www.siafoo.net/article/52) ([переклад рос.](http://habrahabr.ru/post/85238/), [pdf](http://idzaaus.org/static/files/articles/Python_Tips,_Tricks,_and%20Hacks_\(rus\).pdf)).
+	- [What’s New in Python](https://docs.python.org/3/whatsnew).
+	- [Python HOWTOs](https://docs.python.org/3/howto).
+	- [Best practices for writing Python code](http://docs.python-guide.org/en/latest).
+	- [Code Like a Pythonista](http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html) ([переклад рос.](https://habrahabr.ru/post/88972/)).
+	- [Python Tips, Tricks, and Hacks](http://www.siafoo.net/article/52) ([переклад рос.](http://habrahabr.ru/post/85238/), [pdf](http://idzaaus.org/static/files/articles/Python_Tips,_Tricks,_and%20Hacks_\(rus\).pdf)).
 
 ---
 
@@ -90,22 +86,21 @@
 ### Вимоги
 
 1. **Проекти** розміщувати в директоріях `surname/src/surnameXX`, де:
-- *surname* - назва особистої директорії;
-- *XX* - номер роботи.
+	- *surname* - назва особистої директорії;
+	- *XX* - номер роботи.
 
 2. **Звіти** розташовувати в директоріях `surname/doc/surnameXX`.
 
 3. **Назву** особистої директорії *surname* з відповідним номером роботи *XX* використовувати для іменування директорій **рішень**, **проектів** і **звітів** лабораторних робіт. Наприклад:
-
-- студент з особистим каталогом `shevchenko`
-- для проектів двох лабораторних робіт використовує наступні шляхи і назви файлів:
+	- студент з особистим каталогом `shevchenko`
+	- для проектів двох лабораторних робіт використовує наступні шляхи і назви файлів:
 
 ```
 shevchenko/src/shevchenko01/shevchenko01.py
 shevchenko/src/shevchenko02/shevchenko02.py
 ```
 
-- для звітів:
+	- для звітів:
 
 ```
 shevchenko/doc/shevchenko01/shevchenko01.odt
