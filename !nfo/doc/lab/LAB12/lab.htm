@@ -1,37 +1,39 @@
-<HTML>
+<!doctype html>
+<HTML lang="ru">                                     
 <HEAD>
-<TITLE>Лабораторная работа 12: Наследование классов</TITLE>
+<meta charset="utf-8">
+<TITLE>Р›Р°Р±РѕСЂР°С‚РѕСЂРЅР°СЏ СЂР°Р±РѕС‚Р° 12: РќР°СЃР»РµРґРѕРІР°РЅРёРµ РєР»Р°СЃСЃРѕРІ</TITLE>
 <LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">                               
 <STYLE>TH,TD{font-size:5.5mm;border:1 double blue}</STYLE>
 </HEAD>
 <BODY>
-<H1> ЛАБОРАТОРНАЯ РАБОТА №12<H1>
-<H2> <SPAN CLASS="beg">Тема: </SPAN>Наследование классов</H2>
-<H2> <SPAN CLASS="beg">Цель: </SPAN>
-Рассмотрение способов создания новых классов путем их наследования </H2>
+<H1> Р›РђР‘РћР РђРўРћР РќРђРЇ Р РђР‘РћРўРђ в„–12<H1>
+<H2> <SPAN CLASS="beg">РўРµРјР°: </SPAN>РќР°СЃР»РµРґРѕРІР°РЅРёРµ РєР»Р°СЃСЃРѕРІ</H2>
+<H2> <SPAN CLASS="beg">Р¦РµР»СЊ: </SPAN>
+Р Р°СЃСЃРјРѕС‚СЂРµРЅРёРµ СЃРїРѕСЃРѕР±РѕРІ СЃРѕР·РґР°РЅРёСЏ РЅРѕРІС‹С… РєР»Р°СЃСЃРѕРІ РїСѓС‚РµРј РёС… РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ </H2>
 <A NAME="beg"></A>
-<H3>ОГЛАВЛЕНИЕ</H3> 
-<A CLASS="com" HREF="#1">1 Консервация классов<BR>
-<A CLASS="com" HREF="#2">2 Наследование классов<BR>
-<A CLASS="com" HREF="#2">2.1 Наследование класса Virt_zoo<BR>
-<A CLASS="com" HREF="#2.2">2.2 Множественное наследование<BR>
-<A CLASS="com" HREF="#2.3">2.3 Наследование неизменяемых классов<BR>
-<A CLASS="com" HREF="#2.4">2.4 Создание пользоваетельских последовательностей<BR>
-<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<H3>РћР“Р›РђР’Р›Р•РќРР•</H3> 
+<A CLASS="com" HREF="#1">1 РљРѕРЅСЃРµСЂРІР°С†РёСЏ РєР»Р°СЃСЃРѕРІ<BR>
+<A CLASS="com" HREF="#2">2 РќР°СЃР»РµРґРѕРІР°РЅРёРµ РєР»Р°СЃСЃРѕРІ<BR>
+<A CLASS="com" HREF="#2">2.1 РќР°СЃР»РµРґРѕРІР°РЅРёРµ РєР»Р°СЃСЃР° Virt_zoo<BR>
+<A CLASS="com" HREF="#2.2">2.2 РњРЅРѕР¶РµСЃС‚РІРµРЅРЅРѕРµ РЅР°СЃР»РµРґРѕРІР°РЅРёРµ<BR>
+<A CLASS="com" HREF="#2.3">2.3 РќР°СЃР»РµРґРѕРІР°РЅРёРµ РЅРµРёР·РјРµРЅСЏРµРјС‹С… РєР»Р°СЃСЃРѕРІ<BR>
+<A CLASS="com" HREF="#2.4">2.4 РЎРѕР·РґР°РЅРёРµ РїРѕР»СЊР·РѕРІР°РµС‚РµР»СЊСЃРєРёС… РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚РµР№<BR>
+<A CLASS="com" HREF="#ind">РРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Рµ Р·Р°РґР°РЅРёСЏ<BR>
 <A NAME="1"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4>1 Консервация классов</H4>
-<P>Над объектами &ndash; экземплярами классов, как и над другими объектами языка Python, могут быть
-осуществлены операции сериализации (представление объектов в строковом виде) и консервации (запись
-строкового представления объекта на диск), а также обратные им операции десериализации и
-деконсервации (см. <a href="../LAB10/lab.htm#2.2">подраздел 2.2.1</a> лаб. раб. №10). Для
-выполнения этих операциий создается класс <SPAN CLASS="svoj">My_pickle</SPAN>, который имеет два
-метода:
+<H4>1 РљРѕРЅСЃРµСЂРІР°С†РёСЏ РєР»Р°СЃСЃРѕРІ</H4>
+<P>РќР°Рґ РѕР±СЉРµРєС‚Р°РјРё &ndash; СЌРєР·РµРјРїР»СЏСЂР°РјРё РєР»Р°СЃСЃРѕРІ, РєР°Рє Рё РЅР°Рґ РґСЂСѓРіРёРјРё РѕР±СЉРµРєС‚Р°РјРё СЏР·С‹РєР° Python, РјРѕРіСѓС‚ Р±С‹С‚СЊ
+РѕСЃСѓС‰РµСЃС‚РІР»РµРЅС‹ РѕРїРµСЂР°С†РёРё СЃРµСЂРёР°Р»РёР·Р°С†РёРё (РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ РІ СЃС‚СЂРѕРєРѕРІРѕРј РІРёРґРµ) Рё РєРѕРЅСЃРµСЂРІР°С†РёРё (Р·Р°РїРёСЃСЊ
+СЃС‚СЂРѕРєРѕРІРѕРіРѕ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РѕР±СЉРµРєС‚Р° РЅР° РґРёСЃРє), Р° С‚Р°РєР¶Рµ РѕР±СЂР°С‚РЅС‹Рµ РёРј РѕРїРµСЂР°С†РёРё РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё Рё
+РґРµРєРѕРЅСЃРµСЂРІР°С†РёРё (СЃРј. <a href="../LAB10/lab.htm#2.2">РїРѕРґСЂР°Р·РґРµР» 2.2.1</a> Р»Р°Р±. СЂР°Р±. в„–10). Р”Р»СЏ
+РІС‹РїРѕР»РЅРµРЅРёСЏ СЌС‚РёС… РѕРїРµСЂР°С†РёРёР№ СЃРѕР·РґР°РµС‚СЃСЏ РєР»Р°СЃСЃ <SPAN CLASS="svoj">My_pickle</SPAN>, РєРѕС‚РѕСЂС‹Р№ РёРјРµРµС‚ РґРІР°
+РјРµС‚РѕРґР°:
 <UL CLASS="list"> 
-<LI> put(self,obj) &ndash; осуществляет сериализацию и запись на диск объекта obj в файл, имя
-которого указывается при создании объекта;
-<LI> get(self) &ndash; осуществляет чтение из указанного файла и десериализацию объекта.
+<LI> put(self,obj) &ndash; РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ СЃРµСЂРёР°Р»РёР·Р°С†РёСЋ Рё Р·Р°РїРёСЃСЊ РЅР° РґРёСЃРє РѕР±СЉРµРєС‚Р° obj РІ С„Р°Р№Р», РёРјСЏ
+РєРѕС‚РѕСЂРѕРіРѕ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ РїСЂРё СЃРѕР·РґР°РЅРёРё РѕР±СЉРµРєС‚Р°;
+<LI> get(self) &ndash; РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ С‡С‚РµРЅРёРµ РёР· СѓРєР°Р·Р°РЅРЅРѕРіРѕ С„Р°Р№Р»Р° Рё РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёСЋ РѕР±СЉРµРєС‚Р°.
 </UL>
 <P> <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
@@ -64,61 +66,61 @@
 <SPAN STYLE="font-size:7mm; color:black">f:</SPAN><BR>
 <SPAN STYLE="margin-left:8.6cm; font-size:7mm; color:#FF8000">return </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">My_pickle.pickle.load(f)</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Модуль </SPAN><SPAN CLASS="svoj">pickle</SPAN> описан как атрибут класса.
-Поэтому при доступе к его методам необходимо указывать имя класса:
+<SPAN CLASS="txt_abz">РњРѕРґСѓР»СЊ </SPAN><SPAN CLASS="svoj">pickle</SPAN> РѕРїРёСЃР°РЅ РєР°Рє Р°С‚СЂРёР±СѓС‚ РєР»Р°СЃСЃР°.
+РџРѕСЌС‚РѕРјСѓ РїСЂРё РґРѕСЃС‚СѓРїРµ Рє РµРіРѕ РјРµС‚РѕРґР°Рј РЅРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·С‹РІР°С‚СЊ РёРјСЏ РєР»Р°СЃСЃР°:
 <SPAN CLASS="svoj">My_pickle.pickle.dump(obj,f)</SPAN>.<BR>
-<SPAN CLASS="txt_abz">Для </SPAN>проверки класса <SPAN CLASS="svoj">My_pickle</SPAN> и его методов
-создадим объект <SPAN CLASS="svoj">p1</SPAN> класса <SPAN CLASS="svoj">My_pickle</SPAN>, для
-которого в конструкторе класса укажем имя файла <SPAN CLASS="svoj">"p1.dat"</SPAN> текущего
-каталога:<BR><BR>
+<SPAN CLASS="txt_abz">Р”Р»СЏ </SPAN>РїСЂРѕРІРµСЂРєРё РєР»Р°СЃСЃР° <SPAN CLASS="svoj">My_pickle</SPAN> Рё РµРіРѕ РјРµС‚РѕРґРѕРІ
+СЃРѕР·РґР°РґРёРј РѕР±СЉРµРєС‚ <SPAN CLASS="svoj">p1</SPAN> РєР»Р°СЃСЃР° <SPAN CLASS="svoj">My_pickle</SPAN>, РґР»СЏ
+РєРѕС‚РѕСЂРѕРіРѕ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ РєР»Р°СЃСЃР° СѓРєР°Р¶РµРј РёРјСЏ С„Р°Р№Р»Р° <SPAN CLASS="svoj">"p1.dat"</SPAN> С‚РµРєСѓС‰РµРіРѕ
+РєР°С‚Р°Р»РѕРіР°:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">p1=My_pickle(</SPAN>
 <SPAN STYLE="font-size:7mm; color:green">"p1.dat"</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN>,<BR><BR>
-и объект <SPAN CLASS="svoj">v1</SPAN> класса <SPAN CLASS="svoj">Virt_zoo</SPAN>
-(см. <A HREF="file:///D:/!PYTHON/LAB11/lab.htm#2.3">подраздел 2.3</A> лаб. раб. №11):<BR><BR>
+Рё РѕР±СЉРµРєС‚ <SPAN CLASS="svoj">v1</SPAN> РєР»Р°СЃСЃР° <SPAN CLASS="svoj">Virt_zoo</SPAN>
+(СЃРј. <A HREF="file:///D:/!PYTHON/LAB11/lab.htm#2.3">РїРѕРґСЂР°Р·РґРµР» 2.3</A> Р»Р°Р±. СЂР°Р±. в„–11):<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1=Virt_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РљРѕР»РѕР±РѕРє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'превосходно.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РїСЂРµРІРѕСЃС…РѕРґРЅРѕ.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Появилась новая зверюшка.</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">С </SPAN>помощью метода <SPAN CLASS="svoj">put()</SPAN> объекта
-<SPAN CLASS="svoj">p1</SPAN> осуществим консервацию объекта <SPAN CLASS="svoj">v1</SPAN> на диске
-в файле <SPAN CLASS="svoj">"p1.dat"</SPAN>:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РЎ </SPAN>РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° <SPAN CLASS="svoj">put()</SPAN> РѕР±СЉРµРєС‚Р°
+<SPAN CLASS="svoj">p1</SPAN> РѕСЃСѓС‰РµСЃС‚РІРёРј РєРѕРЅСЃРµСЂРІР°С†РёСЋ РѕР±СЉРµРєС‚Р° <SPAN CLASS="svoj">v1</SPAN> РЅР° РґРёСЃРєРµ
+РІ С„Р°Р№Р»Рµ <SPAN CLASS="svoj">"p1.dat"</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">p1.put(v1)</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">С </SPAN>помощью метода <SPAN CLASS="svoj">get()</SPAN> объекта
-<SPAN CLASS="svoj">p1</SPAN> осуществим деконсервацию данных объекта, сохраненных на диске, в
-объект <SPAN CLASS="svoj">v_new</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">РЎ </SPAN>РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° <SPAN CLASS="svoj">get()</SPAN> РѕР±СЉРµРєС‚Р°
+<SPAN CLASS="svoj">p1</SPAN> РѕСЃСѓС‰РµСЃС‚РІРёРј РґРµРєРѕРЅСЃРµСЂРІР°С†РёСЋ РґР°РЅРЅС‹С… РѕР±СЉРµРєС‚Р°, СЃРѕС…СЂР°РЅРµРЅРЅС‹С… РЅР° РґРёСЃРєРµ, РІ
+РѕР±СЉРµРєС‚ <SPAN CLASS="svoj">v_new</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v_new=p1.get()</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">И </SPAN>в заключение для объекта <SPAN CLASS="svoj">v_new</SPAN> выполним
-метод <SPAN CLASS="svoj">talk()</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">Р </SPAN>РІ Р·Р°РєР»СЋС‡РµРЅРёРµ РґР»СЏ РѕР±СЉРµРєС‚Р° <SPAN CLASS="svoj">v_new</SPAN> РІС‹РїРѕР»РЅРёРј
+РјРµС‚РѕРґ <SPAN CLASS="svoj">talk()</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v_new.talk()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Привет! Меня зовут Колобок. Чуствую себя превосходно.</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Т.е. </SPAN>операции консервации и деконсервации объекта
-<SPAN CLASS="svoj">v1</SPAN> осуществлены успешно.
+РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ РљРѕР»РѕР±РѕРє. Р§СѓСЃС‚РІСѓСЋ СЃРµР±СЏ РїСЂРµРІРѕСЃС…РѕРґРЅРѕ.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">Рў.Рµ. </SPAN>РѕРїРµСЂР°С†РёРё РєРѕРЅСЃРµСЂРІР°С†РёРё Рё РґРµРєРѕРЅСЃРµСЂРІР°С†РёРё РѕР±СЉРµРєС‚Р°
+<SPAN CLASS="svoj">v1</SPAN> РѕСЃСѓС‰РµСЃС‚РІР»РµРЅС‹ СѓСЃРїРµС€РЅРѕ.
 <A NAME="2"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4>2 Наследование классов</H4>
-<H4 CLASS="pod">2.1 Наследование класса Virt_zoo</H4>
-<P>Для проверки наследования классов создается класс <SPAN CLASS="svoj">Smart_zoo()</SPAN>
-на базе выше рассмотренного класса <SPAN CLASS="svoj">Virt_zoo()</SPAN>
-(см. <A HREF="../LAB11/lab.htm#2.3">подраздел 2.3</A> лаб. раб. №11). При этом осуществляется:
+<H4>2 РќР°СЃР»РµРґРѕРІР°РЅРёРµ РєР»Р°СЃСЃРѕРІ</H4>
+<H4 CLASS="pod">2.1 РќР°СЃР»РµРґРѕРІР°РЅРёРµ РєР»Р°СЃСЃР° Virt_zoo</H4>
+<P>Р”Р»СЏ РїСЂРѕРІРµСЂРєРё РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ РєР»Р°СЃСЃРѕРІ СЃРѕР·РґР°РµС‚СЃСЏ РєР»Р°СЃСЃ <SPAN CLASS="svoj">Smart_zoo()</SPAN>
+РЅР° Р±Р°Р·Рµ РІС‹С€Рµ СЂР°СЃСЃРјРѕС‚СЂРµРЅРЅРѕРіРѕ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">Virt_zoo()</SPAN>
+(СЃРј. <A HREF="../LAB11/lab.htm#2.3">РїРѕРґСЂР°Р·РґРµР» 2.3</A> Р»Р°Р±. СЂР°Р±. в„–11). РџСЂРё СЌС‚РѕРј РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ:
 <UL CLASS="list"> 
-<LI> расширение конструктора нового класса путем:
+<LI> СЂР°СЃС€РёСЂРµРЅРёРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РЅРѕРІРѕРіРѕ РєР»Р°СЃСЃР° РїСѓС‚РµРј:
 <UL CLASS="list2"> 
-<LI> добавления параметра where, указывающего место событий; 
-<LI> вывода значения параметра where;
-<LI> вызова конструктора базового класса (Virt_zoo);
+<LI> РґРѕР±Р°РІР»РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР° where, СѓРєР°Р·С‹РІР°СЋС‰РµРіРѕ РјРµСЃС‚Рѕ СЃРѕР±С‹С‚РёР№; 
+<LI> РІС‹РІРѕРґР° Р·РЅР°С‡РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР° where;
+<LI> РІС‹Р·РѕРІР° РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР° (Virt_zoo);
 </UL>
-<LI> перегрузка метода talk();
-<LI> добавление метода tell().
+<LI> РїРµСЂРµРіСЂСѓР·РєР° РјРµС‚РѕРґР° talk();
+<LI> РґРѕР±Р°РІР»РµРЅРёРµ РјРµС‚РѕРґР° tell().
 </UL>
 <P>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
@@ -139,7 +141,7 @@
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">"Я &ndash; " </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"РЇ &ndash; " </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">+self.name+</SPAN>
 <SPAN STYLE="font-size:7mm; color:green">"." </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
@@ -148,7 +150,7 @@
 <SPAN STYLE="font-size:7mm; color:black">(self,obj):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">"А ты кто?" </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"Рђ С‚С‹ РєС‚Рѕ?" </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black"></SPAN>obj.talk()<BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
@@ -163,104 +165,104 @@
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#FF8000">if </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">self.name==</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">"Серый волк"</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"РЎРµСЂС‹Р№ РІРѕР»Рє"</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">:</SPAN> <BR>
 <SPAN STYLE="margin-left:8.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">" А я тебя съем!" </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">" Рђ СЏ С‚РµР±СЏ СЃСЉРµРј!" </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#FF8000">else</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">:</SPAN> <BR>
 <SPAN STYLE="margin-left:8.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">" А давай дружить!" </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">" Рђ РґР°РІР°Р№ РґСЂСѓР¶РёС‚СЊ!" </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Отметим, </SPAN>что при вызове конструктора класса
-<SPAN CLASS="svoj">Smart_zoo</SPAN> &ndash; метода <SPAN CLASS="svoj">__init__</SPAN> сначала
-происходит вывод значения нового атрибута <SPAN CLASS="svoj">where</SPAN>, указывающего
-местонахождение зверюшки. Затем с помощью встроенной функции <SPAN CLASS="svoj">super()</SPAN>
-осуществляется вызов метода <SPAN CLASS="svoj">__init__</SPAN> родительского класса
-<SPAN CLASS="svoj">Virt_zoo</SPAN>, который выполняет все действия, предусмотренные конструктором
-этого класса (см. <A HREF="../LAB11/lab.htm#2.3">подраздел 2.3</A> лаб. раб. №11). <BR>
-<SPAN CLASS="txt_abz">Функция </SPAN><SPAN CLASS="svoj">super([type[,object_or_type]])</SPAN>
-возвращает объект, который делегирует вызов метода родительскому классу, указанному параметром
-<SPAN CLASS="svoj">type</SPAN>. Это полезно для доступа к наследуемым методам, которые
-переопределяются в классе. Если класс является единственным наследником, то параметры функции
-</SPAN><SPAN CLASS="svoj">super()</SPAN> можно опустить, т.е. для класса
-<SPAN CLASS="svoj">Smart_zoo</SPAN> выражение<BR>
+<SPAN CLASS="txt_abz">РћС‚РјРµС‚РёРј, </SPAN>С‡С‚Рѕ РїСЂРё РІС‹Р·РѕРІРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">Smart_zoo</SPAN> &ndash; РјРµС‚РѕРґР° <SPAN CLASS="svoj">__init__</SPAN> СЃРЅР°С‡Р°Р»Р°
+РїСЂРѕРёСЃС…РѕРґРёС‚ РІС‹РІРѕРґ Р·РЅР°С‡РµРЅРёСЏ РЅРѕРІРѕРіРѕ Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">where</SPAN>, СѓРєР°Р·С‹РІР°СЋС‰РµРіРѕ
+РјРµСЃС‚РѕРЅР°С…РѕР¶РґРµРЅРёРµ Р·РІРµСЂСЋС€РєРё. Р—Р°С‚РµРј СЃ РїРѕРјРѕС‰СЊСЋ РІСЃС‚СЂРѕРµРЅРЅРѕР№ С„СѓРЅРєС†РёРё <SPAN CLASS="svoj">super()</SPAN>
+РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ РІС‹Р·РѕРІ РјРµС‚РѕРґР° <SPAN CLASS="svoj">__init__</SPAN> СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">Virt_zoo</SPAN>, РєРѕС‚РѕСЂС‹Р№ РІС‹РїРѕР»РЅСЏРµС‚ РІСЃРµ РґРµР№СЃС‚РІРёСЏ, РїСЂРµРґСѓСЃРјРѕС‚СЂРµРЅРЅС‹Рµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРѕРј
+СЌС‚РѕРіРѕ РєР»Р°СЃСЃР° (СЃРј. <A HREF="../LAB11/lab.htm#2.3">РїРѕРґСЂР°Р·РґРµР» 2.3</A> Р»Р°Р±. СЂР°Р±. в„–11). <BR>
+<SPAN CLASS="txt_abz">Р¤СѓРЅРєС†РёСЏ </SPAN><SPAN CLASS="svoj">super([type[,object_or_type]])</SPAN>
+РІРѕР·РІСЂР°С‰Р°РµС‚ РѕР±СЉРµРєС‚, РєРѕС‚РѕСЂС‹Р№ РґРµР»РµРіРёСЂСѓРµС‚ РІС‹Р·РѕРІ РјРµС‚РѕРґР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРјСѓ РєР»Р°СЃСЃСѓ, СѓРєР°Р·Р°РЅРЅРѕРјСѓ РїР°СЂР°РјРµС‚СЂРѕРј
+<SPAN CLASS="svoj">type</SPAN>. Р­С‚Рѕ РїРѕР»РµР·РЅРѕ РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РЅР°СЃР»РµРґСѓРµРјС‹Рј РјРµС‚РѕРґР°Рј, РєРѕС‚РѕСЂС‹Рµ
+РїРµСЂРµРѕРїСЂРµРґРµР»СЏСЋС‚СЃСЏ РІ РєР»Р°СЃСЃРµ. Р•СЃР»Рё РєР»Р°СЃСЃ СЏРІР»СЏРµС‚СЃСЏ РµРґРёРЅСЃС‚РІРµРЅРЅС‹Рј РЅР°СЃР»РµРґРЅРёРєРѕРј, С‚Рѕ РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё
+</SPAN><SPAN CLASS="svoj">super()</SPAN> РјРѕР¶РЅРѕ РѕРїСѓСЃС‚РёС‚СЊ, С‚.Рµ. РґР»СЏ РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">Smart_zoo</SPAN> РІС‹СЂР°Р¶РµРЅРёРµ<BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">super</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(Smart_zoo,self).__init__(name, mood)</SPAN>
-<P CLASS="ba">эквивалентно<BR>
+<P CLASS="ba">СЌРєРІРёРІР°Р»РµРЅС‚РЅРѕ<BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">super</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">().__init__(name, mood)</SPAN>.<BR><BR>
-<SPAN CLASS="txt_abz">Выполним </SPAN>инстанцирование двух объектов нового класса:<BR><BR>
+<SPAN CLASS="txt_abz">Р’С‹РїРѕР»РЅРёРј </SPAN>РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРёРµ РґРІСѓС… РѕР±СЉРµРєС‚РѕРІ РЅРѕРІРѕРіРѕ РєР»Р°СЃСЃР°:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s1=Smart_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РљРѕР»РѕР±РѕРє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'превосходно.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РїСЂРµРІРѕСЃС…РѕРґРЅРѕ.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">, </SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Волшебный лес. '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р’РѕР»С€РµР±РЅС‹Р№ Р»РµСЃ. '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Волшебный лес. Появилась зверюшка.</SPAN><BR>
+Р’РѕР»С€РµР±РЅС‹Р№ Р»РµСЃ. РџРѕСЏРІРёР»Р°СЃСЊ Р·РІРµСЂСЋС€РєР°.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s2=Smart_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Серый волк'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РЎРµСЂС‹Р№ РІРѕР»Рє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'очень голодным.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РѕС‡РµРЅСЊ РіРѕР»РѕРґРЅС‹Рј.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">, </SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Там же. '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РўР°Рј Р¶Рµ. '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Там же. Появилась зверюшка.</SPAN> <BR><BR>
-<SPAN CLASS="txt_abz">С </SPAN>помощью специального атрибута <SPAN CLASS="svoj">__class__</SPAN>
-можно указать для объекта любой класс в иерархии его наследования:<BR><BR>
+РўР°Рј Р¶Рµ. РџРѕСЏРІРёР»Р°СЃСЊ Р·РІРµСЂСЋС€РєР°.</SPAN> <BR><BR>
+<SPAN CLASS="txt_abz">РЎ </SPAN>РїРѕРјРѕС‰СЊСЋ СЃРїРµС†РёР°Р»СЊРЅРѕРіРѕ Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">__class__</SPAN>
+РјРѕР¶РЅРѕ СѓРєР°Р·Р°С‚СЊ РґР»СЏ РѕР±СЉРµРєС‚Р° Р»СЋР±РѕР№ РєР»Р°СЃСЃ РІ РёРµСЂР°СЂС…РёРё РµРіРѕ РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s1.__class__=Virt_zoo</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">С </SPAN>помощью методов <SPAN CLASS="svoj">talk()</SPAN> и
-<SPAN CLASS="svoj">tell()</SPAN> класса <SPAN CLASS="svoj">Smart_zoo</SPAN> реализуем два
-варианта диалога между двумя созданными зверюшками: Колобком (объект s1) и Серым волком (объект
-s2). В первом варианте разговор начинает Серый волк:<BR><BR>
+<SPAN CLASS="txt_abz">РЎ </SPAN>РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґРѕРІ <SPAN CLASS="svoj">talk()</SPAN> Рё
+<SPAN CLASS="svoj">tell()</SPAN> РєР»Р°СЃСЃР° <SPAN CLASS="svoj">Smart_zoo</SPAN> СЂРµР°Р»РёР·СѓРµРј РґРІР°
+РІР°СЂРёР°РЅС‚Р° РґРёР°Р»РѕРіР° РјРµР¶РґСѓ РґРІСѓРјСЏ СЃРѕР·РґР°РЅРЅС‹РјРё Р·РІРµСЂСЋС€РєР°РјРё: РљРѕР»РѕР±РєРѕРј (РѕР±СЉРµРєС‚ s1) Рё РЎРµСЂС‹Рј РІРѕР»РєРѕРј (РѕР±СЉРµРєС‚
+s2). Р’ РїРµСЂРІРѕРј РІР°СЂРёР°РЅС‚Рµ СЂР°Р·РіРѕРІРѕСЂ РЅР°С‡РёРЅР°РµС‚ РЎРµСЂС‹Р№ РІРѕР»Рє:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s2.talk()</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Я &ndash; Серый волк.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РЇ &ndash; РЎРµСЂС‹Р№ РІРѕР»Рє.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s2.tell(s1)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">А ты кто?</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Рђ С‚С‹ РєС‚Рѕ?</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Привет! Меня зовут Колобок. Чуствую себя превосходно.</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Колобок, Колобок. А я тебя съем!
+РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ РљРѕР»РѕР±РѕРє. Р§СѓСЃС‚РІСѓСЋ СЃРµР±СЏ РїСЂРµРІРѕСЃС…РѕРґРЅРѕ.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РљРѕР»РѕР±РѕРє, РљРѕР»РѕР±РѕРє. Рђ СЏ С‚РµР±СЏ СЃСЉРµРј!
 </SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Для </SPAN>объекта <SPAN CLASS="svoj">s1</SPAN> был указан класс
-<SPAN CLASS="svoj">Virt_zoo</SPAN> и <SPAN CLASS="svoj">s1</SPAN> выполнил метод
-<SPAN CLASS="svoj">talk()</SPAN> в "стиле" этого класса, т.е. вывел на экран  строку
-"Привет! Меня зовут Колобок. Чуствую себя превосходно.", вместо "Я &ndash; Колобок.". <BR>
-<SPAN CLASS="txt_abz">Во </SPAN>втором варианте разговор начинает Колобок: <BR><BR>
+<SPAN CLASS="txt_abz">Р”Р»СЏ </SPAN>РѕР±СЉРµРєС‚Р° <SPAN CLASS="svoj">s1</SPAN> Р±С‹Р» СѓРєР°Р·Р°РЅ РєР»Р°СЃСЃ
+<SPAN CLASS="svoj">Virt_zoo</SPAN> Рё <SPAN CLASS="svoj">s1</SPAN> РІС‹РїРѕР»РЅРёР» РјРµС‚РѕРґ
+<SPAN CLASS="svoj">talk()</SPAN> РІ "СЃС‚РёР»Рµ" СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°, С‚.Рµ. РІС‹РІРµР» РЅР° СЌРєСЂР°РЅ  СЃС‚СЂРѕРєСѓ
+"РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ РљРѕР»РѕР±РѕРє. Р§СѓСЃС‚РІСѓСЋ СЃРµР±СЏ РїСЂРµРІРѕСЃС…РѕРґРЅРѕ.", РІРјРµСЃС‚Рѕ "РЇ &ndash; РљРѕР»РѕР±РѕРє.". <BR>
+<SPAN CLASS="txt_abz">Р’Рѕ </SPAN>РІС‚РѕСЂРѕРј РІР°СЂРёР°РЅС‚Рµ СЂР°Р·РіРѕРІРѕСЂ РЅР°С‡РёРЅР°РµС‚ РљРѕР»РѕР±РѕРє: <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s1.talk()</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Я &ndash; Колобок.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РЇ &ndash; РљРѕР»РѕР±РѕРє.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s2.tell(s1)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">А ты кто?</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Рђ С‚С‹ РєС‚Рѕ?</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Я – Серый волк.</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Серый волк, Серый волк. А давай дружить!
+РЇ вЂ“ РЎРµСЂС‹Р№ РІРѕР»Рє.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РЎРµСЂС‹Р№ РІРѕР»Рє, РЎРµСЂС‹Р№ РІРѕР»Рє. Рђ РґР°РІР°Р№ РґСЂСѓР¶РёС‚СЊ!
 </SPAN><BR><BR>
 <A NAME="2.2"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">2.2 Множественное наследование</H4>
-<P>Python поддерживает также множественное наследование. Рассмотрим создание класса
-<SPAN CLASS="svoj">New_zoo()</SPAN>, который имеет одновременно два базовых
-класса: <SPAN CLASS="svoj">Smart_zoo</SPAN> и <SPAN CLASS="svoj">My_pickle</SPAN>. Этот класс:
+<H4 CLASS="pod">2.2 РњРЅРѕР¶РµСЃС‚РІРµРЅРЅРѕРµ РЅР°СЃР»РµРґРѕРІР°РЅРёРµ</H4>
+<P>Python РїРѕРґРґРµСЂР¶РёРІР°РµС‚ С‚Р°РєР¶Рµ РјРЅРѕР¶РµСЃС‚РІРµРЅРЅРѕРµ РЅР°СЃР»РµРґРѕРІР°РЅРёРµ. Р Р°СЃСЃРјРѕС‚СЂРёРј СЃРѕР·РґР°РЅРёРµ РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">New_zoo()</SPAN>, РєРѕС‚РѕСЂС‹Р№ РёРјРµРµС‚ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ РґРІР° Р±Р°Р·РѕРІС‹С…
+РєР»Р°СЃСЃР°: <SPAN CLASS="svoj">Smart_zoo</SPAN> Рё <SPAN CLASS="svoj">My_pickle</SPAN>. Р­С‚РѕС‚ РєР»Р°СЃСЃ:
 <UL CLASS="list"> 
-<LI> наследует:
+<LI> РЅР°СЃР»РµРґСѓРµС‚:
 <UL CLASS="list2"> 
-<LI> из класса Smart_zoo &ndash; метод talk();
-<LI> из класса My_pickle &ndash; методы put() и get();
+<LI> РёР· РєР»Р°СЃСЃР° Smart_zoo &ndash; РјРµС‚РѕРґ talk();
+<LI> РёР· РєР»Р°СЃСЃР° My_pickle &ndash; РјРµС‚РѕРґС‹ put() Рё get();
 </UL>
-<LI> перегружает метод tell() класса Smart_zoo.
+<LI> РїРµСЂРµРіСЂСѓР¶Р°РµС‚ РјРµС‚РѕРґ tell() РєР»Р°СЃСЃР° Smart_zoo.
 </UL>
 <P>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
@@ -272,7 +274,7 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:black">(self, name, mood, where, file):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(where, </SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Появилалсь зверюшка.' </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РџРѕСЏРІРёР»Р°Р»СЃСЊ Р·РІРµСЂСЋС€РєР°.' </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.name=name</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.file=file</SPAN><BR>
@@ -281,57 +283,57 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:black">(self,obj):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'А ты кто? ' </SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Рђ С‚С‹ РєС‚Рѕ? ' </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black"></SPAN>obj.talk()<BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(obj.name+</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">", я сохраню твои данные."</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">", СЏ СЃРѕС…СЂР°РЅСЋ С‚РІРѕРё РґР°РЅРЅС‹Рµ."</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.put(obj)</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Для </SPAN>проверки создадим один объект класса Smart_zoo:<BR><BR>
+<SPAN CLASS="txt_abz">Р”Р»СЏ </SPAN>РїСЂРѕРІРµСЂРєРё СЃРѕР·РґР°РґРёРј РѕРґРёРЅ РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° Smart_zoo:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s1=Smart_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Золотая рыбка'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р—РѕР»РѕС‚Р°СЏ СЂС‹Р±РєР°'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'чудесно'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'С‡СѓРґРµСЃРЅРѕ'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Море. '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РњРѕСЂРµ. '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Море. Появилась зверюшка.</SPAN><BR><BR>
-и один объект объект класса New_zoo:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РњРѕСЂРµ. РџРѕСЏРІРёР»Р°СЃСЊ Р·РІРµСЂСЋС€РєР°.</SPAN><BR><BR>
+Рё РѕРґРёРЅ РѕР±СЉРµРєС‚ РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° New_zoo:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">new1=New_zoo('</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РљРѕР»РѕР±РѕРє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'хорошо.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'С…РѕСЂРѕС€Рѕ.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Берег моря.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р‘РµСЂРµРі РјРѕСЂСЏ.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
 <SPAN STYLE="font-size:7mm; color:green">'obj.dat'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Берег моря. Появилась зверюшка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Р‘РµСЂРµРі РјРѕСЂСЏ. РџРѕСЏРІРёР»Р°СЃСЊ Р·РІРµСЂСЋС€РєР°.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">new1.talk()</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Я &ndash; Колобок.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РЇ &ndash; РљРѕР»РѕР±РѕРє.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">new1.tell(s1)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">А ты кто?</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Я &ndash; Золотая рыбка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Рђ С‚С‹ РєС‚Рѕ?</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РЇ &ndash; Р—РѕР»РѕС‚Р°СЏ СЂС‹Р±РєР°.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Золотая рыбка, я сохраню твои данные.</SPAN><BR>
+Р—РѕР»РѕС‚Р°СЏ СЂС‹Р±РєР°, СЏ СЃРѕС…СЂР°РЅСЋ С‚РІРѕРё РґР°РЅРЅС‹Рµ.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s2=new1.get()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">s2.name</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Золотая рыбка</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Р—РѕР»РѕС‚Р°СЏ СЂС‹Р±РєР°</SPAN><BR>
 <A NAME="2.3"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">2.3 Наследование встроенных классов</H4>
-<P> Сначала </SPAN>рассмотрим наследование встроенных неизменяемых классов. Для этого создадим
-класс, который наследует класс <SPAN CLASS="svoj">float </SPAN> и осуществляет вычисление
-обратного значения заданной величины: <BR><BR> 
+<H4 CLASS="pod">2.3 РќР°СЃР»РµРґРѕРІР°РЅРёРµ РІСЃС‚СЂРѕРµРЅРЅС‹С… РєР»Р°СЃСЃРѕРІ</H4>
+<P> РЎРЅР°С‡Р°Р»Р° </SPAN>СЂР°СЃСЃРјРѕС‚СЂРёРј РЅР°СЃР»РµРґРѕРІР°РЅРёРµ РІСЃС‚СЂРѕРµРЅРЅС‹С… РЅРµРёР·РјРµРЅСЏРµРјС‹С… РєР»Р°СЃСЃРѕРІ. Р”Р»СЏ СЌС‚РѕРіРѕ СЃРѕР·РґР°РґРёРј
+РєР»Р°СЃСЃ, РєРѕС‚РѕСЂС‹Р№ РЅР°СЃР»РµРґСѓРµС‚ РєР»Р°СЃСЃ <SPAN CLASS="svoj">float </SPAN> Рё РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РІС‹С‡РёСЃР»РµРЅРёРµ
+РѕР±СЂР°С‚РЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ Р·Р°РґР°РЅРЅРѕР№ РІРµР»РёС‡РёРЅС‹: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">Rev</SPAN>
@@ -339,7 +341,7 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:#af00af">float</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">):</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
-'''Получение обратной величины'''</SPAN><BR>
+'''РџРѕР»СѓС‡РµРЅРёРµ РѕР±СЂР°С‚РЅРѕР№ РІРµР»РёС‡РёРЅС‹'''</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,arg):</SPAN><BR>
@@ -347,13 +349,13 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">Rev(7)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7.0</SPAN>
-<p>Результат показывает, что было возвращено исходное значение заданного аргумента (7.0) без
-вычисления его обратного значения. Это произошло потому, что при инстанцировании класса
-<SPAN CLASS="svoj">Rev() </SPAN> был получен экземпляр объекта неизменяемого типа и поэтому его
-значение не могло быть изменено при инициализации. <BR>
-<SPAN CLASS="txt_abz">Решением </SPAN>является перенос процесса вычисления обратной величины туда,
-где новый объект еще не создан. А это может быть только блок (тело) специального метода
-<SPAN CLASS="svoj">__new__()</SPAN>, который вызывается самым первым при инстанцировании класса:
+<p>Р РµР·СѓР»СЊС‚Р°С‚ РїРѕРєР°Р·С‹РІР°РµС‚, С‡С‚Рѕ Р±С‹Р»Рѕ РІРѕР·РІСЂР°С‰РµРЅРѕ РёСЃС…РѕРґРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ Р·Р°РґР°РЅРЅРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р° (7.0) Р±РµР·
+РІС‹С‡РёСЃР»РµРЅРёСЏ РµРіРѕ РѕР±СЂР°С‚РЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ. Р­С‚Рѕ РїСЂРѕРёР·РѕС€Р»Рѕ РїРѕС‚РѕРјСѓ, С‡С‚Рѕ РїСЂРё РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРёРё РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">Rev() </SPAN> Р±С‹Р» РїРѕР»СѓС‡РµРЅ СЌРєР·РµРјРїР»СЏСЂ РѕР±СЉРµРєС‚Р° РЅРµРёР·РјРµРЅСЏРµРјРѕРіРѕ С‚РёРїР° Рё РїРѕСЌС‚РѕРјСѓ РµРіРѕ
+Р·РЅР°С‡РµРЅРёРµ РЅРµ РјРѕРіР»Рѕ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅРѕ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё. <BR>
+<SPAN CLASS="txt_abz">Р РµС€РµРЅРёРµРј </SPAN>СЏРІР»СЏРµС‚СЃСЏ РїРµСЂРµРЅРѕСЃ РїСЂРѕС†РµСЃСЃР° РІС‹С‡РёСЃР»РµРЅРёСЏ РѕР±СЂР°С‚РЅРѕР№ РІРµР»РёС‡РёРЅС‹ С‚СѓРґР°,
+РіРґРµ РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ РµС‰Рµ РЅРµ СЃРѕР·РґР°РЅ. Рђ СЌС‚Рѕ РјРѕР¶РµС‚ Р±С‹С‚СЊ С‚РѕР»СЊРєРѕ Р±Р»РѕРє (С‚РµР»Рѕ) СЃРїРµС†РёР°Р»СЊРЅРѕРіРѕ РјРµС‚РѕРґР°
+<SPAN CLASS="svoj">__new__()</SPAN>, РєРѕС‚РѕСЂС‹Р№ РІС‹Р·С‹РІР°РµС‚СЃСЏ СЃР°РјС‹Рј РїРµСЂРІС‹Рј РїСЂРё РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРёРё РєР»Р°СЃСЃР°:
 <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
@@ -362,7 +364,7 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:#af00af">float</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">):</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
-'''Получение обратной величины'''</SPAN><BR>
+'''РџРѕР»СѓС‡РµРЅРёРµ РѕР±СЂР°С‚РЅРѕР№ РІРµР»РёС‡РёРЅС‹'''</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__new__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(cls,arg):</SPAN><BR>
@@ -373,12 +375,12 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">Rev(7)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">0.14285714285714285</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Рассмотрим </SPAN>еще один пример наследования неизменяемого класса. Создадим
-класс <SPAN CLASS="svoj">W</SPAN>, который наследует встроенный неизменяемый класс
-<SPAN CLASS="svoj">str</SPAN> и переопределяет в нем операции сравнения с помощью специальных
-методов. Вместо того, чтобы сравнивать слова между собой по величине кода их символов, как это
-делается в стандартных строках, объекты класса <SPAN CLASS="svoj">W</SPAN>, которыми являются
-слова, будут сравниваться по их длине, т.е. по числу символов: <BR><BR> 
+<SPAN CLASS="txt_abz">Р Р°СЃСЃРјРѕС‚СЂРёРј </SPAN>РµС‰Рµ РѕРґРёРЅ РїСЂРёРјРµСЂ РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ РЅРµРёР·РјРµРЅСЏРµРјРѕРіРѕ РєР»Р°СЃСЃР°. РЎРѕР·РґР°РґРёРј
+РєР»Р°СЃСЃ <SPAN CLASS="svoj">W</SPAN>, РєРѕС‚РѕСЂС‹Р№ РЅР°СЃР»РµРґСѓРµС‚ РІСЃС‚СЂРѕРµРЅРЅС‹Р№ РЅРµРёР·РјРµРЅСЏРµРјС‹Р№ РєР»Р°СЃСЃ
+<SPAN CLASS="svoj">str</SPAN> Рё РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµС‚ РІ РЅРµРј РѕРїРµСЂР°С†РёРё СЃСЂР°РІРЅРµРЅРёСЏ СЃ РїРѕРјРѕС‰СЊСЋ СЃРїРµС†РёР°Р»СЊРЅС‹С…
+РјРµС‚РѕРґРѕРІ. Р’РјРµСЃС‚Рѕ С‚РѕРіРѕ, С‡С‚РѕР±С‹ СЃСЂР°РІРЅРёРІР°С‚СЊ СЃР»РѕРІР° РјРµР¶РґСѓ СЃРѕР±РѕР№ РїРѕ РІРµР»РёС‡РёРЅРµ РєРѕРґР° РёС… СЃРёРјРІРѕР»РѕРІ, РєР°Рє СЌС‚Рѕ
+РґРµР»Р°РµС‚СЃСЏ РІ СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… СЃС‚СЂРѕРєР°С…, РѕР±СЉРµРєС‚С‹ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">W</SPAN>, РєРѕС‚РѕСЂС‹РјРё СЏРІР»СЏСЋС‚СЃСЏ
+СЃР»РѕРІР°, Р±СѓРґСѓС‚ СЃСЂР°РІРЅРёРІР°С‚СЊСЃСЏ РїРѕ РёС… РґР»РёРЅРµ, С‚.Рµ. РїРѕ С‡РёСЃР»Сѓ СЃРёРјРІРѕР»РѕРІ: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">W</SPAN>
@@ -386,7 +388,7 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">):</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
-'''Сравнение слов по их длине'''</SPAN><BR>
+'''РЎСЂР°РІРЅРµРЅРёРµ СЃР»РѕРІ РїРѕ РёС… РґР»РёРЅРµ'''</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__new__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(cls,word):</SPAN><BR>
@@ -432,9 +434,9 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:black">(self)<</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN> 
 <SPAN STYLE="font-size:7mm; color:black">(other)</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Создадим </SPAN>путем инстанцирования объекты <SPAN CLASS="svoj">a</SPAN>,
-<SPAN CLASS="svoj">b</SPAN> класса <SPAN CLASS="svoj">str</SPAN> и объекты
-<SPAN CLASS="svoj">aw</SPAN>, <SPAN CLASS="svoj">bw</SPAN> класса <SPAN CLASS="svoj">W</SPAN>:
+<SPAN CLASS="txt_abz">РЎРѕР·РґР°РґРёРј </SPAN>РїСѓС‚РµРј РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРёСЏ РѕР±СЉРµРєС‚С‹ <SPAN CLASS="svoj">a</SPAN>,
+<SPAN CLASS="svoj">b</SPAN> РєР»Р°СЃСЃР° <SPAN CLASS="svoj">str</SPAN> Рё РѕР±СЉРµРєС‚С‹
+<SPAN CLASS="svoj">aw</SPAN>, <SPAN CLASS="svoj">bw</SPAN> РєР»Р°СЃСЃР° <SPAN CLASS="svoj">W</SPAN>:
 <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">a=</SPAN>
@@ -450,8 +452,8 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:black">bw=W(</SPAN>
 <SPAN STYLE="font-size:7mm; color:green">'z'</SPAN> 
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN> <BR><BR>
-<SPAN CLASS="txt_abz">и </SPAN> проверим операции сравнения объекта <SPAN CLASS="svoj">a</SPAN> с
-объектом <SPAN CLASS="svoj">b</SPAN> и объекта <SPAN CLASS="svoj">aw</SPAN> с объектом
+<SPAN CLASS="txt_abz">Рё </SPAN> РїСЂРѕРІРµСЂРёРј РѕРїРµСЂР°С†РёРё СЃСЂР°РІРЅРµРЅРёСЏ РѕР±СЉРµРєС‚Р° <SPAN CLASS="svoj">a</SPAN> СЃ
+РѕР±СЉРµРєС‚РѕРј <SPAN CLASS="svoj">b</SPAN> Рё РѕР±СЉРµРєС‚Р° <SPAN CLASS="svoj">aw</SPAN> СЃ РѕР±СЉРµРєС‚РѕРј
 <SPAN CLASS="svoj">bw</SPAN>: <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">a>b</SPAN>  <BR>
@@ -471,15 +473,15 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">aw==bw</SPAN>  <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">False</SPAN>  <BR><BR>
-<SPAN CLASS="txt_abz">Результаты </SPAN> показывают, что сравнение строк
-<SPAN CLASS="svoj">a</SPAN> и <SPAN CLASS="svoj">b</SPAN> осущестляется по величине кода их первых
-символов, а сравнение строк <SPAN CLASS="svoj">aw</SPAN> и <SPAN CLASS="svoj">bw</SPAN> &ndash;
-по их длине. Отметим, что сравнение строк <SPAN CLASS="svoj">aw</SPAN> и
-<SPAN CLASS="svoj">bw</SPAN> на равенство (операция "==") осуществлялось с использованием метода
-<SPAN CLASS="svoj">__eq__ (self,other)</SPAN> базового класса <SPAN CLASS="svoj">str</SPAN>,
-поскольку для класса <SPAN CLASS="svoj">W</SPAN> этот метод не был определен. <BR>
-<SPAN CLASS="txt_abz">Рассмотрим </SPAN> пример наследования класса <SPAN CLASS="svoj">int</SPAN> с
-перегрузкой операции сложения. Для этого создадим класс <SPAN CLASS="svoj">Mod3</SPAN>, который
+<SPAN CLASS="txt_abz">Р РµР·СѓР»СЊС‚Р°С‚С‹ </SPAN> РїРѕРєР°Р·С‹РІР°СЋС‚, С‡С‚Рѕ СЃСЂР°РІРЅРµРЅРёРµ СЃС‚СЂРѕРє
+<SPAN CLASS="svoj">a</SPAN> Рё <SPAN CLASS="svoj">b</SPAN> РѕСЃСѓС‰РµСЃС‚Р»СЏРµС‚СЃСЏ РїРѕ РІРµР»РёС‡РёРЅРµ РєРѕРґР° РёС… РїРµСЂРІС‹С…
+СЃРёРјРІРѕР»РѕРІ, Р° СЃСЂР°РІРЅРµРЅРёРµ СЃС‚СЂРѕРє <SPAN CLASS="svoj">aw</SPAN> Рё <SPAN CLASS="svoj">bw</SPAN> &ndash;
+РїРѕ РёС… РґР»РёРЅРµ. РћС‚РјРµС‚РёРј, С‡С‚Рѕ СЃСЂР°РІРЅРµРЅРёРµ СЃС‚СЂРѕРє <SPAN CLASS="svoj">aw</SPAN> Рё
+<SPAN CLASS="svoj">bw</SPAN> РЅР° СЂР°РІРµРЅСЃС‚РІРѕ (РѕРїРµСЂР°С†РёСЏ "==") РѕСЃСѓС‰РµСЃС‚РІР»СЏР»РѕСЃСЊ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РјРµС‚РѕРґР°
+<SPAN CLASS="svoj">__eq__ (self,other)</SPAN> Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">str</SPAN>,
+РїРѕСЃРєРѕР»СЊРєСѓ РґР»СЏ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">W</SPAN> СЌС‚РѕС‚ РјРµС‚РѕРґ РЅРµ Р±С‹Р» РѕРїСЂРµРґРµР»РµРЅ. <BR>
+<SPAN CLASS="txt_abz">Р Р°СЃСЃРјРѕС‚СЂРёРј </SPAN> РїСЂРёРјРµСЂ РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">int</SPAN> СЃ
+РїРµСЂРµРіСЂСѓР·РєРѕР№ РѕРїРµСЂР°С†РёРё СЃР»РѕР¶РµРЅРёСЏ. Р”Р»СЏ СЌС‚РѕРіРѕ СЃРѕР·РґР°РґРёРј РєР»Р°СЃСЃ <SPAN CLASS="svoj">Mod3</SPAN>, РєРѕС‚РѕСЂС‹Р№
  : <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
@@ -488,7 +490,7 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:#af00af">float</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">):</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
-'''Получение обратной величины'''</SPAN><BR>
+'''РџРѕР»СѓС‡РµРЅРёРµ РѕР±СЂР°С‚РЅРѕР№ РІРµР»РёС‡РёРЅС‹'''</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,arg):</SPAN><BR>
@@ -504,19 +506,19 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 
 
 <A NAME="2.4"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">2.4 Создание пользоваетельских последовательностей</H4>
-<P> В качестве примера создания пользовательской последовательности рассмотрим класс
-<SPAN CLASS="svoj">My_list</SPAN>, функционально близкий к списку, но имеющий ряд методов, которых
-нет в классе <SPAN CLASS="svoj">list</SPAN>, и в то же время не поддерживающий некоторые методы
-списка: <BR><BR> 
+<H4 CLASS="pod">2.4 РЎРѕР·РґР°РЅРёРµ РїРѕР»СЊР·РѕРІР°РµС‚РµР»СЊСЃРєРёС… РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚РµР№</H4>
+<P> Р’ РєР°С‡РµСЃС‚РІРµ РїСЂРёРјРµСЂР° СЃРѕР·РґР°РЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕР№ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё СЂР°СЃСЃРјРѕС‚СЂРёРј РєР»Р°СЃСЃ
+<SPAN CLASS="svoj">My_list</SPAN>, С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕ Р±Р»РёР·РєРёР№ Рє СЃРїРёСЃРєСѓ, РЅРѕ РёРјРµСЋС‰РёР№ СЂСЏРґ РјРµС‚РѕРґРѕРІ, РєРѕС‚РѕСЂС‹С…
+РЅРµС‚ РІ РєР»Р°СЃСЃРµ <SPAN CLASS="svoj">list</SPAN>, Рё РІ С‚Рѕ Р¶Рµ РІСЂРµРјСЏ РЅРµ РїРѕРґРґРµСЂР¶РёРІР°СЋС‰РёР№ РЅРµРєРѕС‚РѕСЂС‹Рµ РјРµС‚РѕРґС‹
+СЃРїРёСЃРєР°: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">My_list</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">
-''' Пользовательский класс, близкий к списку '''</SPAN><BR>
+''' РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ РєР»Р°СЃСЃ, Р±Р»РёР·РєРёР№ Рє СЃРїРёСЃРєСѓ '''</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,values=</SPAN>
@@ -534,34 +536,34 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:blue">__getitem__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,key):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Получить значение по ключу '''</SPAN><BR>
+''' РџРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ РїРѕ РєР»СЋС‡Сѓ '''</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">self.values[key]</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__setitem__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,key,value):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Установить значение по ключу ''' </SPAN><BR>
+''' РЈСЃС‚Р°РЅРѕРІРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ РїРѕ РєР»СЋС‡Сѓ ''' </SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:black">self.values[key]=value</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">first</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Получить значение первого элемента '''</SPAN><BR>
+''' РџРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ РїРµСЂРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р° '''</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">self.values[0]</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">last</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Получить значение последнего элемента '''</SPAN><BR>
+''' РџРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° '''</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">self.values[-1]</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__iter__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Сделать последовательность итерабельной '''</SPAN><BR>
+''' РЎРґРµР»Р°С‚СЊ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РёС‚РµСЂР°Р±РµР»СЊРЅРѕР№ '''</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">iter</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self.values)</SPAN><BR>
@@ -569,7 +571,7 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:blue">__str__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Возвратить строковое представление объекта '''</SPAN><BR>
+''' Р’РѕР·РІСЂР°С‚РёС‚СЊ СЃС‚СЂРѕРєРѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р° '''</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
 <SPAN STYLE="font-size:7mm; color:green">'My_list: '</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">str</SPAN>
@@ -578,7 +580,7 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:blue">__len__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Возвратить длину последовательности '''</SPAN><BR>
+''' Р’РѕР·РІСЂР°С‚РёС‚СЊ РґР»РёРЅСѓ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё '''</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">return</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self.values)</SPAN><BR>
@@ -586,30 +588,30 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:blue">__delitem__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,key):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Удалить элемент '''</SPAN><BR>
+''' РЈРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚ '''</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:#FF8000">del </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">self.values[key]</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">push</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,value):</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:green">
-''' Добавить элемент в конец последовательности'''</SPAN><BR>
+''' Р”РѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚ РІ РєРѕРЅРµС† РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё'''</SPAN><BR>
 <SPAN STYLE="margin-left:5.5cm; font-size:7mm; color:black">self.values[</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self)]=value</SPAN>
-<p> Класс <SPAN CLASS="svoj">My_list</SPAN> обладает следующими функциональными возможностями,
-реализуемых его методами:
+<p> РљР»Р°СЃСЃ <SPAN CLASS="svoj">My_list</SPAN> РѕР±Р»Р°РґР°РµС‚ СЃР»РµРґСѓСЋС‰РёРјРё С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅС‹РјРё РІРѕР·РјРѕР¶РЅРѕСЃС‚СЏРјРё,
+СЂРµР°Р»РёР·СѓРµРјС‹С… РµРіРѕ РјРµС‚РѕРґР°РјРё:
 <UL CLASS="list">                                           
-<LI> осуществлять инстанцирование объектов и их инициализацию с помощью методов __new__() базового
-класса object и __init__(): <BR><BR> 
+<LI> РѕСЃСѓС‰РµСЃС‚РІР»СЏС‚СЊ РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРёРµ РѕР±СЉРµРєС‚РѕРІ Рё РёС… РёРЅРёС†РёР°Р»РёР·Р°С†РёСЋ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґРѕРІ __new__() Р±Р°Р·РѕРІРѕРіРѕ
+РєР»Р°СЃСЃР° object Рё __init__(): <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m1=My_list()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2=My_list([1,2,3,4,5,6,7])</SPAN>;<BR>
-<LI> выводить на экран с помощью метода __str__() строковое представление созданных екземпляров
-класса: <BR><BR> 
+<LI> РІС‹РІРѕРґРёС‚СЊ РЅР° СЌРєСЂР°РЅ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° __str__() СЃС‚СЂРѕРєРѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ СЃРѕР·РґР°РЅРЅС‹С… РµРєР·РµРјРїР»СЏСЂРѕРІ
+РєР»Р°СЃСЃР°: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(m1)</SPAN><BR>
@@ -619,26 +621,26 @@ s2). В первом варианте разговор начинает Серый волк:<BR><BR>
 <SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
 My_list: [1, 2, 3, 4, 5, 6, 7]</SPAN>;<BR>
-<LI> получать значение элемента последовательности с помощью метода __getitem__() по его ключу
-(индексу): <BR><BR> 
+<LI> РїРѕР»СѓС‡Р°С‚СЊ Р·РЅР°С‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° __getitem__() РїРѕ РµРіРѕ РєР»СЋС‡Сѓ
+(РёРЅРґРµРєСЃСѓ): <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2[3]</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">4</SPAN>;<BR>
-<LI> изменять с помощью метода __setitem__() значение элемента последовательности: <BR><BR> 
+<LI> РёР·РјРµРЅСЏС‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° __setitem__() Р·РЅР°С‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2[3]=77</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2[3]</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">77</SPAN>;<BR>
-<LI> получать с помощью метода first() значение первого элемента последовательности: <BR><BR> 
+<LI> РїРѕР»СѓС‡Р°С‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° first() Р·РЅР°С‡РµРЅРёРµ РїРµСЂРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2.first()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN>;<BR>
-<LI> получать с помощью метода last() значение последнего элемента последовательности: <BR><BR> 
+<LI> РїРѕР»СѓС‡Р°С‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° last() Р·РЅР°С‡РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2.lasst()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">7</SPAN>;<BR>
-<LI> добавить с помощью метода push() элемент в конец последовательности: <BR><BR> 
+<LI> РґРѕР±Р°РІРёС‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° push() СЌР»РµРјРµРЅС‚ РІ РєРѕРЅРµС† РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2.push(</SPAN>
 <SPAN STYLE="font-size:7mm; color:green">'A'</SPAN>
@@ -648,13 +650,13 @@ My_list: [1, 2, 3, 4, 5, 6, 7]</SPAN>;<BR>
 <SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
 My_list: [1, 2, 3, 77, 5, 6, 7, 'A']</SPAN>;<BR>
-<LI> определить с помощью метода __len__() число элементов последовательности: <BR><BR> 
+<LI> РѕРїСЂРµРґРµР»РёС‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° __len__() С‡РёСЃР»Рѕ СЌР»РµРјРµРЅС‚РѕРІ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">len</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">8</SPAN>;<BR>
-<LI> сделать с помощью метода __iter__() последовательность итерабельной, что позволяет
-использовать оператор for in: <BR><BR> 
+<LI> СЃРґРµР»Р°С‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° __iter__() РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РёС‚РµСЂР°Р±РµР»СЊРЅРѕР№, С‡С‚Рѕ РїРѕР·РІРѕР»СЏРµС‚
+РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕРїРµСЂР°С‚РѕСЂ for in: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">for </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">i</SPAN>
@@ -666,7 +668,7 @@ My_list: [1, 2, 3, 77, 5, 6, 7, 'A']</SPAN>;<BR>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
 1, 2, 3, 77, 5, 6, 7, A</SPAN>;<BR>
-<LI> удалить с помощью метода  __del__() элемент последовательности: <BR><BR> 
+<LI> СѓРґР°Р»РёС‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР°  __del__() СЌР»РµРјРµРЅС‚ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё: <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">del </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2[5]</SPAN><BR>
@@ -675,8 +677,8 @@ My_list: [1, 2, 3, 77, 5, 6, 7, 'A']</SPAN>;<BR>
 <SPAN STYLE="font-size:7mm; color:black">(m2)</SPAN> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
 My_list: [1, 2, 3, 77, 5, 7, 'A']</SPAN>;<BR>
-<LI> вернуть с помощью метода  __pop__() значение последнего элемента последовательности и удалить
-этот элемент <BR><BR> 
+<LI> РІРµСЂРЅСѓС‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР°  __pop__() Р·РЅР°С‡РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё Рё СѓРґР°Р»РёС‚СЊ
+СЌС‚РѕС‚ СЌР»РµРјРµРЅС‚ <BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2.pop()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'A'</SPAN>;<BR>
@@ -686,36 +688,36 @@ My_list: [1, 2, 3, 77, 5, 7, 'A']</SPAN>;<BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
 My_list: [1, 2, 3, 77, 5, 7]</SPAN>;<BR>
 <A NAME="ind"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H3>Индивидуальные задания</H3>
-<P>Разработать программу на языке Python, в которой необходимо:
+<H3>РРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Рµ Р·Р°РґР°РЅРёСЏ</H3>
+<P>Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ РїСЂРѕРіСЂР°РјРјСѓ РЅР° СЏР·С‹РєРµ Python, РІ РєРѕС‚РѕСЂРѕР№ РЅРµРѕР±С…РѕРґРёРјРѕ:
 <UL CLASS="list">                                           
-<LI> 1. создать класс, наследующий родительский (базовый) класс, в качестве которого использовать
-класс, разработанный в лаб. раб. №11 (этот класс описывает поведение персонажей). При этом
-наследуемый класс должен иметь:
+<LI> 1. СЃРѕР·РґР°С‚СЊ РєР»Р°СЃСЃ, РЅР°СЃР»РµРґСѓСЋС‰РёР№ СЂРѕРґРёС‚РµР»СЊСЃРєРёР№ (Р±Р°Р·РѕРІС‹Р№) РєР»Р°СЃСЃ, РІ РєР°С‡РµСЃС‚РІРµ РєРѕС‚РѕСЂРѕРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
+РєР»Р°СЃСЃ, СЂР°Р·СЂР°Р±РѕС‚Р°РЅРЅС‹Р№ РІ Р»Р°Р±. СЂР°Р±. в„–11 (СЌС‚РѕС‚ РєР»Р°СЃСЃ РѕРїРёСЃС‹РІР°РµС‚ РїРѕРІРµРґРµРЅРёРµ РїРµСЂСЃРѕРЅР°Р¶РµР№). РџСЂРё СЌС‚РѕРј
+РЅР°СЃР»РµРґСѓРµРјС‹Р№ РєР»Р°СЃСЃ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ:
 <UL CLASS="list2"> 
-<LI> расширенный (по отношению к родительскому классу) конструктор (метод  __init__());
-<LI> перегружаемый метод;
-<LI> новый метод (или методы);
+<LI> СЂР°СЃС€РёСЂРµРЅРЅС‹Р№ (РїРѕ РѕС‚РЅРѕС€РµРЅРёСЋ Рє СЂРѕРґРёС‚РµР»СЊСЃРєРѕРјСѓ РєР»Р°СЃСЃСѓ) РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ (РјРµС‚РѕРґ  __init__());
+<LI> РїРµСЂРµРіСЂСѓР¶Р°РµРјС‹Р№ РјРµС‚РѕРґ;
+<LI> РЅРѕРІС‹Р№ РјРµС‚РѕРґ (РёР»Рё РјРµС‚РѕРґС‹);
 </UL> 
-<LI> 2. создать второй класс (по усмотрению студента);
-<LI> 3. создать третий класс путем множественного наследования первого и второго классов (этот
-класс должен содержать методы как первого, так и второго классов); 
-<LI> 4. создать класс, который наследует неизменяемый класс float и с помощью специального метода
-__new__() преобразует значения длины и веса, заданные в одной системе единиц измерения, в другую
-согласно колонке "Преобразовать" табл. 1:
+<LI> 2. СЃРѕР·РґР°С‚СЊ РІС‚РѕСЂРѕР№ РєР»Р°СЃСЃ (РїРѕ СѓСЃРјРѕС‚СЂРµРЅРёСЋ СЃС‚СѓРґРµРЅС‚Р°);
+<LI> 3. СЃРѕР·РґР°С‚СЊ С‚СЂРµС‚РёР№ РєР»Р°СЃСЃ РїСѓС‚РµРј РјРЅРѕР¶РµСЃС‚РІРµРЅРЅРѕРіРѕ РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ РїРµСЂРІРѕРіРѕ Рё РІС‚РѕСЂРѕРіРѕ РєР»Р°СЃСЃРѕРІ (СЌС‚РѕС‚
+РєР»Р°СЃСЃ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РјРµС‚РѕРґС‹ РєР°Рє РїРµСЂРІРѕРіРѕ, С‚Р°Рє Рё РІС‚РѕСЂРѕРіРѕ РєР»Р°СЃСЃРѕРІ); 
+<LI> 4. СЃРѕР·РґР°С‚СЊ РєР»Р°СЃСЃ, РєРѕС‚РѕСЂС‹Р№ РЅР°СЃР»РµРґСѓРµС‚ РЅРµРёР·РјРµРЅСЏРµРјС‹Р№ РєР»Р°СЃСЃ float Рё СЃ РїРѕРјРѕС‰СЊСЋ СЃРїРµС†РёР°Р»СЊРЅРѕРіРѕ РјРµС‚РѕРґР°
+__new__() РїСЂРµРѕР±СЂР°Р·СѓРµС‚ Р·РЅР°С‡РµРЅРёСЏ РґР»РёРЅС‹ Рё РІРµСЃР°, Р·Р°РґР°РЅРЅС‹Рµ РІ РѕРґРЅРѕР№ СЃРёСЃС‚РµРјРµ РµРґРёРЅРёС† РёР·РјРµСЂРµРЅРёСЏ, РІ РґСЂСѓРіСѓСЋ
+СЃРѕРіР»Р°СЃРЅРѕ РєРѕР»РѕРЅРєРµ "РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ" С‚Р°Р±Р». 1:
 <UL CLASS="list2"> 
-<LI> 1 &ndash; из дюймов в миллиметры;
-<LI> 2 &ndash; из сатниметров в дюймы;
-<LI> 3 &ndash; из футов в метры;
-<LI> 4 &ndash; из метров в футы;
-<LI> 5 &ndash; из фунтов в килограммы;
-<LI> 6 &ndash; из граммов в караты;
-<LI> 7 &ndash; из килограммов в унции; 
+<LI> 1 &ndash; РёР· РґСЋР№РјРѕРІ РІ РјРёР»Р»РёРјРµС‚СЂС‹;
+<LI> 2 &ndash; РёР· СЃР°С‚РЅРёРјРµС‚СЂРѕРІ РІ РґСЋР№РјС‹;
+<LI> 3 &ndash; РёР· С„СѓС‚РѕРІ РІ РјРµС‚СЂС‹;
+<LI> 4 &ndash; РёР· РјРµС‚СЂРѕРІ РІ С„СѓС‚С‹;
+<LI> 5 &ndash; РёР· С„СѓРЅС‚РѕРІ РІ РєРёР»РѕРіСЂР°РјРјС‹;
+<LI> 6 &ndash; РёР· РіСЂР°РјРјРѕРІ РІ РєР°СЂР°С‚С‹;
+<LI> 7 &ndash; РёР· РєРёР»РѕРіСЂР°РјРјРѕРІ РІ СѓРЅС†РёРё; 
 </UL>
-<LI> 5. создать класс в виде последовательности, который должен иметь методы, номера которых
-указаны в колонке "Методы" табл. 1:
+<LI> 5. СЃРѕР·РґР°С‚СЊ РєР»Р°СЃСЃ РІ РІРёРґРµ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё, РєРѕС‚РѕСЂС‹Р№ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РјРµС‚РѕРґС‹, РЅРѕРјРµСЂР° РєРѕС‚РѕСЂС‹С…
+СѓРєР°Р·Р°РЅС‹ РІ РєРѕР»РѕРЅРєРµ "РњРµС‚РѕРґС‹" С‚Р°Р±Р». 1:
 <UL CLASS="list2"> 
 <LI> 1 &ndash; __init__(); 
 <LI> 2 &ndash; __getitem__();
@@ -730,8 +732,8 @@ __new__() преобразует значения длины и веса, заданные в одной системе единиц изм
 </UL>
 </UL>
 <P><TABLE ALIGN=center WIDTH="50%" border cellspacing="0">
-<CAPTION ALIGN="top"><p class="ba">Таблица 1 &ndash; Перечень индивидуальных заданий</CAPTION>
-<TR><TH>Номер<BR>п/п<TH>Преобразование<TH>Методы
+<CAPTION ALIGN="top"><p class="ba">РўР°Р±Р»РёС†Р° 1 &ndash; РџРµСЂРµС‡РµРЅСЊ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹С… Р·Р°РґР°РЅРёР№</CAPTION>
+<TR><TH>РќРѕРјРµСЂ<BR>Рї/Рї<TH>РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ<TH>РњРµС‚РѕРґС‹
 <TR ALIGN=center><TD>1<TD>1<TD>1,2,3,4,6,7
 <TR ALIGN=center><TD>2<TD>2<TD>1,2,3,5,7,8
 <TR ALIGN=center><TD>3<TD>3<TD>1,2,3,6,8,9
@@ -753,4 +755,4 @@ __new__() преобразует значения длины и веса, заданные в одной системе единиц изм
 <TR ALIGN=center><TD>19<TD>5<TD>1,2,3,8,9,10
 <TR ALIGN=center><TD>20<TD>6<TD>1,2,4,5,7,10
 </table>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>

@@ -1,143 +1,145 @@
-<HTML>
+<!doctype html>
+<HTML lang="ru">                                     
 <HEAD>
-<TITLE>Лабораторная работа 11: Создание пользовательских классов</TITLE>
+<meta charset="utf-8">
+<TITLE>Р›Р°Р±РѕСЂР°С‚РѕСЂРЅР°СЏ СЂР°Р±РѕС‚Р° 11: РЎРѕР·РґР°РЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… РєР»Р°СЃСЃРѕРІ</TITLE>
 <LINK REL=STYLESHEET TYPE="text/css" HREF="../heads.css">                               
 <STYLE>TH,TD{font-size:5.5mm;border:1 double blue}</STYLE>
 </HEAD>
 <BODY>
-<H1> ЛАБОРАТОРНАЯ РАБОТА №11</H1>
-<H2> <SPAN CLASS="beg">Тема: </SPAN>Создание пользовательских классов</H2>
-<H2> <SPAN CLASS="beg">Цель: </SPAN>
-Рассмотрение способов создания классов, объектов и их использования </H2>
+<H1> Р›РђР‘РћР РђРўРћР РќРђРЇ Р РђР‘РћРўРђ в„–11</H1>
+<H2> <SPAN CLASS="beg">РўРµРјР°: </SPAN>РЎРѕР·РґР°РЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… РєР»Р°СЃСЃРѕРІ</H2>
+<H2> <SPAN CLASS="beg">Р¦РµР»СЊ: </SPAN>
+Р Р°СЃСЃРјРѕС‚СЂРµРЅРёРµ СЃРїРѕСЃРѕР±РѕРІ СЃРѕР·РґР°РЅРёСЏ РєР»Р°СЃСЃРѕРІ, РѕР±СЉРµРєС‚РѕРІ Рё РёС… РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ </H2>
 <A id="beg"></A>
-<H3>ОГЛАВЛЕНИЕ</H3> 
-<A CLASS="com" HREF="#1">1 Создание пользовательского класса<BR>
-<A CLASS="com" HREF="#1">1.1 Объявление класса <BR>
-<A CLASS="com" HREF="#1.2">1.2 Создание объектов &ndash; экземпляров класса<BR>
-<A CLASS="com" HREF="#2">2 Использование атрибутов и методов при объявлении класса<BR>
-<A CLASS="com" HREF="#2">2.1 Использование специальных методов при объявлении класса<BR>
-<A CLASS="com" HREF="#2.2">2.2 Применение атрибутов класса и статических методов<BR>
-<A CLASS="com" HREF="#2.3">2.3 Использование закрытых атрибутов и методов<BR>
-<A CLASS="com" HREF="#2.4">2.4 Управление атрибутами<BR>
-<A CLASS="com" HREF="#ind">Индивидуальные задания<BR>
+<H3>РћР“Р›РђР’Р›Р•РќРР•</H3> 
+<A CLASS="com" HREF="#1">1 РЎРѕР·РґР°РЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР°<BR>
+<A CLASS="com" HREF="#1">1.1 РћР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃР° <BR>
+<A CLASS="com" HREF="#1.2">1.2 РЎРѕР·РґР°РЅРёРµ РѕР±СЉРµРєС‚РѕРІ &ndash; СЌРєР·РµРјРїР»СЏСЂРѕРІ РєР»Р°СЃСЃР°<BR>
+<A CLASS="com" HREF="#2">2 РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ Р°С‚СЂРёР±СѓС‚РѕРІ Рё РјРµС‚РѕРґРѕРІ РїСЂРё РѕР±СЉСЏРІР»РµРЅРёРё РєР»Р°СЃСЃР°<BR>
+<A CLASS="com" HREF="#2">2.1 РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅС‹С… РјРµС‚РѕРґРѕРІ РїСЂРё РѕР±СЉСЏРІР»РµРЅРёРё РєР»Р°СЃСЃР°<BR>
+<A CLASS="com" HREF="#2.2">2.2 РџСЂРёРјРµРЅРµРЅРёРµ Р°С‚СЂРёР±СѓС‚РѕРІ РєР»Р°СЃСЃР° Рё СЃС‚Р°С‚РёС‡РµСЃРєРёС… РјРµС‚РѕРґРѕРІ<BR>
+<A CLASS="com" HREF="#2.3">2.3 РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ Р·Р°РєСЂС‹С‚С‹С… Р°С‚СЂРёР±СѓС‚РѕРІ Рё РјРµС‚РѕРґРѕРІ<BR>
+<A CLASS="com" HREF="#2.4">2.4 РЈРїСЂР°РІР»РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р°РјРё<BR>
+<A CLASS="com" HREF="#ind">РРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Рµ Р·Р°РґР°РЅРёСЏ<BR>
 <A NAME="1"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4>1 Создание пользовательского класса</H4>
-<p> Классы в языке Python &ndash; это объекты первого рода, т.е. их можно создавать в процессе
-выполнения программы, сохранять в переменной, передавать в качестве аргументов функций, возвращать
-как результат из функций и др. 
+<H4>1 РЎРѕР·РґР°РЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР°</H4>
+<p> РљР»Р°СЃСЃС‹ РІ СЏР·С‹РєРµ Python &ndash; СЌС‚Рѕ РѕР±СЉРµРєС‚С‹ РїРµСЂРІРѕРіРѕ СЂРѕРґР°, С‚.Рµ. РёС… РјРѕР¶РЅРѕ СЃРѕР·РґР°РІР°С‚СЊ РІ РїСЂРѕС†РµСЃСЃРµ
+РІС‹РїРѕР»РЅРµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹, СЃРѕС…СЂР°РЅСЏС‚СЊ РІ РїРµСЂРµРјРµРЅРЅРѕР№, РїРµСЂРµРґР°РІР°С‚СЊ РІ РєР°С‡РµСЃС‚РІРµ Р°СЂРіСѓРјРµРЅС‚РѕРІ С„СѓРЅРєС†РёР№, РІРѕР·РІСЂР°С‰Р°С‚СЊ
+РєР°Рє СЂРµР·СѓР»СЊС‚Р°С‚ РёР· С„СѓРЅРєС†РёР№ Рё РґСЂ. 
 <A id="1.1"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">1.1 Объявление класса</H4>
-<P>Объявление класса осуществляется с помощью оператора <SPAN CLASS="svoj">class</SPAN>, в первой
-строке которого (заголовке) указываеся служебное слово <SPAN CLASS="svoj">class</SPAN>, за которым
-следует имя класса. По соглашению имена классов должны начинаться с заглавной буквы. В скобках
-указывается базовый класс (его называют также родительским классом или надклассом (англ. 
-superclass)) &ndash; это может быть имя одного из ранее созданных классов или встроенный тип самого
-верхнего уровня <SPAN CLASS="svoj"> &ndash; object</SPAN>. Отметим, что если базовым классом
-является <SPAN CLASS="svoj">object</SPAN>, его можно не указывать. В этом случае скобки не нужны.
-Заголовок заканчивается двоеточием. Например,<BR><BR>      
+<H4 CLASS="pod">1.1 РћР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃР°</H4>
+<P>РћР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃР° РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ СЃ РїРѕРјРѕС‰СЊСЋ РѕРїРµСЂР°С‚РѕСЂР° <SPAN CLASS="svoj">class</SPAN>, РІ РїРµСЂРІРѕР№
+СЃС‚СЂРѕРєРµ РєРѕС‚РѕСЂРѕРіРѕ (Р·Р°РіРѕР»РѕРІРєРµ) СѓРєР°Р·С‹РІР°РµСЃСЏ СЃР»СѓР¶РµР±РЅРѕРµ СЃР»РѕРІРѕ <SPAN CLASS="svoj">class</SPAN>, Р·Р° РєРѕС‚РѕСЂС‹Рј
+СЃР»РµРґСѓРµС‚ РёРјСЏ РєР»Р°СЃСЃР°. РџРѕ СЃРѕРіР»Р°С€РµРЅРёСЋ РёРјРµРЅР° РєР»Р°СЃСЃРѕРІ РґРѕР»Р¶РЅС‹ РЅР°С‡РёРЅР°С‚СЊСЃСЏ СЃ Р·Р°РіР»Р°РІРЅРѕР№ Р±СѓРєРІС‹. Р’ СЃРєРѕР±РєР°С…
+СѓРєР°Р·С‹РІР°РµС‚СЃСЏ Р±Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ (РµРіРѕ РЅР°Р·С‹РІР°СЋС‚ С‚Р°РєР¶Рµ СЂРѕРґРёС‚РµР»СЊСЃРєРёРј РєР»Р°СЃСЃРѕРј РёР»Рё РЅР°РґРєР»Р°СЃСЃРѕРј (Р°РЅРіР». 
+superclass)) &ndash; СЌС‚Рѕ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёРјСЏ РѕРґРЅРѕРіРѕ РёР· СЂР°РЅРµРµ СЃРѕР·РґР°РЅРЅС‹С… РєР»Р°СЃСЃРѕРІ РёР»Рё РІСЃС‚СЂРѕРµРЅРЅС‹Р№ С‚РёРї СЃР°РјРѕРіРѕ
+РІРµСЂС…РЅРµРіРѕ СѓСЂРѕРІРЅСЏ <SPAN CLASS="svoj"> &ndash; object</SPAN>. РћС‚РјРµС‚РёРј, С‡С‚Рѕ РµСЃР»Рё Р±Р°Р·РѕРІС‹Рј РєР»Р°СЃСЃРѕРј
+СЏРІР»СЏРµС‚СЃСЏ <SPAN CLASS="svoj">object</SPAN>, РµРіРѕ РјРѕР¶РЅРѕ РЅРµ СѓРєР°Р·С‹РІР°С‚СЊ. Р’ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ СЃРєРѕР±РєРё РЅРµ РЅСѓР¶РЅС‹.
+Р—Р°РіРѕР»РѕРІРѕРє Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ РґРІРѕРµС‚РѕС‡РёРµРј. РќР°РїСЂРёРјРµСЂ,<BR><BR>      
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">My_class</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">object</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN>:<BR>
-<P CLASS="ba">или<BR><BR>
+<P CLASS="ba">РёР»Рё<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">My_class</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Класс </SPAN>может состоять только из заголовка. Но поскольку синтаксис
-требует, чтобы после заголовка класса следовало описание класса, необходимо указать вместо него
-оператор <SPAN CLASS="svoj">pass</SPAN>, который ничего не делает, но показывает наличие описания:
+<SPAN CLASS="txt_abz">РљР»Р°СЃСЃ </SPAN>РјРѕР¶РµС‚ СЃРѕСЃС‚РѕСЏС‚СЊ С‚РѕР»СЊРєРѕ РёР· Р·Р°РіРѕР»РѕРІРєР°. РќРѕ РїРѕСЃРєРѕР»СЊРєСѓ СЃРёРЅС‚Р°РєСЃРёСЃ
+С‚СЂРµР±СѓРµС‚, С‡С‚РѕР±С‹ РїРѕСЃР»Рµ Р·Р°РіРѕР»РѕРІРєР° РєР»Р°СЃСЃР° СЃР»РµРґРѕРІР°Р»Рѕ РѕРїРёСЃР°РЅРёРµ РєР»Р°СЃСЃР°, РЅРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·Р°С‚СЊ РІРјРµСЃС‚Рѕ РЅРµРіРѕ
+РѕРїРµСЂР°С‚РѕСЂ <SPAN CLASS="svoj">pass</SPAN>, РєРѕС‚РѕСЂС‹Р№ РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°РµС‚, РЅРѕ РїРѕРєР°Р·С‹РІР°РµС‚ РЅР°Р»РёС‡РёРµ РѕРїРёСЃР°РЅРёСЏ:
 <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">Min_class</SPAN>:<BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#ff8000">pass</SPAN><BR>
-<P CLASS="ba">или<BR><BR>
+<P CLASS="ba">РёР»Рё<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">My_class</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">:</SPAN>
 <SPAN STYLE="font-size:7mm; color:#ff8000">pass</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">При </SPAN>описании класса второй строкой может быть строка, взятая в
-тройные кавычки, которая документирует класс (см. использование строки документирования при
-объявлении функции в <A HREF="../LAB6/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №6).
-Обычно в этой строке указывается назначение класса, например:<BR><BR>
-<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:green">'''Пример простого класса'''</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Классы </SPAN>могут иметь атрибуты, которые делятся на атрибуты-переменные и
-атрибуты-методы. Атрибуты-переменные указываются с помощью оператора присваивания и являются
-ссылками на объекты, значеения которых им было присвоено.<BR> 
-<SPAN CLASS="txt_abz">Форма </SPAN>описания атрибутов-методов класса совпадает с описанием функций
-(см. <A HREF="../LAB6/lab.htm#1.1">подраздел 1.1</A> лаб. раб. №6), но первым аргументом
-каждого метода (за исключением статичестких методов (см. <A HREF="#2.2">подраздел 2.2</A>) должно
-быть слово <SPAN CLASS="svoj">self</SPAN>, которое возвращает ссылку на объект, вызывающий данный
-метод. Можно отметить, что <SPAN CLASS="svoj">self</SPAN> в языке Python не является ключевым
-словом и используется по соглашению. <BR> 
-<SPAN CLASS="txt_abz">Добавив </SPAN>в класс <SPAN CLASS="svoj">My_class</SPAN> описания
-атрибута-переменной <SPAN CLASS="svoj">a</SPAN> и атрибута-метода <SPAN CLASS="svoj">f()</SPAN>,
-получим следующее объявление класса:<BR><BR>
+<SPAN CLASS="txt_abz">РџСЂРё </SPAN>РѕРїРёСЃР°РЅРёРё РєР»Р°СЃСЃР° РІС‚РѕСЂРѕР№ СЃС‚СЂРѕРєРѕР№ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃС‚СЂРѕРєР°, РІР·СЏС‚Р°СЏ РІ
+С‚СЂРѕР№РЅС‹Рµ РєР°РІС‹С‡РєРё, РєРѕС‚РѕСЂР°СЏ РґРѕРєСѓРјРµРЅС‚РёСЂСѓРµС‚ РєР»Р°СЃСЃ (СЃРј. РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё РґРѕРєСѓРјРµРЅС‚РёСЂРѕРІР°РЅРёСЏ РїСЂРё
+РѕР±СЉСЏРІР»РµРЅРёРё С„СѓРЅРєС†РёРё РІ <A HREF="../LAB6/lab.htm#1.1">РїРѕРґСЂР°Р·РґРµР» 1.1</A> Р»Р°Р±. СЂР°Р±. в„–6).
+РћР±С‹С‡РЅРѕ РІ СЌС‚РѕР№ СЃС‚СЂРѕРєРµ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ РЅР°Р·РЅР°С‡РµРЅРёРµ РєР»Р°СЃСЃР°, РЅР°РїСЂРёРјРµСЂ:<BR><BR>
+<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:green">'''РџСЂРёРјРµСЂ РїСЂРѕСЃС‚РѕРіРѕ РєР»Р°СЃСЃР°'''</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РљР»Р°СЃСЃС‹ </SPAN>РјРѕРіСѓС‚ РёРјРµС‚СЊ Р°С‚СЂРёР±СѓС‚С‹, РєРѕС‚РѕСЂС‹Рµ РґРµР»СЏС‚СЃСЏ РЅР° Р°С‚СЂРёР±СѓС‚С‹-РїРµСЂРµРјРµРЅРЅС‹Рµ Рё
+Р°С‚СЂРёР±СѓС‚С‹-РјРµС‚РѕРґС‹. РђС‚СЂРёР±СѓС‚С‹-РїРµСЂРµРјРµРЅРЅС‹Рµ СѓРєР°Р·С‹РІР°СЋС‚СЃСЏ СЃ РїРѕРјРѕС‰СЊСЋ РѕРїРµСЂР°С‚РѕСЂР° РїСЂРёСЃРІР°РёРІР°РЅРёСЏ Рё СЏРІР»СЏСЋС‚СЃСЏ
+СЃСЃС‹Р»РєР°РјРё РЅР° РѕР±СЉРµРєС‚С‹, Р·РЅР°С‡РµРµРЅРёСЏ РєРѕС‚РѕСЂС‹С… РёРј Р±С‹Р»Рѕ РїСЂРёСЃРІРѕРµРЅРѕ.<BR> 
+<SPAN CLASS="txt_abz">Р¤РѕСЂРјР° </SPAN>РѕРїРёСЃР°РЅРёСЏ Р°С‚СЂРёР±СѓС‚РѕРІ-РјРµС‚РѕРґРѕРІ РєР»Р°СЃСЃР° СЃРѕРІРїР°РґР°РµС‚ СЃ РѕРїРёСЃР°РЅРёРµРј С„СѓРЅРєС†РёР№
+(СЃРј. <A HREF="../LAB6/lab.htm#1.1">РїРѕРґСЂР°Р·РґРµР» 1.1</A> Р»Р°Р±. СЂР°Р±. в„–6), РЅРѕ РїРµСЂРІС‹Рј Р°СЂРіСѓРјРµРЅС‚РѕРј
+РєР°Р¶РґРѕРіРѕ РјРµС‚РѕРґР° (Р·Р° РёСЃРєР»СЋС‡РµРЅРёРµРј СЃС‚Р°С‚РёС‡РµСЃС‚РєРёС… РјРµС‚РѕРґРѕРІ (СЃРј. <A HREF="#2.2">РїРѕРґСЂР°Р·РґРµР» 2.2</A>) РґРѕР»Р¶РЅРѕ
+Р±С‹С‚СЊ СЃР»РѕРІРѕ <SPAN CLASS="svoj">self</SPAN>, РєРѕС‚РѕСЂРѕРµ РІРѕР·РІСЂР°С‰Р°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° РѕР±СЉРµРєС‚, РІС‹Р·С‹РІР°СЋС‰РёР№ РґР°РЅРЅС‹Р№
+РјРµС‚РѕРґ. РњРѕР¶РЅРѕ РѕС‚РјРµС‚РёС‚СЊ, С‡С‚Рѕ <SPAN CLASS="svoj">self</SPAN> РІ СЏР·С‹РєРµ Python РЅРµ СЏРІР»СЏРµС‚СЃСЏ РєР»СЋС‡РµРІС‹Рј
+СЃР»РѕРІРѕРј Рё РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїРѕ СЃРѕРіР»Р°С€РµРЅРёСЋ. <BR> 
+<SPAN CLASS="txt_abz">Р”РѕР±Р°РІРёРІ </SPAN>РІ РєР»Р°СЃСЃ <SPAN CLASS="svoj">My_class</SPAN> РѕРїРёСЃР°РЅРёСЏ
+Р°С‚СЂРёР±СѓС‚Р°-РїРµСЂРµРјРµРЅРЅРѕР№ <SPAN CLASS="svoj">a</SPAN> Рё Р°С‚СЂРёР±СѓС‚Р°-РјРµС‚РѕРґР° <SPAN CLASS="svoj">f()</SPAN>,
+РїРѕР»СѓС‡РёРј СЃР»РµРґСѓСЋС‰РµРµ РѕР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃР°:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">My_class</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
-<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:green">'''Пример простого класса'''</SPAN><BR>
+<SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:green">'''РџСЂРёРјРµСЂ РїСЂРѕСЃС‚РѕРіРѕ РєР»Р°СЃСЃР°'''</SPAN><BR>
 <SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:black">a=25</SPAN><BR>
 <SPAN STYLE="margin-left:3.8cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">f</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:5.0cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">"Привет всем!"</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">"РџСЂРёРІРµС‚ РІСЃРµРј!"</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">При </SPAN>создании класса формируется его пространство имен, которое
-состоит из имен его атрибутов.<BR>
-<SPAN CLASS="txt_abz">В </SPAN>языке Python класс является объектом класса
+<SPAN CLASS="txt_abz">РџСЂРё </SPAN>СЃРѕР·РґР°РЅРёРё РєР»Р°СЃСЃР° С„РѕСЂРјРёСЂСѓРµС‚СЃСЏ РµРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ, РєРѕС‚РѕСЂРѕРµ
+СЃРѕСЃС‚РѕРёС‚ РёР· РёРјРµРЅ РµРіРѕ Р°С‚СЂРёР±СѓС‚РѕРІ.<BR>
+<SPAN CLASS="txt_abz">Р’ </SPAN>СЏР·С‹РєРµ Python РєР»Р°СЃСЃ СЏРІР»СЏРµС‚СЃСЏ РѕР±СЉРµРєС‚РѕРј РєР»Р°СЃСЃР°
 <SPAN CLASS="svoj">type</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">type</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(My_class)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">&lt;class 'type'></SPAN>,
-<p class 'ba'>который поддерживает два вида операций:
+<p class 'ba'>РєРѕС‚РѕСЂС‹Р№ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РґРІР° РІРёРґР° РѕРїРµСЂР°С†РёР№:
 <UL CLASS="list">   
-<LI> доступ к своим атрибутам;
-<LI> инстанцирование (англ. instantiation), т.е. создание экземпляров класса (англ. instances).
+<LI> РґРѕСЃС‚СѓРї Рє СЃРІРѕРёРј Р°С‚СЂРёР±СѓС‚Р°Рј;
+<LI> РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРёРµ (Р°РЅРіР». instantiation), С‚.Рµ. СЃРѕР·РґР°РЅРёРµ СЌРєР·РµРјРїР»СЏСЂРѕРІ РєР»Р°СЃСЃР° (Р°РЅРіР». instances).
 </UL>
-<P>Для доступа к атрибутам класса используется обычный для объекта синтаксис с использованием
-оператора точки &ndash; <SPAN CLASS="svoj">Obj.name</SPAN></SPAN></SPAN>, где:
-</SPAN><SPAN CLASS="svoj">Obj</SPAN> &ndash; имя объекта, <SPAN CLASS="svoj">name</SPAN> &ndash;
-имя атрибута объекта. Например, получить значение атрибута-переменной <SPAN CLASS="svoj">a</SPAN>
-класса <SPAN CLASS="svoj">My_class</SPAN> можно следующим образом:<BR><BR>
+<P>Р”Р»СЏ РґРѕСЃС‚СѓРїР° Рє Р°С‚СЂРёР±СѓС‚Р°Рј РєР»Р°СЃСЃР° РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РѕР±С‹С‡РЅС‹Р№ РґР»СЏ РѕР±СЉРµРєС‚Р° СЃРёРЅС‚Р°РєСЃРёСЃ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј
+РѕРїРµСЂР°С‚РѕСЂР° С‚РѕС‡РєРё &ndash; <SPAN CLASS="svoj">Obj.name</SPAN></SPAN></SPAN>, РіРґРµ:
+</SPAN><SPAN CLASS="svoj">Obj</SPAN> &ndash; РёРјСЏ РѕР±СЉРµРєС‚Р°, <SPAN CLASS="svoj">name</SPAN> &ndash;
+РёРјСЏ Р°С‚СЂРёР±СѓС‚Р° РѕР±СЉРµРєС‚Р°. РќР°РїСЂРёРјРµСЂ, РїРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р°-РїРµСЂРµРјРµРЅРЅРѕР№ <SPAN CLASS="svoj">a</SPAN>
+РєР»Р°СЃСЃР° <SPAN CLASS="svoj">My_class</SPAN> РјРѕР¶РЅРѕ СЃР»РµРґСѓСЋС‰РёРј РѕР±СЂР°Р·РѕРј:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> My_class.a</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">25</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Если </SPAN>попытаться вызвать атрибут-метод <SPAN CLASS="svoj">f()</SPAN>
-класса <SPAN CLASS="svoj">My_class</SPAN>, то это вызовет ошибку:<BR><BR>
+<SPAN CLASS="txt_abz">Р•СЃР»Рё </SPAN>РїРѕРїС‹С‚Р°С‚СЊСЃСЏ РІС‹Р·РІР°С‚СЊ Р°С‚СЂРёР±СѓС‚-РјРµС‚РѕРґ <SPAN CLASS="svoj">f()</SPAN>
+РєР»Р°СЃСЃР° <SPAN CLASS="svoj">My_class</SPAN>, С‚Рѕ СЌС‚Рѕ РІС‹Р·РѕРІРµС‚ РѕС€РёР±РєСѓ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> My_class.f()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
 TypeError: f() missing 1 required positional argument: 'self'</SPAN>,<BR>
-<P CLASS="ba">потому, что так вызывать можно только статические методы классов
-(см. <A HREF="#2.2">подраздел 2.2</A>), а методы, в которых указан параметр
-<SPAN CLASS="svoj">self</SPAN>, могут вызывать только объекты &ndash; экземпляры класса. <BR>
-<SPAN CLASS="txt_abz">Каждый </SPAN>класс имеет преопределенные атрибуты (см. табл. 1).
+<P CLASS="ba">РїРѕС‚РѕРјСѓ, С‡С‚Рѕ С‚Р°Рє РІС‹Р·С‹РІР°С‚СЊ РјРѕР¶РЅРѕ С‚РѕР»СЊРєРѕ СЃС‚Р°С‚РёС‡РµСЃРєРёРµ РјРµС‚РѕРґС‹ РєР»Р°СЃСЃРѕРІ
+(СЃРј. <A HREF="#2.2">РїРѕРґСЂР°Р·РґРµР» 2.2</A>), Р° РјРµС‚РѕРґС‹, РІ РєРѕС‚РѕСЂС‹С… СѓРєР°Р·Р°РЅ РїР°СЂР°РјРµС‚СЂ
+<SPAN CLASS="svoj">self</SPAN>, РјРѕРіСѓС‚ РІС‹Р·С‹РІР°С‚СЊ С‚РѕР»СЊРєРѕ РѕР±СЉРµРєС‚С‹ &ndash; СЌРєР·РµРјРїР»СЏСЂС‹ РєР»Р°СЃСЃР°. <BR>
+<SPAN CLASS="txt_abz">РљР°Р¶РґС‹Р№ </SPAN>РєР»Р°СЃСЃ РёРјРµРµС‚ РїСЂРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ (СЃРј. С‚Р°Р±Р». 1).
 <table align="center" width="80%" border cellspacing="0">
-<CAPTION ALIGN="top"><p class="ba">Таблица 1 &ndash; Преопределенные атрибуты класса</CAPTION>
-<TR><TH>Атрибут<TH>Тип<TH>Доступ<SUP>(1)</SUP><TH>Описание
-<TR><TD>__dict__<TD>словарь<TD ALIGN=center>R/W<TD>пространство имен класса
-<TR><TD>__name__<TD>строка<TD ALIGN=center>R<TD>имя класса
-<TR><TD>__qualname__<TD>строка<TD ALIGN=center>R<TD>полное имя класса или функции
-<TR><TD>__bases__<TD>кортеж классов<TD ALIGN=center>R<TD>классы, от которых наследуется данный
-класс
-<TR><TD>__doc__<TD>строка или None<TD ALIGN=center>R/W<TD>строка документации класса
-<TR><TD>__module__<TD>строка<TD ALIGN=center>R/W<TD>имя модуля, в котором данный класс был определен
+<CAPTION ALIGN="top"><p class="ba">РўР°Р±Р»РёС†Р° 1 &ndash; РџСЂРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ РєР»Р°СЃСЃР°</CAPTION>
+<TR><TH>РђС‚СЂРёР±СѓС‚<TH>РўРёРї<TH>Р”РѕСЃС‚СѓРї<SUP>(1)</SUP><TH>РћРїРёСЃР°РЅРёРµ
+<TR><TD>__dict__<TD>СЃР»РѕРІР°СЂСЊ<TD ALIGN=center>R/W<TD>РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ РєР»Р°СЃСЃР°
+<TR><TD>__name__<TD>СЃС‚СЂРѕРєР°<TD ALIGN=center>R<TD>РёРјСЏ РєР»Р°СЃСЃР°
+<TR><TD>__qualname__<TD>СЃС‚СЂРѕРєР°<TD ALIGN=center>R<TD>РїРѕР»РЅРѕРµ РёРјСЏ РєР»Р°СЃСЃР° РёР»Рё С„СѓРЅРєС†РёРё
+<TR><TD>__bases__<TD>РєРѕСЂС‚РµР¶ РєР»Р°СЃСЃРѕРІ<TD ALIGN=center>R<TD>РєР»Р°СЃСЃС‹, РѕС‚ РєРѕС‚РѕСЂС‹С… РЅР°СЃР»РµРґСѓРµС‚СЃСЏ РґР°РЅРЅС‹Р№
+РєР»Р°СЃСЃ
+<TR><TD>__doc__<TD>СЃС‚СЂРѕРєР° РёР»Рё None<TD ALIGN=center>R/W<TD>СЃС‚СЂРѕРєР° РґРѕРєСѓРјРµРЅС‚Р°С†РёРё РєР»Р°СЃСЃР°
+<TR><TD>__module__<TD>СЃС‚СЂРѕРєР°<TD ALIGN=center>R/W<TD>РёРјСЏ РјРѕРґСѓР»СЏ, РІ РєРѕС‚РѕСЂРѕРј РґР°РЅРЅС‹Р№ РєР»Р°СЃСЃ Р±С‹Р» РѕРїСЂРµРґРµР»РµРЅ
 </TABLE>
-<P>Примечание (1): R/W &ndash; разрешены запись и чтение, R &ndash; разрешено только чтение.
-<P>Приведем значения некоторых преопределенных атрибутов класса <SPAN CLASS="svoj">My_class</SPAN>:
+<P>РџСЂРёРјРµС‡Р°РЅРёРµ (1): R/W &ndash; СЂР°Р·СЂРµС€РµРЅС‹ Р·Р°РїРёСЃСЊ Рё С‡С‚РµРЅРёРµ, R &ndash; СЂР°Р·СЂРµС€РµРЅРѕ С‚РѕР»СЊРєРѕ С‡С‚РµРЅРёРµ.
+<P>РџСЂРёРІРµРґРµРј Р·РЅР°С‡РµРЅРёСЏ РЅРµРєРѕС‚РѕСЂС‹С… РїСЂРµРѕРїСЂРµРґРµР»РµРЅРЅС‹С… Р°С‚СЂРёР±СѓС‚РѕРІ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">My_class</SPAN>:
 <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> My_class.__name__</SPAN><BR>
@@ -145,21 +147,21 @@ TypeError: f() missing 1 required positional argument: 'self'</SPAN>,<BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> My_class.__bases__</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">(&lt;class 'object'>,)</SPAN>,<BR><BR>
-<SPAN CLASS="txt_abz">т.е. </SPAN>хотя базовый класс явно задан не был, по умолчанию таковым 
-является класс <SPAN CLASS="svoj">object</SPAN>, указанный в виде кортежа.<BR><BR>
+<SPAN CLASS="txt_abz">С‚.Рµ. </SPAN>С…РѕС‚СЏ Р±Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ СЏРІРЅРѕ Р·Р°РґР°РЅ РЅРµ Р±С‹Р», РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ С‚Р°РєРѕРІС‹Рј 
+СЏРІР»СЏРµС‚СЃСЏ РєР»Р°СЃСЃ <SPAN CLASS="svoj">object</SPAN>, СѓРєР°Р·Р°РЅРЅС‹Р№ РІ РІРёРґРµ РєРѕСЂС‚РµР¶Р°.<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> My_class.__doc__</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Пример простого класса'</SPAN>,<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'РџСЂРёРјРµСЂ РїСЂРѕСЃС‚РѕРіРѕ РєР»Р°СЃСЃР°'</SPAN>,<BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> My_class.__module__</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'__main__'</SPAN>.
-<p> Python позволяет создавать классы динамически. Для этого используется встроенная функция
-<SPAN CLASS="svoj">type()</SPAN>, которая, если задан один аргумент &ndash;
-<SPAN CLASS="svoj">type(object)</SPAN>, возвращает тип (класс) объекта
-<SPAN CLASS="svoj">object</SPAN> (см. <a href="#1.1">подраздел 1.1 </a>). Если при вызове функции
-указано три аргумента &ndash; <SPAN CLASS="svoj">type(name, bases, dict)</SPAN>, то она возвращает
-класс с именем <SPAN CLASS="svoj">name</SPAN>, который наследует классы, заданные кортежем
-<SPAN CLASS="svoj">bases</SPAN>, и имеет атрибуты, заданные словарем
+<p> Python РїРѕР·РІРѕР»СЏРµС‚ СЃРѕР·РґР°РІР°С‚СЊ РєР»Р°СЃСЃС‹ РґРёРЅР°РјРёС‡РµСЃРєРё. Р”Р»СЏ СЌС‚РѕРіРѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІСЃС‚СЂРѕРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ
+<SPAN CLASS="svoj">type()</SPAN>, РєРѕС‚РѕСЂР°СЏ, РµСЃР»Рё Р·Р°РґР°РЅ РѕРґРёРЅ Р°СЂРіСѓРјРµРЅС‚ &ndash;
+<SPAN CLASS="svoj">type(object)</SPAN>, РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РёРї (РєР»Р°СЃСЃ) РѕР±СЉРµРєС‚Р°
+<SPAN CLASS="svoj">object</SPAN> (СЃРј. <a href="#1.1">РїРѕРґСЂР°Р·РґРµР» 1.1 </a>). Р•СЃР»Рё РїСЂРё РІС‹Р·РѕРІРµ С„СѓРЅРєС†РёРё
+СѓРєР°Р·Р°РЅРѕ С‚СЂРё Р°СЂРіСѓРјРµРЅС‚Р° &ndash; <SPAN CLASS="svoj">type(name, bases, dict)</SPAN>, С‚Рѕ РѕРЅР° РІРѕР·РІСЂР°С‰Р°РµС‚
+РєР»Р°СЃСЃ СЃ РёРјРµРЅРµРј <SPAN CLASS="svoj">name</SPAN>, РєРѕС‚РѕСЂС‹Р№ РЅР°СЃР»РµРґСѓРµС‚ РєР»Р°СЃСЃС‹, Р·Р°РґР°РЅРЅС‹Рµ РєРѕСЂС‚РµР¶РµРј
+<SPAN CLASS="svoj">bases</SPAN>, Рё РёРјРµРµС‚ Р°С‚СЂРёР±СѓС‚С‹, Р·Р°РґР°РЅРЅС‹Рµ СЃР»РѕРІР°СЂРµРј
 <SPAN CLASS="svoj">dict</SPAN>: <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">A= </SPAN>
@@ -171,45 +173,45 @@ TypeError: f() missing 1 required positional argument: 'self'</SPAN>,<BR>
 <SPAN STYLE="font-size:7mm; color:black">,), </SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">dict </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(a=25))</SPAN>. 
-<p> Этот класс эквивалентен следующему классу, созданному статически: <BR><BR>
+<p> Р­С‚РѕС‚ РєР»Р°СЃСЃ СЌРєРІРёРІР°Р»РµРЅС‚РµРЅ СЃР»РµРґСѓСЋС‰РµРјСѓ РєР»Р°СЃСЃСѓ, СЃРѕР·РґР°РЅРЅРѕРјСѓ СЃС‚Р°С‚РёС‡РµСЃРєРё: <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">A</SPAN>:<BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:black">a=25</SPAN>.<BR><BR> 
 <A id="1.2"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">1.2 Создание объектов &ndash; экземпляров класса</H4>
-<P>После объявления класса можно выполнить операцию инстанцирования класса. Создадим один экземпляр
-этого класса &ndash; объект <SPAN CLASS="svoj">m1</SPAN>:<BR><BR>
+<H4 CLASS="pod">1.2 РЎРѕР·РґР°РЅРёРµ РѕР±СЉРµРєС‚РѕРІ &ndash; СЌРєР·РµРјРїР»СЏСЂРѕРІ РєР»Р°СЃСЃР°</H4>
+<P>РџРѕСЃР»Рµ РѕР±СЉСЏРІР»РµРЅРёСЏ РєР»Р°СЃСЃР° РјРѕР¶РЅРѕ РІС‹РїРѕР»РЅРёС‚СЊ РѕРїРµСЂР°С†РёСЋ РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРёСЏ РєР»Р°СЃСЃР°. РЎРѕР·РґР°РґРёРј РѕРґРёРЅ СЌРєР·РµРјРїР»СЏСЂ
+СЌС‚РѕРіРѕ РєР»Р°СЃСЃР° &ndash; РѕР±СЉРµРєС‚ <SPAN CLASS="svoj">m1</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m1=My_class()</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Экземпляры </SPAN>классов имеют следующие преопределенные атрибуты
-(см. табл. 2).
+<SPAN CLASS="txt_abz">Р­РєР·РµРјРїР»СЏСЂС‹ </SPAN>РєР»Р°СЃСЃРѕРІ РёРјРµСЋС‚ СЃР»РµРґСѓСЋС‰РёРµ РїСЂРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹
+(СЃРј. С‚Р°Р±Р». 2).
 <P><table align="center" width="55%" border cellspacing="0">
-<CAPTION ALIGN="top"><p class="ba">Таблица 2 &ndash; Преопределенные атрибуты экземпляра класса
+<CAPTION ALIGN="top"><p class="ba">РўР°Р±Р»РёС†Р° 2 &ndash; РџСЂРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°
 </CAPTION>
-<TR><TH>Атрибут<TH>Тип<TH>Доступ<TH>Описание
-<TR><TD>__dict__<TD>словарь<TD ALIGN=center>R/W<TD>пространство имен экземпляра класса
-<TR><TD>__class__<TD>класс<TD ALIGN=center>R/W<TD>класс этого экземпляра
+<TR><TH>РђС‚СЂРёР±СѓС‚<TH>РўРёРї<TH>Р”РѕСЃС‚СѓРї<TH>РћРїРёСЃР°РЅРёРµ
+<TR><TD>__dict__<TD>СЃР»РѕРІР°СЂСЊ<TD ALIGN=center>R/W<TD>РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°
+<TR><TD>__class__<TD>РєР»Р°СЃСЃ<TD ALIGN=center>R/W<TD>РєР»Р°СЃСЃ СЌС‚РѕРіРѕ СЌРєР·РµРјРїР»СЏСЂР°
 </TABLE> 
-<p>Определим класс объекта <SPAN CLASS="svoj">m1</SPAN>: <BR><BR>
+<p>РћРїСЂРµРґРµР»РёРј РєР»Р°СЃСЃ РѕР±СЉРµРєС‚Р° <SPAN CLASS="svoj">m1</SPAN>: <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m1.__class___</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">&lt;class '__main__.My_class'>
 </SPAN>.<BR><BR>
-<SPAN CLASS="txt_abz">Важно </SPAN>понимать, что при создании каждого экземпляра класса создается
-новое пространство имен, принадлежащее этому экземпляру, которое не совпадает с пространством имен
-самого класса. Поэтому даже если атрибуты класса и экземпляра класса имеют одинаковое имя,
-они ссылаются на разные объекты и могут иметь разные значения. Например, класс 
-<SPAN CLASS="svoj">My_class</SPAN> и экземпляр этого класса <SPAN CLASS="svoj">m1</SPAN> имеют
-следующие пространства имен:
+<SPAN CLASS="txt_abz">Р’Р°Р¶РЅРѕ </SPAN>РїРѕРЅРёРјР°С‚СЊ, С‡С‚Рѕ РїСЂРё СЃРѕР·РґР°РЅРёРё РєР°Р¶РґРѕРіРѕ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° СЃРѕР·РґР°РµС‚СЃСЏ
+РЅРѕРІРѕРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ, РїСЂРёРЅР°РґР»РµР¶Р°С‰РµРµ СЌС‚РѕРјСѓ СЌРєР·РµРјРїР»СЏСЂСѓ, РєРѕС‚РѕСЂРѕРµ РЅРµ СЃРѕРІРїР°РґР°РµС‚ СЃ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕРј РёРјРµРЅ
+СЃР°РјРѕРіРѕ РєР»Р°СЃСЃР°. РџРѕСЌС‚РѕРјСѓ РґР°Р¶Рµ РµСЃР»Рё Р°С‚СЂРёР±СѓС‚С‹ РєР»Р°СЃСЃР° Рё СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° РёРјРµСЋС‚ РѕРґРёРЅР°РєРѕРІРѕРµ РёРјСЏ,
+РѕРЅРё СЃСЃС‹Р»Р°СЋС‚СЃСЏ РЅР° СЂР°Р·РЅС‹Рµ РѕР±СЉРµРєС‚С‹ Рё РјРѕРіСѓС‚ РёРјРµС‚СЊ СЂР°Р·РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ. РќР°РїСЂРёРјРµСЂ, РєР»Р°СЃСЃ 
+<SPAN CLASS="svoj">My_class</SPAN> Рё СЌРєР·РµРјРїР»СЏСЂ СЌС‚РѕРіРѕ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">m1</SPAN> РёРјРµСЋС‚
+СЃР»РµРґСѓСЋС‰РёРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РёРјРµРЅ:
 <UL CLASS="list">   
 <LI> My_class: <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">My_class.__dict__</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-mappingproxy({'f': &lt;function My_class.f at 0x023C0588>, '__doc__': 'Пример простого класса',
+mappingproxy({'f': &lt;function My_class.f at 0x023C0588>, '__doc__': 'РџСЂРёРјРµСЂ РїСЂРѕСЃС‚РѕРіРѕ РєР»Р°СЃСЃР°',
 </SPAN><BR> 
 <SPAN STYLE="margin-left:2.5cm; font-size:7mm; color:blue">
 '__module__': '__main__', 'a': 25, '__dict__': &lt;attribute '__dict__' of 'My_class' objects>,
@@ -221,39 +223,39 @@ mappingproxy({'f': &lt;function My_class.f at 0x023C0588>, '__doc__': 'Пример пр
 <SPAN STYLE="font-size:7mm; color:black">m1.__dict__</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{}</SPAN><BR>
 </UL>
-<P> Пространство имен класса <SPAN CLASS="svoj">My_class</SPAN> содержит:
+<P> РџСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">My_class</SPAN> СЃРѕРґРµСЂР¶РёС‚:
 <UL CLASS="list">   
-<LI> имена преопределенных атрибутов класса:
+<LI> РёРјРµРЅР° РїСЂРµРѕРїСЂРµРґРµР»РµРЅРЅС‹С… Р°С‚СЂРёР±СѓС‚РѕРІ РєР»Р°СЃСЃР°:
 <UL CLASS="list2">   
 <LI> '__doc__';
 <LI> '__module__';
 <LI> '__main__', 
 <LI> '__dict__';
-<LI> '__weakref__' (weakref &ndash; слабая ссылка). Эти ссылки отличаются от обычных тем, что,
-если на объект указывают только слабые ссылки, то системе сборки мусора разрешается при
-необходимости удалять этот объект и освобождать память; 
+<LI> '__weakref__' (weakref &ndash; СЃР»Р°Р±Р°СЏ СЃСЃС‹Р»РєР°). Р­С‚Рё СЃСЃС‹Р»РєРё РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ РѕС‚ РѕР±С‹С‡РЅС‹С… С‚РµРј, С‡С‚Рѕ,
+РµСЃР»Рё РЅР° РѕР±СЉРµРєС‚ СѓРєР°Р·С‹РІР°СЋС‚ С‚РѕР»СЊРєРѕ СЃР»Р°Р±С‹Рµ СЃСЃС‹Р»РєРё, С‚Рѕ СЃРёСЃС‚РµРјРµ СЃР±РѕСЂРєРё РјСѓСЃРѕСЂР° СЂР°Р·СЂРµС€Р°РµС‚СЃСЏ РїСЂРё
+РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё СѓРґР°Р»СЏС‚СЊ СЌС‚РѕС‚ РѕР±СЉРµРєС‚ Рё РѕСЃРІРѕР±РѕР¶РґР°С‚СЊ РїР°РјСЏС‚СЊ; 
 </UL>
-<LI> имена атрибутов класса:
+<LI> РёРјРµРЅР° Р°С‚СЂРёР±СѓС‚РѕРІ РєР»Р°СЃСЃР°:
 <UL CLASS="list2"> 
 <LI> 'a';
 <LI> 'f'.
 </UL>
 </UL>
-<P> Пространство имен  экземпляра класса <SPAN CLASS="svoj">m1</SPAN> пусто. Тем не менее при
-обращении к атрибуту <SPAN CLASS="svoj">a</SPAN> этого объекта<BR> <BR>
+<P> РџСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ  СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° <SPAN CLASS="svoj">m1</SPAN> РїСѓСЃС‚Рѕ. РўРµРј РЅРµ РјРµРЅРµРµ РїСЂРё
+РѕР±СЂР°С‰РµРЅРёРё Рє Р°С‚СЂРёР±СѓС‚Сѓ <SPAN CLASS="svoj">a</SPAN> СЌС‚РѕРіРѕ РѕР±СЉРµРєС‚Р°<BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> m1.a</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">25</SPAN><BR><BR>
-получаем значение 25, т.е. значение атрибута класса. Это происходит потому, что интерпретатор
-сначала ищет искомое имя в адресном простанстве экземпляра класса. Если его там нет, то &ndash; в
-адресном пространстве самого класса. После присвоения объекту нового значения:<BR><BR>
+РїРѕР»СѓС‡Р°РµРј Р·РЅР°С‡РµРЅРёРµ 25, С‚.Рµ. Р·РЅР°С‡РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р° РєР»Р°СЃСЃР°. Р­С‚Рѕ РїСЂРѕРёСЃС…РѕРґРёС‚ РїРѕС‚РѕРјСѓ, С‡С‚Рѕ РёРЅС‚РµСЂРїСЂРµС‚Р°С‚РѕСЂ
+СЃРЅР°С‡Р°Р»Р° РёС‰РµС‚ РёСЃРєРѕРјРѕРµ РёРјСЏ РІ Р°РґСЂРµСЃРЅРѕРј РїСЂРѕСЃС‚Р°РЅСЃС‚РІРµ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°. Р•СЃР»Рё РµРіРѕ С‚Р°Рј РЅРµС‚, С‚Рѕ &ndash; РІ
+Р°РґСЂРµСЃРЅРѕРј РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРµ СЃР°РјРѕРіРѕ РєР»Р°СЃСЃР°. РџРѕСЃР»Рµ РїСЂРёСЃРІРѕРµРЅРёСЏ РѕР±СЉРµРєС‚Сѓ РЅРѕРІРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> m1.a=100</SPAN><BR><BR>
-его адресное пространство изменилось:<BR><BR>
+РµРіРѕ Р°РґСЂРµСЃРЅРѕРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёР·РјРµРЅРёР»РѕСЃСЊ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> m1.__dict__</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">{'a': 100}</SPAN><BR><BR>
-и значения атрибута <SPAN CLASS="svoj">a</SPAN> класса и экземпляра класса стали отличаться:
+Рё Р·РЅР°С‡РµРЅРёСЏ Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">a</SPAN> РєР»Р°СЃСЃР° Рё СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° СЃС‚Р°Р»Рё РѕС‚Р»РёС‡Р°С‚СЊСЃСЏ:
 <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> m1.a</SPAN><BR>
@@ -261,40 +263,40 @@ mappingproxy({'f': &lt;function My_class.f at 0x023C0588>, '__doc__': 'Пример пр
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black"> My_class.a</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">25</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Вызов </SPAN>метода <SPAN CLASS="svoj">f()</SPAN> как метода экземпляра
-класса не вызывает ошибки:<BR><BR>
+<SPAN CLASS="txt_abz">Р’С‹Р·РѕРІ </SPAN>РјРµС‚РѕРґР° <SPAN CLASS="svoj">f()</SPAN> РєР°Рє РјРµС‚РѕРґР° СЌРєР·РµРјРїР»СЏСЂР°
+РєР»Р°СЃСЃР° РЅРµ РІС‹Р·С‹РІР°РµС‚ РѕС€РёР±РєРё:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m1.f()</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Привет всем!</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Описание </SPAN>сласса в языке Python является динамическим, т.е. в него
-в последствии можно добавить новые атрибуты, например, атрибут <SPAN CLASS="svoj">new_a</SPAN>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџСЂРёРІРµС‚ РІСЃРµРј!</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РћРїРёСЃР°РЅРёРµ </SPAN>СЃР»Р°СЃСЃР° РІ СЏР·С‹РєРµ Python СЏРІР»СЏРµС‚СЃСЏ РґРёРЅР°РјРёС‡РµСЃРєРёРј, С‚.Рµ. РІ РЅРµРіРѕ
+РІ РїРѕСЃР»РµРґСЃС‚РІРёРё РјРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Рµ Р°С‚СЂРёР±СѓС‚С‹, РЅР°РїСЂРёРјРµСЂ, Р°С‚СЂРёР±СѓС‚ <SPAN CLASS="svoj">new_a</SPAN>
 : <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">My_class.new_a=</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Новый'</SPAN><BR><BR>
-или удалить старые (<SPAN CLASS="svoj">f</SPAN>):<BR><BR>
+<SPAN STYLE="font-size:7mm; color:green">'РќРѕРІС‹Р№'</SPAN><BR><BR>
+РёР»Рё СѓРґР°Р»РёС‚СЊ СЃС‚Р°СЂС‹Рµ (<SPAN CLASS="svoj">f</SPAN>):<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">del </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">My_class.f</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">После </SPAN>создания объекта <SPAN CLASS="svoj">m2</SPAN>, экземпляра
-измененного класса <SPAN CLASS="svoj">My_class</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">РџРѕСЃР»Рµ </SPAN>СЃРѕР·РґР°РЅРёСЏ РѕР±СЉРµРєС‚Р° <SPAN CLASS="svoj">m2</SPAN>, СЌРєР·РµРјРїР»СЏСЂР°
+РёР·РјРµРЅРµРЅРЅРѕРіРѕ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">My_class</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2=My_class()</SPAN><BR><BR>
-проверим его атрибуты:<BR><BR>
+РїСЂРѕРІРµСЂРёРј РµРіРѕ Р°С‚СЂРёР±СѓС‚С‹:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2.new_a</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Новый'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'РќРѕРІС‹Р№'</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">m2.f()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
 AttributeError: 'My_class' object has no attribute 'f'</SPAN><BR> <BR> 
-<SPAN CLASS="txt_abz">Т.е, </SPAN>атрибут <SPAN CLASS="svoj">new_a</SPAN> в класс добавлен, а
-атрибут <SPAN CLASS="svoj">f</SPAN> из класса удален.<BR>
-<SPAN CLASS="txt_abz">Отметим, </SPAN>что преопределенный атрибут
-<SPAN CLASS="svoj">__qualname__</SPAN> был введен в язык Python, начиная с версии 3.3. Он указывает
-полное имя (англ. qualified name) класса или функции. Для классов и функций верхнего уровня атрибут
-<SPAN CLASS="svoj">__qualname__</SPAN> совпадает с <SPAN CLASS="svoj">__name__</SPAN>. Для
-проверки создадим класс <SPAN CLASS="svoj">A</SPAN>, содержащий класс <SPAN CLASS="svoj">B</SPAN>:
+<SPAN CLASS="txt_abz">Рў.Рµ, </SPAN>Р°С‚СЂРёР±СѓС‚ <SPAN CLASS="svoj">new_a</SPAN> РІ РєР»Р°СЃСЃ РґРѕР±Р°РІР»РµРЅ, Р°
+Р°С‚СЂРёР±СѓС‚ <SPAN CLASS="svoj">f</SPAN> РёР· РєР»Р°СЃСЃР° СѓРґР°Р»РµРЅ.<BR>
+<SPAN CLASS="txt_abz">РћС‚РјРµС‚РёРј, </SPAN>С‡С‚Рѕ РїСЂРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ Р°С‚СЂРёР±СѓС‚
+<SPAN CLASS="svoj">__qualname__</SPAN> Р±С‹Р» РІРІРµРґРµРЅ РІ СЏР·С‹Рє Python, РЅР°С‡РёРЅР°СЏ СЃ РІРµСЂСЃРёРё 3.3. РћРЅ СѓРєР°Р·С‹РІР°РµС‚
+РїРѕР»РЅРѕРµ РёРјСЏ (Р°РЅРіР». qualified name) РєР»Р°СЃСЃР° РёР»Рё С„СѓРЅРєС†РёРё. Р”Р»СЏ РєР»Р°СЃСЃРѕРІ Рё С„СѓРЅРєС†РёР№ РІРµСЂС…РЅРµРіРѕ СѓСЂРѕРІРЅСЏ Р°С‚СЂРёР±СѓС‚
+<SPAN CLASS="svoj">__qualname__</SPAN> СЃРѕРІРїР°РґР°РµС‚ СЃ <SPAN CLASS="svoj">__name__</SPAN>. Р”Р»СЏ
+РїСЂРѕРІРµСЂРєРё СЃРѕР·РґР°РґРёРј РєР»Р°СЃСЃ <SPAN CLASS="svoj">A</SPAN>, СЃРѕРґРµСЂР¶Р°С‰РёР№ РєР»Р°СЃСЃ <SPAN CLASS="svoj">B</SPAN>:
 <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#ff8000">class </SPAN>
@@ -304,8 +306,8 @@ AttributeError: 'My_class' object has no attribute 'f'</SPAN><BR> <BR>
 <SPAN STYLE="font-size:7mm; color:blue">B</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">:</SPAN>
 <SPAN STYLE="font-size:7mm; color:#ff8000">pass </SPAN><BR><BR>
-и определим для классов <SPAN CLASS="svoj">A</SPAN> и <SPAN CLASS="svoj">B</SPAN> значения
-атрибутов <SPAN CLASS="svoj">__name__</SPAN> и <SPAN CLASS="svoj">__qualname__</SPAN>:<BR><BR>
+Рё РѕРїСЂРµРґРµР»РёРј РґР»СЏ РєР»Р°СЃСЃРѕРІ <SPAN CLASS="svoj">A</SPAN> Рё <SPAN CLASS="svoj">B</SPAN> Р·РЅР°С‡РµРЅРёСЏ
+Р°С‚СЂРёР±СѓС‚РѕРІ <SPAN CLASS="svoj">__name__</SPAN> Рё <SPAN CLASS="svoj">__qualname__</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">A.__name__</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'A'</SPAN><BR>  
@@ -318,46 +320,46 @@ AttributeError: 'My_class' object has no attribute 'f'</SPAN><BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">A.B.__qualname__</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'A.B'</SPAN><BR> <BR>
-т.е. для класса верхнего уровня <SPAN CLASS="svoj">A</SPAN> значения атрибутов
-<SPAN CLASS="svoj">__name__</SPAN> и <SPAN CLASS="svoj">__qualname__</SPAN> совпадают, а для
-встроенного класса <SPAN CLASS="svoj">B</SPAN> &ndash; нет. 
+С‚.Рµ. РґР»СЏ РєР»Р°СЃСЃР° РІРµСЂС…РЅРµРіРѕ СѓСЂРѕРІРЅСЏ <SPAN CLASS="svoj">A</SPAN> Р·РЅР°С‡РµРЅРёСЏ Р°С‚СЂРёР±СѓС‚РѕРІ
+<SPAN CLASS="svoj">__name__</SPAN> Рё <SPAN CLASS="svoj">__qualname__</SPAN> СЃРѕРІРїР°РґР°СЋС‚, Р° РґР»СЏ
+РІСЃС‚СЂРѕРµРЅРЅРѕРіРѕ РєР»Р°СЃСЃР° <SPAN CLASS="svoj">B</SPAN> &ndash; РЅРµС‚. 
 <A id="2"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4>2 Использование атрибутов и методов при объявлении класса</H4>
+<H4>2 РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ Р°С‚СЂРёР±СѓС‚РѕРІ Рё РјРµС‚РѕРґРѕРІ РїСЂРё РѕР±СЉСЏРІР»РµРЅРёРё РєР»Р°СЃСЃР°</H4>
 <A id="2.1"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">2.1 Использование специальных методов при объявлении класса</H4>
-<P>В языке Python имеются специальные методы
-(см. <a href="../LAB1/lab.htm#2">раздел 2 </a> лаб. раб. №1), предназначенные для использования во
-время объявления класса:
+<H4 CLASS="pod">2.1 РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅС‹С… РјРµС‚РѕРґРѕРІ РїСЂРё РѕР±СЉСЏРІР»РµРЅРёРё РєР»Р°СЃСЃР°</H4>
+<P>Р’ СЏР·С‹РєРµ Python РёРјРµСЋС‚СЃСЏ СЃРїРµС†РёР°Р»СЊРЅС‹Рµ РјРµС‚РѕРґС‹
+(СЃРј. <a href="../LAB1/lab.htm#2">СЂР°Р·РґРµР» 2 </a> Р»Р°Р±. СЂР°Р±. в„–1), РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРѕ
+РІСЂРµРјСЏ РѕР±СЉСЏРІР»РµРЅРёСЏ РєР»Р°СЃСЃР°:
 <UL CLASS="list">   
-<LI> __new__(cls[, . .]) &ndash; статический метод класса, вызывается первым при создании
-экземпляра класса, создает новый объект, возвращая на него ссылку. Первый параметр cls указывает на
-класс, остальные параметры являются необязательными и, если указаны, передаются методу __init__();
-<LI> __init__(self[, . .]) &ndash; вызывается при создании экземпляра класса. Первый параметр
-self (хотя и не является ключевым словом языка, но менять его на другое имя не следует) указывает
-на созданный объект, остальные аргументы получает от метода __new__(). Устанавливает начальные
-значения атрибутов объекта. Никогда не возвращает значения. <BR>
-<SPAN CLASS="txt_abz">В </SPAN>литературе метод __init__ иногда называют конструктором класса, но,
-строго говоря, это не так &ndash; он реализует только часть функций, выполняемых конструкторами
-таких языков, как C++ или Java &ndash; осуществляет инициализацию атрибутов объекта, но не создает
-сам объект, поскольку эту функцию, как указывалось выше, выполняет метод __new__. Поэтому называя в
-языке Python метод  __init__  "конструктором класса", необходимо об этом помнить;
-<LI> __str__() &ndash; вызывается функциями str(), print() и format(). Возвращает строковое
-представление объекта;
-<LI> __del__() &ndash;  вызывается при уничтожениии экземпляра класса, т.е. является
-деструктором класса. Отметим, что метод __del__ не влияет на работу оператора del, но влияет на
-работу системы сборки мусора.
+<LI> __new__(cls[, . .]) &ndash; СЃС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ РєР»Р°СЃСЃР°, РІС‹Р·С‹РІР°РµС‚СЃСЏ РїРµСЂРІС‹Рј РїСЂРё СЃРѕР·РґР°РЅРёРё
+СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°, СЃРѕР·РґР°РµС‚ РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚, РІРѕР·РІСЂР°С‰Р°СЏ РЅР° РЅРµРіРѕ СЃСЃС‹Р»РєСѓ. РџРµСЂРІС‹Р№ РїР°СЂР°РјРµС‚СЂ cls СѓРєР°Р·С‹РІР°РµС‚ РЅР°
+РєР»Р°СЃСЃ, РѕСЃС‚Р°Р»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ СЏРІР»СЏСЋС‚СЃСЏ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹РјРё Рё, РµСЃР»Рё СѓРєР°Р·Р°РЅС‹, РїРµСЂРµРґР°СЋС‚СЃСЏ РјРµС‚РѕРґСѓ __init__();
+<LI> __init__(self[, . .]) &ndash; РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё СЃРѕР·РґР°РЅРёРё СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°. РџРµСЂРІС‹Р№ РїР°СЂР°РјРµС‚СЂ
+self (С…РѕС‚СЏ Рё РЅРµ СЏРІР»СЏРµС‚СЃСЏ РєР»СЋС‡РµРІС‹Рј СЃР»РѕРІРѕРј СЏР·С‹РєР°, РЅРѕ РјРµРЅСЏС‚СЊ РµРіРѕ РЅР° РґСЂСѓРіРѕРµ РёРјСЏ РЅРµ СЃР»РµРґСѓРµС‚) СѓРєР°Р·С‹РІР°РµС‚
+РЅР° СЃРѕР·РґР°РЅРЅС‹Р№ РѕР±СЉРµРєС‚, РѕСЃС‚Р°Р»СЊРЅС‹Рµ Р°СЂРіСѓРјРµРЅС‚С‹ РїРѕР»СѓС‡Р°РµС‚ РѕС‚ РјРµС‚РѕРґР° __new__(). РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РЅР°С‡Р°Р»СЊРЅС‹Рµ
+Р·РЅР°С‡РµРЅРёСЏ Р°С‚СЂРёР±СѓС‚РѕРІ РѕР±СЉРµРєС‚Р°. РќРёРєРѕРіРґР° РЅРµ РІРѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёСЏ. <BR>
+<SPAN CLASS="txt_abz">Р’ </SPAN>Р»РёС‚РµСЂР°С‚СѓСЂРµ РјРµС‚РѕРґ __init__ РёРЅРѕРіРґР° РЅР°Р·С‹РІР°СЋС‚ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРѕРј РєР»Р°СЃСЃР°, РЅРѕ,
+СЃС‚СЂРѕРіРѕ РіРѕРІРѕСЂСЏ, СЌС‚Рѕ РЅРµ С‚Р°Рє &ndash; РѕРЅ СЂРµР°Р»РёР·СѓРµС‚ С‚РѕР»СЊРєРѕ С‡Р°СЃС‚СЊ С„СѓРЅРєС†РёР№, РІС‹РїРѕР»РЅСЏРµРјС‹С… РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°РјРё
+С‚Р°РєРёС… СЏР·С‹РєРѕРІ, РєР°Рє C++ РёР»Рё Java &ndash; РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЋ Р°С‚СЂРёР±СѓС‚РѕРІ РѕР±СЉРµРєС‚Р°, РЅРѕ РЅРµ СЃРѕР·РґР°РµС‚
+СЃР°Рј РѕР±СЉРµРєС‚, РїРѕСЃРєРѕР»СЊРєСѓ СЌС‚Сѓ С„СѓРЅРєС†РёСЋ, РєР°Рє СѓРєР°Р·С‹РІР°Р»РѕСЃСЊ РІС‹С€Рµ, РІС‹РїРѕР»РЅСЏРµС‚ РјРµС‚РѕРґ __new__. РџРѕСЌС‚РѕРјСѓ РЅР°Р·С‹РІР°СЏ РІ
+СЏР·С‹РєРµ Python РјРµС‚РѕРґ  __init__  "РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРѕРј РєР»Р°СЃСЃР°", РЅРµРѕР±С…РѕРґРёРјРѕ РѕР± СЌС‚РѕРј РїРѕРјРЅРёС‚СЊ;
+<LI> __str__() &ndash; РІС‹Р·С‹РІР°РµС‚СЃСЏ С„СѓРЅРєС†РёСЏРјРё str(), print() Рё format(). Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєРѕРІРѕРµ
+РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РѕР±СЉРµРєС‚Р°;
+<LI> __del__() &ndash;  РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё СѓРЅРёС‡С‚РѕР¶РµРЅРёРёРё СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°, С‚.Рµ. СЏРІР»СЏРµС‚СЃСЏ
+РґРµСЃС‚СЂСѓРєС‚РѕСЂРѕРј РєР»Р°СЃСЃР°. РћС‚РјРµС‚РёРј, С‡С‚Рѕ РјРµС‚РѕРґ __del__ РЅРµ РІР»РёСЏРµС‚ РЅР° СЂР°Р±РѕС‚Сѓ РѕРїРµСЂР°С‚РѕСЂР° del, РЅРѕ РІР»РёСЏРµС‚ РЅР°
+СЂР°Р±РѕС‚Сѓ СЃРёСЃС‚РµРјС‹ СЃР±РѕСЂРєРё РјСѓСЃРѕСЂР°.
 </UL>
-<P> Метод <SPAN CLASS="svoj">__new__()</SPAN> при создании пользовательских классов используется
-нечасто. Можно привести две области его применения. Во-первых, когда нужно выполнить какие-то
-действия до выполнения метода <SPAN CLASS="svoj">__init__()</SPAN>. Это бывает необходимо, например,
-при наследовании классов неизменяемых типов
-(см. <a href="../LAB12/lab.htm#2.3"> подраздел 2.3 </a> лаб. раб. №12).<BR>
-<SPAN CLASS="txt_abz">Во-вторых, </SPAN>когда необходимо контролировать процесс создания
-экземпляров класса. Примером может служить класс, который инстанцирует только один объект:<BR><BR>
+<P> РњРµС‚РѕРґ <SPAN CLASS="svoj">__new__()</SPAN> РїСЂРё СЃРѕР·РґР°РЅРёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… РєР»Р°СЃСЃРѕРІ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
+РЅРµС‡Р°СЃС‚Рѕ. РњРѕР¶РЅРѕ РїСЂРёРІРµСЃС‚Рё РґРІРµ РѕР±Р»Р°СЃС‚Рё РµРіРѕ РїСЂРёРјРµРЅРµРЅРёСЏ. Р’Рѕ-РїРµСЂРІС‹С…, РєРѕРіРґР° РЅСѓР¶РЅРѕ РІС‹РїРѕР»РЅРёС‚СЊ РєР°РєРёРµ-С‚Рѕ
+РґРµР№СЃС‚РІРёСЏ РґРѕ РІС‹РїРѕР»РЅРµРЅРёСЏ РјРµС‚РѕРґР° <SPAN CLASS="svoj">__init__()</SPAN>. Р­С‚Рѕ Р±С‹РІР°РµС‚ РЅРµРѕР±С…РѕРґРёРјРѕ, РЅР°РїСЂРёРјРµСЂ,
+РїСЂРё РЅР°СЃР»РµРґРѕРІР°РЅРёРё РєР»Р°СЃСЃРѕРІ РЅРµРёР·РјРµРЅСЏРµРјС‹С… С‚РёРїРѕРІ
+(СЃРј. <a href="../LAB12/lab.htm#2.3"> РїРѕРґСЂР°Р·РґРµР» 2.3 </a> Р»Р°Р±. СЂР°Р±. в„–12).<BR>
+<SPAN CLASS="txt_abz">Р’Рѕ-РІС‚РѕСЂС‹С…, </SPAN>РєРѕРіРґР° РЅРµРѕР±С…РѕРґРёРјРѕ РєРѕРЅС‚СЂРѕР»РёСЂРѕРІР°С‚СЊ РїСЂРѕС†РµСЃСЃ СЃРѕР·РґР°РЅРёСЏ
+СЌРєР·РµРјРїР»СЏСЂРѕРІ РєР»Р°СЃСЃР°. РџСЂРёРјРµСЂРѕРј РјРѕР¶РµС‚ СЃР»СѓР¶РёС‚СЊ РєР»Р°СЃСЃ, РєРѕС‚РѕСЂС‹Р№ РёРЅСЃС‚Р°РЅС†РёСЂСѓРµС‚ С‚РѕР»СЊРєРѕ РѕРґРёРЅ РѕР±СЉРµРєС‚:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">One</SPAN>
@@ -376,25 +378,25 @@ self (хотя и не является ключевым словом языка, но менять его на другое имя не с
 <SPAN STYLE="font-size:7mm; color:black">.__new__(cls,*p,**kw)</SPAN><BR>
 <SPAN STYLE="margin-left:6.5cm; font-size:7mm; color:#ff8000">return </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">cls.obj</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">При </SPAN>создании каждого экземпляра класса <SPAN CLASS="svoj">One</SPAN>
-первым вызывается метод <SPAN CLASS="svoj">__new__</SPAN> этого класса, который проверяет значение
-атрибута <SPAN CLASS="svoj">obj</SPAN> класса <SPAN CLASS="svoj">One</SPAN>. Если оно равно None,
-т.е. создается первый экземпляр класса, вызывается метод <SPAN CLASS="svoj">__new__</SPAN> базового
-класса <SPAN CLASS="svoj">object</SPAN>. Он создает объект &ndash; экземпляр класса, ссылка на
-который присваиваеься атрибуту <SPAN CLASS="svoj">obj</SPAN> класса <SPAN CLASS="svoj">One</SPAN>.
-Это же значение возвращается методом <SPAN CLASS="svoj">__new__</SPAN> класса
+<SPAN CLASS="txt_abz">РџСЂРё </SPAN>СЃРѕР·РґР°РЅРёРё РєР°Р¶РґРѕРіРѕ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° <SPAN CLASS="svoj">One</SPAN>
+РїРµСЂРІС‹Рј РІС‹Р·С‹РІР°РµС‚СЃСЏ РјРµС‚РѕРґ <SPAN CLASS="svoj">__new__</SPAN> СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°, РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРІРµСЂСЏРµС‚ Р·РЅР°С‡РµРЅРёРµ
+Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">obj</SPAN> РєР»Р°СЃСЃР° <SPAN CLASS="svoj">One</SPAN>. Р•СЃР»Рё РѕРЅРѕ СЂР°РІРЅРѕ None,
+С‚.Рµ. СЃРѕР·РґР°РµС‚СЃСЏ РїРµСЂРІС‹Р№ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР°, РІС‹Р·С‹РІР°РµС‚СЃСЏ РјРµС‚РѕРґ <SPAN CLASS="svoj">__new__</SPAN> Р±Р°Р·РѕРІРѕРіРѕ
+РєР»Р°СЃСЃР° <SPAN CLASS="svoj">object</SPAN>. РћРЅ СЃРѕР·РґР°РµС‚ РѕР±СЉРµРєС‚ &ndash; СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР°, СЃСЃС‹Р»РєР° РЅР°
+РєРѕС‚РѕСЂС‹Р№ РїСЂРёСЃРІР°РёРІР°РµСЊСЃСЏ Р°С‚СЂРёР±СѓС‚Сѓ <SPAN CLASS="svoj">obj</SPAN> РєР»Р°СЃСЃР° <SPAN CLASS="svoj">One</SPAN>.
+Р­С‚Рѕ Р¶Рµ Р·РЅР°С‡РµРЅРёРµ РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ РјРµС‚РѕРґРѕРј <SPAN CLASS="svoj">__new__</SPAN> РєР»Р°СЃСЃР°
 <SPAN CLASS="svoj">One</SPAN>. <BR>
-<SPAN CLASS="txt_abz">При </SPAN> создании последующих экземпляров класса, поскольку значение
-атрибута <SPAN CLASS="svoj">obj</SPAN> уже не равно None, метод <SPAN CLASS="svoj">__new__</SPAN>
-базового класса не вызывается и вновь созданный объект получает ссылку с тем же значением, которое
-хранится в атрибуте <SPAN CLASS="svoj">obj</SPAN>. Таким образом все последующие экземпляры класса
-<SPAN CLASS="svoj">One</SPAN> являются одним и тем же объектом. Это можно проверить. Создадим два
-экземпляра класса <SPAN CLASS="svoj">One</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">РџСЂРё </SPAN> СЃРѕР·РґР°РЅРёРё РїРѕСЃР»РµРґСѓСЋС‰РёС… СЌРєР·РµРјРїР»СЏСЂРѕРІ РєР»Р°СЃСЃР°, РїРѕСЃРєРѕР»СЊРєСѓ Р·РЅР°С‡РµРЅРёРµ
+Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">obj</SPAN> СѓР¶Рµ РЅРµ СЂР°РІРЅРѕ None, РјРµС‚РѕРґ <SPAN CLASS="svoj">__new__</SPAN>
+Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР° РЅРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ Рё РІРЅРѕРІСЊ СЃРѕР·РґР°РЅРЅС‹Р№ РѕР±СЉРµРєС‚ РїРѕР»СѓС‡Р°РµС‚ СЃСЃС‹Р»РєСѓ СЃ С‚РµРј Р¶Рµ Р·РЅР°С‡РµРЅРёРµРј, РєРѕС‚РѕСЂРѕРµ
+С…СЂР°РЅРёС‚СЃСЏ РІ Р°С‚СЂРёР±СѓС‚Рµ <SPAN CLASS="svoj">obj</SPAN>. РўР°РєРёРј РѕР±СЂР°Р·РѕРј РІСЃРµ РїРѕСЃР»РµРґСѓСЋС‰РёРµ СЌРєР·РµРјРїР»СЏСЂС‹ РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">One</SPAN> СЏРІР»СЏСЋС‚СЃСЏ РѕРґРЅРёРј Рё С‚РµРј Р¶Рµ РѕР±СЉРµРєС‚РѕРј. Р­С‚Рѕ РјРѕР¶РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ. РЎРѕР·РґР°РґРёРј РґРІР°
+СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° <SPAN CLASS="svoj">One</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">one1=One()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">one2=One()</SPAN><BR><BR>
-и проверим их идентичность:<BR><BR>
+Рё РїСЂРѕРІРµСЂРёРј РёС… РёРґРµРЅС‚РёС‡РЅРѕСЃС‚СЊ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(one1)</SPAN><BR>
@@ -403,29 +405,29 @@ self (хотя и не является ключевым словом языка, но менять его на другое имя не с
 <SPAN STYLE="font-size:7mm; color:#af00af">id</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(one2)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">36932784</SPAN><BR><BR>
-Можно показать, что ссылки <SPAN CLASS="svoj">one1</SPAN> и <SPAN CLASS="svoj">one2</SPAN> &ndash;
-это ссылки на один и тот же объект и по-другому:<BR><BR>
+РњРѕР¶РЅРѕ РїРѕРєР°Р·Р°С‚СЊ, С‡С‚Рѕ СЃСЃС‹Р»РєРё <SPAN CLASS="svoj">one1</SPAN> Рё <SPAN CLASS="svoj">one2</SPAN> &ndash;
+СЌС‚Рѕ СЃСЃС‹Р»РєРё РЅР° РѕРґРёРЅ Рё С‚РѕС‚ Р¶Рµ РѕР±СЉРµРєС‚ Рё РїРѕ-РґСЂСѓРіРѕРјСѓ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">one1 </SPAN>
 <SPAN STYLE="font-size:7mm; color:#ff8000">is </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">one2 </SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">True</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Использование </SPAN>специальных методов <SPAN CLASS="svoj">__init__()</SPAN>,
-<SPAN CLASS="svoj">__str__()</SPAN> и <SPAN CLASS="svoj">__del__()</SPAN> показано в объявлении
-класса <SPAN CLASS="svoj">Virt_zoo</SPAN>, который описывает поведение виртуальных зверюшек:<BR><BR>
+<SPAN CLASS="txt_abz">РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ </SPAN>СЃРїРµС†РёР°Р»СЊРЅС‹С… РјРµС‚РѕРґРѕРІ <SPAN CLASS="svoj">__init__()</SPAN>,
+<SPAN CLASS="svoj">__str__()</SPAN> Рё <SPAN CLASS="svoj">__del__()</SPAN> РїРѕРєР°Р·Р°РЅРѕ РІ РѕР±СЉСЏРІР»РµРЅРёРё
+РєР»Р°СЃСЃР° <SPAN CLASS="svoj">Virt_zoo</SPAN>, РєРѕС‚РѕСЂС‹Р№ РѕРїРёСЃС‹РІР°РµС‚ РїРѕРІРµРґРµРЅРёРµ РІРёСЂС‚СѓР°Р»СЊРЅС‹С… Р·РІРµСЂСЋС€РµРє:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">Virt_zoo</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">object</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN>:<BR>
-<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">''' Виртуальные зверюшки '''</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">''' Р’РёСЂС‚СѓР°Р»СЊРЅС‹Рµ Р·РІРµСЂСЋС€РєРё '''</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,name):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Появилась новая зверюшка.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.name=name</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
@@ -433,130 +435,130 @@ self (хотя и не является ключевым словом языка, но менять его на другое имя не с
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#FF8000">return </SPAN>
 <SPAN STYLE="font-size:7mm; color:green">
-'Класс &ndash; Virt_zoo, имя зверюшки &ndash; '</SPAN>
+'РљР»Р°СЃСЃ &ndash; Virt_zoo, РёРјСЏ Р·РІРµСЂСЋС€РєРё &ndash; '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">+self.name</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__del__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Зверюшка исчезла.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р—РІРµСЂСЋС€РєР° РёСЃС‡РµР·Р»Р°.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR> <BR>
 </UL>
-<P>С помощью метода <SPAN CLASS="svoj">__init__()</SPAN>, который вызывается при каждом создании
-экземпляра класса (для <SPAN CLASS="svoj">Virt_zoo</SPAN> это будет виртуальная зверюшка), на экран
-выводится сообщение об этом и выполняется инициализация атрибута <SPAN CLASS="svoj">name</SPAN>,
-указывающего имя этой зверюшки. Отметим, что первым параметром каждого метода в объявлении класса,
-за исключением статических методов (см. <A HREF="#2.2">подраздел 2.2</A>), является слово
-<SPAN CLASS="svoj">self</SPAN>, которое при вызовах этих методов не указывается. <BR> 
-<SPAN CLASS="txt_abz">Метод </SPAN><SPAN CLASS="svoj">__str__</SPAN>вызывается при использовании
-функции <SPAN CLASS="svoj">print(obj)</SPAN> и возвращает данные об объекте
-<SPAN CLASS="svoj">obj</SPAN> &ndash; в данном случае это имя класса и имя созданной зверюшки.<BR>
-<SPAN CLASS="txt_abz">С </SPAN>помощью десктруктора класса (метода
-<SPAN CLASS="svoj">__del__</SPAN>) осуществляется вывод на экран сообщения "Зверюшка исчезла" при
-удалении объекта класса <SPAN CLASS="svoj">Virt_zoo</SPAN>.
+<P>РЎ РїРѕРјРѕС‰СЊСЋ РјРµС‚РѕРґР° <SPAN CLASS="svoj">__init__()</SPAN>, РєРѕС‚РѕСЂС‹Р№ РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё РєР°Р¶РґРѕРј СЃРѕР·РґР°РЅРёРё
+СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° (РґР»СЏ <SPAN CLASS="svoj">Virt_zoo</SPAN> СЌС‚Рѕ Р±СѓРґРµС‚ РІРёСЂС‚СѓР°Р»СЊРЅР°СЏ Р·РІРµСЂСЋС€РєР°), РЅР° СЌРєСЂР°РЅ
+РІС‹РІРѕРґРёС‚СЃСЏ СЃРѕРѕР±С‰РµРЅРёРµ РѕР± СЌС‚РѕРј Рё РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">name</SPAN>,
+СѓРєР°Р·С‹РІР°СЋС‰РµРіРѕ РёРјСЏ СЌС‚РѕР№ Р·РІРµСЂСЋС€РєРё. РћС‚РјРµС‚РёРј, С‡С‚Рѕ РїРµСЂРІС‹Рј РїР°СЂР°РјРµС‚СЂРѕРј РєР°Р¶РґРѕРіРѕ РјРµС‚РѕРґР° РІ РѕР±СЉСЏРІР»РµРЅРёРё РєР»Р°СЃСЃР°,
+Р·Р° РёСЃРєР»СЋС‡РµРЅРёРµРј СЃС‚Р°С‚РёС‡РµСЃРєРёС… РјРµС‚РѕРґРѕРІ (СЃРј. <A HREF="#2.2">РїРѕРґСЂР°Р·РґРµР» 2.2</A>), СЏРІР»СЏРµС‚СЃСЏ СЃР»РѕРІРѕ
+<SPAN CLASS="svoj">self</SPAN>, РєРѕС‚РѕСЂРѕРµ РїСЂРё РІС‹Р·РѕРІР°С… СЌС‚РёС… РјРµС‚РѕРґРѕРІ РЅРµ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ. <BR> 
+<SPAN CLASS="txt_abz">РњРµС‚РѕРґ </SPAN><SPAN CLASS="svoj">__str__</SPAN>РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё
+С„СѓРЅРєС†РёРё <SPAN CLASS="svoj">print(obj)</SPAN> Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ РѕР± РѕР±СЉРµРєС‚Рµ
+<SPAN CLASS="svoj">obj</SPAN> &ndash; РІ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ СЌС‚Рѕ РёРјСЏ РєР»Р°СЃСЃР° Рё РёРјСЏ СЃРѕР·РґР°РЅРЅРѕР№ Р·РІРµСЂСЋС€РєРё.<BR>
+<SPAN CLASS="txt_abz">РЎ </SPAN>РїРѕРјРѕС‰СЊСЋ РґРµСЃРєС‚СЂСѓРєС‚РѕСЂР° РєР»Р°СЃСЃР° (РјРµС‚РѕРґР°
+<SPAN CLASS="svoj">__del__</SPAN>) РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ СЃРѕРѕР±С‰РµРЅРёСЏ "Р—РІРµСЂСЋС€РєР° РёСЃС‡РµР·Р»Р°" РїСЂРё
+СѓРґР°Р»РµРЅРёРё РѕР±СЉРµРєС‚Р° РєР»Р°СЃСЃР° <SPAN CLASS="svoj">Virt_zoo</SPAN>.
 <BR>
-<SPAN CLASS="txt_abz">После </SPAN>объявления класса можно выполнять операции его инстанцирования,
-то есть создания объектов класса. Создаются два экземпляра класса
-<SPAN CLASS="svoj">Virt_zoo</SPAN> &ndash; объекты <SPAN CLASS="svoj">v1</SPAN> и
+<SPAN CLASS="txt_abz">РџРѕСЃР»Рµ </SPAN>РѕР±СЉСЏРІР»РµРЅРёСЏ РєР»Р°СЃСЃР° РјРѕР¶РЅРѕ РІС‹РїРѕР»РЅСЏС‚СЊ РѕРїРµСЂР°С†РёРё РµРіРѕ РёРЅСЃС‚Р°РЅС†РёСЂРѕРІР°РЅРёСЏ,
+С‚Рѕ РµСЃС‚СЊ СЃРѕР·РґР°РЅРёСЏ РѕР±СЉРµРєС‚РѕРІ РєР»Р°СЃСЃР°. РЎРѕР·РґР°СЋС‚СЃСЏ РґРІР° СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">Virt_zoo</SPAN> &ndash; РѕР±СЉРµРєС‚С‹ <SPAN CLASS="svoj">v1</SPAN> Рё
 <SPAN CLASS="svoj">v2</SPAN>:<BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1=Virt_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РљРѕР»РѕР±РѕРє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Появилась новая зверюшка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v2=Virt_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Серый волк'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РЎРµСЂС‹Р№ РІРѕР»Рє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Появилась новая зверюшка.</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">При </SPAN>создании каждого объекта на экран выводится, предусмотренное
-конструктором, сообщение "Появилась новая зверюшка.".<BR>
-<SPAN CLASS="txt_abz">По </SPAN>умолчанию все методы и атрибуты класса являются открытыми (public)
-и клиентский код может обращаться к этим методам и получать значения атрибутов. Поэтому получим
-для каждого созданного объекта значение его атрибута <SPAN CLASS="svoj">name</SPAN>:<BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РџСЂРё </SPAN>СЃРѕР·РґР°РЅРёРё РєР°Р¶РґРѕРіРѕ РѕР±СЉРµРєС‚Р° РЅР° СЌРєСЂР°РЅ РІС‹РІРѕРґРёС‚СЃСЏ, РїСЂРµРґСѓСЃРјРѕС‚СЂРµРЅРЅРѕРµ
+РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРѕРј, СЃРѕРѕР±С‰РµРЅРёРµ "РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.".<BR>
+<SPAN CLASS="txt_abz">РџРѕ </SPAN>СѓРјРѕР»С‡Р°РЅРёСЋ РІСЃРµ РјРµС‚РѕРґС‹ Рё Р°С‚СЂРёР±СѓС‚С‹ РєР»Р°СЃСЃР° СЏРІР»СЏСЋС‚СЃСЏ РѕС‚РєСЂС‹С‚С‹РјРё (public)
+Рё РєР»РёРµРЅС‚СЃРєРёР№ РєРѕРґ РјРѕР¶РµС‚ РѕР±СЂР°С‰Р°С‚СЊСЃСЏ Рє СЌС‚РёРј РјРµС‚РѕРґР°Рј Рё РїРѕР»СѓС‡Р°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ Р°С‚СЂРёР±СѓС‚РѕРІ. РџРѕСЌС‚РѕРјСѓ РїРѕР»СѓС‡РёРј
+РґР»СЏ РєР°Р¶РґРѕРіРѕ СЃРѕР·РґР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° Р·РЅР°С‡РµРЅРёРµ РµРіРѕ Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">name</SPAN>:<BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1.name</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Колобок'</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'РљРѕР»РѕР±РѕРє'</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v2.name</SPAN> <BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'Серый волк'</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Указав </SPAN>имя класса в функции <SPAN CLASS="svoj">print()</SPAN>, 
-получим данные, определяемые методом <SPAN CLASS="svoj">__str__()</SPAN>, заданные по умолчанию для
-класса <SPAN CLASS="svoj">Virt_zoo</SPAN>:<BR> <BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">'РЎРµСЂС‹Р№ РІРѕР»Рє'</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РЈРєР°Р·Р°РІ </SPAN>РёРјСЏ РєР»Р°СЃСЃР° РІ С„СѓРЅРєС†РёРё <SPAN CLASS="svoj">print()</SPAN>, 
+РїРѕР»СѓС‡РёРј РґР°РЅРЅС‹Рµ, РѕРїСЂРµРґРµР»СЏРµРјС‹Рµ РјРµС‚РѕРґРѕРј <SPAN CLASS="svoj">__str__()</SPAN>, Р·Р°РґР°РЅРЅС‹Рµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ
+РєР»Р°СЃСЃР° <SPAN CLASS="svoj">Virt_zoo</SPAN>:<BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(Virt_zoo)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
 &lt;class '__main__.Virt_zoo'></SPAN>,<BR><BR>
-т.е. класс Virt_zoo объявлен в модуле __main__ .<BR>
-<SPAN CLASS="txt_abz">Указав </SPAN>имя объекта в функции <SPAN CLASS="svoj">print()</SPAN>, 
-получим данные об объекте, определяемые пользовательским специальным методом
+С‚.Рµ. РєР»Р°СЃСЃ Virt_zoo РѕР±СЉСЏРІР»РµРЅ РІ РјРѕРґСѓР»Рµ __main__ .<BR>
+<SPAN CLASS="txt_abz">РЈРєР°Р·Р°РІ </SPAN>РёРјСЏ РѕР±СЉРµРєС‚Р° РІ С„СѓРЅРєС†РёРё <SPAN CLASS="svoj">print()</SPAN>, 
+РїРѕР»СѓС‡РёРј РґР°РЅРЅС‹Рµ РѕР± РѕР±СЉРµРєС‚Рµ, РѕРїСЂРµРґРµР»СЏРµРјС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРј СЃРїРµС†РёР°Р»СЊРЅС‹Рј РјРµС‚РѕРґРѕРј
 <SPAN CLASS="svoj">__str__()</SPAN>:
 <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(v1)</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Класс &ndash; Virt_zoo, имя зверюшки &ndash; Колобок</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">После </SPAN>удаления созданного объекта <SPAN CLASS="svoj">v1</SPAN><BR><BR>
+РљР»Р°СЃСЃ &ndash; Virt_zoo, РёРјСЏ Р·РІРµСЂСЋС€РєРё &ndash; РљРѕР»РѕР±РѕРє</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РџРѕСЃР»Рµ </SPAN>СѓРґР°Р»РµРЅРёСЏ СЃРѕР·РґР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° <SPAN CLASS="svoj">v1</SPAN><BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#ff8000">del </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">в соответствии с работой пользовательского специального метода
-<SPAN CLASS="svoj">__del__()</SPAN> появляется </SPAN>сообщение<BR><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Зверюшка исчезла.</SPAN><BR><BR><BR>
-<SPAN CLASS="txt_abz">И </SPAN>последующее обращение к атрибуту объекта вызовет исключение<BR><BR>
+<SPAN CLASS="txt_abz">РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ СЂР°Р±РѕС‚РѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ СЃРїРµС†РёР°Р»СЊРЅРѕРіРѕ РјРµС‚РѕРґР°
+<SPAN CLASS="svoj">__del__()</SPAN> РїРѕСЏРІР»СЏРµС‚СЃСЏ </SPAN>СЃРѕРѕР±С‰РµРЅРёРµ<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Р—РІРµСЂСЋС€РєР° РёСЃС‡РµР·Р»Р°.</SPAN><BR><BR><BR>
+<SPAN CLASS="txt_abz">Р </SPAN>РїРѕСЃР»РµРґСѓСЋС‰РµРµ РѕР±СЂР°С‰РµРЅРёРµ Рє Р°С‚СЂРёР±СѓС‚Сѓ РѕР±СЉРµРєС‚Р° РІС‹Р·РѕРІРµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1.name</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">NameError: name 'v1' is not defined</SPAN>
 <BR> <BR>
-<SPAN CLASS="txt_abz">Как </SPAN> уже отмечалось, после объявления класса в него можно добавлять
-новые атрибуты и методы. Поэтому создадим метод <SPAN CLASS="svoj">talk()</SPAN>:<BR> <BR> 
+<SPAN CLASS="txt_abz">РљР°Рє </SPAN> СѓР¶Рµ РѕС‚РјРµС‡Р°Р»РѕСЃСЊ, РїРѕСЃР»Рµ РѕР±СЉСЏРІР»РµРЅРёСЏ РєР»Р°СЃСЃР° РІ РЅРµРіРѕ РјРѕР¶РЅРѕ РґРѕР±Р°РІР»СЏС‚СЊ
+РЅРѕРІС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ Рё РјРµС‚РѕРґС‹. РџРѕСЌС‚РѕРјСѓ СЃРѕР·РґР°РґРёРј РјРµС‚РѕРґ <SPAN CLASS="svoj">talk()</SPAN>:<BR> <BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">talk</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Привет! Меня зовут '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">+self.name+</SPAN>
 <SPAN STYLE="font-size:7mm; color:green">'.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN>,<BR> <BR>
-который при вызове выводит на экран сообщение, сделанное зверюшкой, и добавим этот метод в класс
+РєРѕС‚РѕСЂС‹Р№ РїСЂРё РІС‹Р·РѕРІРµ РІС‹РІРѕРґРёС‚ РЅР° СЌРєСЂР°РЅ СЃРѕРѕР±С‰РµРЅРёРµ, СЃРґРµР»Р°РЅРЅРѕРµ Р·РІРµСЂСЋС€РєРѕР№, Рё РґРѕР±Р°РІРёРј СЌС‚РѕС‚ РјРµС‚РѕРґ РІ РєР»Р°СЃСЃ
 <SPAN CLASS="svoj">Virt_zoo</SPAN>:<BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">Virt_zoo.talk=talk</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">После </SPAN>этого вызовем для каждого созданного объекта класса
-<SPAN CLASS="svoj">Virt_zoo</SPAN> метод <SPAN CLASS="svoj">talk()</SPAN>:<BR> <BR>
+<SPAN CLASS="txt_abz">РџРѕСЃР»Рµ </SPAN>СЌС‚РѕРіРѕ РІС‹Р·РѕРІРµРј РґР»СЏ РєР°Р¶РґРѕРіРѕ СЃРѕР·РґР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">Virt_zoo</SPAN> РјРµС‚РѕРґ <SPAN CLASS="svoj">talk()</SPAN>:<BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1.talk()</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Привет! Меня зовут Колобок.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ РљРѕР»РѕР±РѕРє.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v2.talk()</SPAN> <BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Привет! Меня зовут Серый волк.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ РЎРµСЂС‹Р№ РІРѕР»Рє.</SPAN><BR>
 <A NAME="2.2"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">2.2 Применение атрибутов класса и статических методов</H4>
-<P>Атрибуты позволяют присваивать разные значения разным объектам одного и того же класса. Но
-бывает и такая информация, которая относиться не к индивидуальным объектам, а ко всему классу.
-Нпример, необходимо следить за количеством созданных зверюшек. Можно было для этого присвоить
-каждому объекту атрибут <SPAN CLASS="svoj">total</SPAN>, но тогда при создании каждого нового
-объекта необходимо будет изменять значение этого атрибута у всех уже созданных объектов. А это
-сделать непросто.<BR>
-<SPAN CLASS="txt_abz">Язык </SPAN>Python позволяет создавать значения, связанные с классом, которые
-называются атрибутами класса, и создавать методы, связанные с классом, называемые статическими.
-Внесем в выше описанный класс <SPAN CLASS="svoj">Virt_zoo</SPAN> следующие изменения:
+<H4 CLASS="pod">2.2 РџСЂРёРјРµРЅРµРЅРёРµ Р°С‚СЂРёР±СѓС‚РѕРІ РєР»Р°СЃСЃР° Рё СЃС‚Р°С‚РёС‡РµСЃРєРёС… РјРµС‚РѕРґРѕРІ</H4>
+<P>РђС‚СЂРёР±СѓС‚С‹ РїРѕР·РІРѕР»СЏСЋС‚ РїСЂРёСЃРІР°РёРІР°С‚СЊ СЂР°Р·РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ СЂР°Р·РЅС‹Рј РѕР±СЉРµРєС‚Р°Рј РѕРґРЅРѕРіРѕ Рё С‚РѕРіРѕ Р¶Рµ РєР»Р°СЃСЃР°. РќРѕ
+Р±С‹РІР°РµС‚ Рё С‚Р°РєР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ, РєРѕС‚РѕСЂР°СЏ РѕС‚РЅРѕСЃРёС‚СЊСЃСЏ РЅРµ Рє РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Рј РѕР±СЉРµРєС‚Р°Рј, Р° РєРѕ РІСЃРµРјСѓ РєР»Р°СЃСЃСѓ.
+РќРїСЂРёРјРµСЂ, РЅРµРѕР±С…РѕРґРёРјРѕ СЃР»РµРґРёС‚СЊ Р·Р° РєРѕР»РёС‡РµСЃС‚РІРѕРј СЃРѕР·РґР°РЅРЅС‹С… Р·РІРµСЂСЋС€РµРє. РњРѕР¶РЅРѕ Р±С‹Р»Рѕ РґР»СЏ СЌС‚РѕРіРѕ РїСЂРёСЃРІРѕРёС‚СЊ
+РєР°Р¶РґРѕРјСѓ РѕР±СЉРµРєС‚Сѓ Р°С‚СЂРёР±СѓС‚ <SPAN CLASS="svoj">total</SPAN>, РЅРѕ С‚РѕРіРґР° РїСЂРё СЃРѕР·РґР°РЅРёРё РєР°Р¶РґРѕРіРѕ РЅРѕРІРѕРіРѕ
+РѕР±СЉРµРєС‚Р° РЅРµРѕР±С…РѕРґРёРјРѕ Р±СѓРґРµС‚ РёР·РјРµРЅСЏС‚СЊ Р·РЅР°С‡РµРЅРёРµ СЌС‚РѕРіРѕ Р°С‚СЂРёР±СѓС‚Р° Сѓ РІСЃРµС… СѓР¶Рµ СЃРѕР·РґР°РЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ. Рђ СЌС‚Рѕ
+СЃРґРµР»Р°С‚СЊ РЅРµРїСЂРѕСЃС‚Рѕ.<BR>
+<SPAN CLASS="txt_abz">РЇР·С‹Рє </SPAN>Python РїРѕР·РІРѕР»СЏРµС‚ СЃРѕР·РґР°РІР°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ, СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ РєР»Р°СЃСЃРѕРј, РєРѕС‚РѕСЂС‹Рµ
+РЅР°Р·С‹РІР°СЋС‚СЃСЏ Р°С‚СЂРёР±СѓС‚Р°РјРё РєР»Р°СЃСЃР°, Рё СЃРѕР·РґР°РІР°С‚СЊ РјРµС‚РѕРґС‹, СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ РєР»Р°СЃСЃРѕРј, РЅР°Р·С‹РІР°РµРјС‹Рµ СЃС‚Р°С‚РёС‡РµСЃРєРёРјРё.
+Р’РЅРµСЃРµРј РІ РІС‹С€Рµ РѕРїРёСЃР°РЅРЅС‹Р№ РєР»Р°СЃСЃ <SPAN CLASS="svoj">Virt_zoo</SPAN> СЃР»РµРґСѓСЋС‰РёРµ РёР·РјРµРЅРµРЅРёСЏ:
 <UL CLASS="list">   
-<LI> не будем указывать, что создаваемый класс является наследником класса
-<SPAN CLASS="svoj">object</SPAN> (это ни на что не влияет);
-<LI> добавим атрибут класса:<BR> <BR>
+<LI> РЅРµ Р±СѓРґРµРј СѓРєР°Р·С‹РІР°С‚СЊ, С‡С‚Рѕ СЃРѕР·РґР°РІР°РµРјС‹Р№ РєР»Р°СЃСЃ СЏРІР»СЏРµС‚СЃСЏ РЅР°СЃР»РµРґРЅРёРєРѕРј РєР»Р°СЃСЃР°
+<SPAN CLASS="svoj">object</SPAN> (СЌС‚Рѕ РЅРё РЅР° С‡С‚Рѕ РЅРµ РІР»РёСЏРµС‚);
+<LI> РґРѕР±Р°РІРёРј Р°С‚СЂРёР±СѓС‚ РєР»Р°СЃСЃР°:<BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">total=0</SPAN>
-<SPAN STYLE="font-size:7mm; color:red"># Число созданных зверюшек
+<SPAN STYLE="font-size:7mm; color:red"># Р§РёСЃР»Рѕ СЃРѕР·РґР°РЅРЅС‹С… Р·РІРµСЂСЋС€РµРє
 <SPAN STYLE="font-size:7mm; color:black">;<BR><BR>
-<LI> добавим описание статического метода status(), который выводит на экран текущее
-количество зверюшек:<BR><BR>
+<LI> РґРѕР±Р°РІРёРј РѕРїРёСЃР°РЅРёРµ СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ РјРµС‚РѕРґР° status(), РєРѕС‚РѕСЂС‹Р№ РІС‹РІРѕРґРёС‚ РЅР° СЌРєСЂР°РЅ С‚РµРєСѓС‰РµРµ
+РєРѕР»РёС‡РµСЃС‚РІРѕ Р·РІРµСЂСЋС€РµРє:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">@</SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">staticmethod</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#FF8000">def </SPAN>
@@ -564,29 +566,29 @@ self (хотя и не является ключевым словом языка, но менять его на другое имя не с
 <SPAN STYLE="font-size:7mm; color:black">():</SPAN><BR>
 <SPAN STYLE="margin-left:3.6cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Всего зверюшек &ndash; '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р’СЃРµРіРѕ Р·РІРµСЂСЋС€РµРє &ndash; '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">, Virt_zoo.total)</SPAN><BR> <BR>
-(для указания того, что метод является статическим используется декоратор staticmethod);
-<LI> добавим в конструктор увеличение значения атрибута total на 1:
+(РґР»СЏ СѓРєР°Р·Р°РЅРёСЏ С‚РѕРіРѕ, С‡С‚Рѕ РјРµС‚РѕРґ СЏРІР»СЏРµС‚СЃСЏ СЃС‚Р°С‚РёС‡РµСЃРєРёРј РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґРµРєРѕСЂР°С‚РѕСЂ staticmethod);
+<LI> РґРѕР±Р°РІРёРј РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СѓРІРµР»РёС‡РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ Р°С‚СЂРёР±СѓС‚Р° total РЅР° 1:
 <BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:black">Virt_zoo.total+=1</SPAN>;<BR>
-<LI> уберем методы __str__ и __del__, которые были проверены в
-<a href="#2.1">разделе 2.1 </a> и в дальнейших примерах использоваться не будут.
+<LI> СѓР±РµСЂРµРј РјРµС‚РѕРґС‹ __str__ Рё __del__, РєРѕС‚РѕСЂС‹Рµ Р±С‹Р»Рё РїСЂРѕРІРµСЂРµРЅС‹ РІ
+<a href="#2.1">СЂР°Р·РґРµР»Рµ 2.1 </a> Рё РІ РґР°Р»СЊРЅРµР№С€РёС… РїСЂРёРјРµСЂР°С… РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РЅРµ Р±СѓРґСѓС‚.
 </UL>
-<P>После внесенных изменений описание класса выглядит следующим образом:<BR><BR>
+<P>РџРѕСЃР»Рµ РІРЅРµСЃРµРЅРЅС‹С… РёР·РјРµРЅРµРЅРёР№ РѕРїРёСЃР°РЅРёРµ РєР»Р°СЃСЃР° РІС‹РіР»СЏРґРёС‚ СЃР»РµРґСѓСЋС‰РёРј РѕР±СЂР°Р·РѕРј:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">Virt_zoo</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">:</SPAN><BR>
-<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">''' Виртуальные зверюшки '''</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">''' Р’РёСЂС‚СѓР°Р»СЊРЅС‹Рµ Р·РІРµСЂСЋС€РєРё '''</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:black">total=0</SPAN>
-<SPAN STYLE="font-size:7mm; color:red"># Число созданных зверюшек</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:red"># Р§РёСЃР»Рѕ СЃРѕР·РґР°РЅРЅС‹С… Р·РІРµСЂСЋС€РµРє</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,name):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Появилась новая зверюшка.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.name=name</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">Virt_zoo.total+=1</SPAN><BR>
@@ -597,71 +599,71 @@ self (хотя и не является ключевым словом языка, но менять его на другое имя не с
 <SPAN STYLE="font-size:7mm; color:black">():</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Всего зверюшек &ndash; '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р’СЃРµРіРѕ Р·РІРµСЂСЋС€РµРє &ndash; '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">, Virt_zoo.total)</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">talk</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Привет! Меня зовут '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">+self.name, </SPAN>
 <SPAN STYLE="font-size:7mm; color:green">'.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR> <BR>
-<SPAN CLASS="txt_abz">Обращаться </SPAN>к атрибутам класса и статическим методам можно как
-через созданные объекты, так и непосредственно из класса:<BR> <BR>
+<SPAN CLASS="txt_abz">РћР±СЂР°С‰Р°С‚СЊСЃСЏ </SPAN>Рє Р°С‚СЂРёР±СѓС‚Р°Рј РєР»Р°СЃСЃР° Рё СЃС‚Р°С‚РёС‡РµСЃРєРёРј РјРµС‚РѕРґР°Рј РјРѕР¶РЅРѕ РєР°Рє
+С‡РµСЂРµР· СЃРѕР·РґР°РЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹, С‚Р°Рє Рё РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РёР· РєР»Р°СЃСЃР°:<BR> <BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1=Virt_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РљРѕР»РѕР±РѕРє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Появилась новая зверюшка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1.total</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">1</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v2=Virt_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Змей Горыныч'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р—РјРµР№ Р“РѕСЂС‹РЅС‹С‡'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Появилась новая зверюшка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">Virt_zoo.status()</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Всего зверюшек &ndash; 2</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Р’СЃРµРіРѕ Р·РІРµСЂСЋС€РµРє &ndash; 2</SPAN><BR>
 <A NAME="2.3"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">2.3 Использование закрытых атрибутов и методов</H4>
-<P>В языке Python используется три вида атрибутов:
+<H4 CLASS="pod">2.3 РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ Р·Р°РєСЂС‹С‚С‹С… Р°С‚СЂРёР±СѓС‚РѕРІ Рё РјРµС‚РѕРґРѕРІ</H4>
+<P>Р’ СЏР·С‹РєРµ Python РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ С‚СЂРё РІРёРґР° Р°С‚СЂРёР±СѓС‚РѕРІ:
 <UL CLASS="list">                                         
-<LI> открытые &ndash; предназначенные для использования из клиентского кода;   
-<LI> закрытые &ndash; предназначенные для использования внутри описания класса и запрещенные
-для даступа из клиентского кода (перед именем таких атрибутов ставятся два символа подчеркивания);
-<LI> атрибуты, предназначенные для использования внутри описания класса, но разрешенные для
-даступа из клиентского кода (перед именем таких атрибутов ставится один символ подчеркивания).
+<LI> РѕС‚РєСЂС‹С‚С‹Рµ &ndash; РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёР· РєР»РёРµРЅС‚СЃРєРѕРіРѕ РєРѕРґР°;   
+<LI> Р·Р°РєСЂС‹С‚С‹Рµ &ndash; РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРЅСѓС‚СЂРё РѕРїРёСЃР°РЅРёСЏ РєР»Р°СЃСЃР° Рё Р·Р°РїСЂРµС‰РµРЅРЅС‹Рµ
+РґР»СЏ РґР°СЃС‚СѓРїР° РёР· РєР»РёРµРЅС‚СЃРєРѕРіРѕ РєРѕРґР° (РїРµСЂРµРґ РёРјРµРЅРµРј С‚Р°РєРёС… Р°С‚СЂРёР±СѓС‚РѕРІ СЃС‚Р°РІСЏС‚СЃСЏ РґРІР° СЃРёРјРІРѕР»Р° РїРѕРґС‡РµСЂРєРёРІР°РЅРёСЏ);
+<LI> Р°С‚СЂРёР±СѓС‚С‹, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРЅСѓС‚СЂРё РѕРїРёСЃР°РЅРёСЏ РєР»Р°СЃСЃР°, РЅРѕ СЂР°Р·СЂРµС€РµРЅРЅС‹Рµ РґР»СЏ
+РґР°СЃС‚СѓРїР° РёР· РєР»РёРµРЅС‚СЃРєРѕРіРѕ РєРѕРґР° (РїРµСЂРµРґ РёРјРµРЅРµРј С‚Р°РєРёС… Р°С‚СЂРёР±СѓС‚РѕРІ СЃС‚Р°РІРёС‚СЃСЏ РѕРґРёРЅ СЃРёРјРІРѕР» РїРѕРґС‡РµСЂРєРёРІР°РЅРёСЏ).
 </UL>
-<P>С целью использования закрытого атрибута внесем в выше описанный класс
-<SPAN CLASS="svoj">Vitt_zoo</SPAN> следующие изменения:
+<P>РЎ С†РµР»СЊСЋ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ Р·Р°РєСЂС‹С‚РѕРіРѕ Р°С‚СЂРёР±СѓС‚Р° РІРЅРµСЃРµРј РІ РІС‹С€Рµ РѕРїРёСЃР°РЅРЅС‹Р№ РєР»Р°СЃСЃ
+<SPAN CLASS="svoj">Vitt_zoo</SPAN> СЃР»РµРґСѓСЋС‰РёРµ РёР·РјРµРЅРµРЅРёСЏ:
 <UL CLASS="list">   
-<LI> добавим в описание конструктора класса Virt_zoo() закрытый атрибут __mood, отражающий
-настроение созданной зверюшки;
-<LI> укажем в методе talk() вывод на экран не только имени зверюшки, но и его настроения.
+<LI> РґРѕР±Р°РІРёРј РІ РѕРїРёСЃР°РЅРёРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РєР»Р°СЃСЃР° Virt_zoo() Р·Р°РєСЂС‹С‚С‹Р№ Р°С‚СЂРёР±СѓС‚ __mood, РѕС‚СЂР°Р¶Р°СЋС‰РёР№
+РЅР°СЃС‚СЂРѕРµРЅРёРµ СЃРѕР·РґР°РЅРЅРѕР№ Р·РІРµСЂСЋС€РєРё;
+<LI> СѓРєР°Р¶РµРј РІ РјРµС‚РѕРґРµ talk() РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ РЅРµ С‚РѕР»СЊРєРѕ РёРјРµРЅРё Р·РІРµСЂСЋС€РєРё, РЅРѕ Рё РµРіРѕ РЅР°СЃС‚СЂРѕРµРЅРёСЏ.
 </UL>
-<P> А также удалим из него:
+<P> Рђ С‚Р°РєР¶Рµ СѓРґР°Р»РёРј РёР· РЅРµРіРѕ:
 <UL CLASS="list">   
-<LI> описание статического атрибута total вместе с изменением его значения в конструкторе класса;
-<LI> описание статического метода status().
+<LI> РѕРїРёСЃР°РЅРёРµ СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ Р°С‚СЂРёР±СѓС‚Р° total РІРјРµСЃС‚Рµ СЃ РёР·РјРµРЅРµРЅРёРµРј РµРіРѕ Р·РЅР°С‡РµРЅРёСЏ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ РєР»Р°СЃСЃР°;
+<LI> РѕРїРёСЃР°РЅРёРµ СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ РјРµС‚РѕРґР° status().
 </UL>
-<P CLASS="ba">поскольку они были рассмотрены в <A HREF="#2.2">подразделе 2.2</A>.
-После внесенных изменений описание класса выглядит следующим образом:<BR><BR> 
+<P CLASS="ba">РїРѕСЃРєРѕР»СЊРєСѓ РѕРЅРё Р±С‹Р»Рё СЂР°СЃСЃРјРѕС‚СЂРµРЅС‹ РІ <A HREF="#2.2">РїРѕРґСЂР°Р·РґРµР»Рµ 2.2</A>.
+РџРѕСЃР»Рµ РІРЅРµСЃРµРЅРЅС‹С… РёР·РјРµРЅРµРЅРёР№ РѕРїРёСЃР°РЅРёРµ РєР»Р°СЃСЃР° РІС‹РіР»СЏРґРёС‚ СЃР»РµРґСѓСЋС‰РёРј РѕР±СЂР°Р·РѕРј:<BR><BR> 
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">Virt_zoo:</SPAN><BR>
-<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">'''Виртуальные зверюшки'''</SPAN><BR>
+<SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:green">'''Р’РёСЂС‚СѓР°Р»СЊРЅС‹Рµ Р·РІРµСЂСЋС€РєРё'''</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__init__</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,name,mood):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Появилась новая зверюшка.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.name=name</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.__mood=mood</SPAN><BR>
@@ -670,35 +672,35 @@ self (хотя и не является ключевым словом языка, но менять его на другое имя не с
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Привет! Меня зовут '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">+self.name+</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'. Чуствую себя '</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'. Р§СѓСЃС‚РІСѓСЋ СЃРµР±СЏ '</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">+self.__mood)</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Проверим </SPAN>использование закрытого аргумента:<BR><BR>
+<SPAN CLASS="txt_abz">РџСЂРѕРІРµСЂРёРј </SPAN>РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ Р·Р°РєСЂС‹С‚РѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1=Virt_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Колобок'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РљРѕР»РѕР±РѕРє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'отлично.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РѕС‚Р»РёС‡РЅРѕ.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Появилась новая зверюшка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1.talk()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Привет! Меня зовут Колобок. Чуствую себя отлично.</SPAN><BR>
+РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ РљРѕР»РѕР±РѕРє. Р§СѓСЃС‚РІСѓСЋ СЃРµР±СЏ РѕС‚Р»РёС‡РЅРѕ.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v2=Virt_zoo(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Серый волк'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РЎРµСЂС‹Р№ РІРѕР»Рє'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">,</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'голодным.'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'РіРѕР»РѕРґРЅС‹Рј.'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Появилась новая зверюшка.</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РџРѕСЏРІРёР»Р°СЃСЊ РЅРѕРІР°СЏ Р·РІРµСЂСЋС€РєР°.</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v2.talk()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">
-Привет! Меня зовут Серый волк. Чуствую себя голодным.</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Попытка </SPAN>непосредственного обращения к атрибуту с именем
-<SPAN CLASS="svoj">mood</SPAN> или  <SPAN CLASS="svoj">__mood</SPAN> ведет к ошибке:<BR><BR>
+РџСЂРёРІРµС‚! РњРµРЅСЏ Р·РѕРІСѓС‚ РЎРµСЂС‹Р№ РІРѕР»Рє. Р§СѓСЃС‚РІСѓСЋ СЃРµР±СЏ РіРѕР»РѕРґРЅС‹Рј.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РџРѕРїС‹С‚РєР° </SPAN>РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕРіРѕ РѕР±СЂР°С‰РµРЅРёСЏ Рє Р°С‚СЂРёР±СѓС‚Сѓ СЃ РёРјРµРЅРµРј
+<SPAN CLASS="svoj">mood</SPAN> РёР»Рё  <SPAN CLASS="svoj">__mood</SPAN> РІРµРґРµС‚ Рє РѕС€РёР±РєРµ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">v1.mood</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
@@ -707,67 +709,67 @@ AttributeError: 'Virt_zoo' object has no attribute 'mood'</SPAN><BR>
 <SPAN STYLE="font-size:7mm; color:black">v1.__mood</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
 AttributeError: 'Virt_zoo' object has no attribute '__mood'</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Т.е. объект </SPAN>класса <SPAN CLASS="svoj">Virt_zoo</SPAN> не имеет ни
-атрибута <SPAN CLASS="svoj">mood</SPAN>, ни атрибута <SPAN CLASS="svoj">__mood</SPAN>.<BR>
-<SPAN CLASS="txt_abz">Тем </SPAN>не менее в языке Python имеется возможность обратиться к закрытому
-аргументу из клиентского кода и получить его значение. Для этого необходимо использовать следующую
-форму: <SPAN CLASS="svoj">объект._ИмяКласса__ИмяАргумента</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">Рў.Рµ. РѕР±СЉРµРєС‚ </SPAN>РєР»Р°СЃСЃР° <SPAN CLASS="svoj">Virt_zoo</SPAN> РЅРµ РёРјРµРµС‚ РЅРё
+Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">mood</SPAN>, РЅРё Р°С‚СЂРёР±СѓС‚Р° <SPAN CLASS="svoj">__mood</SPAN>.<BR>
+<SPAN CLASS="txt_abz">РўРµРј </SPAN>РЅРµ РјРµРЅРµРµ РІ СЏР·С‹РєРµ Python РёРјРµРµС‚СЃСЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕР±СЂР°С‚РёС‚СЊСЃСЏ Рє Р·Р°РєСЂС‹С‚РѕРјСѓ
+Р°СЂРіСѓРјРµРЅС‚Сѓ РёР· РєР»РёРµРЅС‚СЃРєРѕРіРѕ РєРѕРґР° Рё РїРѕР»СѓС‡РёС‚СЊ РµРіРѕ Р·РЅР°С‡РµРЅРёРµ. Р”Р»СЏ СЌС‚РѕРіРѕ РЅРµРѕР±С…РѕРґРёРјРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЃР»РµРґСѓСЋС‰СѓСЋ
+С„РѕСЂРјСѓ: <SPAN CLASS="svoj">РѕР±СЉРµРєС‚._РРјСЏРљР»Р°СЃСЃР°__РРјСЏРђСЂРіСѓРјРµРЅС‚Р°</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(v1._Virt_zoo__mood)</SPAN><BR>   
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">отлично.</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Аналогично </SPAN>атрибутам в языке Python используется три вида методов:
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">РѕС‚Р»РёС‡РЅРѕ.</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РђРЅР°Р»РѕРіРёС‡РЅРѕ </SPAN>Р°С‚СЂРёР±СѓС‚Р°Рј РІ СЏР·С‹РєРµ Python РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ С‚СЂРё РІРёРґР° РјРµС‚РѕРґРѕРІ:
 <UL CLASS="list">                                         
-<LI> открытые &ndash; предназначенные для использования из клиентского кода;   
-<LI> закрытые &ndash; предназначенные для использования внутри описания класса и запрещенные
-для даступа из клиентского кода (перед именем таких методов ставятся два символа подчеркивания);
-<LI> методы, предназначенные для использования внутри описания класса, но разрешенные для
-даступа из клиентского кода (перед именем таких методов ставится один символ подчеркивания).
+<LI> РѕС‚РєСЂС‹С‚С‹Рµ &ndash; РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РёР· РєР»РёРµРЅС‚СЃРєРѕРіРѕ РєРѕРґР°;   
+<LI> Р·Р°РєСЂС‹С‚С‹Рµ &ndash; РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРЅСѓС‚СЂРё РѕРїРёСЃР°РЅРёСЏ РєР»Р°СЃСЃР° Рё Р·Р°РїСЂРµС‰РµРЅРЅС‹Рµ
+РґР»СЏ РґР°СЃС‚СѓРїР° РёР· РєР»РёРµРЅС‚СЃРєРѕРіРѕ РєРѕРґР° (РїРµСЂРµРґ РёРјРµРЅРµРј С‚Р°РєРёС… РјРµС‚РѕРґРѕРІ СЃС‚Р°РІСЏС‚СЃСЏ РґРІР° СЃРёРјРІРѕР»Р° РїРѕРґС‡РµСЂРєРёРІР°РЅРёСЏ);
+<LI> РјРµС‚РѕРґС‹, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРЅСѓС‚СЂРё РѕРїРёСЃР°РЅРёСЏ РєР»Р°СЃСЃР°, РЅРѕ СЂР°Р·СЂРµС€РµРЅРЅС‹Рµ РґР»СЏ
+РґР°СЃС‚СѓРїР° РёР· РєР»РёРµРЅС‚СЃРєРѕРіРѕ РєРѕРґР° (РїРµСЂРµРґ РёРјРµРЅРµРј С‚Р°РєРёС… РјРµС‚РѕРґРѕРІ СЃС‚Р°РІРёС‚СЃСЏ РѕРґРёРЅ СЃРёРјРІРѕР» РїРѕРґС‡РµСЂРєРёРІР°РЅРёСЏ).
 </UL>
-<P>Рассмотрим небольшой пример создания и использования закрытого метода:<BR><BR>
+<P>Р Р°СЃСЃРјРѕС‚СЂРёРј РЅРµР±РѕР»СЊС€РѕР№ РїСЂРёРјРµСЂ СЃРѕР·РґР°РЅРёСЏ Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ Р·Р°РєСЂС‹С‚РѕРіРѕ РјРµС‚РѕРґР°:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
-<SPAN STYLE="font-size:7mm; color:blue">С:</SPAN><BR>
+<SPAN STYLE="font-size:7mm; color:blue">РЎ:</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">__private_method</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Это закрытый метод'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р­С‚Рѕ Р·Р°РєСЂС‹С‚С‹Р№ РјРµС‚РѕРґ'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:4.0cm; font-size:7mm; color:#FF8000">def </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">public_method</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#af00af">print</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(</SPAN>
-<SPAN STYLE="font-size:7mm; color:green">'Это открытый метод'</SPAN>
+<SPAN STYLE="font-size:7mm; color:green">'Р­С‚Рѕ РѕС‚РєСЂС‹С‚С‹Р№ РјРµС‚РѕРґ'</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">)</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.__private_method()</SPAN><BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">c1=C()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">c1.public_method()</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Это открытый метод</SPAN><BR>
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Это закрытый метод</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Непосредственное </SPAN>обращение к закрытому методу приводит к ошибке:<BR><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Р­С‚Рѕ РѕС‚РєСЂС‹С‚С‹Р№ РјРµС‚РѕРґ</SPAN><BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Р­С‚Рѕ Р·Р°РєСЂС‹С‚С‹Р№ РјРµС‚РѕРґ</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РќРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕРµ </SPAN>РѕР±СЂР°С‰РµРЅРёРµ Рє Р·Р°РєСЂС‹С‚РѕРјСѓ РјРµС‚РѕРґСѓ РїСЂРёРІРѕРґРёС‚ Рє РѕС€РёР±РєРµ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">c1.__private_method()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
 AttributeError: 'C' object has no attribute 'private_method'</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Так </SPAN>же как и для атрибутов в языке Python имеется возможность
-обратиться к закрытому методу из клиентского кода. Для этого необходимо использовать следующую
-форму: <SPAN CLASS="svoj">объект._ИмяКласса__ИмяМетода</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">РўР°Рє </SPAN>Р¶Рµ РєР°Рє Рё РґР»СЏ Р°С‚СЂРёР±СѓС‚РѕРІ РІ СЏР·С‹РєРµ Python РёРјРµРµС‚СЃСЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ
+РѕР±СЂР°С‚РёС‚СЊСЃСЏ Рє Р·Р°РєСЂС‹С‚РѕРјСѓ РјРµС‚РѕРґСѓ РёР· РєР»РёРµРЅС‚СЃРєРѕРіРѕ РєРѕРґР°. Р”Р»СЏ СЌС‚РѕРіРѕ РЅРµРѕР±С…РѕРґРёРјРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЃР»РµРґСѓСЋС‰СѓСЋ
+С„РѕСЂРјСѓ: <SPAN CLASS="svoj">РѕР±СЉРµРєС‚._РРјСЏРљР»Р°СЃСЃР°__РРјСЏРњРµС‚РѕРґР°</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">c1._C__private_method()</SPAN><BR>   
-<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Это закрытый метод</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Но </SPAN>применять ее (также как и форму доступа к закрытому атрибуту) не
-следует.<BR>
+<SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">Р­С‚Рѕ Р·Р°РєСЂС‹С‚С‹Р№ РјРµС‚РѕРґ</SPAN><BR><BR>
+<SPAN CLASS="txt_abz">РќРѕ </SPAN>РїСЂРёРјРµРЅСЏС‚СЊ РµРµ (С‚Р°РєР¶Рµ РєР°Рє Рё С„РѕСЂРјСѓ РґРѕСЃС‚СѓРїР° Рє Р·Р°РєСЂС‹С‚РѕРјСѓ Р°С‚СЂРёР±СѓС‚Сѓ) РЅРµ
+СЃР»РµРґСѓРµС‚.<BR>
 <A NAME="2.4"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H4 CLASS="pod">2.4 Управление атрибутами</H4>
-<P>Python поддерживает возможность управления доступом к атрибутам класса. Создадим класс
-<SPAN CLASS="svoj">D </SPAN>с одним закрытым атрибутом <SPAN CLASS="svoj">__x</SPAN>:<BR><BR>
+<H4 CLASS="pod">2.4 РЈРїСЂР°РІР»РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р°РјРё</H4>
+<P>Python РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СѓРїСЂР°РІР»РµРЅРёСЏ РґРѕСЃС‚СѓРїРѕРј Рє Р°С‚СЂРёР±СѓС‚Р°Рј РєР»Р°СЃСЃР°. РЎРѕР·РґР°РґРёРј РєР»Р°СЃСЃ
+<SPAN CLASS="svoj">D </SPAN>СЃ РѕРґРЅРёРј Р·Р°РєСЂС‹С‚С‹Рј Р°С‚СЂРёР±СѓС‚РѕРј <SPAN CLASS="svoj">__x</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">D</SPAN>
@@ -777,21 +779,21 @@ AttributeError: 'C' object has no attribute 'private_method'</SPAN><BR><BR>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.__x=</SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">None</SPAN><BR><BR>
-и создадим объект <SPAN CLASS="svoj">d1 </SPAN>:<BR><BR>
+Рё СЃРѕР·РґР°РґРёРј РѕР±СЉРµРєС‚ <SPAN CLASS="svoj">d1 </SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1=D()</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">При </SPAN>попытке обратиться к свойству <SPAN CLASS="svoj">x </SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">РџСЂРё </SPAN>РїРѕРїС‹С‚РєРµ РѕР±СЂР°С‚РёС‚СЊСЃСЏ Рє СЃРІРѕР№СЃС‚РІСѓ <SPAN CLASS="svoj">x </SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1.x</SPAN><BR><BR>
-вырабатывается исключение:<BR><BR>
+РІС‹СЂР°Р±Р°С‚С‹РІР°РµС‚СЃСЏ РёСЃРєР»СЋС‡РµРЅРёРµ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
 AttributeError: 'D' object has no attribute 'x'</SPAN><BR><BR>
-Аналогичное сообщение получим при попытке обратиться к атрибуту
+РђРЅР°Р»РѕРіРёС‡РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РїРѕР»СѓС‡РёРј РїСЂРё РїРѕРїС‹С‚РєРµ РѕР±СЂР°С‚РёС‚СЊСЃСЏ Рє Р°С‚СЂРёР±СѓС‚Сѓ
 <SPAN CLASS="svoj">__x</SPAN>.<BR>
-<SPAN CLASS="txt_abz">Для </SPAN>предоставления возможности получить доступ к атрибуту
-<SPAN CLASS="svoj">x</SPAN> из пользовательского кода, предствим этот атрибут в виде свойства
-класса с разрешением на чтение. Для этого создается метод <SPAN CLASS="svoj">x()</SPAN> с
-декоратором <SPAN CLASS="svoj">@property</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">Р”Р»СЏ </SPAN>РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРёСЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє Р°С‚СЂРёР±СѓС‚Сѓ
+<SPAN CLASS="svoj">x</SPAN> РёР· РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РєРѕРґР°, РїСЂРµРґСЃС‚РІРёРј СЌС‚РѕС‚ Р°С‚СЂРёР±СѓС‚ РІ РІРёРґРµ СЃРІРѕР№СЃС‚РІР°
+РєР»Р°СЃСЃР° СЃ СЂР°Р·СЂРµС€РµРЅРёРµРј РЅР° С‡С‚РµРЅРёРµ. Р”Р»СЏ СЌС‚РѕРіРѕ СЃРѕР·РґР°РµС‚СЃСЏ РјРµС‚РѕРґ <SPAN CLASS="svoj">x()</SPAN> СЃ
+РґРµРєРѕСЂР°С‚РѕСЂРѕРј <SPAN CLASS="svoj">@property</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">D</SPAN>
@@ -808,25 +810,25 @@ AttributeError: 'D' object has no attribute 'x'</SPAN><BR><BR>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:#ff8000">return </SPAN>
 <SPAN STYLE="font-size:7mm; color:black">self.__x</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Снова </SPAN>попытаемся обратиться к свойству <SPAN CLASS="svoj">x </SPAN>:
+<SPAN CLASS="txt_abz">РЎРЅРѕРІР° </SPAN>РїРѕРїС‹С‚Р°РµРјСЃСЏ РѕР±СЂР°С‚РёС‚СЊСЃСЏ Рє СЃРІРѕР№СЃС‚РІСѓ <SPAN CLASS="svoj">x </SPAN>:
 <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1=D()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1.x</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">На </SPAN>этот раз ошибки не возникло. Но на экран ничего не выведено, так
-как атрибуту <SPAN CLASS="svoj">x</SPAN> изначально было присвоено значение
-<SPAN CLASS="svoj">None</SPAN>. Попробуем задать этому свойству некоторое другое значение: <BR><BR>
+<SPAN CLASS="txt_abz">РќР° </SPAN>СЌС‚РѕС‚ СЂР°Р· РѕС€РёР±РєРё РЅРµ РІРѕР·РЅРёРєР»Рѕ. РќРѕ РЅР° СЌРєСЂР°РЅ РЅРёС‡РµРіРѕ РЅРµ РІС‹РІРµРґРµРЅРѕ, С‚Р°Рє
+РєР°Рє Р°С‚СЂРёР±СѓС‚Сѓ <SPAN CLASS="svoj">x</SPAN> РёР·РЅР°С‡Р°Р»СЊРЅРѕ Р±С‹Р»Рѕ РїСЂРёСЃРІРѕРµРЅРѕ Р·РЅР°С‡РµРЅРёРµ
+<SPAN CLASS="svoj">None</SPAN>. РџРѕРїСЂРѕР±СѓРµРј Р·Р°РґР°С‚СЊ СЌС‚РѕРјСѓ СЃРІРѕР№СЃС‚РІСѓ РЅРµРєРѕС‚РѕСЂРѕРµ РґСЂСѓРіРѕРµ Р·РЅР°С‡РµРЅРёРµ: <BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1=D()</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1.x=7</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">
 AttributeError: can't set attribute</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Ошибка </SPAN>о невозможности установки атрибута произошла потому, что
-пользователю не было разрешено изменять значения свойства. Чтобы дать ему такую возможность
-добавим в класс <SPAN CLASS="svoj">D</SPAN> декоратор <SPAN CLASS="svoj">@x.setter</SPAN> с
-методом  <SPAN CLASS="svoj">x()</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">РћС€РёР±РєР° </SPAN>Рѕ РЅРµРІРѕР·РјРѕР¶РЅРѕСЃС‚Рё СѓСЃС‚Р°РЅРѕРІРєРё Р°С‚СЂРёР±СѓС‚Р° РїСЂРѕРёР·РѕС€Р»Р° РїРѕС‚РѕРјСѓ, С‡С‚Рѕ
+РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ РЅРµ Р±С‹Р»Рѕ СЂР°Р·СЂРµС€РµРЅРѕ РёР·РјРµРЅСЏС‚СЊ Р·РЅР°С‡РµРЅРёСЏ СЃРІРѕР№СЃС‚РІР°. Р§С‚РѕР±С‹ РґР°С‚СЊ РµРјСѓ С‚Р°РєСѓСЋ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ
+РґРѕР±Р°РІРёРј РІ РєР»Р°СЃСЃ <SPAN CLASS="svoj">D</SPAN> РґРµРєРѕСЂР°С‚РѕСЂ <SPAN CLASS="svoj">@x.setter</SPAN> СЃ
+РјРµС‚РѕРґРѕРј  <SPAN CLASS="svoj">x()</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">D</SPAN>
@@ -849,8 +851,8 @@ AttributeError: can't set attribute</SPAN><BR><BR>
 <SPAN STYLE="font-size:7mm; color:blue">x</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self,value):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">self.__x=value</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Теперь </SPAN>попытаемся изменить свойство <SPAN CLASS="svoj">x </SPAN> и
-определить его новое значение:<BR><BR>
+<SPAN CLASS="txt_abz">РўРµРїРµСЂСЊ </SPAN>РїРѕРїС‹С‚Р°РµРјСЃСЏ РёР·РјРµРЅРёС‚СЊ СЃРІРѕР№СЃС‚РІРѕ <SPAN CLASS="svoj">x </SPAN> Рё
+РѕРїСЂРµРґРµР»РёС‚СЊ РµРіРѕ РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1=D()</SPAN><BR>
  <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
@@ -858,14 +860,14 @@ AttributeError: can't set attribute</SPAN><BR><BR>
  <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1.x</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:blue">77</SPAN><BR>
-<SPAN CLASS="txt_abz">Задание </SPAN>нового значения свойству <SPAN CLASS="svoj">x</SPAN> произошло
-успешно, а попытка удалить это свойство привела к ошибке:<BR><BR>
+<SPAN CLASS="txt_abz">Р—Р°РґР°РЅРёРµ </SPAN>РЅРѕРІРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ СЃРІРѕР№СЃС‚РІСѓ <SPAN CLASS="svoj">x</SPAN> РїСЂРѕРёР·РѕС€Р»Рѕ
+СѓСЃРїРµС€РЅРѕ, Р° РїРѕРїС‹С‚РєР° СѓРґР°Р»РёС‚СЊ СЌС‚Рѕ СЃРІРѕР№СЃС‚РІРѕ РїСЂРёРІРµР»Р° Рє РѕС€РёР±РєРµ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">del d1.x</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">AttributeError: can't delete attribute</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Чтобы </SPAN>дать возможность пользователю удалить свойство (если это
-необходимо), добавим в описание класса еще один декоратор &ndash;
-<SPAN CLASS="svoj">@x.deleter</SPAN> и еще один метод <SPAN CLASS="svoj">x()</SPAN>:<BR><BR>
+<SPAN CLASS="txt_abz">Р§С‚РѕР±С‹ </SPAN>РґР°С‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ СѓРґР°Р»РёС‚СЊ СЃРІРѕР№СЃС‚РІРѕ (РµСЃР»Рё СЌС‚Рѕ
+РЅРµРѕР±С…РѕРґРёРјРѕ), РґРѕР±Р°РІРёРј РІ РѕРїРёСЃР°РЅРёРµ РєР»Р°СЃСЃР° РµС‰Рµ РѕРґРёРЅ РґРµРєРѕСЂР°С‚РѕСЂ &ndash;
+<SPAN CLASS="svoj">@x.deleter</SPAN> Рё РµС‰Рµ РѕРґРёРЅ РјРµС‚РѕРґ <SPAN CLASS="svoj">x()</SPAN>:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:#FF8000">class </SPAN>
 <SPAN STYLE="font-size:7mm; color:blue">D</SPAN>
@@ -894,8 +896,8 @@ AttributeError: can't set attribute</SPAN><BR><BR>
 <SPAN STYLE="font-size:7mm; color:blue">x</SPAN>
 <SPAN STYLE="font-size:7mm; color:black">(self):</SPAN><BR>
 <SPAN STYLE="margin-left:6.3cm; font-size:7mm; color:black">del self.__x</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Зададим </SPAN>новое значение свойству <SPAN CLASS="svoj">x</SPAN> и
-попытаемся удалить это свойство:<BR><BR>
+<SPAN CLASS="txt_abz">Р—Р°РґР°РґРёРј </SPAN>РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃРІРѕР№СЃС‚РІСѓ <SPAN CLASS="svoj">x</SPAN> Рё
+РїРѕРїС‹С‚Р°РµРјСЃСЏ СѓРґР°Р»РёС‚СЊ СЌС‚Рѕ СЃРІРѕР№СЃС‚РІРѕ:<BR><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
 <SPAN STYLE="font-size:7mm; color:black">d1=D()</SPAN><BR>
  <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:#900090">>>></SPAN>
@@ -909,44 +911,44 @@ AttributeError: can't set attribute</SPAN><BR><BR>
 <SPAN STYLE="font-size:7mm; color:black">d1.x</SPAN><BR>
 <SPAN STYLE="margin-left:1.5cm; font-size:7mm; color:red">AttributeError: 'D' object has no
 attribute '_D__x'</SPAN><BR><BR>
-<SPAN CLASS="txt_abz">Т.е. </SPAN>свойство <SPAN CLASS="svoj">x</SPAN> удалено.
+<SPAN CLASS="txt_abz">Рў.Рµ. </SPAN>СЃРІРѕР№СЃС‚РІРѕ <SPAN CLASS="svoj">x</SPAN> СѓРґР°Р»РµРЅРѕ.
 <A NAME="ind"></A>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
 
-<H3>Индивидуальные задания</H3>
-<P>Разработать программу на языке Python, в которой:
+<H3>РРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Рµ Р·Р°РґР°РЅРёСЏ</H3>
+<P>Р Р°Р·СЂР°Р±РѕС‚Р°С‚СЊ РїСЂРѕРіСЂР°РјРјСѓ РЅР° СЏР·С‹РєРµ Python, РІ РєРѕС‚РѕСЂРѕР№:
 <UL CLASS="list">                                           
-<LI> создается класс, описывающий поведение объектов, представляющих  (см. колонку "Поведение"
-табл. 3) таких персонаажей:
+<LI> СЃРѕР·РґР°РµС‚СЃСЏ РєР»Р°СЃСЃ, РѕРїРёСЃС‹РІР°СЋС‰РёР№ РїРѕРІРµРґРµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ, РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‰РёС…  (СЃРј. РєРѕР»РѕРЅРєСѓ "РџРѕРІРµРґРµРЅРёРµ"
+С‚Р°Р±Р». 3) С‚Р°РєРёС… РїРµСЂСЃРѕРЅР°Р°Р¶РµР№:
 <UL CLASS="list2"> 
-<LI> 1 &ndash; пользователей компьютера;
-<LI> 2 &ndash; литературных персонажей;
-<LI> 3 &ndash; студентов;
-<LI> 4 &ndash; героев мультипликации;
-<LI> 5 &ndash; исторических персонажей;
-<LI> 6 &ndash; персонажей художественных фильмов;
+<LI> 1 &ndash; РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РєРѕРјРїСЊСЋС‚РµСЂР°;
+<LI> 2 &ndash; Р»РёС‚РµСЂР°С‚СѓСЂРЅС‹С… РїРµСЂСЃРѕРЅР°Р¶РµР№;
+<LI> 3 &ndash; СЃС‚СѓРґРµРЅС‚РѕРІ;
+<LI> 4 &ndash; РіРµСЂРѕРµРІ РјСѓР»СЊС‚РёРїР»РёРєР°С†РёРё;
+<LI> 5 &ndash; РёСЃС‚РѕСЂРёС‡РµСЃРєРёС… РїРµСЂСЃРѕРЅР°Р¶РµР№;
+<LI> 6 &ndash; РїРµСЂСЃРѕРЅР°Р¶РµР№ С…СѓРґРѕР¶РµСЃС‚РІРµРЅРЅС‹С… С„РёР»СЊРјРѕРІ;
 </UL>
-<LI> класс должен иметь следулющие специальные методы: __init__(), __str__() и __del__();
-<LI> класс должен иметь такие атрибуты и/или методы (см. колонку "Атрибуты/методы"табл. 3):
+<LI> РєР»Р°СЃСЃ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ СЃР»РµРґСѓР»СЋС‰РёРµ СЃРїРµС†РёР°Р»СЊРЅС‹Рµ РјРµС‚РѕРґС‹: __init__(), __str__() Рё __del__();
+<LI> РєР»Р°СЃСЃ РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ С‚Р°РєРёРµ Р°С‚СЂРёР±СѓС‚С‹ Рё/РёР»Рё РјРµС‚РѕРґС‹ (СЃРј. РєРѕР»РѕРЅРєСѓ "РђС‚СЂРёР±СѓС‚С‹/РјРµС‚РѕРґС‹"С‚Р°Р±Р». 3):
 <UL CLASS="list2"> 
-<LI> 1 &ndash; статический метод;
-<LI> 2 &ndash; атрибут класса;
-<LI> 3 &ndash; метод экземпляра класса;
-<LI> 4 &ndash; закрытый атрибут
-<LI> 5 &ndash; закрытый метод
+<LI> 1 &ndash; СЃС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ;
+<LI> 2 &ndash; Р°С‚СЂРёР±СѓС‚ РєР»Р°СЃСЃР°;
+<LI> 3 &ndash; РјРµС‚РѕРґ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°;
+<LI> 4 &ndash; Р·Р°РєСЂС‹С‚С‹Р№ Р°С‚СЂРёР±СѓС‚
+<LI> 5 &ndash; Р·Р°РєСЂС‹С‚С‹Р№ РјРµС‚РѕРґ
 </UL>
-<LI> осуществляется управление двумя атрибутами класса, для первого устанавливается режим "только
-чтение", для второго &ndash; согласно колонке "Управление" табл. 3):
+<LI> РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ СѓРїСЂР°РІР»РµРЅРёРµ РґРІСѓРјСЏ Р°С‚СЂРёР±СѓС‚Р°РјРё РєР»Р°СЃСЃР°, РґР»СЏ РїРµСЂРІРѕРіРѕ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ СЂРµР¶РёРј "С‚РѕР»СЊРєРѕ
+С‡С‚РµРЅРёРµ", РґР»СЏ РІС‚РѕСЂРѕРіРѕ &ndash; СЃРѕРіР»Р°СЃРЅРѕ РєРѕР»РѕРЅРєРµ "РЈРїСЂР°РІР»РµРЅРёРµ" С‚Р°Р±Р». 3):
 <UL CLASS="list2"> 
-<LI> 1 выполняется чтение атрибута и запись в него;
-<LI> 2 выполняется чтение и удаление атрибута;
-<LI> 3 выполняется чтение, запись и удаление атрибута;
+<LI> 1 РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ С‡С‚РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р° Рё Р·Р°РїРёСЃСЊ РІ РЅРµРіРѕ;
+<LI> 2 РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ С‡С‚РµРЅРёРµ Рё СѓРґР°Р»РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р°;
+<LI> 3 РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ С‡С‚РµРЅРёРµ, Р·Р°РїРёСЃСЊ Рё СѓРґР°Р»РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р°;
 </UL>
-<LI> создаются объекты класса и проверяется их работа. 
+<LI> СЃРѕР·РґР°СЋС‚СЃСЏ РѕР±СЉРµРєС‚С‹ РєР»Р°СЃСЃР° Рё РїСЂРѕРІРµСЂСЏРµС‚СЃСЏ РёС… СЂР°Р±РѕС‚Р°. 
 </UL>
 <P><table align="center" width="50%" border cellspacing="0">
-<CAPTION ALIGN="top"><p class="ba">Таблица 3 &ndash; Перечень индивидуальных заданий</CAPTION>
-<TR><TH>Номер<BR>п/п<TH>Поведение<TH>Атрибуты/<br>методы<TH>Управление
+<CAPTION ALIGN="top"><p class="ba">РўР°Р±Р»РёС†Р° 3 &ndash; РџРµСЂРµС‡РµРЅСЊ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹С… Р·Р°РґР°РЅРёР№</CAPTION>
+<TR><TH>РќРѕРјРµСЂ<BR>Рї/Рї<TH>РџРѕРІРµРґРµРЅРёРµ<TH>РђС‚СЂРёР±СѓС‚С‹/<br>РјРµС‚РѕРґС‹<TH>РЈРїСЂР°РІР»РµРЅРёРµ
 <TR ALIGN=center><TD>1<TD>1<TD>1,3,4<TD>1
 <TR ALIGN=center><TD>2<TD>2<TD>2,3,5<TD>2
 <TR ALIGN=center><TD>3<TD>3<TD>1,3,5<TD>3
@@ -968,4 +970,4 @@ attribute '_D__x'</SPAN><BR><BR>
 <TR ALIGN=center><TD>19<TD>1<TD>1,3,5<TD>1
 <TR ALIGN=center><TD>20<TD>2<TD>2,3,4<TD>2
 </table>
-<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">Оглавление</A>
+<p>&nbsp;<A CLASS="out" HREF="#beg" style="margin-left:80%">РћРіР»Р°РІР»РµРЅРёРµ</A>
