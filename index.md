@@ -10,7 +10,7 @@
 
 ## Програмні засоби та інструменти
 
-1. [Python 3.6.0](https://www.python.org/downloads/release/python-360/) - у комплекті надається інтегроване середовище розробки.
+1. [Python](https://www.python.org/downloads/) - у комплекті надається інтегроване середовище розробки.
 
 2. [Simple Python style checker](https://github.com/pycqa/pep8) - перевірка початкового кода на відповідність [PEP 8](http://www.python.org/dev/peps/pep-0008).
 
