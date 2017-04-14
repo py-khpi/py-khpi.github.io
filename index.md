@@ -1,6 +1,6 @@
 **Проектування серверних додатків**
 
-## Aim<br /> Мета
+## Aim><br /> Мета
 
 - **Вивчити** основи мови програмування [Python](https://ru.wikipedia.org/wiki/Python).
 - **Ознайомитись** з [серверним програмуванням](https://en.wikipedia.org/wiki/Server-side_scripting).
@@ -8,7 +8,7 @@
 
 ---
 
-## Tools<br /> Програмні засоби та інструменти
+## Tools><br /> Програмні засоби та інструменти
 
 1. [Python](https://www.python.org/downloads/) - у комплекті надається інтегроване середовище розробки.
 
@@ -39,7 +39,7 @@
 
 ---
 
-## Practice. Лабораторні роботи
+## Practice<br /> Лабораторні роботи
 
 |  №  | Тема |
 |:---:|:-----|
@@ -57,7 +57,7 @@
 | 12  | [Наследование классов](https://py-khpi.github.io/!nfo/doc/lab/LAB12/lab.htm) |
 | 13  | [Разработка графического интерфейса](https://py-khpi.github.io/!nfo/doc/lab/LAB13/lab.htm) |
 
-### Tasks. Спільні завдання
+### Tasks<br /> Спільні завдання
 
 |  №  | Завдання |
 |:---:|:---------|
@@ -66,7 +66,7 @@
 |  3  | Підготувати до перевірки опис розробленої програми у вигляді звіту |
 |  4  | Виправити програму з урахуванням отриманих зауважень |
 
-### Requirements. Вимоги
+### Requirements<br /> Вимоги
 
 1. **Проекти** розміщувати в директоріях **surname/src/surnameXX**, де:
 	- *surname* - назва особистої директорії;
@@ -93,7 +93,7 @@ shevchenko/doc/shevchenko02/shevchenko02.pdf
 
 5. **Коментувати** текст програми для обробки пакетом [Doxygen](#doxy).
 
-### Report. Звіт
+### Report<br /> Звіт
 
 1. **Оформляється** українською мовою та надається у форматі [Markdown](https://ru.wikipedia.org/wiki/Markdown), або у вигляді електронних документів:
 	- що редагується - *odt/docx/doc/html*,
@@ -123,7 +123,7 @@ shevchenko/doc/shevchenko02/shevchenko02.pdf
 
 ---
 
-## Additional. Розрахункове завдання
+## Additional<br /> Розрахункове завдання
 
 1. Розробити програму для перетворення слів української мови латиницею відповідно до [правил транслітерації](http://zakon1.rada.gov.ua/laws/show/55-2010-%D0%BF) ([вікі](https://uk.wikipedia.org/wiki/%D0%9B%D0%B0%D1%82%D0%B8%D0%BD%D1%96%D0%B7%D0%B0%D1%86%D1%96%D1%8F_%D1%83%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%BE%D1%97_%D0%BC%D0%BE%D0%B2%D0%B8), [перевірка](http://translit.kh.ua/#lat/passport)).
 
