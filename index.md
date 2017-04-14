@@ -1,6 +1,6 @@
 **Проектування серверних додатків**
 
-## Aim. Мета
+## Aim<br /> Мета
 
 - **Вивчити** основи мови програмування [Python](https://ru.wikipedia.org/wiki/Python).
 - **Ознайомитись** з [серверним програмуванням](https://en.wikipedia.org/wiki/Server-side_scripting).
@@ -8,7 +8,7 @@
 
 ---
 
-## Tools. Програмні засоби та інструменти
+## Tools<br /> Програмні засоби та інструменти
 
 1. [Python](https://www.python.org/downloads/) - у комплекті надається інтегроване середовище розробки.
 
@@ -20,7 +20,7 @@
 
 ---
 
-## Guidelines. Рекомендації
+## Guidelines<br /> Рекомендації
 
 1. **Використовувати:**
 	- [Style Guide](https://www.python.org/dev/peps/pep-0008).
