@@ -12,7 +12,7 @@
 
 1. [Python](https://www.python.org/downloads/) - у комплекті надається інтегроване середовище розробки.
 
-2. [Simple Python style checker](https://github.com/pycqa/pep8) - перевірка початкового кода на відповідність [PEP 8](http://www.python.org/dev/peps/pep-0008).
+2. [Python style guide checker](https://pypi.python.org/pypi/pycodestyle) - перевірка початкового кода на відповідність [PEP 8](http://www.python.org/dev/peps/pep-0008).
 
 3. [Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html) <span id="doxy"></span> - система документування початкового коду. Додатково встановити:
 	- [Graphviz](http://www.graphviz.org/Download.php) - Graph Visualization Software;
@@ -23,12 +23,13 @@
 ## &lt;Guidelines&gt;<br /> Рекомендації
 
 1. **Використовувати:**
-	- [Style Guide](https://www.python.org/dev/peps/pep-0008).
-	- [Викиучебник](https://ru.wikibooks.org/wiki/Python).
 	- [Python Documentation](https://docs.python.org/3).
 		- [Tutorial](https://docs.python.org/3/tutorial).
 		- [Language Reference](https://docs.python.org/3/reference).
 		- [Library Reference](https://docs.python.org/3/library).
+	- [PEP 8 - Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).
+	- [PEP 257 - Docstring Conventions](https://www.python.org/dev/peps/pep-0257/).
+	- [Викиучебник](https://ru.wikibooks.org/wiki/Python).
 
 2. **Ознайомитись:**
 	- [What’s New in Python](https://docs.python.org/3/whatsnew).
