@@ -37,6 +37,7 @@
 	- [Best practices for writing Python code](http://docs.python-guide.org/en/latest).
 	- [Code Like a Pythonista](http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html) ([переклад рос.](https://habrahabr.ru/post/88972/)).
 	- [Python Tips, Tricks, and Hacks](http://www.siafoo.net/article/52) ([переклад рос.](http://habrahabr.ru/post/85238/), [pdf](http://idzaaus.org/static/files/articles/Python_Tips,_Tricks,_and%20Hacks_&lpar;rus&rpar;.pdf)).
+	- [Почему существует так много Питонов](https://habrahabr.ru/post/209812/).
 
 ---
 
